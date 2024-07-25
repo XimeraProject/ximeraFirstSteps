@@ -9,3 +9,8 @@ This repository has a basic Ximera course that will help you get started using X
 - `activityCollection.tex`
 - some sort of exercise list
 - `scripts/xmlatex`
+
+## The published course
+
+- https://ximera.osu.edu/firststeps/course/firstTopic/theoryActivity
+- https://set-p-dsb-zomercursus-latest.cloud-ext.icts.kuleuven.be/firststeps/course/firstTopic/theoryActivity
