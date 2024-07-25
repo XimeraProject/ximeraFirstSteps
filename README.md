@@ -4,8 +4,8 @@ This repository has a basic Ximera course that will help you get started using X
 
 ## Contents of this repository
 - `.gitignore`
-- `firstActivity/firstActivity.tex`
-- `secondActivity/secondActivity.tex`
+- `firstTopic/firstActivity.tex`
+- `secondTopic/anotherActivity.tex`
 - `activityCollection.tex`
 - some sort of exercise list
 - `scripts/xmlatex`

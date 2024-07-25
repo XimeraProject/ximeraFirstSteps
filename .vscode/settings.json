@@ -1,0 +1,9 @@
+{
+    "latex-workshop.latex.external.build.command": "./scripts/xmlatex",
+    "latex-workshop.latex.external.build.args": [
+        "compilePdf",
+        "/code/%RELATIVE_DIR%/%DOCFILE_EXT%"
+    ],
+    "latex-workshop.latex.autoBuild.run": "onSave",
+    "explorer.excludeGitIgnore": true,
+}
