@@ -14,3 +14,5 @@ This repository has a basic Ximera course that will help you get started using X
 
 - https://ximera.osu.edu/firststeps/course/firstTopic/theoryActivity
 - https://set-p-dsb-zomercursus-latest.cloud-ext.icts.kuleuven.be/firststeps/course/firstTopic/theoryActivity
+
+The KULeuven version also contains two PDF versions: one with, and one without the answers.
