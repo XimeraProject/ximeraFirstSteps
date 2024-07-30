@@ -2,9 +2,10 @@
 
 This repository has a basic Ximera course that will help you get started using Ximera.
 
-## Software suggestions
+## Software requirements and suggestions
 
-Before we begin, we have some sofware suggestions: Git, Docker, Visual Studio Code, and LaTeX.
+To use Ximera, we require that users use Git and Docker
+We additionally (very strongly) suggest Visual Studio Code and LaTeX.
 
 ### Installing Git
 
@@ -40,7 +41,7 @@ $ sudo apt install git
 
 ### Installing Docker
 
-Docker is necessary for online deployment. In particular, on Windows machines it provides a UNIX-like terminal via WSL.
+Docker is necessary for online deployment. It allows us to choose which **version** of software we use. Moreover, it allows us to rapidly test updates and revert back (if necessary) very easily. Our Docker containers contain LaTeX, so if one is willing to work excusively in Docker, they do not need to install LaTeX.
 
 #### Windows
 
@@ -49,6 +50,8 @@ Docker is necessary for online deployment. In particular, on Windows machines it
 #### Linux
 
 ### Installing Visual Studio Code
+
+Visual Studio Code gives us a common deploy environment. In particular, on Windows machines it provides a UNIX-like terminal via WSL.
 
 #### Windows
 
