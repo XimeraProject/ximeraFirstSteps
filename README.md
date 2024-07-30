@@ -13,6 +13,7 @@ This repository has a basic Ximera course that will help you get started using X
 ## The published course
 
 - https://ximera.osu.edu/firststeps/course/firstTopic/firstTopic
-- https://set.kuleuven.be/voorkennis/firststeps/course/firstTopic/firstTopic
+- https://ximera.osu.edu/firststeps/course/firstTopic/firstActivity
+- https://set.kuleuven.be/voorkennis/firststeps/course/firstTopic/firstActivity
 
 The KULeuven version also contains two PDF versions: one with, and one without the answers.

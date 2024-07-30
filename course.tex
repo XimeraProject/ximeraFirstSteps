@@ -16,29 +16,32 @@
 \end{abstract}
 \maketitle
 
-%% So let's make a list of problems part one.
-\part{A list of exercises}
-\activity{exercises/exerciseList}
-\practice{exercises/answer}
-\practice{exercises/multipleChoice}
-\practice{exercises/selectAll}
-%% BUT ISN'T "PART" KEY TO KU LEUVEN DEPLOY?
-%% WILL THIS BE NECESSARY?
+
 
 
 %% Next let's just do an activity... is chapterstyle necessary?
-% \chapterstyle
-% \part{All about Topic One}
-\activity{firstTopic/firstTopic.tex}
-%     \practicesection{demo/exercises.tex}
+\part{All about Topic One}
+    \chapterstyle
+    \activity{firstTopic/firstActivity.tex}
+    \activity{firstTopic/secondActivity.tex}
+    \sectionstyle
+    % Note: You'd like to have a title with \activity ...
+    \activity{firstTopic/exercises/exAnswer}
+    \activity{firstTopic/exercises/exMultipleChoice}
+    \activity{firstTopic/exercises/exSelectAll}
+
+
+%% So let's make a list of problems part one.
+\part{A list of exercises}
+    %\activity{exercises/exerciseList}
+    \practice{exercises/answer}
+    \practice{exercises/multipleChoice}
+    \practice{exercises/selectAll}
+%% BUT ISN'T "PART" KEY TO KU LEUVEN DEPLOY?
+%% WILL THIS BE NECESSARY?
 
 %% Then let's do "enhanced" versions of the same thing.
 %% So they can see how they change
-
-
-
-
-
 
 
 \end{document}
