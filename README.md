@@ -113,4 +113,15 @@ Since we deploy in docker, this is not **strictly** necessary. However, it will 
 The KULeuven version also contains two PDF versions: one with, and one without the answers.
 
 
+## Deploying this course
+
+To deploy this Ximera "course" aka "xourse" to a Ximera Server, edit `DOTximeraServe` 
+
+```
+EDIT INSTRUCTIONS
+```
+and save as: `.ximeraserve` 
+
+For experienced Git users: Do not attempt to add `.ximeraserve` to the repo, it is already in the `.gitignore` and should not be added.
+
 ## Deploying new courses
