@@ -3,16 +3,9 @@
 \author{Bart Snapp and Jason Nowell}
 \begin{document}
 \begin{abstract}
-    A description of how images and graphs are rendered or included.
+    How to include graphics and other interactive content.
 \end{abstract}
 \maketitle
-
-
-
-
-\section{How Ximera renders Image and Graph Content}
-
-There are several ways to embed graphics into Ximera document.
 
 
 \section{TikZ}
@@ -98,7 +91,7 @@ Here we have a pdf
 
 
 
-\subsection{The graph command}
+\section{The graph command}
 
 The easiest way to include an interactive graph is to use the
 \verb|\graph| command. Unfortunately, the \verb|\graph| command
@@ -111,13 +104,14 @@ There are a number of options for the \verb|\graph| command:
 
 
 \paragraph{Change viewing window}
-
-  
 \begin{verbatim}
 \[
 \graph[xmin=-5,xmax=5,ymin=-5,ymax=5]{y=x^2}
 \]
 \end{verbatim}
+
+
+
 \paragraph{Restricting domain}
 
 
@@ -192,7 +186,7 @@ There are a number of options for the \verb|\graph| command:
 \end{verbatim}
 
 
-\subsection{Desmos}
+\section{Desmos}
 
 If you require further features from
 \link[Desmos]{https://www.desmos.com/}, you can sign up for an account
@@ -208,7 +202,7 @@ and include your worksheets like this:
 \end{center}
 
 
-  \subsection{How to embed GeoGebra}
+  \section{How to embed GeoGebra}
 
         You can also use \link[GeoGebra]{https://www.geogebra.org/}. Embed the
         widget using the syntax \verb|\geogebra{ID}{width}{height}|, where ID
@@ -228,9 +222,7 @@ and include your worksheets like this:
             \end{center}
         \end{verbatim}      
 
-        \subsection{How to embed Desmos 3D}
-
-        https://www.desmos.com/3d/bb4exrhrl3
+        \section{How to embed Desmos 3D}
 
         \begin{center}
           \desmosThreeD{bb4exrhrl3}{800}{600}
