@@ -131,7 +131,7 @@ To deploy this Ximera "course" aka "xourse" to a Ximera Server, edit `DOTximeraS
 ```
 EDIT INSTRUCTIONS
 ```
-and save as: `.ximeraserve` 
+You will need to "Show Hidden Files" and save as: `.ximeraserve` 
 
 For experienced Git users: Do not attempt to add `.ximeraserve` to the repo, it is already in the `.gitignore` and should not be added.
 
@@ -140,3 +140,11 @@ Start Docker, accept the license and accpet recommendations. Once it asks you to
 
 
 ## Deploying new courses
+
+
+You'll need to show hidden files, and then copy the file `.gitignore` to your repo. If there is already a `.gitignore` we suggest you replace this file.
+
+
+folders
+
+`scripts`  and `.vscode` to your repo
