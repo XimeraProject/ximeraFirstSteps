@@ -45,7 +45,7 @@ On Mavericks (10.9) or above you can do this simply by trying to run git from th
 Once in the terminal type `git` and hit return. It should look something like:
 
 ```console
-% git
+git
 ```
 
 If you don’t have it installed already, your computer will prompt you to install it.
@@ -55,13 +55,24 @@ If you don’t have it installed already, your computer will prompt you to insta
 On Linux, there are various methods. However, if you are on a Debian-based distribution, such as Ubuntu, try:
 
 ```console
-$ sudo apt update
-$ sudo apt install git
+sudo apt update
 ```
+and then
+```
+sudo apt install git
+```
+We suggest you follow the recommendations of Git and do the following:
+
+```
+git config --global core.editor "nano"
+```
+
 
 ### Installing Docker
 
-Docker is necessary for online deployment. It allows us to choose which **version** of software we use. Moreover, it allows us to rapidly test updates and revert back (if necessary) very easily. Our Docker containers contain LaTeX, so if one is willing to work excusively in Docker, they do not need to install LaTeX.
+Docker is necessary for online deployment. It allows us to choose which **version** of software we use. Moreover, it allows us to rapidly test updates and revert back (if necessary) very easily. Our Docker containers contain LaTeX, so if one is willing to work excusively in Docker, they do not need to install LaTeX. 
+
+If  you start Docker, accept the license and accept recommendations. Once it asks you to sign in, just "Continue Without Signing In." You may choose to do the survey if you like. Once you finish this, you will see a "Engine running"  at the bottom left hand corner of the screen.
 
 #### Windows
 
@@ -123,5 +134,9 @@ EDIT INSTRUCTIONS
 and save as: `.ximeraserve` 
 
 For experienced Git users: Do not attempt to add `.ximeraserve` to the repo, it is already in the `.gitignore` and should not be added.
+
+Start Docker, accept the license and accpet recommendations. Once it asks you to sign in, just "Continue Without Signing In." You may choose to do the survey if you like. Once you finish this, you will see a "Engine running"  at the bottom left hand corner of the screen.
+
+
 
 ## Deploying new courses
