@@ -1,6 +1,6 @@
 # Take Your First Steps in Ximera
 
-This repository has a basic Ximera course along with instructions for deploying that will help you get started using Ximera. It is designed to help a new user. If there are problems with the instructions below, please submit an "Issue" by pressing the "Issues Tab" at the top-left of the screen. 
+This repository has a basic Ximera course along with instructions for deploying that will help you get started using Ximera. It is designed to help a new user. If there are problems with the instructions below, please submit an "Issue" by pressing the "Issues Tab" at the top-left of the screen.
 
 - [Take Your First Steps in Ximera](#take-your-first-steps-in-ximera)
   - [Software requirements and suggestions](#software-requirements-and-suggestions)
@@ -20,7 +20,6 @@ This repository has a basic Ximera course along with instructions for deploying 
   - [Contents of this repository](#contents-of-this-repository)
   - [The published course](#the-published-course)
   - [Deploying new courses](#deploying-new-courses)
-
 
 ## Software requirements and suggestions
 
@@ -57,22 +56,24 @@ On Linux, there are various methods. However, if you are on a Debian-based distr
 ```console
 sudo apt update
 ```
+
 and then
+
 ```
 sudo apt install git
 ```
+
 We suggest you follow the recommendations of Git and do the following:
 
 ```
 git config --global core.editor "nano"
 ```
 
-
 ### Installing Docker
 
-Docker is necessary for online deployment. It allows us to choose which **version** of software we use. Moreover, it allows us to rapidly test updates and revert back (if necessary) very easily. Our Docker containers contain LaTeX, so if one is willing to work excusively in Docker, they do not need to install LaTeX. 
+Docker is necessary for online deployment. It allows us to choose which **version** of software we use. Moreover, it allows us to rapidly test updates and revert back (if necessary) very easily. Our Docker containers contain LaTeX, so if one is willing to work excusively in Docker, they do not need to install LaTeX.
 
-If  you start Docker, accept the license and accept recommendations. Once it asks you to sign in, just "Continue Without Signing In." You may choose to do the survey if you like. Once you finish this, you will see a "Engine running"  at the bottom left hand corner of the screen.
+If you start Docker, accept the license and accept recommendations. Once it asks you to sign in, just "Continue Without Signing In." You may choose to do the survey if you like. Once you finish this, you will see a "Engine running" at the bottom left hand corner of the screen.
 
 #### Windows
 
@@ -86,17 +87,16 @@ Follow the directions found [here](https://docs.docker.com/desktop/install/mac-i
 
 Follow the directions found [here](https://docs.docker.com/desktop/install/ubuntu/).
 
-
-
 ### Installing Visual Studio Code
 
 Visual Studio Code gives us a common deploy environment. In particular, on Windows machines it provides a UNIX-like terminal via WSL.
-Download from `https://code.visualstudio.com/download`  or if you use Linux and are on a Debian-based distribution, such as Ubuntu, try:
+Download from `https://code.visualstudio.com/download` or if you use Linux and are on a Debian-based distribution, such as Ubuntu, try:
 
 ```console
 $ sudo apt update
 $ sudo apt install code
 ```
+
 ### Installing LaTeX
 
 Since we deploy in docker, this is not **strictly** necessary. However, it will enable you to compile documents without using Docker. This can be helpful when developing.
@@ -123,28 +123,30 @@ Since we deploy in docker, this is not **strictly** necessary. However, it will 
 
 The KULeuven version also contains two PDF versions: one with, and one without the answers.
 
-
 ## Deploying this course
 
-To deploy this Ximera "course" aka "xourse" to a Ximera Server, edit `DOTximeraServe` 
+To deploy this Ximera "course" aka "xourse" to a Ximera Server, edit `DOTximeraServe`
 
 ```
 EDIT INSTRUCTIONS
 ```
-You will need to "Show Hidden Files" and save as: `.ximeraserve` 
+
+You will need to "Show Hidden Files" and save as: `.ximeraserve`
 
 For experienced Git users: Do not attempt to add `.ximeraserve` to the repo, it is already in the `.gitignore` and should not be added.
 
-Start Docker, accept the license and accpet recommendations. Once it asks you to sign in, just "Continue Without Signing In." You may choose to do the survey if you like. Once you finish this, you will see a "Engine running"  at the bottom left hand corner of the screen.
-
-
+Start Docker, accept the license and accpet recommendations. Once it asks you to sign in, just "Continue Without Signing In." You may choose to do the survey if you like. Once you finish this, you will see a "Engine running" at the bottom left hand corner of the screen.
 
 ## Deploying new courses
 
-
-You'll need to show hidden files, and then copy the file `.gitignore` to your repo. If there is already a `.gitignore` we suggest you replace this file.
-
+You'll need to show hidden files, and then copy the file `.gitignore` to your repo. If there is already a `.gitignore` we suggest you replace your file with ours.
 
 folders
 
-`scripts`  and `.vscode` to your repo
+`scripts` and `.vscode` to your repo
+
+You may need to make xmlatex excutieable, via
+
+```
+chmod +x ./scritps/xmlatex
+```
