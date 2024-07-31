@@ -1,6 +1,6 @@
 # Take Your First Steps in Ximera
 
-This repository has a basic Ximera course along with instructions for deploying that will help you get started using Ximera.
+This repository has a basic Ximera course along with instructions for deploying that will help you get started using Ximera. It is designed to help a new user. If there are problems with the instructions below, please submit an "Issue" by pressing the "Issues Tab" at the top-left of the screen. 
 
 - [Take Your First Steps in Ximera](#take-your-first-steps-in-ximera)
   - [Software requirements and suggestions](#software-requirements-and-suggestions)
