@@ -208,29 +208,31 @@ and include your worksheets like this:
 \end{center}
 
 
-\section{Any Necessary Content}
-    
-    
-    
-    \section{Quirks of Rendering}
-    
-    
-    
-    \section{Any Ximera-Specific Optional Arguments}
-    
-    
-    
-    \section{Accessibility}
-    
-    
-    
-    \section{Potential Problems and Pitfalls}
-    
-    
-    
-    \section{Any Best Practices or Advice}
-    
-    
+  \subsection{How to embed GeoGebra}
 
+        You can also use \link[GeoGebra]{https://www.geogebra.org/}. Embed the
+        widget using the syntax \verb|\geogebra{ID}{width}{height}|, where ID
+        is the widget ID and width and height are the dimensions (in pixels)
+        you want the embedded widget to have.
+        
     
+        \begin{center}
+            \geogebra{XC3FXUdJ}{800}{600}%%https://www.geogebra.org/m/XC3FXUdJ
+        \end{center}
+        
+        The above embedding is generated via the code:
+        
+        \begin{verbatim}
+            \begin{center}
+            \geogebra{XC3FXUdJ}{800}{600}
+            \end{center}
+        \end{verbatim}      
+
+
+
+
+
+
+
+
 \end{document}
