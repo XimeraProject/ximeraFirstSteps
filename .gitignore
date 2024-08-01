@@ -1,3 +1,5 @@
+## Don't push ximeraserve
+.ximeraserve
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
@@ -300,6 +302,4 @@ metadata.json
 ximera-downloads
 .gpgkey
 gpgkey
-.ximeraserve
-
 *.xbb
