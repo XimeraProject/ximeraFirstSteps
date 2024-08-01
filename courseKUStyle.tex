@@ -1,6 +1,11 @@
 \documentclass{xourse}
 \input{KUStyle/preamble.tex}
 \addPrintStyle{KUStyle}
+%% You can also load a custom PDF-only preamble with
+%% \pdfOnly{input{KUSstye}}
+%%
+
+
 
 %\handouttrue
 \printpartfrontpagefalse
@@ -9,51 +14,22 @@
 \author{Wim Obbels \and Bart Snapp}
 \title{An Activity Collection with Enhancements for Printing}
 
-
 \begin{document}
 \begin{abstract}
-    A simple collection of Ximera activites.
+    A simple collection of Ximera activities with additional styles for
+    printing.
 \end{abstract}
 \maketitle
 
-
 %% Next let's just do an activity... is chapterstyle necessary?
 \part{All about Topic One}
-    \chapterstyle
-    \activity{firstTopic/firstActivity.tex}
-    \activity{firstTopic/secondActivity.tex}
-    \sectionstyle
-    % Note: You'd like to have a title with \activity ...
-    \activity{firstTopic/exercises/ximerademo.tex}
-    \chapterstyle
-    \activity{graphicsInteractives/graphicsInteractives.tex}
-
-    % exercises without \title do not work properly in this version; to be fixed
-    % \activity{firstTopic/exercises/exAnswer}
-    % \activity{firstTopic/exercises/exMultipleChoice}
-    % \activity{firstTopic/exercises/exSelectAll}
-
-
-%% So let's make a list of problems part one.
-\part{A list of exercises}  %% This "part" is load bearing
-    %\activity{exercises/exerciseList}
-    \practice{exercises/answer}
-    \practice{exercises/multipleChoice}
-    \practice{exercises/selectAll}
-    \practice{exercises/wordChoice}
-%% BUT ISN'T "PART" KEY TO KU LEUVEN DEPLOY?
-%% WILL THIS BE NECESSARY?
-
-
-%% Next let's just do an activity... is chapterstyle necessary?
-% \chapterstyle
-\part{Another part of the course}
-\activity{firstTopic/firstTopic.tex}
+\chapterstyle
+\activity{firstTopic/firstActivity.tex}
+\activity{firstTopic/secondActivity.tex}
+\sectionstyle
+% Note: You'd like to have a title with \activity ...
+\activity{firstTopic/exercises/ximerademo.tex}
+\chapterstyle
 \activity{graphicsInteractives/graphicsInteractives.tex}
-%     \practicesection{demo/exercises.tex}
-
-%% Then let's do "enhanced" versions of the same thing.
-%% So they can see how they change
-
 
 \end{document}
