@@ -10,13 +10,13 @@ URL_XIMERA=https://ximera.osu.edu
 GPG_KEY_ID=8XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXEDF8
 GPG_KEY=$(
 cat <<'EOF'
-WONTWORKRUdJTiBQR1AgUFJJVkFURSBLRVkgQkxPQ0stYVJOck1CREFEdGU5
+WONTWORKRUdBQR1AFURSBLRVJTigUFJJVkkgQktYVJOcxPQ0sk1CREFEdGU5
 ...
 ... PASTE HERE YOUR PRIVATE KEY (with lots of lines as the one above )...
 ...  Leave the line above with cat <<'EOF' untouched  
 ...  and leave also the final lines with EOF and bracket ) untouched  ...
 ...  Everything in between should become your private key
 ...
-R1AgUFJJVkFURSBLRVkgQkxPQ0stLS0tLQo=
+R1AgUFQkxPQJ0tLQVkFURSBJkgLRV0stLSo=
 EOF
 )
