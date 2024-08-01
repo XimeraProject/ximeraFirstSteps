@@ -66,7 +66,7 @@ and then
 sudo apt install git
 ```
 
-We suggest you follow the recommendations of Git and do the following:
+We suggest you follow the recommendations of Git and also do the following:
 
 ```
 git config --global core.editor "nano"
