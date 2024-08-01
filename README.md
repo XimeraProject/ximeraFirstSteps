@@ -17,9 +17,12 @@ This repository has a basic Ximera course along with instructions for deploying 
       - [Windows](#windows-2)
       - [MacOS](#macos-2)
       - [Linux](#linux-2)
-  - [Contents of this repository](#contents-of-this-repository)
-  - [The published course](#the-published-course)
+  - [Test your software and clone this repository](#test-your-software-and-clone-this-repository)
+  - [Deploying this course](#deploying-this-course)
+    - [The published course](#the-published-course)
   - [Deploying new courses](#deploying-new-courses)
+    - [Starting from scratch](#starting-from-scratch)
+    - [Starting with an existing repo](#starting-with-an-existing-repo)
 
 ## Software requirements and suggestions
 
@@ -107,22 +110,21 @@ Since we deploy in docker, this is not **strictly** necessary. However, it will 
 
 #### Linux
 
-## Contents of this repository
 
-- `.gitignore`
-- `firstTopic/firstActivity.tex`
-- `secondTopic/anotherActivity.tex`
-- `activityCollection.tex`
-- some sort of exercise list
-- `scripts/xmlatex`
+## Test your software and clone this repository
 
-## The published course
+Assuming you have Git, Docker, and VS Code installed, you should now "clone" this repository. 
+To do this,  BLAH
 
-- https://ximera.osu.edu/firststeps/course/firstTopic/firstTopic
-- https://ximera.osu.edu/firststeps/course/firstTopic/firstActivity
-- https://set.kuleuven.be/voorkennis/firststeps/course/firstTopic/firstActivity
 
-The KULeuven version also contains two PDF versions: one with, and one without the answers.
+Open VS Code, press `Ctrl-Shift-P` and type "clone" you should see "Git clone"
+
+
+Will ask to install extensions DO IT
+
+At this point you should see a "Bake" if you press the button then ......
+
+
 
 ## Deploying this course
 
@@ -138,9 +140,33 @@ For experienced Git users: Do not attempt to add `.ximeraserve` to the repo, it 
 
 Start Docker, accept the license and accpet recommendations. Once it asks you to sign in, just "Continue Without Signing In." You may choose to do the survey if you like. Once you finish this, you will see a "Engine running" at the bottom left hand corner of the screen.
 
+
+You will need a gpp key to deploy the server.
+
+CHECK Ximera Key server!!!
+
+
+### The published course
+
+Once you've deployed the course, you can compare your output to ours:
+- https://ximera.osu.edu/firststeps/course/firstTopic/firstActivity
+- https://set.kuleuven.be/voorkennis/firststeps/course/firstTopic/firstActivity
+
+The KULeuven version also contains two PDF versions: one with, and one without the answers.
+
+
 ## Deploying new courses
 
-You'll need to show hidden files, and then copy the file `.gitignore` to your repo. If there is already a `.gitignore` we suggest you replace your file with ours.
+There are two ways to create a new Ximera course that will deploy online
+
+### Starting from scratch
+
+REMOVE STUFF
+
+
+### Starting with an existing repo
+
+Please follow these steps You'll need to show hidden files, and then copy the file `.gitignore` to your repo. If there is already a `.gitignore` we suggest you replace your file with ours.
 
 folders
 
