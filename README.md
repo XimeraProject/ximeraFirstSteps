@@ -96,8 +96,8 @@ Visual Studio Code gives us a common deploy environment. In particular, on Windo
 Download from `https://code.visualstudio.com/download` or if you use Linux and are on a Debian-based distribution, such as Ubuntu, try:
 
 ```console
-$ sudo apt update
-$ sudo apt install code
+sudo apt update
+sudo apt install code
 ```
 
 ### Installing LaTeX
@@ -114,10 +114,8 @@ Since we deploy in docker, this is not **strictly** necessary. However, it will 
 ## Test your software and clone this repository
 
 Assuming you have Git, Docker, and VS Code installed, you should now "clone" this repository. 
-To do this,  BLAH
-
-
-Open VS Code, press `Ctrl-Shift-P` and type "clone" you should see "Git clone"
+To do this,  Open VS Code, press `Ctrl-Shift-P` and type "clone" you should see "Git clone." 
+Hit enter and it will ask you which repository to clone
 
 
 Will ask to install extensions DO IT
