@@ -17,8 +17,6 @@
 \maketitle
 
 
-
-
 %% Next let's just do an activity... is chapterstyle necessary?
 \part{All about Topic One}
     \chapterstyle
@@ -26,9 +24,14 @@
     \activity{firstTopic/secondActivity.tex}
     \sectionstyle
     % Note: You'd like to have a title with \activity ...
-    \activity{firstTopic/exercises/exAnswer}
-    \activity{firstTopic/exercises/exMultipleChoice}
-    \activity{firstTopic/exercises/exSelectAll}
+    \activity{firstTopic/exercises/ximerademo.tex}
+    \chapterstyle
+    \activity{graphicsInteractives/graphicsInteractives.tex}
+
+    % exercises without \title do not work properly in this version; to be fixed
+    % \activity{firstTopic/exercises/exAnswer}
+    % \activity{firstTopic/exercises/exMultipleChoice}
+    % \activity{firstTopic/exercises/exSelectAll}
 
 
 %% So let's make a list of problems part one.
@@ -44,7 +47,7 @@
 
 %% Next let's just do an activity... is chapterstyle necessary?
 % \chapterstyle
-% \part{All about Topic One}
+\part{Another part of the course}
 \activity{firstTopic/firstTopic.tex}
 \activity{graphicsInteractives/graphicsInteractives.tex}
 %     \practicesection{demo/exercises.tex}
