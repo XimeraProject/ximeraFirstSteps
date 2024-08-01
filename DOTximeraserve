@@ -1,0 +1,22 @@
+#
+# This is a TEMPLATE .ximeraserve file
+#   It contains the configuration for serving (i.e. publisching)- your courses
+#   Edit it, and copy to .ximeraserve
+#   *** DO NEVER COMMIT THE .ximeraserve WITH YOUR REAL KEY ***
+#
+REPO_XIMERA=yourpublishurl
+URL_XIMERA=https://ximera.osu.edu
+# URL_XIMERA=https://set-p-dsb-zomercursus-latest.cloud-ext.icts.kuleuven.be/
+GPG_KEY_ID=8XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXEDF8
+GPG_KEY=$(
+cat <<'EOF'
+WONTWORKRUdJTiBQR1AgUFJJVkFURSBLRVkgQkxPQ0stLS0tLQoKbFFWWUJHYVJOck1CREFEdGU5
+...
+... PASTE HERE YOUR PRIVATE KEY (with lots of lines as the one above )...
+...  Leave the line above with cat <<'EOF' untouched  
+...  and leave also the final lines with EOF and bracket ) untouched  ...
+...  Everything in between should become your private key
+...
+R1AgUFJJVkFURSBLRVkgQkxPQ0stLS0tLQo=
+EOF
+)
