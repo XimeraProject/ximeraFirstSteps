@@ -119,7 +119,8 @@ Since we deploy in docker, this is not **strictly** necessary. However, it will 
 ## The published course
 
 - https://ximera.osu.edu/firststeps/course/firstTopic/firstTopic
-- https://set.kuleuven.be/voorkennis/firststeps/course/firstTopic/firstTopic
+- https://ximera.osu.edu/firststeps/course/firstTopic/firstActivity
+- https://set.kuleuven.be/voorkennis/firststeps/course/firstTopic/firstActivity
 
 The KULeuven version also contains two PDF versions: one with, and one without the answers.
 

@@ -279,7 +279,9 @@ TSWLatexianTemp*
 *~
 */output/*
 Thumbs.db
-ans*.tex
+
+# For exam-stuff ... ?
+ans[0-9]*.tex
 *.jax
 *.ids
 *.oc
