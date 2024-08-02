@@ -11,9 +11,6 @@
 
 \section{Including images}
 
-
-
-\section{TikZ}
 The preferred way to include graphics is with TikZ.
 \begin{image}
   \begin{tikzpicture}
@@ -63,7 +60,7 @@ Another method is to use \verb|\includegraphics|. Here we see an included a JPEG
 %% Alike 3.0 Unported license.
 %% Attribution: I, Sailko
 %% https://commons.wikimedia.org/wiki/File:Chimera_d%27arezzo,_fi,_04.JPG
-  \includegraphics[width=.3\textwidth]{chimera.png}
+  \includegraphics[width=\textwidth]{chimera.png}
 \end{image}
 \end{verbatim}
 In the code above, the command image is just a Ximera provided wrapper
@@ -71,7 +68,7 @@ that can be redefined for printing. It does automatically resize
 content though and can be useful for showing images side-by-side:
 \begin{image}
   
-  \includegraphics[width=.3\textwidth]{missionPatch.jpg}\qquad
+  \includegraphics[width=2in\textwidth]{missionPatch.jpg}\qquad
 %% chimera.png is licensed under the Creative Commons Attribution-Share 
 %% Alike 3.0 Unported license.
 %% Attribution: I, Sailko
@@ -97,12 +94,6 @@ We can embed YouTube Videos with
         \youtube{FvgF95i0_lw}
 \end{center}
 
-\begin{exercise}
-  \youtube{FvgF95i0_lw}
-  \begin{exercise}
-    You watched the video! What's it about $\answer[format=string]{calculus}$
-  \end{exercise}
-\end{exercise}
 
 
 \section{The graph command}
