@@ -110,19 +110,33 @@ Since we deploy in docker, this is not **strictly** necessary. However, it will 
 
 #### Linux
 
-
 ## Test your software and clone this repository
 
-Assuming you have Git, Docker, and VS Code installed, you should now "clone" this repository. 
-To do this,  Open VS Code, press `Ctrl-Shift-P` and type "clone" you should see "Git clone." 
-Hit enter and it will ask you which repository to clone
+### Start Docker
 
+Assuming you have Git, Docker, and VS Code installed, you should first start Docker.
+Open the Docker Desktop application. It will ask you some questions -- if it asks about "WSL," accept it, as you need "WSL" (if it asks!).
+Once Docker is open and you have skipped through any other surveys/questions, you will see a "Engine running" at the bottom left hand corner of the screen. 
+You can minimize the Docker window.
 
-Will ask to install extensions DO IT
+### Clone the repository
 
-At this point you should see a "Bake" if you press the button then ......
+To do this, open VS Code, press `Ctrl-Shift-P` and type "clone" you should see "Git clone."
+Hit "enter" and it will ask you which repository to clone. This repository's name is:
 
+```
+https://github.com/XimeraProject/ximeraFirstSteps.git
+```
 
+### Allow extensions
+
+Once you clone this repository, VS Code will ask you, via a pop-up in the lower right-hand corner, if you want to install extensions. **Install the suggested extensions.**
+Once the extensions are installed, you should have four new small buttons at the bottom left-hand corner of your screen in VS code.
+The new buttons will be named "PDF," "HTML," "Bake," and "Serve."
+
+### Bake with Xake
+
+If you press the "Bake" button, it should start downloading the Docker container. Then it should compile the course. 
 
 ## Deploying this course
 
@@ -134,24 +148,22 @@ EDIT INSTRUCTIONS
 
 You will need to "Show Hidden Files" and save as: `.ximeraserve`
 
-For experienced Git users: Do not attempt to add `.ximeraserve` to the repo, it is already in the `.gitignore` and should not be added.
+For experienced Git users: Do not attempt to add `.ximeraserve` to the repo, it is already in the `.gitignore` and **should not be added.**
 
 Start Docker, accept the license and accpet recommendations. Once it asks you to sign in, just "Continue Without Signing In." You may choose to do the survey if you like. Once you finish this, you will see a "Engine running" at the bottom left hand corner of the screen.
-
 
 You will need a gpp key to deploy the server.
 
 CHECK Ximera Key server!!!
 
-
 ### The published course
 
 Once you've deployed the course, you can compare your output to ours:
+
 - https://ximera.osu.edu/firststeps/course/firstTopic/firstActivity
 - https://set.kuleuven.be/voorkennis/firststeps/course/firstTopic/firstActivity
 
 The KULeuven version also contains two PDF versions: one with, and one without the answers.
-
 
 ## Deploying new courses
 
@@ -160,7 +172,6 @@ There are two ways to create a new Ximera course that will deploy online
 ### Starting from scratch
 
 REMOVE STUFF
-
 
 ### Starting with an existing repo
 
