@@ -140,6 +140,10 @@ If you press the "Bake" button, it should start downloading the Docker container
 
 
 ### Getting GPG Keys
+
+You need to have a GPG to create a course. This ensures that no one "overwrites" your online course without you knowing. (Even if this did happen, you can always just re-deploy and contact the Ximera developers)
+
+Start by checking if you have GPG keys:
 ```
 gpg --list-keys
 ```
@@ -147,13 +151,17 @@ If you have one listed, you may use it, or make a new one with:
 ```
  gpg --gen-key
 ```
-answer the questions, but leave the passphrase blank and copy the long hex string as YOUR-GPG-KEY-ID (ABCD3562DBF9929292 or whatever).
+Answer the questions, but leave the passphrase blank and copy the long hex string as YOUR-GPG-KEY-ID (ABCD3562DBF9929292 or whatever).
 
 If you are using MacOS, you might not be able to leave the passphrase blank. In this case go to https://gpgtools.org/ and install the GPG Suite. This will provide a GUI that will produce a GPG key with spaces. Delete these spaces and this new key (without spaces) is your key. You should quite your terminal and open a new one. 
+
+Now that you have a key, you need to tell a Ximera server about it:
 
 ```
 gpg --keyserver hkps://ximera.osu.edu/ --send-key 5FB2------YOUR PUBLIC KEY------0CA
 ```
+
+Now you will need your private key
 
 ```
 gpg --armor --export-secret-key 5FB2------YOUR PUBLIC KEY------0CA
