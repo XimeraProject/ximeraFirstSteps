@@ -138,6 +138,55 @@ The new buttons will be named "PDF," "HTML," "Bake," and "Serve."
 
 If you press the "Bake" button, it should start downloading the Docker container. Then it should compile the course. 
 
+
+### Getting GPG Keys
+```
+gpg --list-keys
+```
+If you have one listed, you may use it, or make a new one with:
+```
+ gpg --gen-key
+```
+answer the questions, but leave the passphrase blank and copy the long hex string as YOUR-GPG-KEY-ID (ABCD3562DBF9929292 or whatever).
+
+If you are using MacOS, you might not be able to leave the passphrase blank. In this case go to https://gpgtools.org/ and install the GPG Suite. This will provide a GUI that will produce a GPG key with spaces. Delete these spaces and this new key (without spaces) is your key. You should quite your terminal and open a new one. 
+
+```
+gpg --keyserver hkps://ximera.osu.edu/ --send-key 5FB2------YOUR PUBLIC KEY------0CA
+```
+
+```
+gpg --armor --export-secret-key 5FB2------YOUR PUBLIC KEY------0CA
+```
+
+
+```
+-----BEGIN PGP PRIVATE KEY BLOCK-----
+
+WONTWORKRUdBQR1AFURSBLRVJTigUFJJVkkgQktYVJOcxPQ0sk1CREFEdGU5
+...
+...  OTHER        ...
+...  LINES        ... 
+...  IN YOUR      ...
+...  PRIVATE KEY  ...
+...
+R1AgUFQkxPQJ0tLQVkFURSBJkgLRV0stLSo=
+-----END PGP PRIVATE KEY BLOCK-----
+```
+
+You copy this part:
+```
+WONTWORKRUdBQR1AFURSBLRVJTigUFJJVkkgQktYVJOcxPQ0sk1CREFEdGU5
+...
+...  OTHER        ...
+...  LINES        ... 
+...  IN YOUR      ...
+...  PRIVATE KEY  ...
+...
+R1AgUFQkxPQJ0tLQVkFURSBJkgLRV0stLSo=
+```
+
+
 ## Deploying this course
 
 To deploy this Ximera "course" aka "xourse" to a Ximera Server, edit `DOTximeraServe`
