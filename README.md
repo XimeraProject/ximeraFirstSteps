@@ -79,7 +79,7 @@ git config --global core.editor "nano"
 
 ### Installing Docker
 
-Docker is necessary for online deployment. It allows us to choose which **version** of software we use. Moreover, it allows us to rapidly test updates and revert back (if necessary) very easily. Our Docker containers contain LaTeX, so if one is willing to work excusively in Docker, they do not need to install LaTeX.
+Docker is necessary for online deployment. It allows us to choose which **version** of software we use. Moreover, it allows us to rapidly test updates and revert back (if necessary) very easily. Our Docker containers contain LaTeX, so if one is willing to work exclusively in Docker, they do not need to install LaTeX.
 
 If you start Docker, accept the license and accept recommendations. Once it asks you to sign in, just "Continue Without Signing In." You may choose to do the survey if you like. Once you finish this, you will see a "Engine running" at the bottom left hand corner of the screen.
 
@@ -124,6 +124,11 @@ Open the Docker Desktop application. It will ask you some questions -- if it ask
 Once Docker is open and you have skipped through any other surveys/questions, you will see a "Engine running" at the bottom left hand corner of the screen. 
 You can minimize the Docker window.
 
+### Start VS Code
+If on Windows, Once you start VS Code, make sure you instal the "WSL Extension." VS Code, may ask you if you want to install this via a window in the lower left-hand corner.
+
+
+
 ### Clone the repository
 
 To do this, open VS Code, press `Ctrl-Shift-P` and type "clone" you should see "Git clone."
@@ -132,6 +137,8 @@ Hit "enter" and it will ask you which repository to clone. This repository's nam
 ```
 https://github.com/XimeraProject/ximeraFirstSteps.git
 ```
+
+For all platforms VS Code will ask if you "trust the authors." You do!
 
 ### Allow extensions
 
