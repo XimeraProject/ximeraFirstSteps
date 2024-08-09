@@ -277,16 +277,13 @@ There are two ways to create a new Ximera course that will deploy online
 ### Starting from scratch
 
 REMOVE STUFF
+CHANGE NAME OF REPO
+PUSH
 
-### Starting with an existing repo
+### Starting with an existing repository
 
 Please follow these steps You'll need to show hidden files, and then copy the file `.gitignore` to your repo. If there is already a `.gitignore` we suggest you replace your file with ours.
-
-folders
-
-`scripts` and `.vscode` to your repo
-
-You may need to make xmlatex excutieable, via
+Move `scripts` and `.vscode` to your repository. You may need to make xmlatex executable, via
 
 ```
 chmod +x ./scritps/xmlatex
