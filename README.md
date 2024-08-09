@@ -131,13 +131,12 @@ If on Windows, Once you start VS Code, make sure you instal the "WSL Extension."
 
 ### Clone the repository
 
-To do this, open VS Code, press `Ctrl-Shift-P` and type "clone" you should see "Git clone."
-Hit "enter" and it will ask you which repository to clone. This repository's name is:
-
+There are many ways you might try to clone a repository. **However**, if you are running Windows, you must use a WSL Ubuntu terminal. 
 ```
-https://github.com/XimeraProject/ximeraFirstSteps.git
+git clone https://github.com/XimeraProject/ximeraFirstSteps.git
 ```
 
+Now use VS Code to "Open Folder" and open `ximeraFirstSteps`
 For all platforms VS Code will ask if you "trust the authors." You do!
 
 ### Allow extensions
@@ -148,7 +147,7 @@ The new buttons will be named "PDF," "HTML," "Bake," and "Serve."
 
 ### Bake with Xake
 
-If you press the "Bake" button, it should start downloading the Docker container. Then it should compile the course. 
+If you press the "Bake" button, it should start downloading the Docker container. Then it should compile the course. The very **first** time it will compile all the documents. This will take some time. However, the next time you compile, it will only compile updated files and will be **much** faster.
 
 
 ### Getting GPG Keys
