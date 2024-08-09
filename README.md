@@ -131,10 +131,31 @@ If on Windows, Once you start VS Code, make sure you instal the "WSL Extension."
 
 ### Clone the repository
 
-There are many ways you might try to clone a repository. **However**, if you are running Windows, you must use a WSL Ubuntu terminal. 
+Here the instructions for MacOS and Linux are different from the instructions for Windows.
+
+
+#### For MacOS and Linux
+
+We suggest starting VS Code, hitting `Ctrl-`` and running: 
 ```
 git clone https://github.com/XimeraProject/ximeraFirstSteps.git
 ```
+
+#### Windows special instructions
+**However**, if you are running Windows, you must use a WSL Ubuntu terminal. Hit `Ctrl-`` and you should see something like:
+
+![An image of VS Code powershell](graphicsREADME/powershell.png "The powershell")
+
+Click the arrow on the right:
+
+![Clicking arrow to switch to WSL](graphicsREADME/clickedArrow.png "Click the arrow")
+
+When you have selected "Ubuntu (WSL)" you should see something like:
+
+![An Ubuntu (WSL) Terminal](graphicsREADME/WSL.png "An Ubuntu (WSL) terminal")
+
+
+
 
 Now use VS Code to "Open Folder" and open `ximeraFirstSteps`
 For all platforms VS Code will ask if you "trust the authors." You do!
@@ -214,7 +235,7 @@ To deploy this Ximera "course" aka "xourse" to a Ximera Server, edit `DOTximeraS
 EDIT INSTRUCTIONS
 ```
 
-You will need to "Show Hidden Files" and save as: `.ximeraserve`
+You will need to "Show Hidden Files" and save as: `.ximeraserve` If you are on Windows, make sure you save as Type "All Files" (not Plain Text -- that will add .txt to the filename).
 
 For experienced Git users: Do not attempt to add `.ximeraserve` to the repo, it is already in the `.gitignore` and **should not be added.**
 
