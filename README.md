@@ -232,13 +232,26 @@ R1AgUFQkxPQJ0tLQVkFURSBJkgLRV0stLSo=
 
 ## Deploying this course
 
-To deploy this Ximera "course" aka "xourse" to a Ximera Server, edit `DOTximeraServe`
+To deploy this Ximera "course" aka "xourse" to a Ximera Server, edit `DOTximeraServe` line: 21, 22, and 27-34.
 
 ```
-EDIT INSTRUCTIONS
+21 REPO_XIMERA=yourpublishurl
+22 URL_XIMERA=https://ximera.osu.edu
+23 # URL_XIMERA=https://set-p-dsb-zomercursus-latest.cloud-ext.icts.kuleuven.be/
+24 GPG_KEY_ID=8XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXEDF8
+25 GPG_KEY=$(
+26 cat <<'EOF'
+27 WONTWORKRUdBQR1AFURSBLRVJTigUFJJVkkgQktYVJOcxPQ0sk1CREFEdGU5
+28 ...
+29 ... PASTE HERE YOUR PRIVATE KEY (with lots of lines as the one above )...
+30 ...  Leave the line above with cat <<'EOF' untouched  
+31 ...  and leave also the final lines with EOF and bracket ) untouched  ...
+32 ...  Everything in between should become your private key
+33 ...
+34 R1AgUFQkxPQJ0tLQVkFURSBJkgLRV0stLSo=
 ```
 
-You will need to "Show Hidden Files" and save as: `.ximeraserve` If you are on Windows, make sure you save as Type "All Files" (not Plain Text -- that will add .txt to the filename).
+**DO NOT SAVE DOTximeraserver with your changes.** Instead, you will need to "Show Hidden Files" and save as: `.ximeraserve` If you are on Windows, make sure you save as Type "All Files" (not Plain Text -- that will add .txt to the filename).
 
 For experienced Git users: Do not attempt to add `.ximeraserve` to the repo, it is already in the `.gitignore` and **should not be added.**
 
