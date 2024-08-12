@@ -10,28 +10,28 @@
     "VsCodeTaskButtons.tasks": [
         {
             "label": "PDF",
-            "alignment": "left",
+            "alignment": "right",
             "task": "PDF",
             "description": "Create a PDF of the current file.",
             "tooltip": "Create a PDF of the current file."
         },
         {
             "label": "HTML",
-            "alignment": "left",
+            "alignment": "right",
             "task": "HTML",
             "description": "Create HTML of the current file.",
             "tooltip": "Create HTML of the current file."
         },
         {
             "label": "Bake",
-            "alignment": "left",
+            "alignment": "right",
             "task": "Bake",
             "description": "Bake this project.",
             "tooltip": "Bake this project."
         },
         {
             "label": "Serve",
-            "alignment": "left",
+            "alignment": "right",
             "task": "Serve",
             "description": "Serve this project.",
             "tooltip": "Serve this project."
