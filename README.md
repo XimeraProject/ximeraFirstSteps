@@ -235,7 +235,7 @@ R1AgUFQkxPQJ0tLQVkFURSBJkgLRV0stLSo=
 To deploy this Ximera "course" aka "xourse" to a Ximera Server, edit `DOTximeraServe` line: 21, 22, and 27-34.
 
 ```
-21 REPO_XIMERA=yourpublishurl
+21 REPO_XIMERA=yourpublishurl  # lowercase, no spaces
 22 URL_XIMERA=https://ximera.osu.edu
 23 # URL_XIMERA=https://set-p-dsb-zomercursus-latest.cloud-ext.icts.kuleuven.be/
 24 GPG_KEY_ID=8XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXEDF8
@@ -257,10 +257,6 @@ For experienced Git users: Do not attempt to add `.ximeraserve` to the repo, it 
 
 Start Docker, accept the license and accpet recommendations. Once it asks you to sign in, just "Continue Without Signing In." You may choose to do the survey if you like. Once you finish this, you will see a "Engine running" at the bottom left hand corner of the screen.
 
-You will need a gpp key to deploy the server.
-
-CHECK Ximera Key server!!!
-
 ### The published course
 
 Once you've deployed the course, you can compare your output to ours:
@@ -269,6 +265,25 @@ Once you've deployed the course, you can compare your output to ours:
 - https://set.kuleuven.be/voorkennis/firststeps/course/firstTopic/firstActivity
 
 The KULeuven version also contains two PDF versions: one with, and one without the answers.
+
+
+## Debugging Baking
+
+It often helps use an interactive BASH shell:
+
+```
+./scripts/xmlatex -i bash
+```
+then do
+```
+pdflatex FILE.tex
+```
+or
+```
+xake -v compile FILE.tex 
+```
+
+
 
 ## Deploying new courses
 
@@ -282,7 +297,12 @@ PUSH
 
 ### Starting with an existing repository
 
-Please follow these steps You'll need to show hidden files, and then copy the file `.gitignore` to your repo. If there is already a `.gitignore` we suggest you replace your file with ours.
+Please follow these steps carefully. 
+
+
+You'll need to show hidden files, and then copy the file `.gitignore` to your repo. If there is already a `.gitignore` we suggest you replace your file with ours.
+
+
 Move `scripts` and `.vscode` to your repository. You may need to make xmlatex executable, via
 
 ```
