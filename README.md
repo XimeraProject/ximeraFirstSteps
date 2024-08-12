@@ -139,7 +139,7 @@ Here the instructions for MacOS and Linux are different from the instructions fo
 
 #### For MacOS and Linux
 
-We suggest starting VS Code, hitting `Ctrl-`` and running: 
+We suggest starting VS Code, hitting `Ctrl-~` and running: 
 ```
 git clone https://github.com/XimeraProject/ximeraFirstSteps.git
 ```
