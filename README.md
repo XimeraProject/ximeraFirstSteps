@@ -8,11 +8,12 @@ This repository has a basic Ximera course along with instructions for deploying 
       - [Windows](#windows)
       - [MacOS](#macos)
       - [Linux](#linux)
+    - [Installing Visual Studio Code](#installing-visual-studio-code)
+      - [Windows WSL 2 install](#windows-wsl-2-install)
     - [Installing Docker](#installing-docker)
       - [Windows](#windows-1)
       - [MacOS](#macos-1)
       - [Linux](#linux-1)
-    - [Installing Visual Studio Code](#installing-visual-studio-code)
     - [Installing LaTeX](#installing-latex)
       - [Windows](#windows-2)
       - [MacOS](#macos-2)
@@ -28,9 +29,10 @@ This repository has a basic Ximera course along with instructions for deploying 
     - [Getting GPG Keys](#getting-gpg-keys)
   - [Deploying this course](#deploying-this-course)
     - [The published course](#the-published-course)
+  - [Debugging Baking](#debugging-baking)
   - [Deploying new courses](#deploying-new-courses)
     - [Starting from scratch](#starting-from-scratch)
-    - [Starting with an existing repo](#starting-with-an-existing-repo)
+    - [Starting with an existing repository](#starting-with-an-existing-repository)
 
 ## Software requirements and suggestions
 
@@ -80,6 +82,26 @@ We suggest you follow the recommendations of Git and also do the following:
 git config --global core.editor "nano"
 ```
 
+
+
+### Installing Visual Studio Code
+
+Visual Studio Code gives us a common deploy environment. In particular, on Windows machines it provides a UNIX-like terminal via WSL. In particular, Windows users must install Visual Studio Code first, and enable WSL.
+Download from `https://code.visualstudio.com/download` or if you use Linux and are on a Debian-based distribution, such as Ubuntu, try:
+
+```console
+sudo apt update
+sudo apt install code
+```
+
+#### Windows WSL 2 install
+
+Open Visual Studio Code and hit `Ctrl-~` then type (in the PowserShell):
+```console
+wsl --install
+```
+Now if you look to the upper right of the Terminal window you should see "PowerShell + v" Press the down-carrot, and select WSL. 
+
 ### Installing Docker
 
 Docker is necessary for online deployment. It allows us to choose which **version** of software we use. Moreover, it allows us to rapidly test updates and revert back (if necessary) very easily. Our Docker containers contain LaTeX, so if one is willing to work exclusively in Docker, they do not need to install LaTeX.
@@ -98,15 +120,7 @@ Follow the directions found [here](https://docs.docker.com/desktop/install/mac-i
 
 Follow the directions found [here](https://docs.docker.com/desktop/install/ubuntu/).
 
-### Installing Visual Studio Code
 
-Visual Studio Code gives us a common deploy environment. In particular, on Windows machines it provides a UNIX-like terminal via WSL.
-Download from `https://code.visualstudio.com/download` or if you use Linux and are on a Debian-based distribution, such as Ubuntu, try:
-
-```console
-sudo apt update
-sudo apt install code
-```
 
 ### Installing LaTeX
 
