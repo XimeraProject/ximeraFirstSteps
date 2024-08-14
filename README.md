@@ -166,7 +166,7 @@ For all platforms VS Code will ask if you "trust the authors." You do!
 ### Allow extensions
 
 Once you clone this repository, VS Code will ask you, via a pop-up in the lower right-hand corner, if you want to install extensions. **Install the suggested extensions.**
-Once the extensions are installed, you should have four new small buttons at the bottom left-hand corner of your screen in VS code.
+Once the extensions are installed, you should have four new small buttons at the bottom right-hand corner of your screen in VS code.
 The new buttons will be named "PDF," "HTML," "Bake," and "Serve."
 
 ### Bake with Xake
