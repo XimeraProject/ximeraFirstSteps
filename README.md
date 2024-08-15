@@ -256,7 +256,7 @@ R1AgUFQkxPQJ0tLQVkFURSBJkgLRV0stLSo=
 
 ## Deploying this course
 
-To deploy this Ximera "course" aka "xourse" to a Ximera Server, edit `DOTximeraServe` line: 21, 22, and 27-34.
+To deploy this Ximera "course" aka "xourse" to a Ximera Server, edit `DOTximeraserve` line: 21, 22, and 27-34.
 
 ```
 21 REPO_XIMERA=yourpublishurl  # lowercase, no spaces
@@ -275,7 +275,7 @@ To deploy this Ximera "course" aka "xourse" to a Ximera Server, edit `DOTximeraS
 34 R1AgUFQkxPQJ0tLQVkFURSBJkgLRV0stLSo=
 ```
 
-**DO NOT SAVE DOTximeraserver with your changes.** Instead, you will need to "Show Hidden Files" and save as: `.ximeraserve` If you are on Windows, make sure you save as Type "All Files" (not Plain Text -- that will add .txt to the filename).
+**DO NOT SAVE DOTximeraserve with your changes.** Instead, you will need to "Show Hidden Files" and save as: `.ximeraserve` If you are on Windows, make sure you save as Type "All Files" (not Plain Text -- that will add .txt to the filename).
 
 For experienced Git users: Do not attempt to add `.ximeraserve` to the repo, it is already in the `.gitignore` and **should not be added.**
 
