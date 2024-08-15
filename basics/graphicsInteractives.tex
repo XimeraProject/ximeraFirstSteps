@@ -7,11 +7,10 @@
 \end{abstract}
 \maketitle
 
-
-
 \section{Including images}
 
-The preferred way to include graphics is with TikZ.
+In the last section, we showed you how to include images using \verb|includegraphics|. However, 
+\textbf{The preferred method to include graphics is with TikZ.}
 \begin{image}
   \begin{tikzpicture}
     \begin{axis}[
@@ -29,7 +28,7 @@ The preferred way to include graphics is with TikZ.
     \end{axis}
   \end{tikzpicture}
 \end{image}
-
+We can create the image above with the following code:
 \begin{verbatim}
 \begin{image}
   \begin{tikzpicture}
@@ -56,9 +55,6 @@ The preferred way to include graphics is with TikZ.
 
 We can embed YouTube Videos with 
 
-
-
-
 \verb|\youtube{FvgF95i0_lw}| which would embed the video into the page, like this:
 \begin{center}
         \youtube{FvgF95i0_lw}
@@ -75,84 +71,15 @@ graph is produced.
 \[
 \graph{x^2}
 \]
-There are a number of options for the \verb|\graph| command:
-
-
-\paragraph{Change viewing window}
+There are a number of options for the \verb|\graph| command, and you can find out more WHERE?
+Here are two examples. One with axis labels and a set window:  
 \begin{verbatim}
 \[
-\graph[xmin=-5,xmax=5,ymin=-5,ymax=5]{y=x^2}
+\graph[xAxisLabel="time", yAxisLabel="distance",xmin=0, xmax=10, ymin=0, ymax=10]{y=x^3}
 \]
 \end{verbatim}
 
-
-
-\paragraph{Restricting domain}
-
-
-\begin{verbatim}
-\[
-\graph{x^2 \left\{ 1 \leq x \leq 10 \right\} }
-\]
-\end{verbatim}
-\paragraph{Default panel displayed}
-
-  
-\begin{verbatim}
-\[
-\graph[panel]{x^2}
-\]
-\end{verbatim}
-\paragraph{Restricting window}
-
-  
-\begin{verbatim}
-\[
-\graph[xmin=0, xmax=10, ymin=0, ymax=10]{x^2}
-\]
-\end{verbatim}
-\paragraph{Axis labels}
-
-  
-\begin{verbatim}
-\[
-\graph[xAxisLabel="time", yAxisLabel="distance"]{y=x}
-\]
-\end{verbatim}
-\paragraph{Hide axes}
-
-  
-\begin{verbatim}
-\[
-\graph[hideXAxis=true, hideYAxis=true]{x^2}
-\]
-\end{verbatim}
-\paragraph{Hide tick marks}
-
-  
-\begin{verbatim}
-\[
-\graph[hideXAxisNumbers=true, hideYAxisNumbers=true]{x=y^2}
-\]
-\end{verbatim}
-\paragraph{Polar graphing}
-
-  
-\begin{verbatim}
-\[
-\graph{r=\theta}
-\]
-\end{verbatim}
-\paragraph{Polar gridlines}
-
-
-\begin{verbatim}
-\[
-\graph[polar]{y=x^2}
-\]
-\end{verbatim}
-\paragraph{Graphing a piecewise function}
-
+amd another, piecewise function:
 
 \begin{verbatim}
 \[
