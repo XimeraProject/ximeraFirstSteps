@@ -73,14 +73,22 @@ graph is produced.
 \]
 There are a number of options for the \verb|\graph| command, and you can find out more WHERE?
 Here are two examples. One with axis labels and a set window:  
+
+\[
+\graph[xAxisLabel="time", yAxisLabel="distance",xmin=0, xmax=10, ymin=0, ymax=10]{y=x^3}
+\]
+coded via:
 \begin{verbatim}
 \[
 \graph[xAxisLabel="time", yAxisLabel="distance",xmin=0, xmax=10, ymin=0, ymax=10]{y=x^3}
 \]
 \end{verbatim}
 
-amd another, piecewise function:
-
+and another, piecewise function:
+\[
+\graph{ \sin(x)\left\{x<0\right\}, 2x\left\{ x>=0 \right\} }
+\]
+coded via:
 \begin{verbatim}
 \[
 \graph{ \sin(x)\left\{x<0\right\}, 2x\left\{ x>=0 \right\} }
