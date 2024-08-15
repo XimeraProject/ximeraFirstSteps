@@ -87,11 +87,18 @@ git config --global core.editor "nano"
 ### Installing Visual Studio Code
 
 Visual Studio Code gives us a common deploy environment. In particular, on Windows machines it provides a UNIX-like terminal via WSL. In particular, Windows users must install Visual Studio Code first, and enable WSL.
-Download from `https://code.visualstudio.com/download` or if you use Linux and are on a Debian-based distribution, such as Ubuntu, try:
+Download from `https://code.visualstudio.com/download` or if you use Linux and are on a Debian-based distribution, such as Ubuntu, you must add the windows and install dependencies before you can install the repo try:
 
 ```console
+sudo apt install software-properties-common apt-transport-https wget -y
+sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
 sudo apt update
 sudo apt install code
+```
+You can verify the installation was successful using the following command:
+
+```console
+code --version
 ```
 
 #### Windows WSL 2 install
@@ -137,7 +144,7 @@ Since we deploy in docker, this is not **strictly** necessary. However, it will 
 ### Start Docker
 
 Assuming you have Git, Docker, and VS Code installed, you should first start Docker.
-Open the Docker Desktop application. It will ask you some questions -- if it asks about "WSL," accept it, as you need "WSL" (if it asks!).
+Open the Docker Desktop application. (If you are on Linux, you will want to open a terminal and type "sudo service docker start") It will ask you some questions -- if it asks about "WSL," accept it, as you need "WSL" (if it asks!).
 Once Docker is open and you have skipped through any other surveys/questions, you will see a "Engine running" at the bottom left hand corner of the screen. 
 You can minimize the Docker window.
 
@@ -179,7 +186,7 @@ For all platforms VS Code will ask if you "trust the authors." You do!
 
 ### Allow extensions
 
-Once you clone this repository, VS Code will ask you, via a pop-up in the lower right-hand corner, if you want to install extensions. **Install the suggested extensions.**
+Once you clone this repository, VS Code will ask you, via a pop-up (or a notification flag) in the lower right-hand corner, if you want to install extensions. **Install the suggested extensions.**
 Once the extensions are installed, you should have four new small buttons at the bottom right-hand corner of your screen in VS code.
 The new buttons will be named "PDF," "HTML," "Bake," and "Serve."
 
