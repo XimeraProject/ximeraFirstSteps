@@ -39,6 +39,14 @@ This repository has a basic Ximera course along with instructions for deploying 
 To use Ximera, we require that users use Git and Docker.
 We additionally (very strongly) suggest Visual Studio Code and LaTeX.
 
+### Obtain a GitHub account and "Fork" this repository
+
+You'll need a GitHub account. They are free, and educators can request special access.
+Once you have your account, login to GitHub, return to this page, and at the top right there will be an option to "Fork" this repository. 
+Fork the repo. Accept all defaults. When done, it will take you to **your copy** of this repository on GitHub.
+
+
+
 ### Installing Git
 
 Git is fundamental to working with Ximera. All Ximera docuements that will be deployed online must be in Git repository. If you have no experience with Git, the developers are happy to help get you started with Git, email: `ximera@math.osu.edu`
@@ -154,8 +162,9 @@ If on Windows, Once you start VS Code, make sure you instal the "WSL Extension."
 
 
 
-### Clone the repository
+### Clone YOUR COPY of this repository
 
+Goto your GitHub page and find the Fork we made. This is **your copy** of First Steps in Ximera.
 Here the instructions for MacOS and Linux are different from the instructions for Windows.
 
 
@@ -163,11 +172,12 @@ Here the instructions for MacOS and Linux are different from the instructions fo
 
 We suggest starting VS Code, hitting `Ctrl-~` and running: 
 ```
-git clone https://github.com/XimeraProject/ximeraFirstSteps.git
+git clone https://github.com/YOUR-GIT-USER/ximeraFirstSteps.git
 ```
+Where "YOUR-GIT-USER" is replaced with your GitHub username.
 
 #### Windows special instructions
-**However**, if you are running Windows, you must use a WSL Ubuntu terminal. Hit `Ctrl-`` and you should see something like:
+**However**, if you are running Windows, you must use a WSL Ubuntu terminal. Hit `Ctrl-~` and you should see something like:
 
 ![An image of VS Code powershell](graphicsREADME/powershell.png "The powershell")
 
@@ -178,6 +188,13 @@ Click the arrow on the right:
 When you have selected "Ubuntu (WSL)" you should see something like:
 
 ![An Ubuntu (WSL) Terminal](graphicsREADME/WSL.png "An Ubuntu (WSL) terminal")
+
+Now run
+```
+git clone https://github.com/YOUR-GIT-USER/ximeraFirstSteps.git
+```
+Where "YOUR-GIT-USER" is replaced with your GitHub username.
+
 
 
 
