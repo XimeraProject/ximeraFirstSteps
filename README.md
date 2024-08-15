@@ -4,6 +4,7 @@ This repository has a basic Ximera course along with instructions for deploying 
 
 - [Take Your First Steps in Ximera](#take-your-first-steps-in-ximera)
   - [Software requirements and suggestions](#software-requirements-and-suggestions)
+    - [Obtain a GitHub account and "Fork" this repository](#obtain-a-github-account-and-fork-this-repository)
     - [Installing Git](#installing-git)
       - [Windows](#windows)
       - [MacOS](#macos)
@@ -21,7 +22,7 @@ This repository has a basic Ximera course along with instructions for deploying 
   - [Test your software and clone this repository](#test-your-software-and-clone-this-repository)
     - [Start Docker](#start-docker)
     - [Start VS Code](#start-vs-code)
-    - [Clone the repository](#clone-the-repository)
+    - [Clone YOUR COPY of this repository](#clone-your-copy-of-this-repository)
       - [For MacOS and Linux](#for-macos-and-linux)
       - [Windows special instructions](#windows-special-instructions)
     - [Allow extensions](#allow-extensions)
