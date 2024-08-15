@@ -43,7 +43,7 @@ We additionally (very strongly) suggest Visual Studio Code and LaTeX.
 
 You'll need a GitHub account. They are free, and educators can request special access.
 Once you have your account, login to GitHub, return to this page, and at the top right there will be an option to "Fork" this repository. 
-Fork the repo. Accept all defaults. When done, it will take you to **your copy** of this repository on GitHub.
+Fork the repo. Accept all defaults, including the name "ximeraFirstSteps." When done, it will take you to **your copy** of this repository on GitHub. It will be located someplace like `https://github.com/YOUR-GIT-USER-NAME/ximeraFirstSteps`
 
 
 
