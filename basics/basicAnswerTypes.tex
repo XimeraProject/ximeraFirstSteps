@@ -14,17 +14,19 @@ Perhaps the most natural setting for Ximera content is that of a
 \textit{worksheet}. This is some document that may contain discussion as well
 as questions that check understanding.
 
-Ximera comes pre-equipped with many environments. We use
-\verb|\begin{definition}| for definitions and \verb|\begin{question}| for
-questions. Since Ximera provides immediate feedback, we suggest following
-definitions like this one by a quick question. If you are ever curious about
+Ximera comes pre-equipped with many environments.  If you are ever curious about
 the source code, you can visit this source at
 
 \begin{center}
     \url{https://github.com/ximeraProject/ximeraFirstSteps/basics/basicAnswerTypes.tex}
 \end{center}
+or by appending \verb|.tex| to the URl of this page online. 
 
-or by appending \verb|.tex| to the URl of this page online. Here's an example:
+
+\section{A basic use case}
+We use\verb|\begin{definition}| for definitions and \verb|\begin{question}| for
+questions. Since Ximera provides immediate feedback, we suggest following
+definitions like this one by a quick question. Here's an example:
 
 \begin{definition}
     The \textbf{absolute value} of a real number $a$, denoted by $|a|$, is
@@ -45,6 +47,9 @@ Now students can check their understanding:
         \item $|5-\sqrt{2}| = \answer{5-\sqrt{2}}$
     \end{enumerate}
 \end{question}
+
+
+\section{Basic exercises}
 
 After that, you might want to have some exercises:
 
@@ -79,6 +84,8 @@ Maybe you want a problem with one or more parts,
 \end{exercise}
 \end{exercise}
 
+
+\section{Basic graphics}
 Finally we can include pictures using \verb|includegraphics| like this
 
 Here we see an included a JPEG and a PNG:
@@ -93,11 +100,11 @@ In the code above, the command image is just a Ximera provided wrapper
 that can be redefined for printing.
 \begin{center}
   \includegraphics[width=5in]{missionPatch.jpg}\qquad
-  \includegraphics[width=.3\textwidth]{mx.png}
+  \includegraphics[width=.4\textwidth]{mx.png}
 \end{center}
 Here we have a pdf
-\begin{center}
+\begin{image}
   \includegraphics{llama.pdf}
-\end{center}
+\end{image}
 
 \end{document}
