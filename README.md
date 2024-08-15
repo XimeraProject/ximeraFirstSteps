@@ -144,9 +144,7 @@ Since we deploy in docker, this is not **strictly** necessary. However, it will 
 ### Start Docker
 
 Assuming you have Git, Docker, and VS Code installed, you should first start Docker.
-Open the Docker Desktop application. It will ask you some questions -- if you are on Windows and it asks about "WSL," accept it, as you need "WSL" (if it asks!).
-
-You want to open the Docker Desktop application.  
+Open the Docker Desktop application. It will ask you some questions -- if you are on Windows and it asks about "WSL," accept it, as you need "WSL" (if it asks!). You want to open the Docker Desktop application.  You should be able to do this with some sort of GUI launcher.
 
 Once Docker is open and you have skipped through any other surveys/questions, you will see a "Engine running" at the bottom left hand corner of the screen. 
 You can minimize the Docker window.
