@@ -3,7 +3,7 @@
 \input{preamble.tex} %% THIS SHOULD BE SUFFICIENT
 
 \author{Wim Obbels \and Bart Snapp}
-\title{A Basic Activity Collection}
+\title{A First Step in Ximera}
 
 \begin{document}
 \begin{abstract}
@@ -13,13 +13,19 @@
 
 
 %% Next let's just do an activity... is chapterstyle necessary?
-\part{All about Topic One}
-    \chapterstyle %% Not strictly necessary, makes the activities "Chapters" in our content
+%\part{All about Topic One}
+   % \chapterstyle %% Not strictly necessary, makes the activities "Chapters" in our content
     \activity{firstTopic/firstActivity.tex}
     \activity{firstTopic/secondActivity.tex}
-    \sectionstyle
+   % \sectionstyle
     % Note: You'd like to have a title with \activity ...
-    \activity{firstTopic/exercises/ximerademo.tex}
-    \chapterstyle
+  %  \activity{firstTopic/exercises/ximerademo.tex}
+   % \chapterstyle
     \activity{graphicsInteractives/graphicsInteractives.tex}
+    \practice{exercises/answer}
+    \practice{exercises/multipleChoice}
+    \practice{exercises/selectAll}
+    \practice{exercises/wordChoice}
+    \practice{exercises/hintsAndFollowUp}
+    \practice{exercises/demo}
 \end{document}
