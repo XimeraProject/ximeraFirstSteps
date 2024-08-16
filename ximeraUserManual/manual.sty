@@ -45,6 +45,26 @@
   \end{mdframed}
 }
 
+
+%% We need a better solution for code
+\renewmdenv[
+  font=\upshape,
+  outerlinewidth=3,
+  topline=false,
+  bottomline=false,
+  leftline=true,
+  rightline=false, 
+  leftmargin=0,
+  innertopmargin=0pt,
+  innerbottommargin=0pt,
+  skipbelow=\baselineskip,
+  linecolor=textColor!20!white,
+  fontcolor=textColor,
+  backgroundcolor=background
+]{example}%
+
+
+
 \fancyhead[L]{\sffamily\flushleft%You cannot use input or otherinput here
 \resizebox{!}{.7em}{\begin{tikzpicture}[x=1cm,y=1cm]
   \begin{scope}

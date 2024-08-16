@@ -19,11 +19,13 @@ The basic way of including a answerable item in Ximera is to use the
 \verb|\answer| command. The \verb|\answer| \textbf{must} be inside of
 an environment.
 
+\begin{example}
 \begin{verbatim}
 \begin{question}
 $3\times 2 = \answer{6}$
 \end{question}
 \end{verbatim}
+\end{example}
 
 Will produce the question:
 
@@ -33,11 +35,13 @@ Will produce the question:
 
 In addition to numerical answers, we also support elementary functions:
 
+\begin{example}
 \begin{verbatim}
     \begin{question}
          $ \frac{\partial}{\partial x} x^2\sin(y) =  \answer{2x\sin(y)}$
     \end{question}
 \end{verbatim}
+\end{example}
 
 Produces:
 
@@ -339,6 +343,7 @@ which we detail in the
 
 \subsection{Multiple Choice}
 
+\begin{example}
 \begin{verbatim}
 \begin{question}
     Which of the following functions has a graph which is a parabola?
@@ -349,6 +354,7 @@ which we detail in the
     \end{multipleChoice}
 \end{question}
 \end{verbatim}
+\end{example}
 
 Produces:
 
@@ -399,6 +405,7 @@ marked as correct.
 
 \subsection{Select All}
 
+\begin{example}
 \begin{verbatim}
 \begin{question}
   Which of the following numbers are even?
@@ -410,6 +417,7 @@ marked as correct.
   \end{selectAll}
 \end{question}
 \end{verbatim}
+\end{example}
 
 Produces:
 
@@ -438,7 +446,7 @@ Produces:
 %%      correctMatrix = [['x','y'],['xy','z+1']]
 %%     \end{matrixAnswer}
 %% \end{question}
-%% \end{verbatim}
+%% \end{vertbatim}
 
 %% \begin{question}
 %%   Enter the matrix  \(\begin{bmatrix} x & y \\ xy & z+1 \end{bmatrix}\)
@@ -455,6 +463,7 @@ Produces:
 
 The free response environment gives students access to a \LaTeX\ editor.
 
+\begin{example}
 \begin{verbatim}
 \begin{question}
     Question goes here!
@@ -463,6 +472,7 @@ The free response environment gives students access to a \LaTeX\ editor.
     \end{freeResponse}
 \end{question}
 \end{verbatim}
+\end{example}
 
 \begin{question}
   Question goes here!

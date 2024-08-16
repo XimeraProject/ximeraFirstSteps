@@ -1,25 +1,38 @@
 \documentclass{ximera}
-\title{Progress and Credit}
+\title{Progress and credit}
 \author{Jason Nowell}
- 
- 
+
 \begin{document}
 \begin{abstract}
-    How Ximera assigns progress/credit to students while they complete an assignment.
+    How Ximera assigns progress/credit to students while they complete an
+    assignment.
 \end{abstract}
 \maketitle
- 
-    Ximera determines all credit in percentages for everything. An assignment is associated to a 'xourse' file (xourse here is a document class). Within the xourse file is a list of activities and practices, which represent the tiles that students see when they open the assignment (see 'making an assignment' tile for more).
-     
-    \section{Credit for an assignment}
-        Credit for an assignment is determined at the xourse level, where each tile (regardless of type or content) is equally weighted toward the percentage complete. So if you have 7 activities and 3 practice tiles, then each of those tiles is worth 10\% of the credit for the overall assignment. This is good to keep in mind as you decide the content of each, since you want to be aware of how that impacts the weight of the content \textit{within} the tile - although students rarely seem to put that level of thought into it themselves.
-         
-    \section{Credit for a specific tile}
-        Like tiles at the assignment level, \textit{environments} in a tile are what contribute to the progress. Somewhat unfortunately, the total progress of a given tile is broken up evenly at each breadth-first level for \textit{any} environments.
-         
-        For example, let's say you have the following layout in an assignment:
-         
-        \begin{verbatim}
+
+Ximera determines all credit in percentages for everything. An assignment is
+associated to a 'xourse' file (xourse here is a document class). Within the
+xourse file is a list of activities and practices, which represent the tiles
+that students see when they open the assignment (see 'making an assignment'
+tile for more).
+
+\section{Credit for an assignment}
+Credit for an assignment is determined at the xourse level, where each
+tile (regardless of type or content) is equally weighted toward the percentage
+complete. So if you have 7 activities and 3 practice tiles, then each of those
+tiles is worth 10\% of the credit for the overall assignment. This is good to
+keep in mind as you decide the content of each, since you want to be aware of
+how that impacts the weight of the content \textit{within} the tile - although
+students rarely seem to put that level of thought into it themselves.
+
+\section{Credit for a specific tile}
+Like tiles at the assignment level, \textit{environments} in a tile are
+what contribute to the progress. Somewhat unfortunately, the total progress of
+a given tile is broken up evenly at each breadth-first level for \textit{any}
+environments.
+
+For example, let's say you have the following layout in an assignment:
+
+\begin{verbatim}
             \begin{theorem}
                 If $x$ is a real number, and $x=1$, then $x+x = 2$.
             \end{theorem}
@@ -53,64 +66,102 @@
                 \end{multipleChoice}
             \end{question}
         \end{verbatim}
-         
-        Each of the commands and environments above have their own sections in this guide, but for the sake of our current interest, we want to note that there are 4 top-level environments: a theorem, a problem environment (which contains another problem) an explanation environment, and a question environment. That means each of these is worth one quarter of the completion of the page. Moreover, the problem environment has a selectAll environment to finish and also a followup problem - which itself has an \verb|\answer| box, so the answer box determines if the nested problem is flagged as complete, and then the completion of the nested problem \textit{and} the selectAll environment determines the completion of the outer problem. This is confusing to write out, but consider the following breakdown (which should hopefully be clearer)
-         
+
+Each of the commands and environments above have their own sections in
+this guide, but for the sake of our current interest, we want to note that
+there are 4 top-level environments: a theorem, a problem environment (which
+contains another problem) an explanation environment, and a question
+environment. That means each of these is worth one quarter of the completion of
+the page. Moreover, the problem environment has a selectAll environment to
+finish and also a followup problem - which itself has an \verb|\answer| box, so
+the answer box determines if the nested problem is flagged as complete, and
+then the completion of the nested problem \textit{and} the selectAll
+environment determines the completion of the outer problem. This is confusing
+to write out, but consider the following breakdown (which should hopefully be
+clearer)
+
+\begin{enumerate}
+    \item[1:] Theorem Environment: Worth 25\% contingent on completion
+        \begin{itemize}
+            \item No interactives, so automatically and immediately
+                  flagged as complete.
+        \end{itemize}
+    \item[2:] Problem Environment: ``In order to apply the theorem...''
+        Worth 25\% contingent on completion
         \begin{enumerate}
-            \item[1:] Theorem Environment: Worth 25\% contingent on completion
-                \begin{itemize}
-                    \item No interactives, so automatically and immediately flagged as complete.
-                \end{itemize}
-            \item[2:] Problem Environment: ``In order to apply the theorem...'' Worth 25\% contingent on completion
-                \begin{enumerate}
-                    \item[1:] selectAll Environment Worth 50\% of the Problem Environments Credit - contingent on completion
-                        \begin{itemize}
-                            \item Getting a ``correct'' flag gives completion.
-                        \end{itemize}
-                     
-                    \item[2:] Problem Environment Worth 50\% of the Problem Environments Credit - contingent on completion
-                        \begin{itemize}
-                            \item Getting a ``correct'' flag on the \verb|\answer| box gives 100\% of the nested problems credit for completion.
-                        \end{itemize}
-                \end{enumerate}
-             
-            \item[3:] Explanation Environment: Worth 25\% contingent on completion
-                \begin{itemize}
-                    \item No interactives, so automatically and immediately flagged as complete.
-                \end{itemize}
-             
-            \item[4:] Question Environment: ``We have the theorem given to us...'' Worth 25\% contingent on completion
+            \item[1:] selectAll Environment Worth 50\% of the Problem
+                Environments Credit - contingent on completion
                 \begin{itemize}
                     \item Getting a ``correct'' flag gives completion.
                 \end{itemize}
- 
+
+            \item[2:] Problem Environment Worth 50\% of the Problem
+                Environments Credit - contingent on completion
+                \begin{itemize}
+                    \item Getting a ``correct'' flag on the
+                          \verb|\answer| box gives 100\% of the nested problems credit for completion.
+                \end{itemize}
         \end{enumerate}
-         
-        In table form:
-        \begin{center}
-            \begin{tabular}{lcc}
-                Environment     & Local Level Credit        & (Effective) Total Page Credit\\\hline
-                Theorem 1                                   && 25\% \\
-                Problem 1                                   && 25\% \\
-                    selectAll   &50\%                       & 12.5\% \\
-                    Problem 1.1 &50\%                       & 12.5\% \\
-                Explanation                                 && 25\% \\
-                Question 1                                  && 25\% \\
-                    answerBox   &100\%                      & 25\%
-            \end{tabular}
-        \end{center}
-         
-        So, there are three things to notice here.
-         
-        \begin{enumerate}
-            \item Environments that don't have interactives (i.e. some kind of way for students to contribute or answer for grade validation) automatically give credit as soon as the page is loaded. This also means that a large portion of the tile's credit could (theoretically) be given just for loading the page, without doing anything.
-            \begin{itemize}
-                \item This can actually be a good thing - it's a bit of a morale booster, and in practice students typically \textit{really} strive for perfect scores on these things since they have time to do it and want every fraction of a point they can get. So getting some credit for loading the page doesn't seem to result in less effort spent on the page - and tends to make students feel better about their progress without actually changing the amount of progress or effort they expend.
-            \end{itemize}
-            \item The only things that can give credit \textit{are} environments. This means, if you put some kind of interactive (like an answer box) just floating around in the middle of the page without it being in an environment, it won't actually count toward credit for the tile - indeed, it may not even render or resolve correctly.
-            \item Arguably most importantly: since credit is split evenly \textbf{at the top-level environment count only}, problems with lots of nested problems, can end up with nested problems that are worth significantly less compared to a problem that has no nested problems. This can be reasonable or not depending on the problem design, but it is worth bearing in mind as you design the problems on your page.
-                 
-        \end{enumerate}
- 
-         
+
+    \item[3:] Explanation Environment: Worth 25\% contingent on
+        completion
+        \begin{itemize}
+            \item No interactives, so automatically and immediately
+                  flagged as complete.
+        \end{itemize}
+
+    \item[4:] Question Environment: ``We have the theorem given to
+        us...'' Worth 25\% contingent on completion
+        \begin{itemize}
+            \item Getting a ``correct'' flag gives completion.
+        \end{itemize}
+
+\end{enumerate}
+
+In table form:
+\begin{center}
+    \begin{tabular}{lcc}
+        Environment & Local Level Credit & (Effective) Total
+        Page Credit                                          \\\hline
+        Theorem 1   &                    & 25\%              \\
+        Problem 1   &                    & 25\%              \\
+        selectAll   & 50\%               & 12.5\%            \\
+        Problem 1.1 & 50\%               & 12.5\%            \\
+        Explanation &                    & 25\%              \\
+        Question 1  &                    & 25\%              \\
+        answerBox   & 100\%              & 25\%
+    \end{tabular}
+\end{center}
+
+So, there are three things to notice here.
+
+\begin{enumerate}
+    \item Environments that don't have interactives (i.e. some kind of
+          way for students to contribute or answer for grade validation) automatically
+          give credit as soon as the page is loaded. This also means that a large portion
+          of the tile's credit could (theoretically) be given just for loading the page,
+          without doing anything.
+          \begin{itemize}
+              \item This can actually be a good thing - it's a bit of a
+                    morale booster, and in practice students typically \textit{really} strive for
+                    perfect scores on these things since they have time to do it and want every
+                    fraction of a point they can get. So getting some credit for loading the page
+                    doesn't seem to result in less effort spent on the page - and tends to make
+                    students feel better about their progress without actually changing the amount
+                    of progress or effort they expend.
+          \end{itemize}
+    \item The only things that can give credit \textit{are}
+          environments. This means, if you put some kind of interactive (like an answer
+          box) just floating around in the middle of the page without it being in an
+          environment, it won't actually count toward credit for the tile - indeed, it
+          may not even render or resolve correctly.
+    \item Arguably most importantly: since credit is split evenly
+          \textbf{at the top-level environment count only}, problems with lots of nested
+          problems, can end up with nested problems that are worth significantly less
+          compared to a problem that has no nested problems. This can be reasonable or
+          not depending on the problem design, but it is worth bearing in mind as you
+          design the problems on your page.
+
+\end{enumerate}
+
 \end{document}
