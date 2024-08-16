@@ -17,6 +17,7 @@
 \RequirePackage{pgf}
 \RequirePackage[skip=5pt plus1pt, indent=0pt]{parskip}
 \RequirePackage{fancyhdr}
+\RequirePackage{forest}
 
 
 
@@ -49,7 +50,7 @@
   \end{mdframed}
 }
 
-\fancyhead[L]{\sffamily\flushleft%
+\fancyhead[L]{\sffamily\flushleft%You cannot use input or otherinput here
 \resizebox{!}{.7em}{\begin{tikzpicture}[x=1cm,y=1cm]
   \begin{scope}
     \clip(0,0) rectangle (73cm,12cm);
@@ -98,7 +99,7 @@
 Email:~{\tt ximera@math.osu.edu} \hfill Website:~{\tt https://github.com/ximeraProject/}
 }
 \fancyfoot[L]{\sffamily\tiny\textbf{
-XIMERA\quad FORM \quad \myrandom \quad GIT \quad COMMIT \quad \otherinput{../.git/refs/heads/master}\quad PREVIOUS \quad EDITION \quad IS \quad OBSOLETE.
+XIMERA\quad FORM \quad \myrandom \quad GIT \quad COMMIT \quad \otherinput{../.git/refs/heads/minimal}\quad PREVIOUS \quad EDITION \quad IS \quad OBSOLETE.
 }}
 \fancyfoot[C]{}
 \fancyfoot[R]{\thepage}
