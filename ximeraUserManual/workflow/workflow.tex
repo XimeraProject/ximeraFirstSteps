@@ -1,0 +1,62 @@
+\documentclass{ximera}
+
+\title{Workflow}
+\author{Bart Snapp}
+
+\begin{document}
+\begin{abstract}
+    Suggestions for working on Ximera documents.
+\end{abstract}
+\maketitle
+
+\section{Work on your machine}
+
+
+
+\section{Visual Studio Code and Docker}
+
+\LaTeX\ Extensions
+
+
+
+\section{Files and the repository}
+
+All files need to be commited to the GitHub repository.
+Now return to the terminal window, which should still be in the
+directory
+\verb!theExampleCourse!. You need to add the file (and the directory
+containing
+it) to git and commit your changes, and also tell it who you are.
+\begin{verbatim}
+
+git add anExampleCourse.tex
+git commit -m "this is my first course"
+\end{verbatim}
+
+Every time you add or change files, you will need to run \verb!git add!
+and
+\verb!git commit -m "short description of changes"! to commit the
+changes to
+the server. The description of changes is necessary to commit, as is
+the
+\verb! -m!. If you are changing multiple files, you can use
+\verb!git add -u!.
+
+
+
+Now add this file to git and commit your changes. Back in the terminal,
+change to the directory \verb!anExampleCourse!
+and execute the following commands
+\begin{verbatim}
+git add theFirstActivity.tex
+git commit -m "Added first activity file"
+\end{verbatim}
+
+
+\section{Deploying and debugging}
+
+
+
+
+
+\end{document}

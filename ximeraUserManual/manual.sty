@@ -1,0 +1,146 @@
+\ProvidesPackage{manual}[2024/08/09 Custom style for tech briefs]
+%% Bart Snapp and ChatGPT
+
+% Required Packages
+\RequirePackage[letterspace=-80]{microtype}
+% \RequirePackage{tikz}
+\RequirePackage{standalone}
+\RequirePackage[landscape,includehead,includefoot,margin=2.5cm,headheight=1cm]{geometry}
+\RequirePackage{stix2}
+\RequirePackage{gillius}
+%\RequirePackage{multicol}
+%\RequirePackage{environ}
+\RequirePackage{lettrine}
+\RequirePackage{mathtools}
+\RequirePackage{qrcode}
+\RequirePackage[framemethod=TikZ]{mdframed}
+\RequirePackage{pgf}
+\RequirePackage[skip=5pt plus1pt, indent=0pt]{parskip}
+\RequirePackage{fancyhdr}
+
+
+
+% Generate a random 4-digit number
+\pgfmathsetseed{\number\pdfuniformdeviate10000} % Initialize the random number generator with a seed
+\pgfmathtruncatemacro{\myrandom}{1000 + \pdfuniformdeviate 9000} % Random number between 1000 and 9999
+
+\tikzset{>=stealth}
+\qrset{height=1cm}
+
+
+% Custom Commands
+\newcommand{\event}[1]{\def\theevent{#1}}
+\newcommand{\theevent}{}
+
+
+%\renewcommand{\date}[1]{\def\thedate{#1}}
+%\newcommand{\thedate}{}
+
+% Fancy Headers and Footers
+\renewcommand{\headrulewidth}{0pt}
+
+
+
+
+% Frame Environment
+\NewEnviron{xframe}{
+  \begin{mdframed}[roundcorner=2pt]
+    \BODY
+  \end{mdframed}
+}
+
+\fancyhead[L]{\sffamily\flushleft%
+\resizebox{!}{.7em}{\begin{tikzpicture}[x=1cm,y=1cm]
+  \begin{scope}
+    \clip(0,0) rectangle (73cm,12cm);
+    %% X
+    \begin{scope}[xshift=1cm]
+    \draw[line width=2.5cm] (0,-2) -- (14,14);
+    \draw[line width=2.5cm] (0,14) -- (14,-2);
+    \end{scope}
+    %% I
+    \begin{scope}[xshift=16.5cm]
+      \draw[line width=2.5cm] (0,0) -- (0,12);
+    \end{scope}
+    %% M
+    \begin{scope}[xshift=19.5cm]
+    \draw[line width=2.5cm, smooth, rounded corners=1cm]
+    (0,0) -- (0,10.75)%% 
+    --(3.5,10.75) % width of top
+    --(6.5,1.25)--(8.5,1.25)
+    --(11.5,10.75)
+    --(15,10.75)--(15,0);
+    \end{scope}
+    %% E
+    \begin{scope}[xshift=37.25cm,yshift=1.25cm]
+      \draw[line width=2.5cm, smooth, rounded corners=2cm]
+      (10,0)--(0,0)--(0,4.75)--(10,4.75);
+      \draw[line width=2.5cm, smooth, rounded corners=2cm]
+      (5,4.75) -- (0,4.75)--(0,9.5)--(11.8,9.5);
+    \end{scope}
+    %% R
+    \begin{scope}[xshift=49cm,yshift=-1.25cm]
+      \draw[line width=2.5cm, smooth, rounded corners=2cm]
+      (0,12)--(10,12)--(10,7)--(0,7)--(0,1.25);
+      \draw[line width=2.5cm]
+      (4.5,7)--(10,0);
+    \end{scope}
+    %% A
+    \begin{scope}[xshift=59.5cm,yshift=-1.25cm]
+      \draw[line width=2.5cm, smooth, rounded corners=1.5cm]
+      (0,0)--(6,12.75)--(12,0);
+    \end{scope}
+  \end{scope}
+  %\draw[step=1cm,gray,very thin] (0,0) grid (71,10);
+\end{tikzpicture}}%
+\resizebox{!}{.7em}{\lsstyle User\,Manual}\hfill \theevent: \thedate \\[-.1cm]
+\rule{\textwidth}{.1cm}\\[0cm]\rmfamily
+Email:~{\tt ximera@math.osu.edu} \hfill Website:~{\tt https://github.com/ximeraProject/}
+}
+\fancyfoot[L]{\sffamily\tiny\textbf{
+XIMERA\quad FORM \quad \myrandom \quad GIT \quad COMMIT \quad \otherinput{../.git/refs/heads/master}\quad PREVIOUS \quad EDITION \quad IS \quad OBSOLETE.
+}}
+\fancyfoot[C]{}
+\fancyfoot[R]{\thepage}
+
+
+
+\newcommand\frontstyle{%
+  \def\activitystyle{activity-chapter}
+  \def\maketitle{%
+                {\flushleft\small\sffamily\bfseries\@pretitle\par\vspace{-1.5em}}%
+                {\flushleft\LARGE\sffamily\bfseries\@title \par }%3
+                {\vskip .6em\noindent\textit\theabstract\setcounter{problem}{0}\setcounter{section}{0}}%
+                \par\vspace{2em}    
+                \phantomsection\addcontentsline{toc}{section}{\textbf{\@title}}%
+                \setcounter{titlenumber}{0}
+}}
+
+\renewcommand\chapterstyle{%
+  \def\activitystyle{activity-chapter}
+  \normalsize
+  %\onecolumn
+  \def\maketitle{%
+    \addtocounter{titlenumber}{1}%
+                    {\flushleft\small\sffamily\bfseries\@pretitle\par\vspace{-1.5em}}%
+                    {\flushleft\LARGE\sffamily\bfseries\thetitlenumber\hspace{1em}\@title \par }%
+                    {\vskip .6em\noindent\textit\theabstract\setcounter{problem}{0}\setcounter{section}{0}}%
+                    \par\vspace{2em}
+                    \phantomsection\addcontentsline{toc}{section}{\textbf{\thetitlenumber\hspace{1em}\@title}}%
+}}
+
+%% Redefine section and subsection
+\renewcommand\section{\@startsection {section}{1}{\z@}%
+                                   {-3.5ex \@plus -1ex \@minus -.2ex}%
+                                   {2.3ex \@plus.2ex}%
+                                   {\boldmath\normalfont\large\bfseries\sffamily}}
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+                                     {-3.25ex \@plus -1ex \@minus -.2ex}%
+                                     {1.5ex \@plus .2ex}%
+                                     {\boldmath\normalfont\large\bfseries\sffamily}}
+
+
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+                                    {3.25ex \@plus1ex \@minus.2ex}%
+                                    {-1em}%
+                                    {\boldmath\normalfont\normalsize\bfseries\sffamily}}

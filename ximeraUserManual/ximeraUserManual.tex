@@ -1,0 +1,67 @@
+\documentclass[numbers]{xourse}
+
+\title{User Manual}
+
+\usepackage{manual}
+
+\usepackage{forest}
+
+\definecolor{folderbg}{RGB}{124,166,198}
+\definecolor{folderborder}{RGB}{110,144,169}
+
+\def\Size{4pt}
+\tikzset{
+  folder/.pic={
+    \filldraw[draw=folderborder,top color=folderbg!50,bottom color=folderbg]
+      (-1.05*\Size,0.2\Size+5pt) rectangle ++(.75*\Size,-0.2\Size-5pt);  
+    \filldraw[draw=folderborder,top color=folderbg!50,bottom color=folderbg]
+      (-1.15*\Size,-\Size) rectangle (1.15*\Size,\Size);
+  }
+}
+
+
+
+\title{User Manual}
+\date{2024}
+\author{Bart Snapp}
+
+\newcommand{\docURL}{\url{https://github.com/ximeraProject/ximeraFirstSteps/ximeraUserManual}}
+\newcommand{\testURL}{\url{https://github.com/ximeraProject/tests}}
+\newcommand{\experimentalURL}{\url{https://github.com/ximeraProject/experimental}}
+
+
+\newif\ifcolor %% for color cover
+\colorfalse    %% add \colortrue before cover art
+%\colortrue
+\input{coverArt/frontCover.tex}
+
+\title{User Manual}
+\event{Documentation}
+
+
+\setcounter{tocdepth}{1}
+
+\begin{document}
+\onecolumn
+\begin{abstract}
+    How to use Ximera.
+\end{abstract}
+\maketitle
+\pagestyle{fancy}
+
+\twocolumn
+\frontstyle
+\activity{introduction/introduction}
+\chapterstyle
+\activity{setup/setup}
+\activity{workflow/workflow}
+\activity{worksheets/worksheets}
+\activity{courses/courses}
+\activity{exerciseBanks/exerciseBanks}
+\activity{graphicsVideosAndInteractives/graphicsVideosAndInteractives}
+\activity{rendering/rendering}
+\activity{progressAndCredit/progressAndCredit}
+\activity{printing/printing}
+\activity{seeXimeraInAction/seeXimeraInAction}
+        
+\end{document}

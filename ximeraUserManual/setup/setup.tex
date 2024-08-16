@@ -1,0 +1,192 @@
+\documentclass{ximera}
+
+\title{Setup}
+
+\author{Bart Snapp}
+
+\begin{document}
+\begin{abstract}
+  How to set up your Ximera files.
+\end{abstract}
+\maketitle
+
+\textbf{All Ximera files must be hosted in a Git repository.} You have two
+choices when creating new content:
+\begin{enumerate}
+  \item Fork the \texttt{ximeraFirstSteps} repository.
+  \item Start with an existing, or create, a Git repository and move files
+        from \texttt{ximeraFirstSteps} to this repository.
+\end{enumerate}
+
+\section{Fork \texttt{ximeraFirstSteps}}
+
+Forking a repository is well-documented on
+\link[GitHub]{https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo}.
+Basically, you login to GitHub, return to this page, and at the top right there
+will be an option to "Fork" this repository. Fork the repo. Accept all
+defaults, though you might want to change the name of the repository at this
+point. When done, it will take you to
+your copy of this repository on GitHub. It will be located someplace like:
+\begin{center}
+  \texttt{https://github.com/YOUR-GIT-USER-NAME/your-new-repo-name}
+\end{center}
+Once the repository is forked, clone the forked repository (the one in your
+user-space) onto your computer. \textbf{If you are using Windows, be sure to
+  clone through WSL.}
+After the repository is on your computer, delete all files \textbf{except:}
+\begin{itemize}
+  \item \verb|.gitignore|,
+  \item \verb|DOTximeraserve|,
+  \item \verb|.vscode|,
+  \item \verb|scripts|, and
+  \item \verb|.git|.
+\end{itemize}
+You must keep the files above.	Commit your changes to GitHub and view your
+repository online via a web browser to ensure that the files were deleted.
+\textbf{You are now ready to create new Ximera content!}
+
+\section{Copy files from \texttt{ximeraFirstSteps}}
+
+Either start with an existing GitHub repository, or follow directions for
+making a new GitHub repository online.
+Once you are finished, \textbf{copy}
+\begin{itemize}
+  \item \verb|.gitignore|,
+  \item \verb|.vscode|, and
+  \item \verb|scripts|
+\end{itemize}
+into your repository.
+Add these documents to your GitHub repository.
+
+Commit your changes to GitHub and view your
+repository online via a web browser to ensure that the files were deleted.
+\textbf{You are now ready to create new Ximera content!}
+
+\section{Setting up a Ximera \texttt{xourse}}
+
+Ximera documents can be ``taped'' together using the \verb|xourse| document
+class.
+A \verb|xourse| file is basically a list of other \verb|ximera| files and even
+other \verb|xourse| files.
+The \verb|xourse| file for \textit{First Steps in Ximera} can be found here:
+\begin{center}
+
+  \url{https://github.com/ximeraProject/ximeraFirstSteps/aFirstStepInXimera.tex}
+\end{center}
+
+This gets complicated because we insist that Ximera documents must compiled not
+only when in a \verb|xourse| file, but also individually.
+
+%\begin{tikzpicture}
+%\node{
+\begin{forest}
+  for tree={
+  font=\ttfamily,
+  grow'=0,
+  child anchor=west,
+  parent anchor=south,
+  anchor=west,
+  calign=first,
+  inner xsep=7pt,
+  edge path={
+      \noexpand\path [draw, \forestoption{edge}]
+      (!u.south west) +(7.5pt,0) |- (.child anchor) pic {folder}
+      \forestoption{edge label};
+    },
+  before typesetting nodes={
+      if n=1
+        {insert before={[,phantom]}}
+        {}
+    },
+  fit=band,
+  before computing xy={l=15pt},
+  }
+  [system
+    [config
+    ]
+    [lib
+        [Access
+        ]
+        [Plugin
+        ]
+    ]
+    [templates
+    ]
+    [tests
+    ]
+  ]
+\end{forest}%};
+%\end{tikzpicture}
+
+In general the file with the \verb!xourse! document class specifies
+course information such as the name of the course, a description of
+the course, and the names of all \LaTeX\ activity files comprising
+the
+course, in the order they should be presented to students.  In
+addition to a name and a description, \verb!anExampleCourse.tex!
+above specifies that there is one activity file
+\verb!theFirstActivity.tex!, written with or without the extension
+\verb!.tex!, and located in a directory called
+\verb!theFirstActivity!.  We will create this file and directory in
+the following
+
+Generally courses should contain more than one activity. We recommend placing
+each activity in a directory of the same name.	  This facilitates sharing
+activities among collaborators and makes reusing existing activities easier.
+%Later in this course, we will see examples of %how to borrow existing activities from other courses %rather than starting from scratch. We also recommend that the directory and the \LaTeX\ file have exactly the same name as the title of the activity, with all spaces removed and all words other than the first word capitalio for example, if the title of the activity were \verb!Plants native to Ohio!
+the \LaTeX\ file \verb!plantsNativeToOhio.tex!
+would be located in a directory called
+\verb!plantsNativeToOhio!.
+
+An activity should be composed as a regular \LaTeX\ file in the document class
+\verb!ximera!. It should contain the title of the activity and an abstract.
+These will both appear on the course website in the navigation area, so the
+abstract should be short. At this stage your activity contains a title and an
+abstract, but is otherwise blank.
+
+\item Type \verb!xake bake! to compile the tex documents, then
+\verb!xake frost! to create a publication commit on top of your source
+commit.
+Finally type \verb!xake serve! to share your content with the world.
+For
+instance, my content will appear at
+https://ximera.osu.edu/turnloon/anExampleCourse
+
+\item This is a good point to add some further content in the
+form of a simple exercise.  Update the file
+\verb!theFirstActivity.tex!  you created above so that it looks like
+the following.
+
+\subsection{Creating further activities}
+From here you can create further \link[Ximera]{http://ximera.osu.edu}
+activities as in step~\autoref{FirstExercise}.	You should issue a
+\verb!git add! command after creating a new file or directory and a
+\verb!git commit!  command followed by a \verb!git push! command
+periodically to transmit your most recent changes to
+\link[github.com]{http://github.com}.  You should also add the name of
+your activity file to the \verb!xourse! file in the position relative
+to other activities where you want the activity to appear.  Observe
+however that once the filename appears in the \verb!xourse!  file the
+corresponding activity will appear to students. It might therefore be
+preferable to create a separate branch on GitHub until the activity is
+ready for students.  During the editing phase you still view the
+activity by processing it with \LaTeX\ and inspecting the resulting
+PDF file, which might be helpful in any case for finding and
+correcting mistakes.
+
+\subsection{Other ways to set up a Ximera repository}\label{ForkClone}
+There are other ways to create a \link[Ximera]{http://ximera.osu.edu}
+course.  One possibility is to begin by creating the repository on
+\link[github.com]{http://github.com}.  Then instead of executing the commands
+to
+initialize the local copy of the repository, you could {\em clone} the
+copy on \link[github.com]{http://github.com} using a \verb!git clone!
+command.  Alternately you could {\em fork} an existing repository,
+either your own or someone else's.  See the \link[git
+  manual]{http://git-scm.com} for more information about the
+\verb!clone! and \verb!fork! commands.	Both possibilities above
+obviate step \autoref{Mkdir} since cloning or forking a
+\link[git]{http://git-scm.com} repository creates a local directory
+and initializes it as a \link[git]{http://git-scm.com} repository.
+
+\end{document}

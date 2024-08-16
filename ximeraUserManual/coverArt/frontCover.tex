@@ -1,0 +1,44 @@
+\setcounter{tocdepth}{1}
+\usepackage{pagecolor}
+\usepackage{ccicons}
+\makeatletter
+\definecolor{bkgndcr}{rgb}{1,1,1}
+\definecolor{txtcr}{rgb}{0,0,0}
+\ifcolor
+\definecolor{bkgndcr}{RGB}{100,100, 255}
+\definecolor{txtcr}{RGB}{255, 100, 255}
+\fi
+\let\othermaketitle\maketitle
+\renewcommand{\maketitle}{
+  \pagestyle{empty}
+  \newgeometry{hmargin={1cm,1cm},vmargin={1cm,1cm}}
+  \pagecolor{bkgndcr}
+  \boldmath % Makes all math text bold
+  \bfseries % Makes all text bold
+  \color{txtcr}
+  \sffamily\flushleft%
+  \!\resizebox{!}{1cm}{\input{../wormLogo/tikzLogo.tex}}\\[0cm]%
+  Interactive\\
+  Mathematics\\
+  Education\\
+  Resources for\\
+  All \\
+  \vspace*{-6cm}
+  \hspace*{-3.5cm}\rotatebox{15}{\resizebox{!}{8.7cm}{\begin{minipage}{1.1cm}\flushright User\\[-.2cm]Manual\end{minipage}}}\hfill
+  
+  \begin{center}
+    \scalebox{3}{Fowler $\bullet$ Obbels $\bullet$ Nowell $\bullet$ Snapp}
+  \end{center}
+  \small This document was typeset on \today. \hfill \Large\textsf{\ccbyncsa}\\
+  \small\texttt{GIT COMMIT: \input{../.git/refs/heads/master}}\\
+  \small Source: {\hypersetup{allcolors=txtcr}\docURL}\hfill developed in \textbf{XIMERA}
+\clearpage\pagecolor{white}\color{black}\unboldmath\normalfont\restoregeometry
+\ifnotoc
+\else\twocolumn
+  \tableofcontents\clearpage
+  \clearpage
+\fi
+\pagestyle{main}
+\let\maketitle\othermaketitle
+}
+\makeatother
