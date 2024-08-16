@@ -78,8 +78,9 @@ The \verb|xourse| file for \textit{First Steps in Ximera} can be found here:
 
 This gets complicated because we insist that Ximera documents must compiled not
 only when in a \verb|xourse| file, but also individually.
-
-\begin{tikzpicture}
+\begin{center}
+\begin{tikzpicture}%https://tex.stackexchange.com/questions/5073/making-a-simple-directory-tree
+  \node {HELLO};
 \node{
 \begin{forest}
   for tree={
@@ -119,6 +120,7 @@ only when in a \verb|xourse| file, but also individually.
   ]
 \end{forest}};
 \end{tikzpicture}
+\end{center}
 
 In general the file with the \verb!xourse! document class specifies
 course information such as the name of the course, a description of
