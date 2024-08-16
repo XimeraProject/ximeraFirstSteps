@@ -14,13 +14,14 @@
 
 \textbf{All Ximera files must be hosted in a Git repository.} You have two
 choices when creating new content:
-\begin{enumerate}
-  \item Fork the \texttt{ximeraFirstSteps} repository.
-  \item Start with an existing, or create, a Git repository and move files
+\begin{itemize}
+  \item If you are starting fresh, fork the \texttt{ximeraFirstSteps}
+        repository.
+  \item If you are starting with an existing a Git repository, move files
         from \texttt{ximeraFirstSteps} to this repository.
-\end{enumerate}
+\end{itemize}
 
-\section{Fork \texttt{ximeraFirstSteps}}
+\section{Starting fresh and forking \texttt{ximeraFirstSteps}}
 
 Forking a repository is well-documented on
 \link[GitHub]{https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo}.
@@ -47,21 +48,17 @@ You must keep the files above.	Commit your changes to GitHub and view your
 repository online via a web browser to ensure that the files were deleted.
 \textbf{You are now ready to create new Ximera content!}
 
-\section{Copy files from \texttt{ximeraFirstSteps}}
+\section{Starting from an existing GitHub repository}
 
-Either start with an existing GitHub repository, or follow directions for
-making a new GitHub repository online.
-Once you are finished, \textbf{copy}
+Starting from an existing GitHub repository, you will need to \textbf{copy}
 \begin{itemize}
   \item \verb|.gitignore|,
   \item \verb|.vscode|, and
   \item \verb|scripts|
 \end{itemize}
-into your repository.
-Add these documents to your GitHub repository.
-
-Commit your changes to GitHub and view your
-repository online via a web browser to ensure that the files were deleted.
+into your repository. If you already have a \verb|.gitignore| file, we suggest
+you replace yours with ours. Commit your changes to GitHub and view your
+repository online via a web browser to ensure that the files were added.
 \textbf{You are now ready to create new Ximera content!}
 
 \section{Setting up a Ximera \texttt{xourse}}
@@ -79,47 +76,47 @@ The \verb|xourse| file for \textit{First Steps in Ximera} can be found here:
 This gets complicated because we insist that Ximera documents must compiled not
 only when in a \verb|xourse| file, but also individually.
 \begin{center}
-\begin{tikzpicture}%https://tex.stackexchange.com/questions/5073/making-a-simple-directory-tree
-  \node {HELLO};
-\node{
-\begin{forest}
-  for tree={
-  font=\ttfamily,
-  grow'=0,
-  child anchor=west,
-  parent anchor=south,
-  anchor=west,
-  calign=first,
-  inner xsep=7pt,
-  edge path={
-      \noexpand\path [draw, \forestoption{edge}]
-      (!u.south west) +(7.5pt,0) |- (.child anchor) pic {folder}
-      \forestoption{edge label};
-    },
-  before typesetting nodes={
-      if n=1
-        {insert before={[,phantom]}}
-        {}
-    },
-  fit=band,
-  before computing xy={l=15pt},
-  }
-  [system
-    [config
-    ]
-    [lib
-        [Access
+  \begin{tikzpicture}%https://tex.stackexchange.com/questions/5073/making-a-simple-directory-tree
+    \node {HELLO};
+    \node{
+      \begin{forest}
+        for tree={
+        font=\ttfamily,
+        grow'=0,
+        child anchor=west,
+        parent anchor=south,
+        anchor=west,
+        calign=first,
+        inner xsep=7pt,
+        edge path={
+            \noexpand\path [draw, \forestoption{edge}]
+            (!u.south west) +(7.5pt,0) |- (.child anchor) pic {folder}
+            \forestoption{edge label};
+          },
+        before typesetting nodes={
+            if n=1
+              {insert before={[,phantom]}}
+              {}
+          },
+        fit=band,
+        before computing xy={l=15pt},
+        }
+        [system
+          [config
+          ]
+          [lib
+              [Access
+              ]
+              [Plugin
+              ]
+          ]
+          [templates
+          ]
+          [tests
+          ]
         ]
-        [Plugin
-        ]
-    ]
-    [templates
-    ]
-    [tests
-    ]
-  ]
-\end{forest}};
-\end{tikzpicture}
+      \end{forest}};
+  \end{tikzpicture}
 \end{center}
 
 In general the file with the \verb!xourse! document class specifies
@@ -148,11 +145,6 @@ These will both appear on the course website in the navigation area, so the
 abstract should be short. At this stage your activity contains a title and an
 abstract, but is otherwise blank.
 
-
-
-
-
-
 Type \verb!xake bake! to compile the tex documents, then
 \verb!xake frost! to create a publication commit on top of your source
 commit.
@@ -160,11 +152,6 @@ Finally type \verb!xake serve! to share your content with the world.
 For
 instance, my content will appear at
 https://ximera.osu.edu/turnloon/anExampleCourse
-
-
-
-
-
 
 This is a good point to add some further content in the
 form of a simple exercise.  Update the file
