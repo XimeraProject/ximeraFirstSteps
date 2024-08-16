@@ -9,5 +9,41 @@
 \end{abstract}
 \maketitle
 
+This section is about ``best practices'' when writing a book
+\begin{itemize}
+    \item Keep related content in the same folder
+    \item use \texttt{\textbackslash sectionstyle} and
+          \texttt{\textbackslash chapterstyle}
+    \item When you give a definition, ask a question after.
+    \item When you give and example, give an explanation, with
+          \texttt{\textbackslash answer} boxes to fill in.
+    \item Think about how you name things
+    \item Think about how paths are resolved.
+\end{itemize}
 
-\end{document}
+\begin{example}
+\begin{verbatim} 
+%% where to look for inputs
+\makeatletter
+\def\input@path{
+{./}
+{./coverArt/}
+{./introduction/}
+}
+\makeatother   
+\end{verbatim}
+\end{example}
+
+NOTE -- I think the input path is AUTOMATICALLY part of the graphics path. Please CHECK
+\begin{example}
+\begin{verbatim}
+%% where to find images
+\graphicspath{  
+{./}
+{./graphicsVideosAndInteractives/}
+}    
+\end{verbatim}
+\end{example}
+    
+    
+    \end{document}
