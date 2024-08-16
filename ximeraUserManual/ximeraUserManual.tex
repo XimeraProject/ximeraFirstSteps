@@ -1,56 +1,31 @@
 \documentclass[numbers]{xourse}
 
 \title{User Manual}
+\date{2024}
+\author{Bart Snapp}
 
 \input{preamble}
 
-
-\usepackage{manual}
-
-%\usepackage{forest}
-
-\definecolor{folderbg}{RGB}{124,166,198}
-\definecolor{folderborder}{RGB}{110,144,169}
-
-\def\Size{4pt}
-\tikzset{
-  folder/.pic={
-    \filldraw[draw=folderborder,top color=folderbg!50,bottom color=folderbg]
-      (-1.05*\Size,0.2\Size+5pt) rectangle ++(.75*\Size,-0.2\Size-5pt);  
-    \filldraw[draw=folderborder,top color=folderbg!50,bottom color=folderbg]
-      (-1.15*\Size,-\Size) rectangle (1.15*\Size,\Size);
-  }
-}
-
-
-
-\title{User Manual}
-\date{2024}
-\author{Bart Snapp}
+\pdfOnly{\usepackage{manual}}
 
 \newcommand{\docURL}{\url{https://github.com/ximeraProject/ximeraFirstSteps/ximeraUserManual}}
 \newcommand{\testURL}{\url{https://github.com/ximeraProject/tests}}
 \newcommand{\experimentalURL}{\url{https://github.com/ximeraProject/experimental}}
 
 
-\newif\ifcolor %% for color cover
-\colorfalse    %% add \colortrue before cover art
-%\colortrue
-\input{coverArt/frontCover.tex}
+\colorfalse
+\colortrue
 
-\title{User Manual}
-\event{Documentation}
-
+\pdfOnly{\input{coverArt/frontCover.tex}}
 
 \setcounter{tocdepth}{1}
 
 \begin{document}
-\onecolumn
 \begin{abstract}
     How to use Ximera.
 \end{abstract}
 \maketitle
-\pagestyle{fancy}
+\pdfOnly{\pagestyle{fancy}}
 
 \twocolumn
 \frontstyle

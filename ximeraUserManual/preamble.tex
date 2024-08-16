@@ -12,3 +12,75 @@
 {./}
 {./graphicsVideosAndInteractives/}
 }
+
+
+% Custom Commands
+\newcommand{\event}[1]{\def\theevent{#1}}
+\newcommand{\theevent}{}
+
+
+\newif\ifcolor %% for color cover
+
+\usepackage{forest} %% For fancy directory diagrams
+%% https://tex.stackexchange.com/questions/5073/making-a-simple-directory-tree
+\definecolor{folderbg}{RGB}{124,166,198}
+\definecolor{folderborder}{RGB}{110,144,169}
+
+\def\Size{4pt}
+\tikzset{
+  folder/.pic={
+    \filldraw[draw=folderborder,top color=folderbg!50,bottom color=folderbg]
+      (-1.05*\Size,0.2\Size+5pt) rectangle ++(.75*\Size,-0.2\Size-5pt);  
+    \filldraw[draw=folderborder,top color=folderbg!50,bottom color=folderbg]
+      (-1.15*\Size,-\Size) rectangle (1.15*\Size,\Size);
+  }
+}
+
+
+
+\usepackage{qrcode} %% For QR Codes
+
+
+
+\makeatletter
+%% Make Front style
+\newcommand\frontstyle{%
+  \def\activitystyle{activity-chapter}
+  \def\maketitle{%
+                {\flushleft\small\sffamily\bfseries\@pretitle\par\vspace{-1.5em}}%
+                {\flushleft\LARGE\sffamily\bfseries\@title \par }%3
+                {\vskip .6em\noindent\textit\theabstract\setcounter{problem}{0}\setcounter{section}{0}}%
+                \par\vspace{2em}    
+                \phantomsection\addcontentsline{toc}{section}{\textbf{\@title}}%
+                \setcounter{titlenumber}{0}
+}}
+
+\renewcommand\chapterstyle{%
+  \def\activitystyle{activity-chapter}
+  \normalsize
+  %\onecolumn
+  \def\maketitle{%
+    \addtocounter{titlenumber}{1}%
+                    {\flushleft\small\sffamily\bfseries\@pretitle\par\vspace{-1.5em}}%
+                    {\flushleft\LARGE\sffamily\bfseries\thetitlenumber\hspace{1em}\@title \par }%
+                    {\vskip .6em\noindent\textit\theabstract\setcounter{problem}{0}\setcounter{section}{0}}%
+                    \par\vspace{2em}
+                    \phantomsection\addcontentsline{toc}{section}{\textbf{\thetitlenumber\hspace{1em}\@title}}%
+}}
+
+%% Redefine section and subsection
+\renewcommand\section{\@startsection {section}{1}{\z@}%
+                                   {-3.5ex \@plus -1ex \@minus -.2ex}%
+                                   {2.3ex \@plus.2ex}%
+                                   {\boldmath\normalfont\large\bfseries\sffamily}}
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+                                     {-3.25ex \@plus -1ex \@minus -.2ex}%
+                                     {1.5ex \@plus .2ex}%
+                                     {\boldmath\normalfont\large\bfseries\sffamily}}
+
+
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+                                    {3.25ex \@plus1ex \@minus.2ex}%
+                                    {-1em}%
+                                    {\boldmath\normalfont\normalsize\bfseries\sffamily}}
+\makeatother
