@@ -8,15 +8,8 @@
 
 \pdfOnly{\usepackage{manual}}
 
-%% These may change and should be checked!
-\newcommand{\docURL}{\url{https://github.com/ximeraProject/ximeraFirstSteps/ximeraUserManual}}
-\newcommand{\testURL}{\url{https://github.com/ximeraProject/tests}}
-\newcommand{\experimentalURL}{\url{https://github.com/ximeraProject/experimental}}
-\newcommand{\xfsURL}{https://go.osu.edu/xfs}
-\newcommand{\xfgURL}{https://go.osu.edu/ximera-flash-grant}
-
 \colorfalse
-%\colortrue
+\colortrue
 
 \pdfOnly{\input{coverArt/frontCover.tex}}
 
@@ -28,7 +21,6 @@
 \end{abstract}
 \maketitle
 \pdfOnly{\pagestyle{fancy}}
-
 \twocolumn
 \frontstyle
 \activity{introduction/introduction}
@@ -44,4 +36,6 @@
 \activity{printing/printing}
 \activity{seeXimeraInAction/seeXimeraInAction}
         
+\onecolumn\colorlet{bkgndcr}{otherbkgndcr}
+\input{coverArt/backCover}
 \end{document}

@@ -1,21 +1,5 @@
-\documentclass{ximera}
-\input{../preamble}
-\usepackage{standalone}
-\usepackage{pagecolor}
-\usepackage{ccicons}
-\usepackage[landscape,includehead,includefoot,margin=2.5cm,headheight=1cm]{geometry}
-
-\definecolor{bkgndcr}{rgb}{1,1,1}
-\definecolor{txtcr}{rgb}{0,0,0}
-\definecolor{bkgndcr}{RGB}{50,100, 255}
-\definecolor{bkgndcr}{RGB}{10,100, 50}
-\definecolor{bkgndcr}{RGB}{60,60, 60}
-% \definecolor{bkgndcr}{RGB}{255,255, 100}
-\definecolor{txtcr}{RGB}{255, 100, 255}
-\definecolor{txtcr}{RGB}{255,255, 100}
-\begin{document}
   \pagestyle{empty}
-  \pagecolor{bkgndcr}
+  \pagecolor{otherbkgndcr}
   \boldmath % Makes all math text bold
   \bfseries % Makes all text bold
   \color{txtcr}
@@ -27,7 +11,8 @@
   authoring and publishing (PDF and Online), open-source, interactive educational
   content, such as textbooks, assessments, and online courses.
   
-  \paragraph{Authors}  write and store their content on their own
+  
+  Authors  write and store their content on their own
   machines and GitHub repositories.
   Authors own their content and decide how to license their content. From a
   single source written in \LaTeX, Ximera generates various output: PDF
@@ -73,6 +58,5 @@
 \vfill
 
   \small This document was typeset on \today. \hfill \Large\textsf{\ccbyncsa}\\
-  \small\texttt{GIT COMMIT: \input{../../.git/refs/heads/minimal}}\\
+  \small\texttt{GIT COMMIT: \input{../.git/refs/heads/minimal}}\\
   \small Source: {\hypersetup{allcolors=txtcr}\docURL}\hfill developed in \textbf{XIMERA}
-\end{document}

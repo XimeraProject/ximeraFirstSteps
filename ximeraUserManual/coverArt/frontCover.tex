@@ -9,7 +9,9 @@
 \definecolor{bkgndcr}{RGB}{50,100, 255}
 \definecolor{bkgndcr}{RGB}{10,100, 50}
 \definecolor{bkgndcr}{RGB}{60,60, 60}
+\definecolor{otherbkgndcr}{RGB}{60,60,60}
 % \definecolor{bkgndcr}{RGB}{255,255, 100}
+
 \definecolor{txtcr}{RGB}{255, 100, 255}
 \definecolor{txtcr}{RGB}{255,255, 100}
 \fi
@@ -37,7 +39,13 @@
   \small This document was typeset on \today. \hfill \Large\textsf{\ccbyncsa}\\
   \small\texttt{GIT COMMIT: \input{../.git/refs/heads/minimal}}\\
   \small Source: {\hypersetup{allcolors=txtcr}\docURL}\hfill developed in \textbf{XIMERA}
-\clearpage\pagecolor{white}\color{black}\unboldmath\normalfont\restoregeometry
+\clearpage\pagecolor{white}\color{black}\unboldmath\normalfont\restoregeometry\colorlet{bkgndcr}{white}
+\cleardoublepage
+\mbox{}
+\vspace{3cm}
+\begin{center}
+\Huge\it To lovers of mathematics everywhere.
+\end{center}
 \ifnotoc
 \else\twocolumn
   \tableofcontents\clearpage
