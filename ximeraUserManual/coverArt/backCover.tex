@@ -1,0 +1,78 @@
+\documentclass{ximera}
+\input{../preamble}
+\usepackage{standalone}
+\usepackage{pagecolor}
+\usepackage{ccicons}
+\usepackage[landscape,includehead,includefoot,margin=2.5cm,headheight=1cm]{geometry}
+
+\definecolor{bkgndcr}{rgb}{1,1,1}
+\definecolor{txtcr}{rgb}{0,0,0}
+\definecolor{bkgndcr}{RGB}{50,100, 255}
+\definecolor{bkgndcr}{RGB}{10,100, 50}
+\definecolor{bkgndcr}{RGB}{60,60, 60}
+% \definecolor{bkgndcr}{RGB}{255,255, 100}
+\definecolor{txtcr}{RGB}{255, 100, 255}
+\definecolor{txtcr}{RGB}{255,255, 100}
+\begin{document}
+  \pagestyle{empty}
+  \pagecolor{bkgndcr}
+  \boldmath % Makes all math text bold
+  \bfseries % Makes all text bold
+  \color{txtcr}
+  \sffamily\flushleft%
+  Ximera, pronounced ``chimera,'' (\textbf{X}imera: \textbf{I}nteractive,
+  \textbf{M}athematics, \textbf{E}ducation,
+  \textbf{R}esources, for \textbf{A}ll) is an open-source platform that provides
+  tools for
+  authoring and publishing (PDF and Online), open-source, interactive educational
+  content, such as textbooks, assessments, and online courses.
+  
+  \paragraph{Authors}  write and store their content on their own
+  machines and GitHub repositories.
+  Authors own their content and decide how to license their content. From a
+  single source written in \LaTeX, Ximera generates various output: PDF
+  worksheets,
+  PDF textbooks, and	PDF solution manuals, and so on. Of most interest,
+  Ximera can
+  also create online interactive activities:
+  \begin{center}
+      \begin{tikzpicture}
+          \node at (-1.8,.2)
+          {\resizebox{.65cm}{!}{\input{document.tex}}};
+          \node at (-1.8,.2) {\small PDF};
+          \node at (-2,0) {\resizebox{.65cm}{!}{\input{document.tex}}};
+          \node at (-2,0) {\small PDF};
+          \node at (-2.2,-.2)
+          {\resizebox{.65cm}{!}{\input{document.tex}}};
+          \node at (-2.2,-.2) {\small PDF};
+          \draw[->] (-.6,0) -- (-1.4,0);
+          \draw[->] (-.6,.2) -- (-1.4,.2);
+          \draw[->] (-.6,-.2) -- (-1.4,-.2);
+          \node at (0,0) {\resizebox{1cm}{!}{\input{document.tex}}};
+          \node at (0,0) {\LaTeX};
+          \draw[->] (.6,0) -- (1.4,0);
+  
+          \node at (2,0) {\resizebox{1cm}{!}{\input{server.tex}}};
+          \draw[->] (2.6,0) -- (3.4,0);
+          \node at (4,0) {\resizebox{1cm}{!}{\input{computer.tex}}};
+          \node at (-2,-1) {Various};
+          \node at (-2,-1.4) {PDFs};
+          \node at (0,-1) {Single};
+          \node at (0,-1.4) {Source};
+          \node at (2,-1) {Deploy};
+          \node at (2,-1.4) {Server};
+          \node at (4,-1) {Students};
+          \node at (4,-1.4) {Engage};
+  
+      \end{tikzpicture}
+  \end{center}
+  The source code used to produce PDFs can also create interactive online
+  activities when deployed to a Ximera server. Students access this content via a
+  URL or an assignment in their LMS.
+  
+\vfill
+
+  \small This document was typeset on \today. \hfill \Large\textsf{\ccbyncsa}\\
+  \small\texttt{GIT COMMIT: \input{../../.git/refs/heads/minimal}}\\
+  \small Source: {\hypersetup{allcolors=txtcr}\docURL}\hfill developed in \textbf{XIMERA}
+\end{document}
