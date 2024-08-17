@@ -8,11 +8,53 @@
 \end{abstract}
 \maketitle
 
-\section{Including images}
+We've seen basic ways to include JPGs, PNGs, and PDFs using
+\verb!\includegraphics!. However, this is not the preferred way to include
+graphics. Moreover, there are considerations for positioning of the graphics.
 
+\section{Positioning graphics}
 
+In \LaTeX\ it is common to write images in the \verb!figure! environment. We
+choose not to use this because \verb!figure! `floats' the images for `optimal'
+page layout. We are not concerned with page layout. When working online, the
+page is essentially infinite in length. Moreover, the \textit{consumers} of the
+content we create are \textit{students}. Students are also unconcerned with
+awkward page layout. Students prefer to see the image exactly when it is
+mentioned. With this said, we suggest wrapping all images in either a
+\verb!center! environment or an (Ximera-specific) \verb!image! environment.
+The environment \verb!image! centers and automatically scales the contents.  If
+an author finds themselves printing to various page-sizes, \verb!image! might
+be preferred. Moreover, \verb!image! can be redefined globally to act
+identically to \verb!center!, but \verb!center! cannot be redefined.
 
+If you use \verb!center!, you would write something like:
+\begin{example}
+\begin{verbatim}
+\begin{center}
+\includegraphics[width=5cm]{missionPatch.jpg}
+\end{center}
+\end{verbatim}
+\end{example}
+If you use \verb!image!, you would write something like:
+\begin{example}
+\begin{verbatim}
+\begin{center}
+\includegraphics[width=5cm]{missionPatch.jpg}
+\end{center}
+\end{verbatim}
+\end{example}
 
+The disadvantage of using \verb!\includegraphics! is that you need to handle
+the paths to the images in some way. You can do this by:
+\begin{description}
+  \item[Editing the graphics path]
+  \item[Using a global graphics folder]
+\end{description}
+With this said, TikZ is the preferred method for graphics because code, found
+in the Ximera \LaTeX\ file, generates the image. No need to worry about
+graphics paths.
+
+\section{TikZ is the preferred method for graphics}
 
 The preferred way to include graphics is with TikZ.
 \begin{image}
@@ -57,7 +99,6 @@ The preferred way to include graphics is with TikZ.
 \end{verbatim}
 \end{example}
 
-
 \section{The graph command}
 
 The easiest way to include an interactive graph is to use the
@@ -70,7 +111,7 @@ graph is produced.
 There are a number of options for the \verb|\graph| command:
 
 \begin{example}
-\begin{verbatim}
+  \begin{verbatim}
 \graph{x^2 \left\{ 1 \leq x \leq 10 \right\}
 \graph{ \sin(x)\left\{x<0\right\}, 2x\left\{ x>=0 \right\} } 
 \graph{r=\theta}  
@@ -98,10 +139,6 @@ There are a number of options for the \verb|\graph| command:
 \end{verbatim}
 \end{example}
 
-
-
-
-
 \paragraph{Optional arguments for \texttt{\textbackslash graph}}
 
 \begin{description}
@@ -110,16 +147,19 @@ There are a number of options for the \verb|\graph| command:
     \verb|\graph[xmin=-5,xmax=5,ymin=-5,ymax=5]{y=x^2}|.
   \item[panel] Determines if the panel is shown with
     \verb|\graph[panel]{y=x^2}|.
-  \item[xAxisLabel, yAxisLabel] Gives the axes labels with \verb|\graph[xAxisLabel="time", yAxisLabel="distance"]{y=x^2}|.
-  \item[hideXAxis, hideYAxis] Hides the axes with 
-  \verb|\graph[hideXAxis=true, hideYAxis=true]{x^2}|.
-  \item[hideXAxisNumbers=true, hideYAxisNumbers=true] Hides the tick marks on the axes with \verb|\graph[hideXAxisNumbers=true, hideYAxisNumbers=true]{y=x^2}|.
+  \item[xAxisLabel, yAxisLabel] Gives the axes labels with
+    \verb|\graph[xAxisLabel="time", yAxisLabel="distance"]{y=x^2}|.
+  \item[hideXAxis, hideYAxis] Hides the axes with
+    \verb|\graph[hideXAxis=true, hideYAxis=true]{x^2}|.
+  \item[hideXAxisNumbers=true, hideYAxisNumbers=true] Hides the tick marks on
+    the axes with
+    \verb|\graph[hideXAxisNumbers=true, hideYAxisNumbers=true]{y=x^2}|.
   \item[polar] Shows polar grid lines with \verb|\graph[polar]{y=x^2}|.
 \end{description}
 
 \[
-\graph{x^2 \left\{ 1 \leq x \leq 10 \right\}}
-\graph{ \sin(x)\left\{x<0\right\}, 2x\left\{ x>=0 \right\} }  
+  \graph{x^2 \left\{ 1 \leq x \leq 10 \right\}}
+  \graph{ \sin(x)\left\{x<0\right\}, 2x\left\{ x>=0 \right\} }
 \]
 \section{Videos}
 

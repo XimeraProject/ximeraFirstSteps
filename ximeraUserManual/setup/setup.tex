@@ -237,13 +237,20 @@ the \verb!xourse! document. In \verb!aFirstStepInXimera.tex! we write
 \subsection{Graphics paths}
 
 Perhaps the easiest way to include graphics in Ximera documents is with
-\verb!\includegraphics!:
+\verb!\includegraphics!
+\begin{example}
+\begin{verbatim}
 \begin{center}
   \includegraphics[width=5cm]{missionPatch.jpg}
 \end{center}
-The image, also used in \texttt{ximeraFirstSteps}, is in the folder that
-contains the Ximera document.
-However, when this document is compiled via a \verb!xourse! document, the
+\end{verbatim}
+which renders as:
+\end{example}
+\begin{center}
+  \includegraphics[width=5cm]{missionPatch.jpg}
+\end{center}
+The image, also used in \texttt{ximeraFirstSteps}, is in the folder \texttt{basics} that
+contains the Ximera document \texttt{aFirstStepInXimera.tex}. However, when this document is compiled via a \verb!xourse! document, the
 
 \begin{example}
   \begin{verbatim}
