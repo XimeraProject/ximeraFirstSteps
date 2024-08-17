@@ -4,11 +4,14 @@
 \author{Bart Snapp}
 
 \begin{document}
+\onecolumn
+\begin{multicols}{2}
 \begin{abstract}
     Combine Ximera activities to make courses.
 \end{abstract}
 \maketitle
-
+% \onecolumn
+% \begin{multicols}{2}
 This section is about ``best practices'' when writing a book
 \begin{itemize}
     \item Keep related content in the same folder
@@ -22,8 +25,24 @@ This section is about ``best practices'' when writing a book
 \end{itemize}
 
 
+\begin{example}
+    \begin{verbatim} 
+%% where to look for inputs
+\makeatletter
+\def\input@path{
+{./}
+{./coverArt/}
+{./introduction/}
+}
+\makeatother   
+\end{verbatim}
+\end{example}
+
+\end{multicols}
+
+
 \begin{center}
-    \resizebox{!}{5cm}{
+    \scalebox{.7}{
     \begin{tikzpicture}
       % Define styles for nodes
       \tikzstyle{document} = [anchor=north west,draw, rounded corners, rectangle,
@@ -83,21 +102,8 @@ This section is about ``best practices'' when writing a book
       \node at (18,-4) {\tt\textbackslash input\{../../preamble\}};
   \end{tikzpicture}}
   \end{center}
+\twocolumn
 
-
-
-\begin{example}
-    \begin{verbatim} 
-%% where to look for inputs
-\makeatletter
-\def\input@path{
-{./}
-{./coverArt/}
-{./introduction/}
-}
-\makeatother   
-\end{verbatim}
-\end{example}
 
 NOTE -- I think the input path is AUTOMATICALLY part of the graphics path.
 Please CHECK
@@ -110,6 +116,8 @@ Please CHECK
 }    
 \end{verbatim}
 \end{example}
+
+
 
 
 
