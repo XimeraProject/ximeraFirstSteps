@@ -83,9 +83,26 @@ The \verb|xourse| file for \textit{First Steps in Ximera} can be found here:
 
   \url{https://github.com/ximeraProject/ximeraFirstSteps/aFirstStepInXimera.tex}
 \end{center}
+The \verb!xourse! documentclass specifies information such as the name of the document, the names fo the authors, a description of
+the content, and the names of all \LaTeX\ activity files comprising the document.
 
-This gets complicated because we insist that Ximera documents must compiled not
-only when in a \verb|xourse| file, but also individually.
+
+\begin{warning}
+  All document and folder names used for Ximera must be web-safe! This means all document and folder names:
+  \begin{itemize}
+    \item Must only use alphanumeric English characters, meaning: a,b, \dots, z, A,B, \dots, Z, 0,1, \dots, 9, and hyphen `-' and underscore `\_' though the last two are discouraged. 
+    \item Cannot use use any other characters, including spaces. This means all Ximera documents and folders file names must be a single-word.
+  \end{itemize} 
+  This is not a limitation of Ximera, rather it is a rule that nearly all web-accessible documents must follow.
+\end{warning}
+
+
+An activity should be composed as a regular \LaTeX\ file in the documentclass
+\verb!ximera!. It should contain the title of the activity and an abstract.
+These will both appear on the course website in the navigation area, so the
+abstract should be short. At this stage your activity contains a title and an
+abstract, but is otherwise blank.
+
 \begin{center}
   \scalebox{.7}{
     \begin{tikzpicture}
@@ -147,18 +164,9 @@ only when in a \verb|xourse| file, but also individually.
     \end{tikzpicture}}
 \end{center}
 
-The \verb!xourse! documentclass specifies information such as the name of the document, a description of
-the document, and the names of all \LaTeX\ activity files comprising
-the document.
 
-\begin{warning}
-  All document and folder names used for Ximera must be web-safe! This means all document and folder names:
-  \begin{itemize}
-    \item Must only use alphanumeric English characters, meaning: a,b, \dots, z, A,B, \dots, Z, 0,1, \dots, 9, and hyphen `-' and underscore `\_' though the last two are discouraged. 
-    \item Cannot use use any other characters, including spaces. This means all Ximera documents and folders file names must be a single-word.
-  \end{itemize} 
-  This is not a limitation of Ximera, rather it is a rule that nearly all web-accessible documents must follow.
-\end{warning}
+
+
 
 We recommend placing each activity in a directory of the same name.	  This facilitates sharing
 activities among collaborators and makes reusing existing activities easier.
@@ -167,11 +175,7 @@ the \LaTeX\ file \verb!plantsNativeToOhio.tex!
 would be located in a directory called
 \verb!plantsNativeToOhio!.
 
-An activity should be composed as a regular \LaTeX\ file in the document class
-\verb!ximera!. It should contain the title of the activity and an abstract.
-These will both appear on the course website in the navigation area, so the
-abstract should be short. At this stage your activity contains a title and an
-abstract, but is otherwise blank.
+
 
 
 \end{document}
