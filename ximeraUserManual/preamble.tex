@@ -4,6 +4,7 @@
 {./}
 {./coverArt/}
 {./introduction/}
+{./graphicsVideosAndInteractives/}
 }
 \makeatother
 
@@ -21,25 +22,8 @@
 
 \newif\ifcolor %% for color cover
 
-\usepackage{forest} %% For fancy directory diagrams
-%% https://tex.stackexchange.com/questions/5073/making-a-simple-directory-tree
-\definecolor{folderbg}{RGB}{124,166,198}
-\definecolor{folderborder}{RGB}{110,144,169}
-
-\def\Size{4pt}
-\tikzset{
-  folder/.pic={
-    \filldraw[draw=folderborder,top color=folderbg!50,bottom color=folderbg]
-      (-1.05*\Size,0.2\Size+5pt) rectangle ++(.75*\Size,-0.2\Size-5pt);  
-    \filldraw[draw=folderborder,top color=folderbg!50,bottom color=folderbg]
-      (-1.15*\Size,-\Size) rectangle (1.15*\Size,\Size);
-  }
-}
-
-
-
 \usepackage{qrcode} %% For QR Codes
-
+\usepackage[normalem]{ulem} % for strikeout
 
 
 \makeatletter
