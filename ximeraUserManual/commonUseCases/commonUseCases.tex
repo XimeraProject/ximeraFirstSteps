@@ -159,7 +159,7 @@ you find that you have an answer box that is marking anything/everything
 correct, this is probably because there is some kind of typo or character in
 the answer box that it cannot understand.
 
-\paragraph{Answer Box can be a little too good...}
+\paragraph{Answer checks equality}
 
 Although the validation technique is impressively comprehensive in
 practice, that can be problematic when you want the answer in a specific
@@ -172,7 +172,7 @@ are trying to assess (as it is less important to only validate the equality,
 and more important to validate the form - often in addition to the equality, of
 the answer).
 
-\subsubsection{Answers are exposed via right-click}
+\paragraph{Answers are exposed via right-click}
 
 For accessibility reasons (like screen readers and the like) the library
 that powers the answer box has a bunch of features bundled in, one of which is
@@ -191,12 +191,18 @@ which we detail in the
 \href{https://xronos.clas.ufl.edu/examples/exampleCore/supplemental/hiddenAnswers}{how
   to hide answers} section of the documentation, for those that are interested.
 
-\subsection{Answer Box Size}
+\paragraph{Answer box size}
 If you are in a situation where you want a student to solve for a portion
 of an expression or formula, you should place parenthesis around the answer
 box. Since the answer box is a different size than the answer you should use
 \verb!\left! and \verb!\right! to do it like
 this:
+\begin{verbatim}
+\[
+  \left(\answer{42}\right)
+\]
+\end{verbatim}
+and here we see this in context:
 %% Inspired by an exercise of Jim Talamo
 \begin{verbatim}
 \begin{exercise}
@@ -221,7 +227,7 @@ in the form $ax+by+cz=d$.
 
 There are three similar answerables that all use the command \$
 
-\subsection{Multiple Choice}
+\paragraph{Multiple Choice}
 
 \begin{verbatim}
 \begin{question}
@@ -249,7 +255,7 @@ Produces:
   Multiple choice answers appear in the order you type them.
 \end{remark}
 
-\subsection{(Additional) Examples}
+
 
 \begin{problem}
 Select a prime number:
@@ -267,7 +273,7 @@ problem---but the student is only able to select one answer before submitting.
 As long as the student selects one of the prime numbers however, it will be
 marked as correct.
 
-\subsection{Select All}
+\paragraph{Select All}
 
 \begin{verbatim}
 \begin{question}
@@ -293,11 +299,9 @@ Produces:
   \end{selectAll}
 \end{question}
 
-\begin{remark}
-  Select All answers appear in the order you type them.
-\end{remark}
 
-\subsection{Word choice}
+
+\paragraph{Word choice}
 \begin{verbatim}
 \begin{exercise}
  Consider the planes defined by the equations below.
@@ -313,8 +317,29 @@ Describe the relationships between the planes $P_1$, $P_2$, and $P_3$ in terms o
   \item The planes $P_1$ and $P_2$ are \wordChoice{\choice[correct]{parallel}\choice{orthogonal}\choice{neither parallel nor orthogonal}}.
   \item The planes $P_1$ and $P_3$ are \wordChoice{\choice{parallel}\choice{orthogonal}\choice[correct]{neither parallel nor orthogonal}}.
   \item The planes $P_2$ and $P_3$ are \wordChoice{\choice{parallel}\choice{orthogonal}\choice[correct]{neither parallel nor orthogonal}}.
+\end{enumerate}
 \end{exercise}
 \end{verbatim}
+
+
+\begin{exercise}
+  Consider the planes defined by the equations below.
+\[
+\begin{array}{lr}
+P_1:  \quad 2x-y+3z &=4 \\
+P_2:  \quad  4x-2y+6z &= 5 \\
+P_3:  \quad  5x+2y+z &=7 \\
+\end{array}
+\]
+ Describe the relationships between the planes $P_1$, $P_2$, and $P_3$ in terms of ``parallel,'' ``orthogonal,'' or ``neither.''
+ \begin{enumerate}
+   \item The planes $P_1$ and $P_2$ are \wordChoice{\choice[correct]{parallel}\choice{orthogonal}\choice{neither parallel nor orthogonal}}.
+   \item The planes $P_1$ and $P_3$ are \wordChoice{\choice{parallel}\choice{orthogonal}\choice[correct]{neither parallel nor orthogonal}}.
+   \item The planes $P_2$ and $P_3$ are \wordChoice{\choice{parallel}\choice{orthogonal}\choice[correct]{neither parallel nor orthogonal}}.
+ \end{enumerate}
+ \end{exercise}
+
+
 
 \section{Worksheets}
 
