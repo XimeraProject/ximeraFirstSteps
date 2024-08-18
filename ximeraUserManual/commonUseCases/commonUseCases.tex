@@ -72,9 +72,8 @@ to the \verb|\answer| command.
   \item[tolerance] The Tolerance key-value sets a $\pm$ value on the
     author's (numeric) answer that will be accepted from a student. For
     example,
-    the answer box \verb|\answer[tolerance=0.1]{\pi}| would accept anything in
-    the
-    range of $[\pi-0.1,\pi+0.1]$ as correct.
+    the answer box \verb|\answer[tolerance=5]{100}| will accept anything in
+    the range of $[95,105]$ as correct.
   \item[format=string] This is for validating ``words'' typed into an answer
     box. Here
     \verb|$\answer[format=string]{Cat}$| will validate \verb!Cat!,
@@ -93,16 +92,18 @@ to the \verb|\answer| command.
     called by a validator or some other code.
 \end{description}
 
-NO SPACES
-
-\begin{problem}
-Type $100$, it has a tolerance of $5$:
+\begin{warning}
+  You separate options in \verb!\answer! using commas and there can be no spaces, like this:
+\begin{verbatim}
 \[
-  \answer[tolerance=5]{100}
+\answer[given,tolerance=5]{100}
 \]
-\end{problem}
+\end{verbatim}
+\end{warning}
 
-\paragraph{How the answer box validates an answer}
+
+
+\paragraph{Validating an answer}
 
 It uses more than a dozen algorithms to check if the student's provided answer
 is mathematically equivalent to the content author's provided answer. If any
@@ -122,13 +123,14 @@ report the answer as being correct, then it is marked as correct.
   For the Ximera platform, we chose to \textbf{sometimes count incorrect
     submissions as correct}.
 \end{warning}
-
 With that dire warning notwithstanding, let me give a concrete example:
 \begin{verbatim}
-  Compute
-  \[
+\begin{example}
+Compute
+\[
 10+ 2^40 = \answer{10+ 2^40}
-  \]
+\]
+\end{example}
 \end{verbatim}
 
 Ximera accepts it as correct, even though we obviously know that's not
