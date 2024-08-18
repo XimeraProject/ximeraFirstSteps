@@ -12,14 +12,13 @@
 %  \renewcommand*\familydefault{\ttdefault} %% Only if the base font of the document is to be typewriter style
 \RequirePackage[T1]{fontenc}
 \RequirePackage{multicol}
-\RequirePackage{lettrine}
 \RequirePackage{mathtools}
 \RequirePackage[framemethod=TikZ]{mdframed}
 \RequirePackage{pgf}
-\RequirePackage[skip=5pt plus1pt, indent=0pt]{parskip}
+\RequirePackage[skip=5pt plus1pt, indent=0pt]{parskip} %% FOR OUR VERTICAL SPACING
 \RequirePackage{fancyhdr}
 
-
+\renewcommand{\descriptionlabel}[1]{\hspace{\labelsep}\sf\bfseries #1}
 
 % Generate a random 4-digit number
 \pgfmathsetseed{\number\pdfuniformdeviate10000} % Initialize the random number generator with a seed
