@@ -1,11 +1,11 @@
 \documentclass[tikz]{standalone}
-\makeatletter
+\makeatletter%%% to compile online
 \@ifundefined{bkgndcr}{
   \usepackage{xcolor}
   \colorlet{bkgndcr}{white}
   \colorlet{txtcr}{black}
 }{}
-\makeatother
+\makeatother  %%%
 \begin{document}
 \begin{tikzpicture}[rounded corners=.1pt]
     \draw (-.15,-.1) rectangle (.95,.5);
