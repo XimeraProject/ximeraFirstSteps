@@ -136,9 +136,8 @@ For the repository \texttt{ximeraFirstSteps} we have the following structure:
       thick,font=\ttfamily]
 
       % Thick grey lines
-      \draw[line width=200pt,white!85!black,line cap=round] (2,1.5) -- (2,-4);
-      \draw[line width=200pt,white!85!black,line cap=round] (10,1.5) --
-      (10,-4);
+      \draw[line width=200pt,white!85!black,line cap=round] (2,1) -- (2,-3.5);
+      \draw[line width=200pt,white!85!black,line cap=round] (10,1) --(10,-3.5);
 
       % Connections
       \draw[ultra thick] (2,-1.5) -- (8,2.6);
@@ -153,8 +152,8 @@ For the repository \texttt{ximeraFirstSteps} we have the following structure:
       \draw[ultra thick] (2,-3.5) -- (8,-5.4);
 
       % Symbols at top
-      \node at (2,4) {\Huge \tt ./};
-      \node at (10,4) {\Huge \tt ../};
+      \node at (2,3.5) {\Large\bf\sffamily  Top Level};
+      \node at (10,3.5) {\Large\bf\sffamily Sub Level};
 
       % Define the folders at top level
       \node[document] at (0,3) {preamble.tex};
@@ -177,11 +176,6 @@ For the repository \texttt{ximeraFirstSteps} we have the following structure:
       \node[document] at (8,-4) {wordChoice.tex};
       \node[document] at (8,-5) {hintsAndFollowUp.tex};
 
-      % paths at bottom
-      \node at (2,-5.5) {\tt\textbackslash input\{./preamble\}};
-      \node at (2,-6) {or};
-      \node at (2,-6.5) {\tt\textbackslash input\{preamble\}};
-      \node at (10,-6.5) {\tt\textbackslash input\{../preamble\}};
     \end{tikzpicture}}
 \end{center}
 We've left some files out of this diagram; regardless, you should be able to
@@ -271,10 +265,6 @@ Note how we give the paths to the exercises.
 
 \section{Preambles, input paths, and graphics paths}
 
-WORDS
-
-\subsection{A common preamble}
-
 The purpose of a preamble is to ensure \textbf{all files compile consistently,
   it is not for cosmetic changes.} A typically preamble might contain things
 like:
@@ -283,6 +273,82 @@ like:
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\d}{\, d}
 \end{verbatim}
+
+\begin{warning}
+  Cosmetic changes to Ximera environments will result in unpredictable behavior online.
+\end{warning}
+
+WHAT ABOUT NEW ENVIRONMENTS? 
+
+WHAT ABOUT NEW ENVIRONMENTS? 
+
+WHAT ABOUT NEW ENVIRONMENTS? 
+
+
+Once you have your preamble, all Ximera files need to be able to access it.
+\begin{center}%%DIAGRAM OF FILE STRUCTURE
+  \scalebox{.7}{
+    \begin{tikzpicture}
+      % Define styles for nodes
+      \tikzstyle{document} = [anchor=north west,draw, rounded corners,
+      rectangle,
+      minimum width=3cm,fill=white, minimum height=.8cm, ultra
+      thick,font=\ttfamily]
+      \tikzstyle{folder} = [anchor=north west,draw, rectangle, rounded corners,
+      minimum width=4cm,fill=white, minimum height=2.8cm, ultra
+      thick,font=\ttfamily]
+
+      % Thick grey lines
+      \draw[line width=200pt,white!85!black,line cap=round] (2,1.5) -- (2,-4);
+      \draw[line width=200pt,white!85!black,line cap=round] (10,1.5) --
+      (10,-4);
+
+      % Connections
+      \draw[ultra thick] (2,-1.5) -- (8,2.6);
+      \draw[ultra thick] (2,-1.5) -- (8,1.6);
+      \draw[ultra thick] (2,-1.5) -- (8,.6);
+
+      \draw[ultra thick] (2,-3.5) -- (8,-.4);
+      \draw[ultra thick] (2,-3.5) -- (8,-1.4);
+      \draw[ultra thick] (2,-3.5) -- (8,-2.4);
+      \draw[ultra thick] (2,-3.5) -- (8,-3.4);
+      \draw[ultra thick] (2,-3.5) -- (8,-4.4);
+      \draw[ultra thick] (2,-3.5) -- (8,-5.4);
+
+      % Symbols at top
+      \node at (2,4) {\Huge \tt ./};
+      \node at (10,4) {\Huge \tt ../};
+
+      % Define the folders at top level
+      \node[document] at (0,3) {preamble.tex};
+      \node[document] at (0,2) {aFirstStepInXimera.tex};
+      \node[folder] at (0,1) {basics};
+      \node[] at (2,-1) {(folder)};
+      \node[folder] at (0,-2) {exercises};
+      \node[] at (2,-4) {(folder)};
+
+      % Define the documents in the basics folder
+      \node[document] at (8,3) {basicWorksheet.tex};
+      \node[document] at (8,2) {missionPatch.jpg};
+      \node[document] at (8,1) {graphicsInteractives.tex};
+
+      % Define the documents in the exercises folder
+      \node[document] at (8,0) {exerciseList.tex};
+      \node[document] at (8,-1) {answer.tex};
+      \node[document] at (8,-2) {multipleChoice.tex};
+      \node[document] at (8,-3) {selectAll.tex};
+      \node[document] at (8,-4) {wordChoice.tex};
+      \node[document] at (8,-5) {hintsAndFollowUp.tex};
+
+      % paths at bottom
+      \node at (2,-5.5) {\tt\textbackslash input\{./preamble\}};
+      \node at (2,-6) {or};
+      \node at (2,-6.5) {\tt\textbackslash input\{preamble\}};
+      \node at (10,-6.5) {\tt\textbackslash input\{../preamble\}};
+    \end{tikzpicture}}
+\end{center}
+In this diagram, we attempt to show how one should modify the inputs of the
+preamble based on the directory structure.
 
 \subsection{Graphics paths}
 
@@ -371,7 +437,5 @@ the following way:
 }
 \makeatother      %% make "@" an other-character
 \end{verbatim}
-
-With this said, there are some issues you should be aware of.
-
+With this said, modifying input paths is more of an advanced feature that we will discuss later.
 \end{document}
