@@ -1,17 +1,16 @@
-%% where to look for inputs
-\makeatletter
-\def\input@path{
-{./}
-{./coverArt/}
-{./introduction/}
-{./graphicsVideosAndInteractives/}
+%% Where to look for inputs
+\makeatletter     %% make "@" a letter-character
+\def\input@path{  %% When looking for files,
+{./}              %% look first at your level
+{./coverArt/}     %% then in this folder,
+{./introduction/} %% then in this folder,
 }
-\makeatother
+\makeatother      %% make "@" an other-character
 
-%% where to find images
-\graphicspath{  
-{./}
-{./graphicsVideosAndInteractives/}
+%% Where to find images
+\graphicspath{                      %% When looking for images, 
+{./}                                %% look first at your level,
+{./graphicsVideosAndInteractives/}  %% then in this folder,
 }
 
 

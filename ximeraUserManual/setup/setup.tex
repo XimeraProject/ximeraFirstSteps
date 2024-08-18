@@ -12,7 +12,8 @@
 \end{abstract}
 \maketitle
 
-\paragraph{All Ximera files must be hosted in a git repository} To deploy, you will also need  additional
+\paragraph{All Ximera files must be hosted in a git repository} To deploy, you
+will also need	additional
 files found in \verb!ximeraFirstSteps!. You have two choices when creating new
 content:
 \begin{itemize}
@@ -208,32 +209,39 @@ Once you have some files and a basic directory structure, you can add them to
 the \verb!xourse! document.
 
 \begin{warning}
-  The \verb!xourse! document will only be easily accessible online if it contains a title,
+  The \verb!xourse! document will only be easily accessible online if it
+  contains a title,
   abstract, and {\tt\textbackslash maketitle} command.
 
-  If a \verb!xourse! does not contain a title, abstract, and {\tt\textbackslash maketitle} it will still be deployed but you will need to know the path to the file. It will be something like:
+  If a \verb!xourse! does not contain a title, abstract, and {\tt\textbackslash
+      maketitle} it will still be deployed but you will need to know the path
+  to the
+  file. It will be something like:
   \begin{center}
     \tt https://ximera.osu.edu/YOUR-COURSE-NAME/PATH-TO-YOUR-FILE
   \end{center}
-  It is important that there is no trailing `/' as 
+  It is important that there is no trailing `/' as
   \begin{itemize}
-    \item \url{https://ximera.osu.edu/moooculus} is correct but 
+    \item \url{https://ximera.osu.edu/moooculus} is correct but
     \item \sout{\url{https://ximera.osu.edu/moooculus/}} is not.
   \end{itemize}
 \end{warning}
 
-
-
 There are two different commands we use to add
 \verb!ximera! documents to a \verb!xourse! file:
 \begin{description}
-  \item[\textbackslash activity] This is for Ximera documents that \textbf{include a title,
-      abstract, and \textbackslash maketitle}. They will be represented by their title
+  \item[\textbackslash activity] This is for Ximera documents that
+    \textbf{include a title,
+      abstract, and \textbackslash maketitle}. They will be represented by
+    their title
     online. This command is typically used for worksheets and sections of
     textbooks.
-  \item[\textbackslash practice] This is for Ximera documents that \textbf{do not include the
-      content listed above}. They will be represented by a number  based on the order
-    in the list  online. This command is used for lists of exercises and problem
+  \item[\textbackslash practice] This is for Ximera documents that \textbf{do
+      not include the
+      content listed above}. They will be represented by a number  based on the
+    order
+    in the list  online. This command is used for lists of exercises and
+    problem
     banks.
 \end{description}
 
@@ -261,45 +269,108 @@ In \verb!aFirstStepInXimera.tex! we write
 \end{verbatim}
 Note how we give the paths to the exercises.
 
-
-
 \section{Preambles, input paths, and graphics paths}
 
+WORDS
 
 \subsection{A common preamble}
 
-The purpose of a preamble is to ensure all files compile consistently. It is not for cosmetic changes.
+The purpose of a preamble is to ensure \textbf{all files compile consistently,
+  it is not for cosmetic changes.} A typically preamble might contain things
+like:
 
+\begin{verbatim}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\d}{\, d}
+\end{verbatim}
 
 \subsection{Graphics paths}
 
 Perhaps the easiest way to include graphics in Ximera documents is with
-\verb!\includegraphics!
+\verb!\includegraphics! via
 
 \begin{verbatim}
 \begin{center}
   \includegraphics[width=5cm]{missionPatch.jpg}
 \end{center}
 \end{verbatim}
-  which renders as:
-
-  \begin{center}
+which renders as:
+\begin{center}
   \includegraphics[width=5cm]{missionPatch.jpg}
 \end{center}
 The image, also used in \texttt{ximeraFirstSteps}, is in the folder
 \texttt{basics} that
-contains the Ximera document \texttt{aFirstStepInXimera.tex}. However, when
-this document is compiled via a \verb!xourse! document, the
+contains the Ximera document \texttt{basicWorkSheet.tex}. However, when
+this document is compiled via a \verb!xourse! document, the \LaTeX\ compiler
+looks for the image \textit{at the level of the
+  \texttt{aFirstStepInXimera.tex}}.
+\begin{center}%%DIAGRAM OF FILE STRUCTURE
+  \scalebox{.7}{
+    \begin{tikzpicture}
+      % Define styles for nodes
+      \tikzstyle{document} = [anchor=north west,draw, rounded corners,
+      rectangle,
+      minimum width=3cm,fill=white, minimum height=.8cm, ultra
+      thick,font=\ttfamily]
+      \tikzstyle{folder} = [anchor=north west,draw, rectangle, rounded
+      corners,
+      minimum width=4cm,fill=white, minimum height=2.8cm, ultra
+      thick,font=\ttfamily]
 
+      % Thick grey lines
+      \draw[line width=200pt,white!85!black,line cap=round] (2,0) -- (2,1);
+      \draw[line width=200pt,white!85!black,line cap=round] (10,0)--(10,1);
+
+      % Connections
+      \draw[ultra thick] (2,-1.5) -- (8,2.6);
+      \draw[ultra thick] (2,-1.5) -- (8,1.6);
+      \draw[ultra thick] (2,-1.5) -- (8,.6);
+
+      % Define the folders at top level
+      \node[document] at (0,3) {preamble.tex};
+      \node[document] at (0,2) {aFirstStepInXimera.tex};
+      \node[folder] at (0,1) {basics};
+      \node[] at (2,-1) {(folder)};
+
+      % Define the documents in the basics folder
+      \node[document] at (8,3) {basicWorksheet.tex};
+      \node[document] at (8,2) {missionPatch.jpg};
+      \node[document] at (8,1) {graphicsInteractives.tex};
+
+    \end{tikzpicture}}
+\end{center}
+Since there is no file \verb!missionPatch.jpg! (which is on the right) at the
+level of the
+\verb!xourse! document (on the left) the compilation will fail. To solve this
+problem we use the preamble to append the graphics path. If we add (and in
+reality we did!) this
 \begin{verbatim}
-%% where to find images
-\graphicspath{  
-{./}
-{./graphicsVideosAndInteractives/}
+%% Where to find images
+\graphicspath{  %% When looking for images,
+{./}            %% look first at your level,
+{./basics/}     %% then in this folder,
 }    
 \end{verbatim}
+to our preamble, then when compiling \verb!aFirstStepInXimera.tex!, the
+compiler will know where to look.
 
 \subsection{Input paths}
+
+Just like with images, sometimes you need to load other files.
+This is less common use case, but we'll mention it here. For this document, we
+needed to input various TikZ files to help us draw our diagrams. We needed to
+add the location of these files to our input path. We did this in our preamble
+the following way:
+\begin{verbatim}
+%% Where to look for inputs
+\makeatletter     %% make "@" a letter-character
+\def\input@path{  %% When looking for files,
+{./}              %% look first at your level
+{./coverArt/}     %% then in this folder,
+{./introduction/} %% then in this folder,
+}
+\makeatother      %% make "@" an other-character
+\end{verbatim}
 
 With this said, there are some issues you should be aware of.
 
