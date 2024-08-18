@@ -21,36 +21,42 @@
   Ximera can
   also create online interactive activities:
   \begin{center}
-      \begin{tikzpicture}
-          \node at (-1.8,.2)
-          {\resizebox{.65cm}{!}{\input{document.tex}}};
-          \node at (-1.8,.2) {\small PDF};
-          \node at (-2,0) {\resizebox{.65cm}{!}{\input{document.tex}}};
-          \node at (-2,0) {\small PDF};
-          \node at (-2.2,-.2)
-          {\resizebox{.65cm}{!}{\input{document.tex}}};
-          \node at (-2.2,-.2) {\small PDF};
-          \draw[->] (-.6,0) -- (-1.4,0);
-          \draw[->] (-.6,.2) -- (-1.4,.2);
-          \draw[->] (-.6,-.2) -- (-1.4,-.2);
-          \node at (0,0) {\resizebox{1cm}{!}{\input{document.tex}}};
-          \node at (0,0) {\LaTeX};
-          \draw[->] (.6,0) -- (1.4,0);
-  
-          \node at (2,0) {\resizebox{1cm}{!}{\input{server.tex}}};
-          \draw[->] (2.6,0) -- (3.4,0);
-          \node at (4,0) {\resizebox{1cm}{!}{\input{computer.tex}}};
-          \node at (-2,-1) {Various};
-          \node at (-2,-1.4) {PDFs};
-          \node at (0,-1) {Single};
-          \node at (0,-1.4) {Source};
-          \node at (2,-1) {Deploy};
-          \node at (2,-1.4) {Server};
-          \node at (4,-1) {Students};
-          \node at (4,-1.4) {Engage};
-  
-      \end{tikzpicture}
-  \end{center}
+    \begin{tikzpicture}
+        \node at (-1.8,.2)
+        {\resizebox{1cm}{!}{\input{document.tex}}};
+        \node at (-1.8,.2) {\small PDF};
+        \node at (-2,0) {\resizebox{1cm}{!}{\input{document.tex}}};
+        \node at (-2,0) {\small PDF};
+        
+        \node at (-2.2,-.2)
+        {\resizebox{1cm}{!}{\input{document.tex}}};
+        \node at (-2.2,-.2) {\small PDF};
+        \draw[->] (-.6,0) -- (-1.3,0);
+        \draw[->] (-.6,.3) -- (-1.3,.3);
+        \draw[->] (-.6,-.3) -- (-1.3,-.3);
+
+        \node at (0,0) {\resizebox{1cm}{!}{\input{document.tex}}};
+        \node at (0,0) {\LaTeX};
+        \draw[->] (.6,0) -- (1.4,0);
+
+        \node at (2,0) {\resizebox{1cm}{!}{\input{server.tex}}};
+        \draw[->] (2.6,0) -- (3.4,0);
+        \node at (4,0) {\resizebox{1cm}{!}{\input{computer.tex}}};
+        
+        \node[anchor=north] at (-2,-.8) {Various};
+        \node[anchor=north] at (-2,-1.2) {PDFs};
+
+        \node[anchor=north] at (0,-.8) {Single};
+        \node[anchor=north] at (0,-1.2) {Source};
+
+        \node[anchor=north] at (2,-.8) {Deploy};
+        \node[anchor=north] at (2,-1.2) {Server};
+
+        \node[anchor=north] at (4,-.8) {Students};
+        \node[anchor=north] at (4,-1.2) {Engage};
+
+    \end{tikzpicture}
+\end{center}
   The source code used to produce PDFs can also create interactive online
   activities when deployed to a Ximera server. Students access this content via a
   URL or an assignment in their LMS.

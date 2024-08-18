@@ -52,24 +52,52 @@
     \BODY
   \end{mdframed}
 }
-
-
-%% We need a better solution for code
-\renewmdenv[
+\def\cleartheorem#1{%
+    \expandafter\let\csname#1\endcsname\relax
+    \expandafter\let\csname c@#1\endcsname\relax
+}
+\cleartheorem{warning}
+%% WARNING Redefine
+\newmdtheoremenv[
   font=\upshape,
+  outerlinewidth=1,
+  roundcorner = 2pt,
+]{warning}{WARNING}%
+
+\surroundwithmdframed[
+  linewidth=2pt,
   outerlinewidth=3,
   topline=false,
   bottomline=false,
   leftline=true,
   rightline=false,
-  leftmargin=0,
-  innertopmargin=0pt,
-  innerbottommargin=0pt,
-  skipbelow=\baselineskip,
-  linecolor=textColor!20!white,
-  fontcolor=textColor,
-  backgroundcolor=background
-]{example}%
+  leftmargin=0,skipbelow=\baselineskip,skipabove=\baselineskip,
+  % innertopmargin=0pt,
+  % innerbottommargin=0pt,
+linecolor=textColor!20!white
+  ]{verbatim}
+
+
+
+
+
+
+%% We need a better solution for code
+% \renewmdenv[
+%   font=\upshape,
+%   outerlinewidth=3,
+%   topline=false,
+%   bottomline=false,
+%   leftline=true,
+%   rightline=false,
+%   leftmargin=0,
+%   innertopmargin=0pt,
+%   innerbottommargin=0pt,
+%   skipbelow=\baselineskip,
+%   linecolor=textColor!20!white,
+%   fontcolor=textColor,
+%   backgroundcolor=background
+% ]{example}%
 
 
 

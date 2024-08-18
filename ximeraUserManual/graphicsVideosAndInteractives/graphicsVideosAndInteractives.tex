@@ -28,21 +28,17 @@ be preferred. Moreover, \verb!image! can be redefined globally to act
 identically to \verb!center!, but \verb!center! cannot be redefined.
 
 If you use \verb!center!, you would write something like:
-\begin{example}
 \begin{verbatim}
 \begin{center}
 \includegraphics[width=5cm]{missionPatch.jpg}
 \end{center}
 \end{verbatim}
-\end{example}
 If you use \verb!image!, you would write something like:
-\begin{example}
 \begin{verbatim}
 \begin{center}
 \includegraphics[width=5cm]{missionPatch.jpg}
 \end{center}
 \end{verbatim}
-\end{example}
 
 The disadvantage of using \verb!\includegraphics! is that you need to handle
 the paths to the images in some way. You can do this by:
@@ -77,8 +73,7 @@ The preferred way to include graphics is with TikZ.
   \end{tikzpicture}
 \end{image}
 
-\begin{example}
-  \begin{verbatim}
+\begin{verbatim}
 \begin{image}
   \begin{tikzpicture}
     \begin{axis}[
@@ -97,7 +92,6 @@ The preferred way to include graphics is with TikZ.
   \end{tikzpicture}
 \end{image}
 \end{verbatim}
-\end{example}
 
 \section{The graph command}
 
@@ -110,14 +104,12 @@ graph is produced.
 \]
 There are a number of options for the \verb|\graph| command:
 
-\begin{example}
-  \begin{verbatim}
+\begin{verbatim}
 \graph{x^2 \left\{ 1 \leq x \leq 10 \right\}
 \graph{ \sin(x)\left\{x<0\right\}, 2x\left\{ x>=0 \right\} } 
 \graph{r=\theta}  
 \graph{x^2,x^3}
 \end{verbatim}
-\end{example}
 
 \paragraph{Change viewing window}
 \[
@@ -131,13 +123,11 @@ There are a number of options for the \verb|\graph| command:
 
 \paragraph{Graphing a piecewise function}
 
-\begin{example}
-  \begin{verbatim}
+\begin{verbatim}
 \[
 \graph{ \sin(x)\left\{x<0\right\}, 2x\left\{ x>=0 \right\} }
 \]
 \end{verbatim}
-\end{example}
 
 \paragraph{Optional arguments for \texttt{\textbackslash graph}}
 
@@ -164,13 +154,11 @@ There are a number of options for the \verb|\graph| command:
 \section{Videos}
 
 We can embed YouTube Videos with something like
-\begin{example}
-  \begin{verbatim}
+\begin{verbatim}
 \begin{center}
 \youtube{FvgF95i0_lw}
 \end{center}
 \end{verbatim}
-\end{example}
 
 which would embed the video into the page, like this:
 \begin{center}
@@ -182,26 +170,22 @@ which would embed the video into the page, like this:
 If you require further features from
 \link[Desmos]{https://www.desmos.com/}, you can sign up for an account
 and include your worksheets like this:
-\begin{example}
-  \begin{verbatim}
+\begin{verbatim}
 \begin{center}
 \desmos{zwywds7med}{800}{600}
 \end{center}
 \end{verbatim}
-\end{example}
 which renders as:
 \begin{center}
   \desmos{zwywds7med}{800}{600}
 \end{center}
 
 The syntax for Desmos 3D is similar:
-\begin{example}
-  \begin{verbatim}
+\begin{verbatim}
 \begin{center}
 \desmosThreeD{bb4exrhrl3}{800}{600}
 \end{center}
 \end{verbatim}
-\end{example}
 Seen here:
 \begin{center}
   \desmosThreeD{bb4exrhrl3}{800}{600}
@@ -211,13 +195,11 @@ You can also use \link[GeoGebra]{https://www.geogebra.org/}. Embed the
 widget using the syntax \verb|\geogebra{ID}{width}{height}|, where ID
 is the widget ID and width and height are the dimensions (in pixels)
 you want the embedded widget to have.
-\begin{example}
-  \begin{verbatim}
+\begin{verbatim}
 \begin{center}
 \geogebra{XC3FXUdJ}{800}{600}
 \end{center}
 \end{verbatim}
-\end{example}
 \begin{center}
   \geogebra{XC3FXUdJ}{800}{600}%%https://www.geogebra.org/m/XC3FXUdJ
 \end{center}

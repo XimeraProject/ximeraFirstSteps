@@ -20,13 +20,11 @@ The basic way of including a answerable item in Ximera is to use the
 \verb|\answer| command. The \verb|\answer| \textbf{must} be inside of
 an environment.
 
-\begin{example}
-  \begin{verbatim}
+\begin{verbatim}
 \begin{question}
 $3\times 2 = \answer{6}$
 \end{question}
 \end{verbatim}
-\end{example}
 
 Will produce the question:
 
@@ -36,13 +34,11 @@ Will produce the question:
 
 In addition to numerical answers, we also support elementary functions:
 
-\begin{example}
-  \begin{verbatim}
-    \begin{question}
-         $ \frac{\partial}{\partial x} x^2\sin(y) =  \answer{2x\sin(y)}$
-    \end{question}
+\begin{verbatim}
+\begin{question}
+  $ \frac{\partial}{\partial x} x^2\sin(y) =  \answer{2x\sin(y)}$
+\end{question}
 \end{verbatim}
-\end{example}
 
 Produces:
 
@@ -266,7 +262,6 @@ which we detail in the
 
 \subsection{Multiple Choice}
 
-\begin{example}
   \begin{verbatim}
 \begin{question}
     Which of the following functions has a graph which is a parabola?
@@ -277,7 +272,6 @@ which we detail in the
     \end{multipleChoice}
 \end{question}
 \end{verbatim}
-\end{example}
 
 Produces:
 
@@ -327,7 +321,6 @@ marked as correct.
 
 \subsection{Select All}
 
-\begin{example}
   \begin{verbatim}
 \begin{question}
   Which of the following numbers are even?
@@ -339,7 +332,6 @@ marked as correct.
   \end{selectAll}
 \end{question}
 \end{verbatim}
-\end{example}
 
 Produces:
 
@@ -387,8 +379,7 @@ Within a course
     \item Think about how paths are resolved.
   \end{itemize}
 
-  \begin{example}
-    \begin{verbatim} 
+\begin{verbatim} 
 %% where to look for inputs
 \makeatletter
 \def\input@path{
@@ -398,8 +389,6 @@ Within a course
 }
 \makeatother   
 \end{verbatim}
-  \end{example}
-
 \end{multicols}
 
 \begin{center}
@@ -466,14 +455,12 @@ Within a course
 \end{center}
 \twocolumn
 
-\begin{example}
-  \begin{verbatim}
+\begin{verbatim}
 %% where to find images
 \graphicspath{  
 {./}
 {./graphicsVideosAndInteractives/}
 }    
 \end{verbatim}
-\end{example}
 
 \end{document}

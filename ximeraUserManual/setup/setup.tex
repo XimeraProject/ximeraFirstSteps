@@ -12,7 +12,7 @@
 \end{abstract}
 \maketitle
 
-\textbf{All Ximera files must be hosted in a Git repository}, with additional
+\textbf{All Ximera files must be hosted in a git repository}, with additional
 files found in \verb!ximeraFirstSteps!. You have two choices when creating new
 content:
 \begin{itemize}
@@ -58,7 +58,7 @@ repository online via a web browser to ensure that the files were deleted.
 
 Starting from an existing GitHub repository, you will need to \textbf{copy}
 \begin{itemize}
-  \item \texttt{gitignore}
+  \item \texttt{.gitignore}
   \item \texttt{.vscode}
   \item \texttt{scripts}
   \item \texttt{README.md}
@@ -74,53 +74,51 @@ EDIT/MOVE TO THE REPO .ximerserve
 
 \section{Setting up a Ximera \texttt{xourse}}
 
-Ximera documents can be ``taped'' together using the \texttt{xourse} document
+Ximera documents can be ``glued'' together using the \texttt{xourse} document
 class.
 A \verb|xourse| file is basically a list of other \verb|ximera| files and even
 other \verb|xourse| files.
-The \verb|xourse| file for \textit{First Steps in Ximera} can be found here:
-\begin{center}
-
-  \url{https://github.com/ximeraProject/ximeraFirstSteps/aFirstStepInXimera.tex}
-\end{center}
+The \verb|xourse| file for \textit{A First Step in Ximera} can be found here is
+\verb!aFirstStepInXimera.tex!, found in the \verb!ximeraFirstSteps! repository.
 The \verb!xourse! documentclass specifies information such as the name of the
-document, the names fo the authors, a description of
-the content, a license and the names of all \LaTeX\ activity files comprising
-the
-document.
+document, the names fo the authors, a description of the content, a license and
+the names of all Ximera \LaTeX\ files comprising
+the whole document.
 
 \begin{warning}
   All document and folder names used for Ximera must be web-safe! This means
   all document and folder names:
-  \begin{itemize}
-    \item Must only use alphanumeric English characters, meaning: a,b, \dots,
-          z, A,B, \dots, Z, 0,1, \dots, 9, and hyphen `-' and underscore `\_'
-          though the
-          last two are discouraged.
-    \item Cannot use use any other characters, including spaces. This means all
-          Ximera documents and folders file names must be a single-word.
-  \end{itemize}
+  \begin{description}
+    \item[Must only use alphanumeric English characters] Meaning: a,b, \dots,
+      z, A,B, \dots, Z, 0,1, \dots, 9, and hyphen `-' and underscore `\_'
+      though the
+      last two are discouraged.
+    \item[Cannot use use any other characters, including spaces] This means all
+      Ximera documents and folders file names must be a single word.
+  \end{description}
   This is not a limitation of Ximera, rather it is a rule that nearly all
   web-accessible documents must follow.
 \end{warning}
 
-\section{File-structure}
+\section{File structure}
 
 While one can write a Ximera document without the use of folders, this quickly
-turns into a mess that is difficult to understand.
-To help others (including your future-self) you should have a file structure
-that helps you understand where content is stored.
-
-We recommend the following:
+turns into a mess that is difficult to understand and should only be used for
+the most basic Ximera content.
+To help others (including your future-self) work with larger projects, you
+should have a file structure
+that helps developers understand where content is stored. We recommend the
+following:
 \begin{description}
   \item[Group by concept] Have all documents that are closely related in idea
-    or
-    scope in the same folder.
+    or scope in the same folder. If someone else wants to use your content,
+    this will be a one-stop destination for them.
   \item[Descriptive file name] Give you documents descriptive file names like:
     \verb!completeTheSquare.tex! or \verb!derivativeRules.tex! rather than
     generic
     names like: \sout{\texttt{chapter1.tex}}, or
-    \sout{\texttt{math872ch2sec3.tex}}.
+    \sout{\texttt{math872ch2sec3.tex}}. Authors find themselves reordering
+    their content and generic names are useless for other users.
 \end{description}
 
 For the repository \texttt{ximeraFirstSteps} we have the following structure:
@@ -190,7 +188,7 @@ goto
 \begin{center}
   \url{https://github.com/ximeraProject/ximeraFirstSteps}
 \end{center}
-and witness this file-structure. At the top-level of the repository, we have
+and witness this file structure. At the top level of the repository, we have
 the documents \verb!preamble.tex! and \verb!aFirstStepInXimera.tex! along with
 the folders \verb!basics! and \verb!exercises!. Inside \verb!basics!, we have
 two activities and a JPG that is required by one of them. Inside
@@ -198,16 +196,49 @@ two activities and a JPG that is required by one of them. Inside
 we have all the practice exercises.
 Ideally a document's parent folder would contain everything that document needs
 to compile, except for perhaps the preamble, and we address this below.
-This set up will allow you and others to easily understand and modify your
+
+A consistent and well thought out set up will allow you and others to easily
+understand and modify your
 content for years to come.
 
 \section{Including with \texttt{\textbackslash activity} and
   \texttt{\textbackslash practice}}
 
 Once you have some files and a basic directory structure, you can add them to
-the \verb!xourse! document. In \verb!aFirstStepInXimera.tex! we write
+the \verb!xourse! document.
 
-\begin{example}%% We could LOAD the actual file
+\begin{warning}
+  The \verb!xourse! document will only be easily accessible online if it contains a title,
+  abstract, and {\tt\textbackslash maketitle} command.
+
+  If a \verb!xourse! does not contain a title, abstract, and {\tt\textbackslash maketitle} it will still be deployed but you will need to know the path to the file. It will be something like:
+  \begin{center}
+    \tt https://ximera.osu.edu/YOUR-COURSE-NAME/PATH-TO-YOUR-FILE
+  \end{center}
+  It is important that there is no trailing `/' as 
+  \begin{itemize}
+    \item \url{https://ximera.osu.edu/moooculus} is correct but 
+    \item \sout{\url{https://ximera.osu.edu/moooculus/}} is not.
+  \end{itemize}
+\end{warning}
+
+
+
+There are two different commands we use to add
+\verb!ximera! documents to a \verb!xourse! file:
+\begin{description}
+  \item[\textbackslash activity] This is for Ximera documents that \textbf{include a title,
+      abstract, and \textbackslash maketitle}. They will be represented by their title
+    online. This command is typically used for worksheets and sections of
+    textbooks.
+  \item[\textbackslash practice] This is for Ximera documents that \textbf{do not include the
+      content listed above}. They will be represented by a number  based on the order
+    in the list  online. This command is used for lists of exercises and problem
+    banks.
+\end{description}
+
+In \verb!aFirstStepInXimera.tex! we write
+
 \begin{verbatim}
 \documentclass{xourse} 
 \input{preamble} %% Loads the graphics path
@@ -228,7 +259,6 @@ the \verb!xourse! document. In \verb!aFirstStepInXimera.tex! we write
 \practice{exercises/hintsAndFollowUp}
 \end{document}
 \end{verbatim}
-\end{example}
 
 \section{Preambles, input paths, and graphics paths}
 
@@ -238,29 +268,29 @@ the \verb!xourse! document. In \verb!aFirstStepInXimera.tex! we write
 
 Perhaps the easiest way to include graphics in Ximera documents is with
 \verb!\includegraphics!
-\begin{example}
+
 \begin{verbatim}
 \begin{center}
   \includegraphics[width=5cm]{missionPatch.jpg}
 \end{center}
 \end{verbatim}
-which renders as:
-\end{example}
-\begin{center}
+  which renders as:
+
+  \begin{center}
   \includegraphics[width=5cm]{missionPatch.jpg}
 \end{center}
-The image, also used in \texttt{ximeraFirstSteps}, is in the folder \texttt{basics} that
-contains the Ximera document \texttt{aFirstStepInXimera.tex}. However, when this document is compiled via a \verb!xourse! document, the
+The image, also used in \texttt{ximeraFirstSteps}, is in the folder
+\texttt{basics} that
+contains the Ximera document \texttt{aFirstStepInXimera.tex}. However, when
+this document is compiled via a \verb!xourse! document, the
 
-\begin{example}
-  \begin{verbatim}
+\begin{verbatim}
 %% where to find images
 \graphicspath{  
 {./}
 {./graphicsVideosAndInteractives/}
 }    
 \end{verbatim}
-\end{example}
 
 \subsection{Input paths}
 
