@@ -52,18 +52,47 @@
     \BODY
   \end{mdframed}
 }
-\def\cleartheorem#1{%
-    \expandafter\let\csname#1\endcsname\relax
-    \expandafter\let\csname c@#1\endcsname\relax
-}
-\cleartheorem{warning}
-%% WARNING Redefine
-\newmdtheoremenv[
-  font=\upshape,
-  outerlinewidth=1,
-  roundcorner = 2pt,
-]{warning}{WARNING}%
+% \def\cleartheorem#1{%
+%     \expandafter\let\csname#1\endcsname\relax
+%     \expandafter\let\csname c@#1\endcsname\relax
+% }
+% \cleartheorem{warning}
+% \cleartheorem{question}
+% \cleartheorem{definition}
+% \newtheoremstyle{definition}
 
+
+
+% {\topsep}{\topsep}{\rmfamily}{}{\bfseries\sffamily}{:}{ }{#1}
+% \theoremstyle{definition}
+% \newtheorem*{definition}{Definition}
+% \newtheorem*{warning}{WARNING}
+% \newtheorem*{question}{Question}
+
+
+%% Redefine "question"
+\let\question\relax
+\let\endquestion\relax
+%% Redefine "warning"
+\let\warning\relax
+\let\endwarning\relax
+%% Redefine "definition"
+\let\definition\relax
+\let\enddefinition\relax
+%\let\c@example\relax
+\newtheoremstyle{definition}
+{\topsep}{\topsep}{\rmfamily}{}{\bfseries\sffamily}{:}{ }{#1}
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{warning}{WARNING}
+\newtheorem*{question}{Question}
+
+\surroundwithmdframed[roundcorner=2pt]{warning}  %% DO THIS IN CLS TOO!
+
+
+
+
+%% SHOULD BE ADDED TO CLS
 \surroundwithmdframed[
   linewidth=2pt,
   outerlinewidth=3,
@@ -72,32 +101,12 @@
   leftline=true,
   rightline=false,
   leftmargin=0,skipbelow=\baselineskip,skipabove=\baselineskip,
-  % innertopmargin=0pt,
-  % innerbottommargin=0pt,
-linecolor=textColor!20!white
-  ]{verbatim}
+  linecolor=black!20!white
+]{verbatim}
 
 
 
 
-
-
-%% We need a better solution for code
-% \renewmdenv[
-%   font=\upshape,
-%   outerlinewidth=3,
-%   topline=false,
-%   bottomline=false,
-%   leftline=true,
-%   rightline=false,
-%   leftmargin=0,
-%   innertopmargin=0pt,
-%   innerbottommargin=0pt,
-%   skipbelow=\baselineskip,
-%   linecolor=textColor!20!white,
-%   fontcolor=textColor,
-%   backgroundcolor=background
-% ]{example}%
 
 
 
