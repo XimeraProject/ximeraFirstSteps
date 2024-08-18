@@ -25,11 +25,7 @@ With that said, we'll discuss the basic answerables below, and then described
 how they might be used in use cases of: worksheets, exercise banks, and
 textbooks.
 
-\section{Answerables}
-
-This section explores the different types of question types Ximera supports.
-
-\subsection{The \texttt{\textbackslash answer} command}
+\section{The \texttt{\textbackslash answer} command}
 
 The basic way of including a answerable item in Ximera is to use the
 \verb|\answer| command.
@@ -66,7 +62,7 @@ For each of the following functions, find $x$ such that it is a critical point, 
   \item For $f(x) = |x-4|$, $x$ is a critical point when $x=\answer{4}$.
   \item For $g(x) = x^2-4x+1$, $x$ is a critical point when $x=\answer{2}$.
   \item For $h(x) = 3x-2$, $x$ is a critical point when $x=\answer[format=string]{NA}$.
-Find $x$ such that where $f(x) = |x-4|$ has a critical point or 
+Find $x$ such that where $f(x) = |x-4|$ has a critical point or
 \end{question}
 \end{verbatim}
 
@@ -100,27 +96,31 @@ to the \verb|\answer| command.
 NO SPACES
 
 \begin{problem}
-Problem with tol. $100$ tol of $5$  \[
-  =\answer[tolerance=5]{100}
-  \]
-  \end{problem}
-
-
+Type $100$, it has a tolerance of $5$:
+\[
+  \answer[tolerance=5]{100}
+\]
+\end{problem}
 
 \paragraph{How the answer box validates an answer}
 
 It uses more than a dozen algorithms to check if the student's provided answer
 is mathematically equivalent to the content author's provided answer. If any
-report the answer as being correct, then it is marked as correct. 
+report the answer as being correct, then it is marked as correct.
 
 \begin{warning}
-  By SOMEBODY's Theorem, the language of high school math cannot be parsed.
-This means that when attempting to understand student work, we must make a decision:
-\begin{itemize}
-  \item To sometimes count correct submissions as incorrect.
-  \item To sometimes count incorrect submissions as correct.
-\end{itemize}
-For the Ximera platform, we chose to \textbf{sometimes count incorrect submissions as correct}.
+  By \link[Richardson's
+    Theorem]{https://en.wikipedia.org/wiki/Richardson\%27s\_theorem}, it it not
+  possible to decide equality between the expressions of involving integers,
+  $\pi$, logarithms and exponential and sine functions.
+  This means that when attempting to understand student work, we must make a
+  decision:
+  \begin{itemize}
+    \item To sometimes count correct submissions as incorrect.
+    \item To sometimes count incorrect submissions as correct.
+  \end{itemize}
+  For the Ximera platform, we chose to \textbf{sometimes count incorrect
+    submissions as correct}.
 \end{warning}
 
 With that dire warning notwithstanding, let me give a concrete example:
@@ -147,9 +147,7 @@ want to verify they used the chain rule and not just the base derivative rule)
 but the ``extra part'' doesn't seem to matter to Ximera - this is typically an
 issue of machine precision.
 
-
-
-\subsubsection*{Ximera Errs on the side of the student}
+\paragraph{Ximera Errs on the side of the student}
 
 Generally, answer validation sides with the student. In most cases this
 philosophy isn't relevant, but it is noteworthy here because this means that if
@@ -159,7 +157,7 @@ you find that you have an answer box that is marking anything/everything
 correct, this is probably because there is some kind of typo or character in
 the answer box that it cannot understand.
 
-\subsubsection*{Answer Box can be a little too good...}
+\paragraph{Answer Box can be a little too good...}
 
 Although the validation technique is impressively comprehensive in
 practice, that can be problematic when you want the answer in a specific
@@ -172,9 +170,6 @@ are trying to assess (as it is less important to only validate the equality,
 and more important to validate the form - often in addition to the equality, of
 the answer).
 
-\subsubsection*{Ximera is still running on a computer}
-
-A
 \subsubsection{Answers are exposed via right-click}
 
 For accessibility reasons (like screen readers and the like) the library
@@ -194,53 +189,35 @@ which we detail in the
 \href{https://xronos.clas.ufl.edu/examples/exampleCore/supplemental/hiddenAnswers}{how
   to hide answers} section of the documentation, for those that are interested.
 
-\subsection{Optional Arguments}
-
-\subsection*{Examples}
-
-Here is an example using a number of different optional arguments.
-
-\begin{problem}
-Type $2$. $\answer{2}$, $\answer[given]{2}$,
-$\answer[tolerance=.2]{\frac{1}{2}}$,  $\int_a^b f(x) \ dx$,
-\[
-  -\frac{1}{\frac{12}{1}}\sum_{n=1}^{\answer{\infty}} n
-\]
-\end{problem}
-
-\
-\subsubsection*{Answer Box Size}
+\subsection{Answer Box Size}
 If you are in a situation where you want a student to solve for a portion
-of an expression or formula, and thus you need to put parentheses around the
-answer box, keep in mind that normal parentheses won't actually be big enough
-to go around the answer box and thus it will look kind of goofy. Instead use
-the \verb|\left(\answer{}$\right)$\verb| style to force the parentheses to grow
-to the appropriate height. For a visual of what we mean, consider the following
-- first just parentheses, the second with the recommended method:
+of an expression or formula, you should place parenthesis around the answer
+box. Since the answer box is a different size than the answer you should use
+\verb!\left! and \verb!\right! to do it like
+this:
+%% Inspired by an exercise of Jim Talamo
+\begin{verbatim}
+\begin{exercise}
+Given a normal vector $\vec{n} = (a,b,c)$ and a point
+$(x_0,y_0,z_0)$, the equation of the plane with normal
+vector $\vec{n}$ that passes through $(x_0,y_0,z_0)$ is
+given by
 \[
-  (\answer{4}) \qquad \left(\answer{4}\right)
+  a(x-x_0)+b(y-y_0)+c(z-z_0) = 0.
 \]
-
-\subsubsection*{Answer Box Size pt 2}
-Also keep in mind that the answer box is a (fairly set) size, which means
-that it can be hard to tell when it is suppose to be in the place of something
-small - for example a subscript or superscript. For example:
+Find the equation of a plane with normal vector $(2,-1,9)$
+that passes through $(2,-3,4)$. Express your final answer
+in the form $ax+by+cz=d$.
 \[
-  \answer{64}x^{\answer{2}} = 64x^2
+  2x+\left(\answer{-1}\right)y+\left(\answer{9}\right)z
+  = \answer{43}.
 \]
-If you are looking closely, and if you have both levels of answer boxes to
-compare and see the difference in alignment, you can tell that the first box is
-clearly a coefficient and the second should be some kind of exponent. But very
-often students won't catch that - especially if there is only the one answer
-box - at first glance, so it is helpful to keep this in mind when you are
-designing problems. Some kind of contextual clue, prompt, or even a hint or
-feedback to inform the student that the answer box is expecting an exponent, or
-subscript, or whatever it is, can be extremely helpful and remove considerable
-frustration on the part of the student.
+\end{exercise}
+\end{verbatim}
 
-\subsection*{Potential Pitfalls and Problems}
+\section{Answers with \texttt{\textbackslash choice}}
 
-\section{Choice Answer Type}
+There are three similar answerables that all use the command \$
 
 \subsection{Multiple Choice}
 
@@ -270,23 +247,10 @@ Produces:
   Multiple choice answers appear in the order you type them.
 \end{remark}
 
-\subsection{Optional Arguments}
-
-Multiple Choice itself (currently) has no optional arguments. The choice
-command (currently) has only one key-value pair, which is the flag for whether
-the choice is correct or not. Technically the key is `correct' and the value is
-`correct' or `incorrect', but the key defaults to `incorrect' and simply using
-the key flips it to correct. In other words using
-\verb|\choice[correct]{Correct!}| is the same as using
-\verb|\choice[correct=true]{Correct!}|, and both of those will mark the given
-choice as the correct answer. Likewise \verb|\choice{False!}| and
-\verb|\choice[correct=false]{False!}| are equivalent, and both result in the
-answer being incorrect.
-
 \subsection{(Additional) Examples}
 
 \begin{problem}
-Select a prime number.
+Select a prime number:
 \begin{multipleChoice}
   \choice{1}
   \choice[correct]{2}
@@ -331,6 +295,25 @@ Produces:
   Select All answers appear in the order you type them.
 \end{remark}
 
+\subsection{Word choice}
+\begin{verbatim}
+\begin{exercise}
+ Consider the planes defined by the equations below.
+\[
+\begin{array}{lr}
+P_1:  \quad 2x-y+3z &=4 \\
+P_2:  \quad  4x-2y+6z &= 5 \\
+P_3:  \quad  5x+2y+z &=7 \\
+\end{array}
+\]
+Describe the relationships between the planes $P_1$, $P_2$, and $P_3$ in terms of ``parallel,'' ``orthogonal,'' or ``neither.''
+\begin{enumerate}
+  \item The planes $P_1$ and $P_2$ are \wordChoice{\choice[correct]{parallel}\choice{orthogonal}\choice{neither parallel nor orthogonal}}.
+  \item The planes $P_1$ and $P_3$ are \wordChoice{\choice{parallel}\choice{orthogonal}\choice[correct]{neither parallel nor orthogonal}}.
+  \item The planes $P_2$ and $P_3$ are \wordChoice{\choice{parallel}\choice{orthogonal}\choice[correct]{neither parallel nor orthogonal}}.
+\end{exercise}
+\end{verbatim}
+
 \section{Worksheets}
 
 A worksheet is a piece of paper with questions on it.
@@ -353,21 +336,21 @@ With a title
 Within a course
 
 \pdfOnly{\onecolumn\begin{multicols}{2}}
-  \section{Courses}
+    \section{Courses}
 
-  This section is about ``best practices'' when writing a book
-  \begin{itemize}
-    \item Keep related content in the same folder
-    \item use \texttt{\textbackslash sectionstyle} and
-          \texttt{\textbackslash chapterstyle}
-    \item When you give a definition, ask a question after.
-    \item When you give and example, give an explanation, with
-          \texttt{\textbackslash answer} boxes to fill in.
-    \item Think about how you name things
-    \item Think about how paths are resolved.
-  \end{itemize}
+    This section is about ``best practices'' when writing a book
+    \begin{itemize}
+      \item Keep related content in the same folder
+      \item use \texttt{\textbackslash sectionstyle} and
+            \texttt{\textbackslash chapterstyle}
+      \item When you give a definition, ask a question after.
+      \item When you give and example, give an explanation, with
+            \texttt{\textbackslash answer} boxes to fill in.
+      \item Think about how you name things
+      \item Think about how paths are resolved.
+    \end{itemize}
 
-  \begin{verbatim} 
+    \begin{verbatim}
 %% where to look for inputs
 \makeatletter
 \def\input@path{
@@ -375,9 +358,9 @@ Within a course
 {./coverArt/}
 {./introduction/}
 }
-\makeatother   
+\makeatother
 \end{verbatim}
-\pdfOnly{\end{multicols}}
+    \pdfOnly{\end{multicols}}
 
 \begin{center}
   \scalebox{.7}{
@@ -439,16 +422,17 @@ Within a course
       \node at (2,-4) {\tt\textbackslash input\{preamble\}};
       \node at (10,-4) {\tt\textbackslash input\{../preamble\}};
       \node at (18,-4) {\tt\textbackslash input\{../../preamble\}};
-    \end{tikzpicture}}
+    \end{tikzpicture}
+  }
 \end{center}
-\twocolumn
+\pdfOnly{\twocolumn}
 
 \begin{verbatim}
 %% where to find images
-\graphicspath{  
+\graphicspath{
 {./}
 {./graphicsVideosAndInteractives/}
-}    
+}
 \end{verbatim}
 
 \end{document}
