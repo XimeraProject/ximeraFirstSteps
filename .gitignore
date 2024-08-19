@@ -1,5 +1,11 @@
 ## Don't push ximeraserve
 .ximeraserve
+## Graphics - may be not ignored
+*.jpg
+## Graphics - recommend to be ignored
+*.svg
+*.png
+*.pdf
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
@@ -289,8 +295,7 @@ ans[0-9]*.tex
 *.oc
 
 
-*.svg
-*.png
+
 *.html
 *.sagetex.sage.py
 metadata.json
