@@ -136,14 +136,13 @@ answer is not too difficult to type in.
 \paragraph{It checks for equality}
 Although the validation technique is impressively comprehensive in
 practice, that can be problematic when you want the answer in a specific
-\textit{form}. For example, if Ximera will take any function that is
-mathematically equivalent to the form the author provided, it becomes very
-difficult to validate whether or not the student's answer is, say, factored.
-You can often work around this problem with clever question design, or by
-writing a custom validator to capture the specific property or aspect that you
-are trying to assess (as it is less important to only validate the equality,
-and more important to validate the form - often in addition to the equality, of
-the answer).
+\textit{form}. For example if you want students to sum numbers, you will have to use 
+\begin{verbatim}
+\[
+1+2 = \answer[format=string]{3}
+\]
+\end{verbatim}
+For other specific forms, like factoring polynomials, you will need to use a custom validator. 
 
 \paragraph{Ximera is not designed for high-stakes assessment} All content is
 open and students can find the source if they look hard enough. Moreover,
