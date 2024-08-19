@@ -117,8 +117,10 @@ There are confounds for validating answers online:
     itself. For example  \verb!1+2 = \answer{3}! can be answered with `$1+2$'
     because
     that \textit{equals} $3$.
-  \item[Richardson's theorem ]\link[states it is not possible]{https://en.wikipedia.org/wiki/Richardson\%27s\_theorem}
-    to decide equality between the expressions of involving integers, $\pi$, logarithms and exponential and sine functions.
+    \item[Richardson's theorem ]\link[states it is not
+      possible]{https://en.wikipedia.org/wiki/Richardson\%27s\_theorem}
+    to decide equality between the expressions of involving integers, $\pi$,
+    logarithms and exponential and sine functions.
   \item[Floating-point numbers] can lead to erroneous computations, leading to
     identifying nonequal expressions as equal.
 \end{description}
@@ -259,36 +261,30 @@ in the form $ax+by+cz=d$.
 
 \section{Answers with \texttt{\textbackslash choice}}
 
-There are three similar answerables that all use the command \$
-
+There are three similar answerables that all use the command \verb!\choice!. In
+each case, the order of the choices presented to the student is the order the
+author types in the code. The author marks correct answers with the option
+\verb!correct! and leaves incorrect answers without options:
+\begin{verbatim}
+\choice[correct]{SOME-CORRECT-ANSWER}
+\choice{SOME-INCORRECT-ANSWER}
+\end{verbatim}
+Let's see some examples now.
 \paragraph{Multiple Choice}
-
+Writing multiple choice, including True/False, questions is easy.
 \begin{verbatim}
 \begin{question}
-    Which of the following functions has a graph which is a parabola?
-    \begin{multipleChoice}
-        \choice[correct]{$y=x^2+3x-3$}
-        \choice{$y = \frac{1}{x+2}$}
-        \choice{$y=3x+1$}
-    \end{multipleChoice}
+Which of the following functions has a graph which is a parabola?
+\begin{multipleChoice}
+  \choice[correct]{$y=x^2+3x-3$}
+  \choice{$y = \frac{1}{x+2}$}
+  \choice{$y=3x+1$}
+\end{multipleChoice}
 \end{question}
 \end{verbatim}
-
-Produces:
-
-\begin{question}
-  Which of the following functions has a graph which is a parabola?
-  \begin{multipleChoice}
-    \choice[correct]{$y=x^2+3x-3$}
-    \choice{$y = \frac{1}{x+2}$}
-    \choice{$y=3x+1$}
-  \end{multipleChoice}
-\end{question}
-
-\begin{remark}
-  Multiple choice answers appear in the order you type them.
-\end{remark}
-
+They may more than one correct answer and with \verb!multipleChoice!, any
+correct answer will result in completion of this answerable.
+\begin{verbatim}
 \begin{problem}
 Select a prime number:
 \begin{multipleChoice}
@@ -299,37 +295,28 @@ Select a prime number:
   \choice[correct]{5}
 \end{multipleChoice}
 \end{problem}
-
-Note that there are several potentially correct options in the above
-problem---but the student is only able to select one answer before submitting.
-As long as the student selects one of the prime numbers however, it will be
+\end{verbatim}
+With \verb!multipleChoice! the student is only able to select one answer before
+submitting. This could be useful for student surveys where every choice is
 marked as correct.
 
 \paragraph{Select All}
-
+With \verb!selectAll! the student is able to select any and all answers before
+submitting.
 \begin{verbatim}
-\begin{question}
-  Which of the following numbers are even?
-  \begin{selectAll}
-    \choice[correct]{$2$}
-    \choice{$1$}
-    \choice[correct]{$-4$}
-    \choice[correct]{$0$}
-  \end{selectAll}
-\end{question}
+\begin{problem}
+Select all prime numbers:
+\begin{selectAll}
+  \choice{1}
+  \choice[correct]{2}
+  \choice[correct]{3}
+  \choice{4}
+  \choice[correct]{5}
+\end{selectAll}
+\end{problem}
 \end{verbatim}
-
-Produces:
-
-\begin{question}
-  Which of the following numbers are even?
-  \begin{selectAll}
-    \choice[correct]{$2$}
-    \choice{$1$}
-    \choice[correct]{$-4$}
-    \choice[correct]{$0$}
-  \end{selectAll}
-\end{question}
+These problems can be very challenging for students. Authors can quickly make
+questions that are quite difficult without realizing it.
 
 \paragraph{Word choice}
 \begin{verbatim}
@@ -360,30 +347,10 @@ in terms of ``parallel,'' ``orthogonal,'' or ``neither.''
 \end{exercise}
 \end{verbatim}
 
-\begin{exercise}
-  Consider the planes defined by the equations below.
-  \begin{align*}
-    P_1:  \quad 4  & = 2x-y+3z \\
-    P_2:  \quad  5 & =4x-2y+6z \\
-    P_3:  \quad  7 & =5x+2y+z
-  \end{align*}
-  Describe the relationships between the planes $P_1$, $P_2$, and $P_3$
-  in terms of ``parallel,'' ``orthogonal,'' or ``neither.''
-  \begin{enumerate}
-    \item The planes $P_1$ and $P_2$ are
 
-          \wordChoice{\choice[correct]{parallel}\choice{orthogonal}\choice{neither
-              parallel nor orthogonal}}.
-    \item The planes $P_1$ and $P_3$ are
 
-          \wordChoice{\choice{parallel}\choice{orthogonal}\choice[correct]{neither
-              parallel nor orthogonal}}.
-    \item The planes $P_2$ and $P_3$ are
 
-          \wordChoice{\choice{parallel}\choice{orthogonal}\choice[correct]{neither
-              parallel nor orthogonal}}.
-  \end{enumerate}
-\end{exercise}
+
 
 \section{Worksheets}
 
@@ -391,6 +358,9 @@ A worksheet is a piece of paper with questions on it. A Ximera worksheet is no
 different.
 
 \paragraph{File structure}
+
+
+
 
 \paragraph{Use cases}
 
