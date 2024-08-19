@@ -2,7 +2,7 @@
 
 \title{Introduction}
 \author{Bart Snapp}
-
+\input{../preamble.tex}
 \begin{document}
 \begin{abstract}
     What is Ximera?
@@ -24,25 +24,25 @@ worksheets, PDF textbooks, and	PDF solution manuals, and so on. Of most interest
 Ximera can also create online interactive activities:
 \begin{image}
     \begin{tikzpicture}
-        %\node at (-1.8,0) {\resizebox{1cm}{!}{\input{document.tex}}};   %%NOT SHOWING UP ONLINE!
+        \node at (-1.8,.2) {\resizebox{1cm}{!}{\input{document.tex}}};   %%NOT SHOWING UP ONLINE!
         \node at (-1.8,.2) {\small PDF};
         
-        %\node at (-2,0) {\resizebox{1cm}{!}{\input{document.tex}}};    %%NOT SHOWING UP ONLINE!
+        \node at (-2,0) {\resizebox{1cm}{!}{\input{document.tex}}};    %%NOT SHOWING UP ONLINE!
         \node at (-2,0) {\small PDF};
         
-        %\node at (-2.2,-.2){\resizebox{1cm}{!}{\input{document.tex}}};    %%NOT SHOWING UP ONLINE!
+        \node at (-2.2,-.2){\resizebox{1cm}{!}{\input{document.tex}}};    %%NOT SHOWING UP ONLINE!
         \node at (-2.2,-.2) {\small PDF};
         \draw[->] (-.6,0) -- (-1.3,0);
         \draw[->] (-.6,.3) -- (-1.3,.3);
         \draw[->] (-.6,-.3) -- (-1.3,-.3);
 
-        %\node at (0,0) {\resizebox{1cm}{!}{\input{document.tex}}};    %%NOT SHOWING UP ONLINE!
+        \node at (0,0) {\resizebox{1cm}{!}{\input{document.tex}}};    %%NOT SHOWING UP ONLINE!
         \node at (0,0) {\LaTeX};
         \draw[->] (.6,0) -- (1.4,0);
 
-        %\node at (2,0) {\resizebox{1cm}{!}{\input{server.tex}}};
+        \node at (2,0) {\resizebox{1cm}{!}{\input{server.tex}}};
         \draw[->] (2.6,0) -- (3.4,0);
-        %\node at (4,0) {\resizebox{1cm}{!}{\input{computer.tex}}};     %%% FIX WITH PIC TECHNOLOGY
+        \node at (4,0) {\resizebox{1cm}{!}{\input{computer.tex}}};     %%% FIX WITH PIC TECHNOLOGY
         
         \node[anchor=north] at (-2,-.8) {Various};
         \node[anchor=north] at (-2,-1.2) {PDFs};
