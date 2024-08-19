@@ -362,7 +362,59 @@ different.
 
 \paragraph{File structure}
 
+\begin{center}
+  \scalebox{.7}{
+    \begin{tikzpicture}
+      % Define styles for nodes
+      \tikzstyle{document} = [anchor=north west,draw, rounded corners,
+      rectangle,
+      minimum width=3cm,fill=white, minimum height=.8cm, ultra
+      thick,font=\ttfamily]
+      \tikzstyle{folder} = [anchor=north west,draw, rectangle, rounded corners,
+      minimum width=4cm,fill=white, minimum height=2.8cm, ultra
+      thick,font=\ttfamily]
 
+      % Thick grey lines
+      \draw[line width=200pt,white!85!black,line cap=round] (2,1.5) -- (2,-4);
+      \draw[line width=200pt,white!85!black,line cap=round] (10,1.5) -- (10,-4);
+
+      % Connections
+      \draw[ultra thick] (2,-.4) -- (8,.1);
+      \draw[ultra thick] (2,-.4) -- (8,-.9);
+      \draw[ultra thick] (2,-3.4) -- (8,-2.9);
+      \draw[ultra thick] (2,-3.4) -- (8,-3.9);
+
+
+  
+
+      % Symbols at top
+      \node at (2,4) {\Huge \tt ./};
+      \node at (10,4) {\Huge \tt ../};
+
+      % Define the folders at top level
+      \node[document] at (0,3) {preamble.tex};
+      \node[document] at (0,2) {worksheetCollection.tex};
+      \node[folder] at (0,1) {someWorksheet};
+      \node[] at (2,-1) {(folder)};
+      \node[folder] at (0,-2) {anotherWorksheet};
+      \node[] at (2,-4) {(folder)};
+
+
+      % Define the documents in the worksheets folder
+      \node[document] at (8,.5) {someWorksheet.tex};
+      \node[document] at (8,-.5) {anyNeededImage.jpg};
+      \node[document] at (8,-2.5) {anotherWorksheet.tex};
+      \node[document] at (8,-3.5) {otherNeededImage.jpg};
+
+      % paths at bottom
+      \node at (2,-5.5) {\tt\textbackslash input\{./preamble\}};
+      \node at (2,-6) {or};
+      \node at (2,-6.5) {\tt\textbackslash input\{preamble\}};
+      \node at (10,-6.5) {\tt\textbackslash input\{../preamble\}};
+
+    \end{tikzpicture}
+  }
+\end{center}
 
 
 \paragraph{Use cases}
@@ -375,7 +427,86 @@ With no title
 
 With a title
 
+
+\paragraph{File structure}
+
+
+\begin{center}
+  \scalebox{.7}{
+    \begin{tikzpicture}
+      % Define styles for nodes
+      \tikzstyle{document} = [anchor=north west,draw, rounded corners,
+      rectangle,
+      minimum width=3cm,fill=white, minimum height=.8cm, ultra
+      thick,font=\ttfamily]
+      \tikzstyle{folder} = [anchor=north west,draw, rectangle, rounded corners,
+      minimum width=4cm,fill=white, minimum height=2.8cm, ultra
+      thick,font=\ttfamily]
+
+      % Thick grey lines
+      \draw[line width=200pt,white!85!black,line cap=round] (2,1.5) -- (2,-4);
+      \draw[line width=200pt,white!85!black,line cap=round] (10,1.5) -- (10,-4);
+
+      % Connections
+      \draw[ultra thick] (2,.6) -- (8,2.6);
+      \draw[ultra thick] (2,.6) -- (8,1.6);
+      \draw[ultra thick] (2,.6) -- (8,.6);
+      \draw[ultra thick] (2,.6) -- (8,-.4);
+
+      \draw[ultra thick] (2,-2.4) -- (8,-1.4);
+      \draw[ultra thick] (2,-2.4) -- (8,-2.4);
+      \draw[ultra thick] (2,-2.4) -- (8,-3.4);
+      \draw[ultra thick] (2,-2.4) -- (8,-4.4);
+
+      % Symbols at top
+      \node at (2,4) {\Huge \tt ./};
+      \node at (10,4) {\Huge \tt ../};
+
+      % Define the folders at top level
+      \node[document] at (0,3) {preamble.tex};
+      \node[folder] at (0,2) {exerciseTopic};
+      \node[] at (2,0) {(folder)};
+      \node[folder] at (0,-1) {anotherTopic};
+      \node[] at (2,-3) {(folder)};
+
+
+      % Define the documents in the exercises folder
+      \node[document] at (8,3) {exerciseList.tex};
+      \node[document] at (8,2) {exercise2a.tex};
+      \node[document] at (8,1) {anotherExercise.tex};
+      \node[document] at (8,0) {funExercise.tex};
+
+
+      \node[document] at (8,-1) {exerciseList.tex};
+      \node[document] at (8,-2) {exerciseMine.tex};
+      \node[document] at (8,-3) {someExercise.tex};
+      \node[document] at (8,-4) {exercise3c.tex};
+
+
+
+      % paths at bottom
+      \node at (2,-5.5) {\tt\textbackslash input\{./preamble\}};
+      \node at (2,-6) {or};
+      \node at (2,-6.5) {\tt\textbackslash input\{preamble\}};
+      \node at (10,-6.5) {\tt\textbackslash input\{../preamble\}};
+    \end{tikzpicture}
+  }
+\end{center}
+
+
+
+
+
+
+
+
 Within a course
+
+
+
+
+
+
 
 \pdfOnly{\onecolumn\begin{multicols}{2}}
     \section{Courses}
