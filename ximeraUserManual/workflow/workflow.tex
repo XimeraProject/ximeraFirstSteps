@@ -13,6 +13,9 @@ Authors own their content in Ximera and work on their own machine.
 Nevertheless, with the assistance of Visual Studio Code and Docker, we are able
 to provide a common deployment environment for MacOS, Windows, and Linux.
 
+
+\section{Docker and Visual Studio Code}
+
 \paragraph{Docker}
 
 Docker is a development utility that allows us to set up a computer within your
@@ -31,27 +34,70 @@ Windows machines via WSL. A typical workflow would be to:
     \item To open files, do \verb!Ctrl-p! and start typing file names. Any file
           committed to your git repository will be found, and files in
           \verb!.gitignore!, will not be shown.
+    \item To run a special command (like search and replace) do
+          \verb!Ctrl-Shift-p!, and search for the command.
+    \item To open a terminal, use \verb!Ctrl-~!.
 \end{enumerate}
-
-Commands like \verb!Ctrl-~! and \verb!Ctrl-p! \verb!Ctrl-Shift-p!
-
-Docker commands like
-
-\LaTeX
-
-git
-
-docker
-
-markdown
-
-GitHub and ssh
-
-Convert https repo to ssh repo
 
 \section{Using \texttt{git}}
 
-ADDING GRAPHIC VIA GIT
+When you use GitHub, you are writing code in public. You don't want randos to
+be able to change your code, and they cannot.  But that same protection makes
+it difficult for you to develop. So we need to set up a bit of security, called
+SSH, so that you can authenticate but others cannot.
+Once we are finished with that, we will give you some basic \texttt{git} commands. 
+
+
+\paragraph{Setting up SSH} GitHub requires some security. One way to do this is
+to add an SSH key. To check to see if this is already done, open Visual Studio
+Code, open a (WSL) terminal with \verb!Ctrl-~! and enter
+\begin{verbatim}
+git remote -v
+\end{verbatim}
+if it responds with something like: If it responds with \verb!git@github.com:STUFF! then you
+are good and can skip this. If not, and it responds with  \verb!https://github.com/STUFF! the you
+need to change to SSH, read on!
+
+First we must create the key. There are instructions on \link[GitHub's pages]{https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent}
+Once the key is created, go to your personal GitHub page, like
+\verb!https://github.com/bartsnapp! and:
+\begin{enumerate}
+    \item  Click on \textit{Settings}, it lives in the circular picture in
+          upper right hand corner.
+    \item Click on \textit{SSH and GPG keys}, it's on the left.
+    \item Click the green button \textit{New SSH key}
+    \item Name it \textit{My Ximera Key}.
+    \item Paste in your Key.
+\end{enumerate}
+Now when you clone a repository, you will use the SSH option.  To convert a
+repository from the HTTPS option to SSH,
+\begin{verbatim}
+git remote set-url origin git@github.com:STUFF
+\end{verbatim}
+
+
+
+
+\paragraph{Basic commands}
+
+\begin{verbatim}
+git add -u
+git commit -m "this is my change"
+git push
+\end{verbatim}
+
+
+\begin{verbatim}
+git add -u && git commit -m "this is my change" && git push
+\end{verbatim}
+
+\begin{verbatim}
+git add anExampleCourse.tex
+git commit -m "this is my first course"
+git push
+\end{verbatim}
+
+\paragraph{Adding images and PDFs with \texttt{git}}
 
 All files need to be commited to the GitHub repository.
 Now return to the terminal window, which should still be in the
