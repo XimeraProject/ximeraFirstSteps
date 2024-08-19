@@ -93,37 +93,94 @@ to the \verb|\answer| command.
 \end{description}
 
 \begin{warning}
-  You separate options in \verb!\answer! using commas and there can be no spaces, like this:
-\begin{verbatim}
+  You separate options in \verb!\answer! using commas and there can be no
+  spaces, like this:
+  \begin{verbatim}
 \[
 \answer[given,tolerance=5]{100}
 \]
 \end{verbatim}
 \end{warning}
 
-
-
 \paragraph{Validating an answer}
 
-It uses more than a dozen algorithms to check if the student's provided answer
-is mathematically equivalent to the content author's provided answer. If any
-report the answer as being correct, then it is marked as correct.
+Ximera uses more than a dozen algorithms to check if the student's provided
+answer is mathematically equivalent to the content author's provided answer. If
+any report the answer as being correct, then it is marked as correct.
 
-\begin{warning}
-  By \link[Richardson's
-    Theorem]{https://en.wikipedia.org/wiki/Richardson\%27s\_theorem}, it it not
-  possible to decide equality between the expressions of involving integers,
-  $\pi$, logarithms and exponential and sine functions.
-  This means that when attempting to understand student work, we must make a
-  decision:
-  \begin{itemize}
-    \item To sometimes count correct submissions as incorrect.
-    \item To sometimes count incorrect submissions as correct.
-  \end{itemize}
-  For the Ximera platform, we chose to \textbf{sometimes count incorrect
-    submissions as correct}.
-\end{warning}
-With that dire warning notwithstanding, let me give a concrete example:
+There are confounds for validating answers online:
+\begin{description}
+  \item[Student input] for answers a nontrivial task. Students need to be able
+    to easily type in their answers.
+  \item[Checking for equality] will not reveal the form of the answer. This
+    means that sometimes the `answer' to the question can be the question
+    itself. For example  \verb!1+2 = \answer{3}! can be answered with `$1+2$'
+    because
+    that \textit{equals} $3$.
+  \item[Richardson's theorem ]\link[states it is not possible]{https://en.wikipedia.org/wiki/Richardson\%27s\_theorem}
+    to decide equality between the expressions of involving integers, $\pi$, logarithms and exponential and sine functions.
+  \item[Floating-point numbers] can lead to erroneous computations, leading to
+    identifying nonequal expressions as equal.
+\end{description}
+In abstract, each of these confounds are quite daunting. However, in practice,
+they can be mitigated via Ximera's design along with thought on the author's
+side when constructing problems.
+
+\paragraph{Student input} To aid the student with inputting math, Ximera
+displays what it believes the student is typing. In addition, we provide a math
+pallet. Authors can assist students with input by ensuring that the required
+answer is not too difficult to type in.
+
+\paragraph{It checks for equality}
+Although the validation technique is impressively comprehensive in
+practice, that can be problematic when you want the answer in a specific
+\textit{form}. For example, if Ximera will take any function that is
+mathematically equivalent to the form the author provided, it becomes very
+difficult to validate whether or not the student's answer is, say, factored.
+You can often work around this problem with clever question design, or by
+writing a custom validator to capture the specific property or aspect that you
+are trying to assess (as it is less important to only validate the equality,
+and more important to validate the form - often in addition to the equality, of
+the answer).
+
+\paragraph{Ximera is not designed for high-stakes assessment} All content is
+open and students can find the source if they look hard enough. Moreover,
+Answers can be exposed via right-click. This has the even more unfortunate
+side-effect that a student can mess up their browser settings to the point that
+Ximera content will not render.
+
+For accessibility reasons (like screen readers and the like) the library
+that powers the answer box has a bunch of features bundled in, one of which is
+the ability to right-click and get different formatting of its contents.
+Unfortunately, if you right-click and go to ``show math as'' and then ``tex
+commands'' you can very easily see the contents of the answer command that was
+used in the answer file. This information isn't necessary for accessibility
+(after all, the answer box is suppose to contain the actual content supplied by
+the student, and doesn't have any content the student needs to know about) but
+it's tied to the behavior of the underlying library that supports \textit{all}
+the rendered math on the page, so we can't remove it without killing
+\textit{all} accessibility.
+
+However, it is easily countered in the specific case of the answer box,
+which we detail in the
+\href{https://xronos.clas.ufl.edu/examples/exampleCore/supplemental/hiddenAnswers}{how
+  to hide answers} section of the documentation, for those that are interested.
+
+\paragraph{Ricardson's theorem} forces the developers of Ximera to make a
+decision:
+\begin{itemize}
+  \item To sometimes count correct submissions as incorrect.
+  \item To sometimes count incorrect submissions as correct.
+\end{itemize}
+For the Ximera platform, we chose to \textbf{sometimes count incorrect
+  submissions as correct}. This means that if the \verb|\answer| command
+can't understand your provided answer, then it will default to mark
+\textit{any} answer from the student correct. In practice, if you find that you
+have an answer box that is marking anything/everything correct, this is
+probably because there is some kind of typo or character
+in the answer box that it cannot understand.
+
+\paragraph{Floating-point}
 \begin{verbatim}
 \begin{example}
 Compute
@@ -148,29 +205,6 @@ having extra terms that it is important for students to realize exist (e.g. you
 want to verify they used the chain rule and not just the base derivative rule)
 but the ``extra part'' doesn't seem to matter to Ximera - this is typically an
 issue of machine precision.
-
-\paragraph{Ximera Errs on the side of the student}
-
-Generally, answer validation sides with the student. In most cases this
-philosophy isn't relevant, but it is noteworthy here because this means that if
-the \verb|\answer| command can't understand your provided answer, then it will
-default to mark \textit{any} answer from the student correct. In practice, if
-you find that you have an answer box that is marking anything/everything
-correct, this is probably because there is some kind of typo or character in
-the answer box that it cannot understand.
-
-\paragraph{Answer checks equality}
-
-Although the validation technique is impressively comprehensive in
-practice, that can be problematic when you want the answer in a specific
-\textit{form}. For example, if Ximera will take any function that is
-mathematically equivalent to the form the author provided, it becomes very
-difficult to validate whether or not the student's answer is, say, factored.
-You can often work around this problem with clever question design, or by
-writing a custom validator to capture the specific property or aspect that you
-are trying to assess (as it is less important to only validate the equality,
-and more important to validate the form - often in addition to the equality, of
-the answer).
 
 \paragraph{Answers are exposed via right-click}
 
@@ -255,8 +289,6 @@ Produces:
   Multiple choice answers appear in the order you type them.
 \end{remark}
 
-
-
 \begin{problem}
 Select a prime number:
 \begin{multipleChoice}
@@ -299,63 +331,68 @@ Produces:
   \end{selectAll}
 \end{question}
 
-
-
 \paragraph{Word choice}
 \begin{verbatim}
 \begin{exercise}
  Consider the planes defined by the equations below.
-\[
-\begin{array}{lr}
-P_1:  \quad 2x-y+3z &=4 \\
-P_2:  \quad  4x-2y+6z &= 5 \\
-P_3:  \quad  5x+2y+z &=7 \\
-\end{array}
-\]
-Describe the relationships between the planes $P_1$, $P_2$, and $P_3$ in terms of ``parallel,'' ``orthogonal,'' or ``neither.''
+\begin{align*}
+  P_1:  \quad 4&= 2x-y+3z  \\
+  P_2:  \quad  5&=4x-2y+6z\\ 
+  P_3:  \quad  7&=5x+2y+z
+\end{align*}
+Describe the relationships between the planes $P_1$, $P_2$, and $P_3$
+in terms of ``parallel,'' ``orthogonal,'' or ``neither.''
 \begin{enumerate}
-  \item The planes $P_1$ and $P_2$ are \wordChoice{\choice[correct]{parallel}\choice{orthogonal}\choice{neither parallel nor orthogonal}}.
-  \item The planes $P_1$ and $P_3$ are \wordChoice{\choice{parallel}\choice{orthogonal}\choice[correct]{neither parallel nor orthogonal}}.
-  \item The planes $P_2$ and $P_3$ are \wordChoice{\choice{parallel}\choice{orthogonal}\choice[correct]{neither parallel nor orthogonal}}.
+  \item The planes $P_1$ and $P_2$ are \wordChoice{
+    \choice[correct]{parallel}
+    \choice{orthogonal}
+    \choice{neither parallel nor orthogonal}}.
+  \item The planes $P_1$ and $P_3$ are \wordChoice{
+    \choice{parallel}
+    \choice{orthogonal}
+    \choice[correct]
+    {neither parallel nor orthogonal}}.
+  \item The planes $P_2$ and $P_3$ are \wordChoice{
+    \choice{parallel}
+    \choice{orthogonal}
+    \choice[correct]{neither parallel nor orthogonal}}.
 \end{enumerate}
 \end{exercise}
 \end{verbatim}
 
-
 \begin{exercise}
   Consider the planes defined by the equations below.
-\[
-\begin{array}{lr}
-P_1:  \quad 2x-y+3z &=4 \\
-P_2:  \quad  4x-2y+6z &= 5 \\
-P_3:  \quad  5x+2y+z &=7 \\
-\end{array}
-\]
-\begin{align*}
-P_1:  \quad 4&= 2x-y+3z  \\
-P_2:  \quad  5&=4x-2y+6z\\ 
-P_3:  \quad  7&=5x+2y+z
-\end{align*}
- Describe the relationships between the planes $P_1$, $P_2$, and $P_3$ in terms of ``parallel,'' ``orthogonal,'' or ``neither.''
- \begin{enumerate}
-   \item The planes $P_1$ and $P_2$ are \wordChoice{\choice[correct]{parallel}\choice{orthogonal}\choice{neither parallel nor orthogonal}}.
-   \item The planes $P_1$ and $P_3$ are \wordChoice{\choice{parallel}\choice{orthogonal}\choice[correct]{neither parallel nor orthogonal}}.
-   \item The planes $P_2$ and $P_3$ are \wordChoice{\choice{parallel}\choice{orthogonal}\choice[correct]{neither parallel nor orthogonal}}.
- \end{enumerate}
- \end{exercise}
+  \begin{align*}
+    P_1:  \quad 4  & = 2x-y+3z \\
+    P_2:  \quad  5 & =4x-2y+6z \\
+    P_3:  \quad  7 & =5x+2y+z
+  \end{align*}
+  Describe the relationships between the planes $P_1$, $P_2$, and $P_3$
+  in terms of ``parallel,'' ``orthogonal,'' or ``neither.''
+  \begin{enumerate}
+    \item The planes $P_1$ and $P_2$ are
 
+          \wordChoice{\choice[correct]{parallel}\choice{orthogonal}\choice{neither
+              parallel nor orthogonal}}.
+    \item The planes $P_1$ and $P_3$ are
 
+          \wordChoice{\choice{parallel}\choice{orthogonal}\choice[correct]{neither
+              parallel nor orthogonal}}.
+    \item The planes $P_2$ and $P_3$ are
+
+          \wordChoice{\choice{parallel}\choice{orthogonal}\choice[correct]{neither
+              parallel nor orthogonal}}.
+  \end{enumerate}
+\end{exercise}
 
 \section{Worksheets}
 
-A worksheet is a piece of paper with questions on it.
+A worksheet is a piece of paper with questions on it. A Ximera worksheet is no
+different.
 
-While \textbf{any} environment can contain the command \verb|\answer|,
-there are four special environments: \verb|question|, \verb|exercise|,
-\verb|problem|, \verb|exploration|. Each of these environments is the
-same, except for the name. These environment interact with the
-optional arguments in the documentclass in useful ways. We'll discuss
-this later.
+\paragraph{File structure}
+
+\paragraph{Use cases}
 
 \section{Exercise banks}
 
@@ -460,11 +497,25 @@ Within a course
 \pdfOnly{\twocolumn}
 
 \begin{verbatim}
-%% where to find images
-\graphicspath{
-{./}
-{./graphicsVideosAndInteractives/}
-}
-\end{verbatim}
+  %% where to find images
+  \graphicspath{
+  {./}
+  {./graphicsVideosAndInteractives/}
+  }
+  \end{verbatim}
+
+\section{Expanding problem types}
+
+One thing you might want to have on a worksheet are problems that unfold as
+students work. We have special environments for this.
+
+While \textbf{any} environment can contain the command \verb|\answer|,
+there are four special environments: \verb|question|, \verb|exercise|,
+\verb|problem|, \verb|exploration|. If these environments are nested within
+each other, They ``hide'' the inside environment. For example
+
+\begin{problem}
+Expanding Problen
+\end{problem}
 
 \end{document}

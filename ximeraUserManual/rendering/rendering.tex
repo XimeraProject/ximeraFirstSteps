@@ -1,56 +1,56 @@
 \documentclass{ximera}
 \title{Rendering content}
- 
- \author{Jason Nowell \and Bart Snapp}
+
+\author{Jason Nowell \and Bart Snapp}
 \begin{document}
 \begin{abstract}
-    A description of how text, math, images, and interactive content are rendered.
+    A description of how text, math, images, and interactive content are
+    rendered.
 \end{abstract}
 \maketitle
-    
-\section{Rendering text}
+
+Rendering in Ximera can be broken down into three parts:
+\begin{description}
+    \item[Rendering text] is handled using the \LaTeX package TeX4ht.
+    \item[Rendering math] is handled using MathJax via TeX4ht.
+    \item[Rendering images] is done by directly showing the image (in the case
+        of a PNG or JPG) or converting to SVG and displaying the SVG.
+\end{description}
+
+\section{Basics of rendering}
+
+There are issues with variables like ``textwidth'' versus
+``pagewidth'' used in LaTeX. For online rendering, these variables are all
+basically made to be the width of the browser window (more or less - there are
+some very technical details here). This can make it difficult to horizontally
+align things with any subtlety.
+
+
+unknown node type: parser error message. This appears
+          sometimes rather than the actual rendered mathematics. This is due to a
+          corruption in the cookies/cache for the browser, and the person seeing this
+          error need to clear their cache and then reload the page to resolve the
+          problem.
 
 
 
-\section{Rendering math}
-    \subsection*{Mechanism of Rendering}
-        Ximera uses MathJax to render all of its mathematics online. This comes with a number of useful consequences, as well as being the (current) industry-standard rendering method. Basically, if you have seen well rendered mathematics online almost anywhere, it was probably MathJax.
-     
-     
-    \subsection{Any Necessary Content}
-        There is nothing that the content author needs to do to make this rendering work - other than put whatever you want rendered via MathJax into a mathmode environment (i.e. put what you want rendered as math, inside a math LaTeX setting in your LaTeX code).
-     
-     
-    \subsection{Quirks of Rendering}
-        There are a number of quirks from this process, most of which are inherent to MathJax itself. If you have a weird quirk or unexpected behavior that isn't listed here, you may want to see if it is a MathJax issue broadly.
-         
-        That being said, here are the known issues for rendering:
-         
-        \begin{itemize}
-            \item There are issues with variables like ``textwidth'' versus ``pagewidth'' used in LaTeX. For online rendering, these variables are all basically made to be the width of the browser window (more or less - there are some very technical details here). This can make it difficult to horizontally align things with any subtlety.
-            \item Related to the above, align and table environments behave in a slightly unexpected way - see the relevant segment on this specific issue.
-            \item unknown node type: parser error message. This appears sometimes rather than the actual rendered mathematics. This is due to a corruption in the cookies/cache for the browser, and the person seeing this error need to clear their cache and then reload the page to resolve the problem.
-        \end{itemize}
-     
-    \subsection{Potential Problems and Pitfalls}
-    \subsubsection*{Revealed Answers}
-        One of the downsides of the accessibility features of MathJax, is that the content of answer boxes are visible via a right-click menu - meaning students can easily look up answers for answer boxes. There are ways to work around this, see the ``hiding answers'' segment for more about this.
- 
-\section{Rendering images}
 
-\section{Rendering interactives}
 
-     
-    \section{Accessibility}
-        MathJax has extensive accessibility features built in, which means Ximera benefits from the developers keeping this up-to-date and conforming to industry standard. In essence, you don't need to worry about accessibility features for rendered math content - with the exception of graphs.
-         
-        Due to how graphs are rendered, they currently don't have any accessibility features (e.g. alt-text) if you provide them via TikZ or other LaTeX means. You can input them as image files instead, however those also lack any accessibility support. This is something to keep in mind, as you may need to provide textual description explicitly for things like screenreaders to provide more accessibility for graphs and/or images.
-     
-     
-     
-    \subsection*{Any Best Practices or Advice}
-         
-        \subsubsection*{Visual Differences}
-            It is worth keeping in mind that, unlike a pdf - where the difference is subtle enough to often be overlooked - due to how MathJax renders content on the page for Ximera, the difference between a text variable and a math variable tend to be very visually distinct. For this reason, it's best to try and be \textit{very} consistent with whether you put variable references in math-mode or not. In particular, consider the rendering between: ``since x is a variable...'' and ``since $x$ is a variable...''. In a pdf, you can easily miss the visual difference, but online it is distinct enough that students might think they are referencing different elements - especially if you didn't tell them it was a variable.
-         
+
+
+
+\section{Accessibility}
+MathJax has extensive accessibility features built in, which means
+Ximera benefits from the developers keeping this up-to-date and conforming to
+industry standard. In essence, you don't need to worry about accessibility
+features for rendered math content - with the exception of graphs.
+
+Due to how graphs are rendered, they currently don't have any
+accessibility features (e.g. alt-text) if you provide them via TikZ or other
+LaTeX means. You can input them as image files instead, however those also lack
+any accessibility support. This is something to keep in mind, as you may need
+to provide textual description explicitly for things like screenreaders to
+provide more accessibility for graphs and/or images.
+
+
 \end{document}
