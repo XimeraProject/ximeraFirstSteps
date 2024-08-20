@@ -85,7 +85,7 @@ to the \verb|\answer| command.
     understandable in a PDF setting. Here \textit{given} means
     that the answer is \textit{given} to the student in the PDF.
 \end{description}
-There are two other optional arguments \verb{validator} and \verb{id}, but they
+There are two other optional arguments \verb!validator! and \verb!id!, but they
 are for building custom validators and are beyond the scope of this document.
 
 \begin{warning}
@@ -124,14 +124,13 @@ In abstract, each of these confounds are quite daunting. However, in practice,
 they can be mitigated via Ximera's design along with thought on the author's
 side when constructing problems.
 
-\paragraph{Student input} To aid the student with inputting math, Ximera
-displays what it believes the student is typing. In addition, we provide a math
+\paragraph{Student input} is reflected back to the student, in the sense that Ximera tells the users what it thinks they are typing.
+In addition, we provide a math
 pallet. Authors can assist students with input by ensuring that the required
 answer is not too difficult to type in.
 
-\paragraph{It checks for equality}
-Although the validation technique is impressively comprehensive in
-practice, that can be problematic when you want the answer in a specific
+\paragraph{Ximera checks for equality} and is comprehensive in
+practice, but that can be problematic when you want the answer in a specific
 \textit{form}. For example if you want students to sum numbers, you will have
 to use
 \begin{verbatim}
@@ -142,7 +141,7 @@ to use
 For other specific forms, like factoring polynomials, you will need to use a
 custom validator.
 
-\paragraph{Ximera is not designed for high-stakes assessment} All content is
+\paragraph{Ximera is open-source} and not designed for high-stakes assessment. All content is
 open and students can find the source if they look hard enough. Moreover,
 Answers can be exposed via right-click. This has the even more unfortunate
 side-effect that a student can mess up their browser settings to the point that
