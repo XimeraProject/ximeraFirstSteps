@@ -5,7 +5,7 @@
 
 \begin{document}
 \begin{abstract}
-      Suggestions for working on Ximera documents.
+    Suggestions for working on Ximera documents.
 \end{abstract}
 \maketitle
 
@@ -15,7 +15,8 @@ to provide a common deployment environment for MacOS, Windows, and Linux.
 
 \section{Docker and Visual Studio Code}
 
-\paragraph{Docker} is a development utility that allows us to set up a computer within your
+\paragraph{Docker} is a development utility that allows us to set up a computer
+within your
 computer. You must remember to start Docker before you deploy. You can just let
 it run in the background. You can check the status of Docker by running
 \verb!docker ps! in a terminal session.
@@ -25,57 +26,59 @@ is a popular text-editor. It is has strong \LaTeX, GitHub,
 and Docker integration. It provides a UNIX-like command line interface for
 Windows machines via WSL. A typical workflow would be to:
 \begin{enumerate}
-      \item Open Docker and minimize the window.
-      \item Open Visual Studio Code, do File $\to$ Open Folder, and select the
-            folder of your git repository.
-      \item To open files, do \verb!Ctrl-p! and start typing file names. Any
-            file
-            committed to your git repository will be found, and files in
-            \verb!.gitignore!, will not be shown.
-      \item To run a special command (like search and replace) do
-            \verb!Ctrl-Shift-p!, and search for the command.
-      \item To toggle a UNIX-like terminal, use \verb!Ctrl-~!.
+    \item Open Docker and minimize the window.
+    \item Open Visual Studio Code, do File $\to$ Open Folder, and select the
+          folder of your git repository.
+    \item To open files, do \verb!Ctrl-p! and start typing file names. Any
+          file
+          committed to your git repository will be found, and files in
+          \verb!.gitignore!, will not be shown.
+    \item To run a special command (like search and replace) do
+          \verb!Ctrl-Shift-p!, and search for the command.
+    \item To toggle a UNIX-like terminal, use \verb!Ctrl-~!.
 \end{enumerate}
 
 \section{Using \texttt{git}}
 
-When you use GitHub, you are writing code in public. You don't want randos to
-be able to change your code, and they cannot.  But that same protection makes
-it difficult for you to develop. So we need to set up a bit of security, called
-SSH, so that you can authenticate but others cannot.
-Once we are finished with that, we will give you some basic \texttt{git}
-commands.
+In this section we walk through the basics of \verb!git!.
 
-\paragraph{Setting up SSH} GitHub requires some security. One way to do this is
-to add an SSH key. To check to see if this is already done, open Visual Studio
-Code, open a (WSL) terminal with \verb!Ctrl-~! and enter
-\begin{verbatim}
-git remote -v
-\end{verbatim}
-if it responds with something like: If it responds with
-\verb!git@github.com:STUFF! then you
-are good and can skip this. If not, and it responds with
-\verb!https://github.com/STUFF! the you
-need to change to SSH, read on!
+% When you use GitHub, you are writing code in public. You don't want randos to
+% be able to change your code, and they cannot.  But that same protection might make it 
+% difficult for you to develop. So we need to set up a bit of security, called
+% SSH, so that you can authenticate but others cannot.
+% Once we are finished with that, we will give you some basic \texttt{git}
+% commands.
 
-First we must create the key. There are instructions on \link[GitHub's pages]%
-{https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent}
-Once the key is created, go to your personal GitHub page, like
-\verb!https://github.com/bartsnapp! and:
-\begin{enumerate}
-      \item  Click on \textit{Settings}, it lives in the circular picture in
-            upper right hand corner.
-      \item Click on \textit{SSH and GPG keys}, it's on the left.
-      \item Click the green button \textit{New SSH key}
-      \item Name it \textit{My Ximera Key}.
-      \item Paste in your Key.
-\end{enumerate}
-Now when you clone a repository, you will use the SSH option.  To convert a
-repository from the HTTPS option to SSH,
-\begin{verbatim}
-git remote set-url origin git@github.com:STUFF
-\end{verbatim}
-You should be ready to go at this point.
+% \paragraph{Setting up SSH} GitHub requires some security. One way to do this is
+% to add an SSH key. To check to see if this is already done, open Visual Studio
+% Code, open a (WSL) terminal with \verb!Ctrl-~! and enter
+% \begin{verbatim}
+% git remote -v
+% \end{verbatim}
+% if it responds with something like: If it responds with
+% \verb!git@github.com:STUFF! then you
+% are good and can skip this. If not, and it responds with
+% \verb!https://github.com/STUFF! the you
+% need to change to SSH, read on!
+
+% First we must create the key. There are instructions on \link[GitHub's pages]%
+% {https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent}
+% Once the key is created, go to your personal GitHub page, like
+% \verb!https://github.com/bartsnapp! and:
+% \begin{enumerate}
+%       \item  Click on \textit{Settings}, it lives in the circular picture in
+%             upper right hand corner.
+%       \item Click on \textit{SSH and GPG keys}, it's on the left.
+%       \item Click the green button \textit{New SSH key}
+%       \item Name it \textit{My Ximera Key}.
+%       \item Paste in your Key.
+% \end{enumerate}
+% Now when you clone a repository, you will use the SSH option.  To convert a
+% repository from the HTTPS option to SSH,
+% \begin{verbatim}
+% git remote set-url origin git@github.com:STUFF
+% \end{verbatim}
+% You should be ready to go at this point.
 
 \paragraph{Basic commands} of \verb!git! are good to know.
 First of all if you make a new file, you need to \textit{add} it to the
@@ -113,106 +116,112 @@ accidently enter \verb!vi! by typing \verb!git commit!, you'll know you are in
 \verb!vi! because the terminal won't work and the left hand side is filled with
 \verb!~!,
 \begin{center}
-      press \verb!Esc! \quad then press \verb!:!\quad then press \verb!q! \quad then
-      press \verb#!# \quad then press \verb!Enter!
+    press \verb!Esc! \quad then press \verb!:!\quad then press \verb!q! \quad
+    then
+    press \verb#!# \quad then press \verb!Enter!
 \end{center}
 Then run the code above so that it never happens again.
 
 \paragraph{Adding images and PDFs with \texttt{git}}
 
-We typically add \verb!*.jpg!, \verb!*.png! and !*.pdf! to the
+We typically add \verb!*.jpg!, \verb!*.png! and \verb!*.pdf! to the
 \verb!.gitignore! file. However this makes it a little tricky to add graphics.
 In this case you \textit{force} the add with \verb!-f!:
 \begin{verbatim}
 git add -f SOME-GRAPHICS.jpg
 \end{verbatim}
 
-
-
 \section{Deploying and debugging}
 
-
-
-
+As hard as we try to support the philosophy that \textit{if it compiles in
+    \LaTeX, it compiles online}, it isn't always true. If you find that \textit{Bake} cannot compile a file, you can try the following. Start by running the following:
 \begin{verbatim}
 ./scripts/xmlatex -i bash
+\end{verbatim}
+in a terminal window, note \textbf{you must be at the top level of your repository}.
+After that, an interactive \verb!bash! shell should start. Then run the following in turn and see if they give any good information:
+\begin{verbatim}
+pdflatex FILE-NAME.tex
 xake -v compile FILE-NAME.tex
 more FILE-NAME.tex.log
-pdflatex FILE-NAME.tex
 \end{verbatim}
-
-Slowly move \verb!\end{document}! down a document.
-
-
-Sometimes Ximera materials look good to instructors an others, but not to some individual students. 
+If  you find a file that does not compile, you can try to compile the file directly while 
+slowly moving \verb!\end{document}! down through the document. By starting at the top, the file should compile, and then you should be able to locate the exact location of the bug. 
 
 
-Common Solutions to Student Issues
 
-In this document we give several common problems that students may have when working with Ximera, and their solutions.
-Ximera refreshes the page when submitting
+\section{Solutions to common student issues}
 
-This problem can be caused by several issues, each with a different solution:
+Sometimes Ximera materials look good to instructors an others, but not to some
+individual students.
 
-    Problem: Poor internet connection
-        Solution: Refresh the page immediately before entering each answer.
-    Problem: Browser settings
-        Solution: Try using a different browser. Different students have reported luck with different browsers, including Edge, Firefox, and Chrome.
-    Problem: Antivirus Software
-        Solution: Some antivirus softwares (such as McAfree) are now blocking websockets, a technology Ximera relies on. Try turning off the websockets setting on the antivirus
-    Problem: VPN
-        Solution: If you are using a VPN, try turning it off before using Ximera.
 
-Difficulty accessing Ximera
+\paragraph{Ximera refreshes the page when submitting}
+can be caused by several issues, each with a different solution:
+\begin{description}
+\item[Problem:] Poor internet connection
+\begin{description}
+    \item[Solution:] Refresh the page immediately before entering each answer.
+\end{description}
+\item[Problem:] Browser settings
+\begin{description}
+    \item[Solution:] Try using a different browser. Different students have
+reported luck with different browsers, including Edge, Firefox, and Chrome.
+\end{description}
+\item[Problem:] Antivirus Software
+\begin{description}
+    \item[Solution:] Some antivirus software (such as McAfree) are now blocking
+websockets, a technology Ximera relies on. Try turning off the websockets setting on the antivirus software.
 
-Most problems viewing or accessing Ximera are caused by browser settings. The easiest solution is usually to try using a different browser. Students seem to have the best luck with Chrome, Firefox, or Safari.
+\end{description}
+\item[Problem:] VPN
+\begin{description}
+    \item[Solution:] If you are using a VPN, try turning it off before using
+Ximera.
+\end{description}
+\end{description}
 
-    Be sure to access Ximera from a link in your Carmen course
-    Open your Carmen course through a browser and not the Canvas App
-    Do not create a Ximera account or log into Ximera. You should be automatically logged in from Carmen. If you are asked to log in, the connection to Carmen is broken.
-    If Ximera is not being displayed correctly, try using a different browser.
-    If the Ximera website displays a three digit error code, the website is having technical difficulties. Wait a little while and try accessing the site again. * You may want to screenshot the error code in case you need to document your technical difficulties with your instructor.
 
-Work not being recorded
 
-This is almost always avoided by doing the following:
+\paragraph{Difficulty accessing Ximera} is often caused by browser settings. The
+easiest solution is usually to try using a different browser. Students seem to
+have the best luck with Chrome, Firefox, or Safari.
 
-    Log in to Carmen. If you've already been logged in for more than 3 hours, log out of Carmen and log back in.
-    Go to "Assignments"
-    Click on the Ximera assignment. It should show you a button to load the assignment in a new window.
-    You should be at your assignment, and if you look in the upper corner (at least on a computer) it should say your name.
-    Do your work.
-    Click save before you leave a page. (You don't need to worry about it unless you leave the page)
 
-Your score will be submitted to Carmen within the hour.
-Math processing error
+\paragraph{Work not being recorded} is almost always avoided by accessing the assignment via the LMS.
+
+\begin{warning}
+    Students who use an LTI connection \textbf{must} access Ximera from a link in your Carmen course.
+They should not create a Ximera account or log into Ximera. They should be
+automatically logged in from Carmen. If they are asked to log in, the connection
+to Carmen is broken.
+\end{warning}
+
+
+
+\paragraph{Math processing error}
 
 This is caused by an error in the browser setting. Two things to try:
-First possible solution:
 
-    Clear browser cookies
-    Close the browser.
-    Open the browser and log in to Carmen.
-    Go to the assignment.
+First possible solution: Clear browser cookies. Close the browser.
+Open the browser and log in to the LMS. Go to the assignment.
+
+
 
 Second possible solution:
+Find one of the pages this is happening,
+Put your mouse over the `math processing error'
+Now, `right-click' and select `accessibility' If collapsible math is
+checked, uncheck it. Reload the page.
 
-    Find one of the pages this is happening,
-    Put your mouse over the "math processing error"
-    Now, "right-click" and select "accessibility" If collapsible math is checked, uncheck it.
-    Reload the page.
+\paragraph{Using Ximera on an iPad}
 
-Using Ximera on an iPad
-
-Be sure to access Ximera via Carmen using a browser such as Safari or Chrome
-
-    If you are having trouble accessing the Math Editor, be sure you have updated your iPad software to the latest version.
-    If you are having trouble with auto-capitalization in Ximera, you can:
-    Hit shift twice before entering an answer to get a lower case letter.
-    Turn off auto-capitalization on your iPad by going to Settings -> General -> Keyboards and toggling off auto-capitalization.
-
-
-
-
+Be sure to access Ximera via the LMS using a browser such as Safari or Chrome.
+If one is having trouble accessing the Math Editor, be sure you have
+updated your iPad software to the latest version.
+If you are having trouble with auto-capitalization in Ximera, you can:
+Hit shift twice before entering an answer to get a lower case letter.
+Turn off auto-capitalization on your iPad by going to Settings $\to$ General
+$\to$ Keyboards and toggling off auto-capitalization.
 
 \end{document}
