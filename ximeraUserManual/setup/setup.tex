@@ -32,7 +32,7 @@ We'll address each of these methods in-turn below.
 Forking a repository is well-documented on
 \link[GitHub]{https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo}.
 Basically, you login to GitHub, return to this page, and at the top right there
-will be an option to `Fork' this repository. Fork the repo. Accept all
+will be an option to \textbf{fork} this repository. Fork the repo. Accept all
 defaults, though you might want to change the name of the repository at this
 point. When done, it will take you to
 your copy of this repository on GitHub. It will be located someplace like:
@@ -52,7 +52,9 @@ After the repository is on your computer, delete all files \textbf{except:}
   \item \texttt{README.md}
   \item \texttt{NOT-THE-LICENSE.md}
 \end{itemize}
-You must keep the files above.	Commit your changes to GitHub and view your
+You must keep the files above.	Typically we advise the CC BY-NC-SA 4.0
+License; however, you do you.
+Commit your changes to GitHub and view your
 repository online via a web browser to ensure that the files were deleted.
 
 \section{Starting from an existing GitHub repository}
@@ -68,13 +70,14 @@ into your repository. If you already have a \verb|.gitignore| file, we suggest
 you replace yours with ours. Commit your changes to GitHub and view your
 repository online via a web browser to ensure that the files were added.
 
-DISCUSSION ABOUT LICENSE
-
-EDIT/MOVE TO THE REPO .ximerserve
+Typically we advise the CC BY-NC-SA 4.0 License; however, you do you.
+Finally, after the \verb!.gitignore! is pushed to the repository, copy
+\verb!.ximerserve! to your repository.
 
 \section{Setting up a Ximera \texttt{xourse}}
 
-Ximera documents can be ``glued'' together using the \texttt{xourse} document
+Ximera documents can be \textit{glued} together using the \texttt{xourse}
+document
 class.
 A \verb|xourse| file is basically a list of other \verb|ximera| files and even
 other \verb|xourse| files.
@@ -274,17 +277,19 @@ like:
 \end{verbatim}
 
 \begin{warning}
-  Cosmetic changes to Ximera environments will result in unpredictable behavior online.
+  Cosmetic changes to Ximera environments will result in unpredictable behavior
+  online.
 \end{warning}
 
-WHAT ABOUT NEW ENVIRONMENTS? 
+Here is a list of environments provided by Ximera:
+\verb!axiom!, \verb!algorithm!, \verb!claim!, \verb!conclusion!,
+\verb!condition!, \verb!conjecture!, \verb!corollary!, \verb!criterion!,
+\verb!definition!, \verb!example!, \verb!exercise!, \verb!fact!,
+\verb!hypothesis!, \verb!lemma!, \verb!notation!, \verb!problem!,
+\verb!proposition!, \verb!question!, \verb!remark!, \verb!solution!,
+\verb!summary!, \verb!theorem!.
 
-WHAT ABOUT NEW ENVIRONMENTS? 
-
-WHAT ABOUT NEW ENVIRONMENTS? 
-
-
-Once you have your preamble, all Ximera files need to be able to access it.
+The preamble must be accessible  by all files.
 \begin{center}%%DIAGRAM OF FILE STRUCTURE
   \scalebox{.7}{
     \begin{tikzpicture}
@@ -436,5 +441,6 @@ the following way:
 }
 \makeatother      %% make "@" an other-character
 \end{verbatim}
-With this said, modifying input paths is more of an advanced feature that we will discuss later.
+With this said, modifying input paths is more of an advanced feature that we
+will discuss later.
 \end{document}
