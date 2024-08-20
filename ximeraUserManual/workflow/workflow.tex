@@ -60,7 +60,8 @@ are good and can skip this. If not, and it responds with
 \verb!https://github.com/STUFF! the you
 need to change to SSH, read on!
 
-First we must create the key. There are instructions on \link[GitHub's pages]{https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent}
+First we must create the key. There are instructions on \link[GitHub's
+      pages]{https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent}
 Once the key is created, go to your personal GitHub page, like
 \verb!https://github.com/bartsnapp! and:
 \begin{enumerate}
@@ -92,22 +93,29 @@ The \verb!add! includes the file in the files that \verb!git! tracks. The
 \verb!commit! says, ``hey I made a change that I want to keep track of.'' The
 \verb!push! says ``I want to share this with others.''
 
-If, on the other hand, you want to push changes made to files you already have, type:
+If, on the other hand, you want to push changes made to files you already have,
+type:
 \begin{verbatim}
 git add -u
 git commit -m "I updated some files"
 git push
 \end{verbatim}
-
+You can combine these commands into one with \verb!&&!:
 \begin{verbatim}
 git add -u && git commit -m "this is my change" && git push
 \end{verbatim}
 
+Finally, you don't have to add the \verb!-m! to \verb!commit!. However, if you
+choose to take this path, we strongly recommend running:
 \begin{verbatim}
-git add anExampleCourse.tex
-git commit -m "this is my first course"
-git push
+git config --global core.editor "nano"
 \end{verbatim}
+for an easy to use text editor that is not \verb!vi!. If for some chance you
+accidently enter \verb!vi! by typing \verb!git commit!, you'll know you are in \verb!vi! because the terminal won't work and the left hand side is filled with \verb!~!, 
+\begin{center}
+press \verb!Esc! \quad then press \verb!:!\quad then press \verb!q! \quad then press \verb#!# \quad then press \verb!Enter!
+\end{center}
+ Then run the code above so that it never happens again.
 
 \paragraph{Adding images and PDFs with \texttt{git}}
 
