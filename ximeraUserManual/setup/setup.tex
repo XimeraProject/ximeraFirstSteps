@@ -113,10 +113,12 @@ should have a file structure
 that helps developers understand where content is stored. We recommend the
 following:
 \begin{description}
-  \item[Group by concept] Have all documents that are closely related in idea
+  \item[Group by concept] by have all documents that are closely related in
+    idea
     or scope in the same folder. If someone else wants to use your content,
     this will be a one-stop destination for them.
-  \item[Descriptive file name] Give you documents descriptive file names like:
+  \item[Descriptive file names] will help you and others understand the
+    structure of your repository. Give you documents descriptive file names like:
     \verb!completeTheSquare.tex! or \verb!derivativeRules.tex! rather than
     generic
     names like: \sout{\texttt{chapter1.tex}}, or
@@ -198,6 +200,11 @@ A consistent and well thought out set up will allow you and others to easily
 understand and modify your
 content for years to come.
 
+\begin{warning}
+  Every \verb!*.tex! file in the repository with a \verb!\documentclass!
+  \textbf{must} compile for online deployment.
+\end{warning}
+
 \section{Including with \texttt{\textbackslash activity} and
   \texttt{\textbackslash practice}}
 
@@ -226,18 +233,20 @@ the \verb!xourse! document.
 There are two different commands we use to add
 \verb!ximera! documents to a \verb!xourse! file:
 \begin{description}
-  \item[\textbackslash activity] This is for Ximera documents that
+  \item[\tt\bfseries\textbackslash activity] is for including Ximera documents
+    that
     \textbf{include a title,
-      abstract, and \textbackslash maketitle}. They will be represented by
+      abstract, and \tt\bfseries\textbackslash maketitle}. They will be
+    represented by
     their title
     online. This command is typically used for worksheets and sections of
     textbooks.
-  \item[\textbackslash practice] This is for Ximera documents that \textbf{do
-      not include the
-      content listed above}. They will be represented by a number  based on the
-    order
-    in the list  online. This command is used for lists of exercises and
-    problem
+  \item[\tt\bfseries\textbackslash practice] is for including Ximera documents
+    that \textbf{do
+      not include} a title, abstract, and \verb!\maketitle!. They will be
+    represented by a number  based on their
+    order in \verb!xourse! file. This command is used for lists of exercises
+    and problem
     banks.
 \end{description}
 
@@ -267,6 +276,46 @@ Note how we give the paths to the exercises.
 
 \section{Preambles, input paths, and graphics paths}
 
+The Ximera documentclass comes with many packages preloaded:
+\verb!enumitem!, 
+\verb!titlesec!, 
+\verb!titletoc!, 
+\verb!titling!, 
+\verb!url!, 
+\verb!xcolor!, 
+\verb!tikz!, 
+\verb!pgfplots!, 
+\verb!fancyvrb!, 
+\verb!forloop!, 
+\verb!environ!, 
+\verb!amssymb!, 
+\verb!amsmath!, 
+\verb!amsthm!, 
+\verb!xifthen!, 
+\verb!multido!, 
+\verb!listings!, 
+\verb!xkeyval!, 
+\verb!comment!, 
+\verb!gettitlestring!, 
+\verb!nameref!, 
+\verb!epstopdf!, 
+\verb!hyperref!.
+
+The documentclass also provides support for the following theorem-like
+environments:
+\verb!algorithm!, \verb!axiom!, \verb!claim!, \verb!conclusion!,
+\verb!condition!, \verb!conjecture!, \verb!corollary!, \verb!criterion!,
+\verb!definition!, \verb!example!, \verb!explanation!, \verb!exercise!,
+\verb!exploration!,
+\verb!fact!, \verb!formula!, \verb!hypothesis!, \verb!idea!, \verb!lemma!,
+\verb!model!,
+\verb!notation!, \verb!observation!, \verb!paradox!, \verb!problem!,
+\verb!procedure!,
+\verb!proposition!, \verb!question!, \verb!remark!, \verb!solution!,
+\verb!summary!, \verb!template!, \verb!theorem!, \verb!warning!.
+
+
+We can add functionality and generality, via user defined commands, to the document via a preamble, or macros, document. 
 The purpose of a preamble is to ensure \textbf{all files compile consistently,
   it is not for cosmetic changes.} A typically preamble might contain things
 like:
@@ -281,15 +330,7 @@ like:
   online.
 \end{warning}
 
-Here is a list of environments provided by Ximera:
-\verb!axiom!, \verb!algorithm!, \verb!claim!, \verb!conclusion!,
-\verb!condition!, \verb!conjecture!, \verb!corollary!, \verb!criterion!,
-\verb!definition!, \verb!example!, \verb!exercise!, \verb!fact!,
-\verb!hypothesis!, \verb!lemma!, \verb!notation!, \verb!problem!,
-\verb!proposition!, \verb!question!, \verb!remark!, \verb!solution!,
-\verb!summary!, \verb!theorem!, \verb!warning!.
-
-The preamble must be accessible  by all files.
+Since every \verb!*.tex! file with a \verb!\documentclass! must compile, the preamble file must be accessible  by all files.
 \begin{center}%%DIAGRAM OF FILE STRUCTURE
   \scalebox{.7}{
     \begin{tikzpicture}
@@ -424,11 +465,9 @@ reality we did!) this
 to our preamble, then when compiling \verb!aFirstStepInXimera.tex!, the
 compiler will know where to look.
 
-\paragraph{Input paths}
-
-Just like with images, sometimes you need to load other files.
-This is less common use case, but we'll mention it here. For this document, we
-needed to input various TikZ files to help us draw our diagrams. We needed to
+\paragraph{Input paths} allow you to load other documents into your files. 
+This is a less common use case, but we'll mention it here. You can surely avoid the use of such files with an enhanced preamble. However, for this document, we
+needed to input various TikZ files to help us draw our diagrams. Hence we needed to
 add the location of these files to our input path. We did this in our preamble
 the following way:
 \begin{verbatim}
@@ -441,6 +480,5 @@ the following way:
 }
 \makeatother      %% make "@" an other-character
 \end{verbatim}
-With this said, modifying input paths is more of an advanced feature that we
-will discuss later.
+With this said, modifying input paths is more of an advanced feature and one should be careful.
 \end{document}

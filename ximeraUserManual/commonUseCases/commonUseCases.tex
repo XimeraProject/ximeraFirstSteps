@@ -49,7 +49,8 @@ We can validate an expression of variables:
 \begin{exercise}
 Compute:
 \[
-\frac{\partial}{\partial x} \sin(3xyx) =  \answer{3yz\cos(3xyz)}
+\frac{\partial}{\partial x} \sin(3xyx) 
+= \answer{3yz\cos(3xyz)}
 \]
 \end{exercise}
 \end{verbatim}
@@ -68,18 +69,18 @@ Find $x$ such that where $f(x) = |x-4|$ has a critical point or
 There are also a number of optional arguments that can be passed
 to the \verb|\answer| command.
 \begin{description}
-  \item[tolerance] sets a $\pm$ value on the
+  \item[\tt\bfseries tolerance] sets a $\pm$ value on the
     author's (numeric) answer that will be accepted from a student. For
     example,
     the answer box \verb|\answer[tolerance=5]{100}| will accept anything in
     the range of $[95,105]$ as correct.
-  \item[format=string] validates \textit{words} typed into an
+  \item[\tt\bfseries format=string] validates \textit{words} typed into an
     answer box. Here \verb|$\answer[format=string]{Cat}$| will validate
     \verb!Cat!,
     \verb!cAt!,\verb!caT!, \verb!cat! all as
     correct. However, if spaces are inserted before, between, or after, it will
     be marked as incorrect.
-  \item[given] will show an answer in the PDF. Sometimes it is necessary to
+  \item[\tt\bfseries given] will show an answer in the PDF. Sometimes it is necessary to
     show such content to ensure
     understandable in a PDF setting. Here \textit{given} means
     that the answer is \textit{given} to the student in the PDF.
@@ -103,6 +104,7 @@ Ximera uses more than a dozen algorithms to check if the student's provided
 answer is mathematically equivalent to the content author's provided answer. If
 any report the answer as being correct, then it is marked as correct.
 
+\begin{warning}
 There are confounds for validating answers online:
 \begin{description}
   \item[Student input] for answers a nontrivial task. Students need to be able
@@ -112,13 +114,15 @@ There are confounds for validating answers online:
     itself. For example  \verb!1+2 = \answer{3}! can be answered with `$1+2$'
     because
     that \textit{equals} $3$.
-    \item[Richardson's theorem ]\link[states it is not
+  \item[Right-click reveals the answer] to the students. Moreover, the source is open to the students. Ximera is not designed for high-stakes assessment.
+  \item[Richardson's theorem ]\link[states it is not
       possible]{https://en.wikipedia.org/wiki/Richardson\%27s\_theorem}
     to decide equality between the expressions of involving integers, $\pi$,
     logarithms and exponential and sine functions.
   \item[Floating-point numbers] can lead to erroneous computations, leading to
     identifying nonequal expressions as equal.
 \end{description}
+\end{warning}
 In abstract, each of these confounds are quite daunting. However, in practice,
 they can be mitigated via Ximera's design along with thought on the author's
 side when constructing problems.
