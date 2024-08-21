@@ -345,6 +345,48 @@ $P_1$, $P_2$, and $P_3$in terms of ``parallel,''
 It is difficult to have a PDF version of \verb!\wordChoice! so authors should
 take this into consideration.
 
+
+
+
+
+\section{Expanding problem types}
+
+One thing you might want to have on a worksheet are problems that unfold as
+students work. We have special environments for this.
+
+While \textbf{any} environment can contain the command \verb|\answer|,
+there are four special environments: \verb|question|, \verb|exercise|,
+\verb|problem|, \verb|exploration|. If these environments are nested within
+each other, They \textit{hide} the inside environment. For example
+
+\begin{problem}
+Start with $F_0 = 1$ and $F_1=1$. Define
+\[
+F_{n+1} = F_n + F_{n-1} \qquad\text{for $n\ge$ 1}
+\]
+\begin{problem}
+Find $F_2$.
+\[
+F_2 = \answer{2}
+\]
+\begin{problem}
+  Find $F_3$
+  \[
+  F_3 = \answer{5}
+  \]
+\end{problem}
+\end{problem}
+\end{problem}
+
+
+
+
+
+
+
+
+
+
 \section{Worksheets}
 
 A worksheet is a piece of paper with questions on it. A Ximera worksheet is no
@@ -580,18 +622,6 @@ detail.
   }
   \end{verbatim}
 
-\section{Expanding problem types}
 
-One thing you might want to have on a worksheet are problems that unfold as
-students work. We have special environments for this.
-
-While \textbf{any} environment can contain the command \verb|\answer|,
-there are four special environments: \verb|question|, \verb|exercise|,
-\verb|problem|, \verb|exploration|. If these environments are nested within
-each other, They \textit{hide} the inside environment. For example
-
-\begin{problem}
-Expanding Problen
-\end{problem}
 
 \end{document}
