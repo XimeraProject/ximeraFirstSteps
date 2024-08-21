@@ -166,12 +166,20 @@ it's tied to the behavior of the underlying library that supports \textit{all}
 the rendered math on the page, so we can't remove it without killing
 \textit{all} accessibility\dots yet.
 
-However, it is easily countered in \textit{specific cases} of the answer box,
-which we detail in the
-\href{https://xronos.clas.ufl.edu/examples/exampleCore/supplemental/hiddenAnswers}{how
-  to hide answers} section of the documentation, for those that are interested.
-
-GIVE IMPLEMENTATION OF HIDING ANSWERS VIA COMMAND HERE
+However, it is easily countered in \textit{specific cases} of the answer box. To do this, in your preamble, add something like:
+\begin{verbatim}
+\newcommand{\myHiddenAns}{6}
+\end{verbatim}
+then in your document, you can write
+\begin{verbatim}
+\begin{exercise}
+  Computer $3!$
+  \[
+  3! = \answer{\myHiddenAns}
+  \]  
+\end{exercise}
+\end{verbatim}
+Note, this could be effective for identifying academic misconduct.
 
 \paragraph{Ricardson's theorem} forces the developers of Ximera to make a
 decision:
@@ -192,28 +200,16 @@ computers.
 
 \begin{verbatim}
 \begin{example}
-Compute
+Confirm:
 \[
-10+ 2^40 = \answer{10+ 2^40}
+10 \ne \answer{10^{-11}+10}
 \]
 \end{example}
 \end{verbatim}
 
-Ximera accepts it as correct, even though we obviously know that's not
-true. But that's because $2^{-40}$ is a number that is too small for machine
-precision - so to the computer \textit{running} Ximera, it is effectively
-indistinguishable from zero. This is just an inherent restriction based on the
-machine running Ximera, rather than Ximera itself - but it can be important to
-be aware of, since it can crop up in other ways. For example, if you have
-something like $e^{-200|x|^{100}}$, then almost regardless of what number
-Ximera picks in the complex plane, chances are excellent that the result would
-be too small for machine precision to detect - meaning that the entire
-\textit{function} is indistinguishable from the constant zero. This can crop up
-as a result of integrating or differentiating weird functions that end up
-having extra terms that it is important for students to realize exist (e.g. you
-want to verify they used the chain rule and not just the base derivative rule)
-but the ``extra part'' doesn't seem to matter to Ximera - this is typically an
-issue of machine precision.
+Ximera accepts $10$ for the answer that should be $10^{-11}+10$  as correct, even though we obviously know that's not
+true.  This because $10^{-11}$ is a number that is too small for machine
+precision.
 
 \paragraph{Answer box size}
 If you are in a situation where you want a student to solve for a portion
@@ -288,8 +284,7 @@ With \verb!multipleChoice! the student is only able to select one answer before
 submitting. This could be useful for student surveys where every choice is
 marked as correct.
 
-\paragraph{Select All}
-With \verb!selectAll! the student is able to select any and all answers before
+\paragraph{Select All} problems allow the student to select any and all answers before
 submitting.
 \begin{verbatim}
 \begin{problem}
@@ -303,12 +298,13 @@ Select all prime numbers:
 \end{selectAll}
 \end{problem}
 \end{verbatim}
+
 Select all problems can be very challenging for students. Authors can quickly
 make
 questions that are quite difficult without realizing it.
 
 \paragraph{Word choice}
-Word choice problems were designed for inline \textit{words}; however, at this
+problems were designed for inline \textit{words}; however, at this
 point we
 do support math in the choices. We give an example of \verb!\wordChoice! in
 action below:
@@ -342,7 +338,7 @@ $P_1$, $P_2$, and $P_3$in terms of ``parallel,''
 \end{enumerate}
 \end{exercise}
 \end{verbatim}
-It is difficult to have a PDF version of \verb!\wordChoice! so authors should
+It is difficult to have a PDF version of \verb!\wordChoice! (unless you use the documentclass option \texttt{wordchoicegiven} so authors should
 take this into consideration.
 
 
