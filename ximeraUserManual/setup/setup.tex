@@ -113,7 +113,7 @@ should have a file structure
 that helps developers understand where content is stored. We recommend the
 following:
 \begin{description}
-  \item[Group by concept] by have all documents that are closely related in
+  \item[Group by concept] by having all documents that are closely related in
     idea
     or scope in the same folder. If someone else wants to use your content,
     this will be a one-stop destination for them.
@@ -395,23 +395,15 @@ Since every \verb!*.tex! file with a \verb!\documentclass! must compile, the pre
 In this diagram, we attempt to show how one should modify the inputs of the
 preamble based on the directory structure.
 
-\paragraph{Graphics paths}
-
-Perhaps the easiest way to include graphics in Ximera documents is with
-\verb!\includegraphics! via
-
-\begin{verbatim}
+\paragraph{Graphics paths} help \verb!\xourse! files find images. 
+We used \verb!\includegraphics! in \texttt{basicWorkSheet.tex} with code like:
+\begin{verbatim} 
 \begin{center}
   \includegraphics[width=5cm]{missionPatch.jpg}
 \end{center}
 \end{verbatim}
-which renders as:
-\begin{center}
-  \includegraphics[width=5cm]{missionPatch.jpg}
-\end{center}
-The image, also used in \texttt{ximeraFirstSteps}, is in the folder
-\texttt{basics} that
-contains the Ximera document \texttt{basicWorkSheet.tex}. However, when
+In this case, \texttt{basicWorkSheet.tex}  and \verb!missionPatch.jpg! are both in the folder
+\texttt{basics}. However, when
 this document is compiled via a \verb!xourse! document, the \LaTeX\ compiler
 looks for the image \textit{at the level of the
   \texttt{aFirstStepInXimera.tex}}.

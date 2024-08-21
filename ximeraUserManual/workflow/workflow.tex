@@ -81,6 +81,12 @@ In this section we walk through the basics of \verb!git!.
 % You should be ready to go at this point.
 
 \paragraph{Basic commands} of \verb!git! are good to know.
+If you are working with a collaborator, you should always start your work off with
+\begin{verbatim}
+git pull
+\end{verbatim}
+typed in terminal. This will retrieve any updates your collaborators have made. 
+
 First of all if you make a new file, you need to \textit{add} it to the
 repository. Suppose the name of your new file was MY-NEW-FILE.tex. You should
 type:
@@ -95,7 +101,7 @@ The \verb!add! includes the file in the files that \verb!git! tracks. The
 \verb!push! says ``I want to share this with others.''
 
 If, on the other hand, you want to push changes made to files you already have,
-type:
+type use \verb!git add -u! and it will add all updated files. 
 \begin{verbatim}
 git add -u
 git commit -m "I updated some files"
@@ -132,6 +138,18 @@ git add -f SOME-GRAPHICS.jpg
 \end{verbatim}
 
 \section{Deploying and debugging}
+
+Finally to deploy:
+\begin{enumerate}
+    \item Make sure all source files are commited and pushed to the repository. A quick 
+\begin{verbatim}
+git add -u && git commit -m "this is my change" && git push
+\end{verbatim}
+may help.
+\item Press \textit{Bake}.
+\item Press \textit{Serve}.
+\end{enumerate}
+
 
 As hard as we try to support the philosophy that \textit{if it compiles in
     \LaTeX, it compiles online}, it isn't always true. If you find that \textit{Bake} cannot compile a file, you can try the following. Start by running the following:
