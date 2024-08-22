@@ -44,7 +44,20 @@ The disadvantage of using \verb!\includegraphics! is that you need to handle
 the paths to the images in some way. You can do this by:
 \begin{description}
   \item[Editing the graphics path]
-  \item[Using a global graphics folder]
+  \item[Using a global graphics folder] can be done as follows by adding
+\begin{verbatim}
+\graphicspath{  %% When looking for inages,
+{./}            %% look here first,
+{./graphics/}   %% the look for a graphics folder,
+{../graphics/}  %% which may be a directory up.
+}
+\end{verbatim}
+
+Explain how to use a soft link to eat-your-cake and have-it too. 
+You put the images in the folder with the source, then you soft link to the graphics directory. 
+This is probably the best way to do it.
+
+
 \end{description}
 With this said, TikZ is the preferred method for graphics because code, found
 in the Ximera \LaTeX\ file, generates the image. No need to worry about
@@ -99,17 +112,21 @@ The easiest way to include an interactive graph is to use the
 \verb|\graph| command. Unfortunately, the \verb|\graph| command
 doesn't draw a graph in the PDF, rather, it states (in words) that a
 graph is produced.
+\begin{verbatim}
+\graph{x^2,x^3}                     %% just x^2 and x^3
+\graph{x^2 
+\left\{ 1 \leq x \leq 10 \right\}}   %% restricted domain
+\graph{\sin(x) \left\{x<0\right\}, 
+2x \left\{ x>=0 \right\} }          %% piecewise
+\graph{r=\theta} %% polar 
+\end{verbatim}
+
 \[
   \graph{x^2,x^3}
 \]
 There are a number of options for the \verb|\graph| command:
 
-\begin{verbatim}
-\graph{x^2 \left\{ 1 \leq x \leq 10 \right\}
-\graph{ \sin(x)\left\{x<0\right\}, 2x\left\{ x>=0 \right\} } 
-\graph{r=\theta}  
-\graph{x^2,x^3}
-\end{verbatim}
+
 
 \paragraph{Change viewing window}
 \[
@@ -120,7 +137,10 @@ There are a number of options for the \verb|\graph| command:
 \[
   \graph{x^2 \left\{ 1 \leq x \leq 10 \right\} }
 \]
-
+\paragraph{Restricting domain}
+\[
+  \graph{x^2 {1 \leq x \leq 10} }
+\]
 \paragraph{Graphing a piecewise function}
 
 \begin{verbatim}
@@ -132,19 +152,19 @@ There are a number of options for the \verb|\graph| command:
 \paragraph{Optional arguments for \texttt{\textbackslash graph}}
 
 \begin{description}
-  \item[xmin, ymin, xmax, ymax] These set the
+  \item[\tt\bfseries xmin, ymin, xmax, ymax] These set the
     size of the viewing window with
     \verb|\graph[xmin=-5,xmax=5,ymin=-5,ymax=5]{y=x^2}|.
-  \item[panel] Determines if the panel is shown with
+  \item[\tt\bfseries panel] Determines if the panel is shown with
     \verb|\graph[panel]{y=x^2}|.
-  \item[xAxisLabel, yAxisLabel] Gives the axes labels with
+  \item[\tt\bfseries xAxisLabel, yAxisLabel] Gives the axes labels with
     \verb|\graph[xAxisLabel="time", yAxisLabel="distance"]{y=x^2}|.
-  \item[hideXAxis, hideYAxis] Hides the axes with
+  \item[\tt\bfseries hideXAxis, hideYAxis] Hides the axes with
     \verb|\graph[hideXAxis=true, hideYAxis=true]{x^2}|.
-  \item[hideXAxisNumbers=true, hideYAxisNumbers=true] Hides the tick marks on
+  \item[\tt\bfseries hideXAxisNumbers=true, hideYAxisNumbers=true] Hides the tick marks on
     the axes with
     \verb|\graph[hideXAxisNumbers=true, hideYAxisNumbers=true]{y=x^2}|.
-  \item[polar] Shows polar grid lines with \verb|\graph[polar]{y=x^2}|.
+  \item[\tt\bfseries polar] Shows polar grid lines with \verb|\graph[polar]{y=x^2}|.
 \end{description}
 
 \[
@@ -159,11 +179,15 @@ We can embed YouTube Videos with something like
 \youtube{FvgF95i0_lw}
 \end{center}
 \end{verbatim}
-
 which would embed the video into the page, like this:
 \begin{center}
   \youtube{FvgF95i0_lw}
 \end{center}
+
+\begin{warning}
+  YouTube videos count toward the completion of the activity. As such,
+  currently, students must watch the \textbf{entire} video to earn full credit.
+\end{warning}
 
 \section{Desmos, Desmos 3D, and GeoGebra}
 
@@ -203,5 +227,8 @@ you want the embedded widget to have.
 \begin{center}
   \geogebra{XC3FXUdJ}{800}{600}%%https://www.geogebra.org/m/XC3FXUdJ
 \end{center}
+
+While we cannot get data from these sorts of interactives directly, the clever
+author can ask questions that \textbf{use} the interactive to find a solution.
 
 \end{document}
