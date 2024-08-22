@@ -84,7 +84,8 @@ to the \verb|\answer| command.
     \verb!cAt!,\verb!caT!, \verb!cat! all as
     correct. However, if spaces are inserted before, between, or after, it will
     be marked as incorrect.
-  \item[\tt\bfseries given] will show an answer in the PDF. Sometimes it is necessary to
+  \item[\tt\bfseries given] will show an answer in the PDF. Sometimes it is
+    necessary to
     show such content to ensure
     understandable in a PDF setting. Here \textit{given} means
     that the answer is \textit{given} to the student in the PDF.
@@ -102,34 +103,41 @@ are for building custom validators and are beyond the scope of this document.
 \end{verbatim}
 \end{warning}
 
-\paragraph{Validating an answer} is achieved by client-side JavaScript. Around one dozen algorithms to check if the student's provided
+\paragraph{Validating an answer} is achieved by client-side JavaScript. Around
+one dozen algorithms to check if the student's provided
 answer is mathematically equivalent to the content author's provided answer. If
 any report the answer as being correct, then it is marked as correct.
 
 \begin{warning}
-There are confounds for validating answers online:
-\begin{description}
-  \item[Student input] for answers a nontrivial task. Students need to be able
-    to easily type in their answers.
-  \item[Checking for equality] will not reveal the form of the answer. This
-    means that sometimes the `answer' to the question can be the question
-    itself. For example  \verb!1+2 = \answer{3}! can be answered with `$1+2$'
-    because
-    that \textit{equals} $3$.
-  \item[Right-click reveals the answer] to the students. Moreover, the source is open to the students. Ximera is not designed for high-stakes assessment.
-  \item[Richardson's theorem ]\link[states it is not
-      possible]{https://en.wikipedia.org/wiki/Richardson\%27s\_theorem}
-    to decide equality between the expressions of involving integers, $\pi$,
-    logarithms and exponential and sine functions.
-  \item[Floating-point numbers] can lead to erroneous computations, leading to
-    identifying nonequal expressions as equal.
-\end{description}
+  There are confounds for validating answers online:
+  \begin{description}
+    \item[Student input] for answers a nontrivial task. Students need to be
+      able
+      to easily type in their answers.
+    \item[Checking for equality] will not reveal the form of the answer. This
+      means that sometimes the \textit{answer} to the question can be the
+      question
+      itself. For example  \verb!1+2 = \answer{3}! can be answered with `$1+2$'
+      because
+      that \textit{equals} $3$.
+    \item[Right-click reveals the answer] to the students. Moreover, the source
+      is open to the students. Ximera is not designed for high-stakes
+      assessment.
+      \item[Richardson's theorem ]\link[states it is not
+        possible]{https://en.wikipedia.org/wiki/Richardson\%27s\_theorem}
+      to decide equality between the expressions of involving integers, $\pi$,
+      logarithms and exponential and sine functions.
+    \item[Floating-point numbers] can lead to erroneous computations, leading
+      to
+      identifying nonequal expressions as equal.
+  \end{description}
 \end{warning}
 In abstract, each of these confounds are quite daunting. However, in practice,
 they can be mitigated via Ximera's design along with thought on the author's
 side when constructing problems.
 
-\paragraph{Student input} is reflected back to the student, in the sense that Ximera tells the users what it thinks they are typing.
+\paragraph{Student input} is reflected back to the student, in the sense that
+Ximera tells the users what it thinks they are typing.
 In addition, we provide a math
 pallet. Authors can assist students with input by ensuring that the required
 answer is not too difficult to type in.
@@ -146,7 +154,8 @@ to use
 For other specific forms, like factoring polynomials, you will need to use a
 custom validator.
 
-\paragraph{Ximera is open-source} and not designed for high-stakes assessment. All content is
+\paragraph{Ximera is open-source} and not designed for high-stakes assessment.
+All content is
 open and students can find the source if they look hard enough. Moreover,
 Answers can be exposed via right-click. This has the even more unfortunate
 side-effect that a student can mess up their browser settings to the point that
@@ -156,8 +165,8 @@ For accessibility reasons (like screen readers and the like) the library
 that powers the answer box has a bunch of features bundled in, one of which is
 the ability to \textbf{right-click and get different formatting} of its
 contents.
-Unfortunately, if you right-click and go to ``show math as'' and then ``tex
-commands'' you can \textbf{very easily see the contents of the answer command}.
+Unfortunately, if you right-click and go to ``Show Math As'' and then ``TeX
+Commands'' you can \textbf{very easily see the contents of the answer command}.
 
 This information isn't necessary for accessibility
 (after all, the answer box is suppose to contain the actual content supplied by
@@ -166,7 +175,8 @@ it's tied to the behavior of the underlying library that supports \textit{all}
 the rendered math on the page, so we can't remove it without killing
 \textit{all} accessibility\dots yet.
 
-However, it is easily countered in \textit{specific cases} of the answer box. To do this, in your preamble, add something like:
+However, it is easily countered in \textit{specific cases} of the answer box.
+To do this, in your preamble, add something like:
 \begin{verbatim}
 \newcommand{\myHiddenAns}{6}
 \end{verbatim}
@@ -179,7 +189,6 @@ then in your document, you can write
   \]  
 \end{exercise}
 \end{verbatim}
-Note, this could be effective for identifying academic misconduct.
 
 \paragraph{Ricardson's theorem} forces the developers of Ximera to make a
 decision:
@@ -188,12 +197,10 @@ decision:
   \item To sometimes count incorrect submissions as correct.
 \end{itemize}
 For the Ximera platform, we chose to \textbf{sometimes count incorrect
-  submissions as correct}. This means that if the \verb|\answer| command
-can't understand your provided answer, then it will default to mark
-\textit{any} answer from the student correct. In practice, if you find that you
-have an answer box that is marking anything/everything correct, this is
-probably because there is some kind of typo or character
-in the answer box that it cannot understand.
+  submissions as correct}. This means that at least one of the validators
+believed that the student typed in the correct solution. The validator can
+surely be optimized further, but that will be for future research and
+development.
 
 \paragraph{Floating-point computations} are a fact-of-life when working with
 computers.
@@ -207,9 +214,14 @@ Confirm:
 \end{example}
 \end{verbatim}
 
-Ximera accepts $10$ for the answer that should be $10^{-11}+10$  as correct, even though we obviously know that's not
+Ximera accepts $10$ for the answer that should be $10^{-11}+10$  as correct,
+even though we obviously know that's not
 true.  This because $10^{-11}$ is a number that is too small for machine
-precision.
+precision. For a more in-depth review of the perils of floating-point
+arithmetic, see \link%
+[\textit{What Every Computer Scientist Should Know About Floating-Point
+    Arithmetic}]
+{https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html}.
 
 \paragraph{Answer box size}
 If you are in a situation where you want a student to solve for a portion
@@ -284,7 +296,8 @@ With \verb!multipleChoice! the student is only able to select one answer before
 submitting. This could be useful for student surveys where every choice is
 marked as correct.
 
-\paragraph{Select All} problems allow the student to select any and all answers before
+\paragraph{Select All} problems allow the student to select any and all answers
+before
 submitting.
 \begin{verbatim}
 \begin{problem}
@@ -338,12 +351,9 @@ $P_1$, $P_2$, and $P_3$in terms of ``parallel,''
 \end{enumerate}
 \end{exercise}
 \end{verbatim}
-It is difficult to have a PDF version of \verb!\wordChoice! (unless you use the documentclass option \texttt{wordchoicegiven} so authors should
+It is difficult to have a PDF version of \verb!\wordChoice! (unless you use the
+documentclass option \texttt{wordchoicegiven} so authors should
 take this into consideration.
-
-
-
-
 
 \section{Expanding problem types}
 
@@ -358,30 +368,21 @@ each other, They \textit{hide} the inside environment. For example
 \begin{problem}
 Start with $F_0 = 1$ and $F_1=1$. Define
 \[
-F_{n+1} = F_n + F_{n-1} \qquad\text{for $n\ge$ 1}
+  F_{n+1} = F_n + F_{n-1} \qquad\text{for $n\ge$ 1}
 \]
 \begin{problem}
 Find $F_2$.
 \[
-F_2 = \answer{2}
+  F_2 = \answer{2}
 \]
 \begin{problem}
-  Find $F_3$
-  \[
+Find $F_3$
+\[
   F_3 = \answer{5}
-  \]
+\]
 \end{problem}
 \end{problem}
 \end{problem}
-
-
-
-
-
-
-
-
-
 
 \section{Worksheets}
 
@@ -519,7 +520,7 @@ detail.
 \pdfOnly{\onecolumn\begin{multicols}{2}}
     \section{Courses}
 
-    This section is about ``best practices'' when writing a book
+    This section is about \textit{best practices} when writing a book
     \begin{itemize}
       \item Keep related content in the same folder
       \item use \texttt{\textbackslash sectionstyle} and
@@ -617,7 +618,5 @@ detail.
   {./graphicsVideosAndInteractives/}
   }
   \end{verbatim}
-
-
 
 \end{document}
