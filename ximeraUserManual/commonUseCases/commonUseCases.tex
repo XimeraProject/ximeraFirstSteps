@@ -223,7 +223,8 @@ arithmetic, see \link%
     Arithmetic}]
 {https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html}.
 
-\paragraph{Parenthesis around answer boxes} are good to use, especially if your answer is negative and part of an expression.
+\paragraph{Parenthesis around answer boxes} are good to use, especially if your
+answer is negative and part of an expression.
 
 Since the answer box is a different size than the answer you should use
 \verb!\left! and \verb!\right! to do it like
@@ -259,14 +260,14 @@ in the form $ax+by+cz=d$.
 There are three similar answerables that all use the command \verb!\choice!. In
 each case, the order of the choices presented to the student is the order the
 author types in the code. The author marks correct answers with the option
-\verb!correct! and leaves incorrect answers without options:
+\verb!correct! and leaves incorrect answers without options.
 \begin{verbatim}
 \choice[correct]{SOME-CORRECT-ANSWER}
 \choice{SOME-INCORRECT-ANSWER}
 \end{verbatim}
-Let's see some examples now.
-\paragraph{Multiple Choice}
-Writing multiple choice, including True/False, questions is easy.
+Now we will discuss each specific environment that uses \verb!\choice!.
+\paragraph{Multiple choice}
+questions including True/False, questions are easy to write.
 \begin{verbatim}
 \begin{question}
 Which of the following functions has a graph which is a parabola?
@@ -295,7 +296,7 @@ With \verb!multipleChoice! the student is only able to select one answer before
 submitting. This could be useful for student surveys where every choice is
 marked as correct.
 
-\paragraph{Select All} problems allow the student to select any and all answers
+\paragraph{Select all} problems allow the student to select any and all answers
 before
 submitting.
 \begin{verbatim}
@@ -356,7 +357,7 @@ take this into consideration.
 
 \section{Expanding problem types}
 
-One thing you might want to have on a worksheet are problems that unfold as
+One thing you might want to have are problems that unfold as
 students work. We have special environments for this.
 
 While \textbf{any} environment can contain the command \verb|\answer|,
@@ -382,6 +383,34 @@ Find $F_3$
 \end{problem}
 \end{problem}
 \end{problem}
+
+With this said, this technique should be used with care an perhaps even
+sparingly. When problems unfold, students don't have any idea when the
+\textit{pain} will end. If we consider the unfolding problems above, but simply
+listed in order:
+\begin{verbatim}
+\begin{problem}
+Start with $F_0 = 1$ and $F_1=1$. Define
+\[
+  F_{n+1} = F_n + F_{n-1} \qquad\text{for $n\ge$ 1}
+\]
+\end{problem}
+
+\begin{problem}
+Find $F_2$.
+\[
+  F_2 = \answer{2}
+\]
+\end{problem}
+
+\begin{problem}
+Find $F_3$
+\[
+  F_3 = \answer{5}
+\]
+\end{problem}
+\end{verbatim}
+little is lost pedagogically and a student has a clear end in sight.
 
 \section{Worksheets}
 
@@ -441,15 +470,35 @@ different.
   }
 \end{center}
 
-\paragraph{Use cases}
+In this setting, the file \verb!worksheetCollection.tex! might look something
+like
+\begin{verbatim}
+\document{xourse}
+\input{preamble}
+\title{My Groovy Worksheets}
+\begin{abstract}
+  Some of my worksheets.
+\end{abstract}
+\maketitle
+\begin{document}
+\activity{someWorksheet/someWorksheet}
+\activity{anotherWorksheet/anotherWorkSheet}
+\end{document}
+\end{verbatim}
+
+The preamble would include:
+\begin{verbatim}
+%% where to find images
+\graphicspath{
+{./}
+{./someWorksheet/}
+}
+\end{verbatim}
 
 \section{Exercise banks}
 
-Exercise banks can be made with \verb!xourse! files.
-
-With no title
-
-With a title
+Exercise banks can be made with \verb!xourse! files. If you are making an
+exercise bank, you might want to have essentially one exercise per file.
 
 \paragraph{File structure}
 
@@ -512,6 +561,47 @@ With a title
   }
 \end{center}
 
+The individual exercises that live in folders might look something like:
+
+\begin{verbatim}
+\documentclass{ximera}
+\begin{document}
+\begin{exercise}
+Compute:
+\[
+  \frac{\partial}{\partial x} \sin(3xyx) 
+  = \answer{3yz\cos(3xyz)}
+\]
+\end{exercise}
+\end{document}
+\end{verbatim}
+
+In this case, the \verb!exerciseList! within \verb!exerciseTOpic! might look
+like
+
+\begin{verbatim}
+\documentclass{xourse}
+\input{../preamble}
+\title{My exercise banks}
+\begin{document}
+\begin{abstract}
+Here is an exercise bank
+\end{abstract}
+\maketitle
+
+\practice{exercise2a}
+\practice{anotherExercise}
+\practice{funExercise}
+
+\end{document}
+\end{verbatim}
+IF you don't give your \verb!xourse! file a title, it will not show up on the
+front page.
+Instead you can link directly to the file by going to something like:
+\begin{center}
+  \verb!https://some.ximera.server/DEPOLOY-NAME/exerciseTopic/exerciseList!
+\end{center}
+
 \paragraph{Exercises as part of a course} can be included as a folder within
 the section that the exercises address. The next section will address this in
 detail.
@@ -519,7 +609,8 @@ detail.
 \pdfOnly{\onecolumn\begin{multicols}{2}}
     \section{Courses}
 
-    This section is about \textit{best practices} when writing a book
+    This section is about \textit{best practices} when writing an entire
+    course.
     \begin{itemize}
       \item Keep related content in the same folder
       \item use \texttt{\textbackslash sectionstyle} and
@@ -529,6 +620,7 @@ detail.
             \texttt{\textbackslash answer} boxes to fill in.
       \item Think about how you name things
       \item Think about how paths are resolved.
+      \item Avoid over sectioning -- make a style and keep it simple.
     \end{itemize}
 
     \begin{verbatim}
