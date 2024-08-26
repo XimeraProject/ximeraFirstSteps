@@ -6,6 +6,11 @@
 *.svg
 *.png
 *.pdf
+## Don't ignore things in ./graphics 
+graphics/*
+!graphics/*.jpg
+!graphics/*.pdf
+!graphics/*.png
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
