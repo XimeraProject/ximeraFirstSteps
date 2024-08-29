@@ -1,0 +1,113 @@
+\documentclass{ximera}
+\author{Wim Obbels \and Bart Snapp}
+\input{../preamble}
+\license{CC: 0}
+
+\title{A basic worksheet}
+
+\begin{document}
+\begin{abstract}
+    A simple Ximera activity.
+\end{abstract}
+\maketitle
+
+Perhaps the most natural setting for Ximera content is that of a
+\textit{worksheet}. This is some document that may contain discussion as well
+as questions that check understanding.
+
+Ximera comes pre-equipped with many environments.  If you are ever curious about
+the source code, you can visit this source at
+
+\begin{center}
+    \url{https://github.com/ximeraProject/ximeraFirstSteps/basics/basicAnswerTypes.tex}
+\end{center}
+or by appending \verb|.tex| to the URl of this page online. 
+
+
+\section{A basic use case}
+We use\verb|\begin{definition}| for definitions and \verb|\begin{question}| for
+questions. Since Ximera provides immediate feedback, we suggest following
+definitions like this one by a quick question. Here's an example:
+
+\begin{definition}
+    The \textbf{absolute value} of a real number $a$, denoted by $|a|$, is
+    \[
+        |a| = \begin{cases}
+            a  & \text{if $a \geq 0$} \\
+            -a & \text{if $a<0$.}
+        \end{cases}
+    \]
+\end{definition}
+Now students can check their understanding:
+\begin{question}
+    Evaluate the following:
+    \begin{enumerate}
+        \item $|2-5| = \answer{3}$
+        \item $|5-2| = \answer{3}$
+        \item $|5-\sqrt{2}| = \answer{3.58578643763}$
+        \item $|5-\sqrt{2}| = \answer{5-\sqrt{2}}$
+    \end{enumerate}
+\end{question}
+
+You can see the source code for this file by appending \verb|.tex| to the end of the URL. 
+
+
+\section{Basic exercises}
+
+After that, you might want to have some exercises:
+
+\begin{exercise}
+    Let $x$ be the number of people
+    out of $100$ that LOVE Ximera.
+
+    Find the value of $x$.
+    \[
+        x = \answer{100}
+    \]
+\end{exercise}
+
+Maybe you want a problem with one or more parts,
+
+\begin{exercise}
+    Ximera is so awesome because it feels like:
+    \begin{multipleChoice}
+        \choice{Doing taxes}
+        \choice{Writing a book by hand}
+        \choice[correct]{A walk in the park with free ice cream} 
+        \choice{Solving a puzzle blindfolded}
+    \end{multipleChoice}
+    \begin{exercise}
+    Why is Ximera the best thing since the chalkboard?
+    \begin{selectAll}
+        \choice[correct]{It turns LaTeX into online materials}
+        \choice[correct]{It boosts student engagement}
+        \choice{It makes coffee and hugs you}
+        \choice[correct]{Its open-source and free}
+    \end{selectAll}
+\end{exercise}
+\end{exercise}
+
+Finally we can include pictures using \verb|includegraphics|. Here's an example of a question with a picture.
+\begin{question}
+    Here is a picture of the Ximera Octolion:
+    \begin{center}
+        \includegraphics[width=5cm]{missionPatch.jpg}
+    \end{center}
+    What's their name?
+    \[
+    \text{Name} = \answer[format=string]{Xarlie}
+    \]
+    \begin{hint}
+        Their name begins with an ``X.''
+    \end{hint}
+    \begin{hint}
+        It ends with an ``arlie.''
+    \end{hint}
+    \begin{hint}
+        It's almost Karlie!
+    \end{hint}
+\end{question}
+
+We include JPGs and PDFs in exactly the same way.
+
+\end{document}
