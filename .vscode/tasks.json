@@ -40,6 +40,17 @@
         },
         {
             "type": "shell",
+            "label": "XimerServer",
+            "command": "./scripts/xmlatex",
+            "windows": {
+                "command": ".\\scripts\\xmlatex.bat"
+              }, 
+            "args": [
+                "ximeraserver",
+            ],
+        },
+        {
+            "type": "shell",
             "label": "Serve",
             "command": "./scripts/xmlatex",
             "windows": {
