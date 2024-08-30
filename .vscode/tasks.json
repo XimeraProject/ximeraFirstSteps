@@ -23,6 +23,8 @@
                 "command": ".\\scripts\\xmlatex.bat"
               },             
             "args": [
+                "--",
+                "--skip-mathjax",
                 "compile",
                 "${relativeFile}"
             ],
@@ -35,6 +37,8 @@
                 "command": ".\\scripts\\xmlatex.bat"
               }, 
             "args": [
+                "--",
+                "--skip-mathjax",
                 "bake",
             ],
         },
