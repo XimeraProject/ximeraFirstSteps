@@ -207,16 +207,19 @@ For all platforms VS Code will ask if you "trust the authors." You do!
 
 Once you clone this repository, VS Code will ask you, via a pop-up (or a notification flag) in the lower right-hand corner, if you want to install extensions. **Install the suggested extensions.**
 Once the extensions are installed, you should have four new small buttons at the bottom right-hand corner of your screen in VS code.
-The new buttons will be named "PDF," "HTML," "Bake," and "Serve."
+The new buttons will be named "PDF," "HTML," "Bake," "Serve," and "XimeraServer." Buttons
 
 ### Bake with Xake
 
 If you press the "Bake" button, it should start downloading the Docker container. Then it should compile the course. The very **first** time it will compile all the documents. This will take some time. However, the next time you compile, it will only compile updated files and will be **much** faster.
 
 
+
+
+
 ### Getting GPG Keys
 
-You need to have a GPG to create a course. This ensures that no one "overwrites" your online course without you knowing. (Even if this did happen, you can always just re-deploy and contact the Ximera developers)
+You need to have a GPG to deploy to the OSU server. This ensures that no one "overwrites" your online course without you knowing. (Even if this did happen, you can always just re-deploy and contact the Ximera developers)
 
 Start by checking if you have GPG keys:
 ```
