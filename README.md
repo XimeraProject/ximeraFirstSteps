@@ -50,7 +50,7 @@ Fork the repo. Accept all defaults, including the name "ximeraFirstSteps." When 
 
 ### Installing Git
 
-Git is fundamental to working with Ximera. All Ximera docuements that will be deployed online must be in Git repository. If you have no experience with Git, the developers are happy to help get you started with Git, email: `ximera@math.osu.edu`
+Git is fundamental to working with Ximera. All Ximera documents that will be deployed online must be in Git repository. If you have no experience with Git, the developers are happy to help get you started with Git, email: `ximera@math.osu.edu`
 
 #### Windows
 
