@@ -95,8 +95,12 @@ git config --global core.editor "nano"
 
 ### Installing Visual Studio Code
 
-Visual Studio Code gives us a common deploy environment. In particular, on Windows machines it provides a UNIX-like terminal via WSL. In particular, Windows users must install Visual Studio Code first, and enable WSL.
-Download from `https://code.visualstudio.com/download` or if you use Linux and are on a Debian-based distribution, such as Ubuntu, you must add the windows and install dependencies before you can install the repo try:
+Visual Studio Code gives us a common deploy environment. In particular, on Windows machines it provides a UNIX-like terminal via WSL. In particular, **Windows users must install Visual Studio Code first, and enable WSL**.
+Download from 
+```
+https://code.visualstudio.com/download
+```
+or if you use Linux and are on a Debian-based distribution, such as Ubuntu, you must add the windows and install dependencies before you can install the repo try:
 
 ```console
 sudo apt install software-properties-common apt-transport-https wget -y
