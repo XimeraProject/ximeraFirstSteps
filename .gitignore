@@ -11,6 +11,9 @@ pictures/*
 !pictures/*.jpg
 !pictures/*.pdf
 !pictures/*.png
+!pictures/*.JPG
+!pictures/*.PDF
+!pictures/*.PNG
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
