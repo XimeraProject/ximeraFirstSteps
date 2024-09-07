@@ -229,11 +229,11 @@ Start by checking if you have GPG keys:
 ```
 gpg --list-keys
 ```
-If you have one listed, you may use it, or make a new one with:
+If you have one listed, you may use it, or make a new one with (answer the questions, but **leave the passphrase blank**) and :
 ```
  gpg --gen-key
 ```
-Answer the questions, but leave the passphrase blank and copy the long hex string as YOUR-GPG-KEY-ID (ABCD3562DBF9929292 or whatever).
+copy the long hex string as YOUR-GPG-KEY-ID (ABCD3562DBF9929292 or whatever).
 
 If you are using MacOS, you might not be able to leave the passphrase blank. In this case go to https://gpgtools.org/ and install the GPG Suite. This will provide a GUI that will produce a GPG key with spaces. Delete these spaces and this new key (without spaces) is your key. You should quite your terminal and open a new one. 
 
