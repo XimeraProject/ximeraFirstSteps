@@ -118,7 +118,7 @@ debug() {
 : "${NB_JOBS:=2}"
 : "${XAKE:=xake}"
 
-while getopts ":vitds" opt; do
+while getopts ":hitvds" opt; do
   case ${opt} in
     h ) 
        cat <<EOF
