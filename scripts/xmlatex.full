@@ -1,6 +1,7 @@
 #!/bin/bash
 #
-# This script starts a docker container and run (a wrapper-script around) ximera's 'xake' command
+# This script is a wrapper around (and in its full version an extension of) ximera's xake command
+#  THAT ENSURES IT'S RUNNING IN A DOCKER CONTAINER 
 #
 # Usage: 
 #   xmlatex bake
@@ -13,6 +14,7 @@
 #   COMMAND=pdflatex xmlatex demo.tex                                            # do not run the xake-wrapper, but $COMMAND
 #
 # This script
+#  - loads some configuration from .ximeraserve (can be overwritten with CONFIG_FILE)
 #  - starts a xake docker container (unless we're already IN a container)
 #  - starts (presumably) a container-specific version of this very script
 #  - that (presumably) starts xake with the arguments passed to this script
@@ -20,13 +22,34 @@
 #  - optionally automates lots of other things
 #
 # Note: set environment variable 'export DEBUG=1' and/or use -d option for debugging/tracing
+# Note: this scripts RESTARTS itself (or a variant of itself!!!) IN A DOCKER CONTAINER
 #
 #
+: "${CONFIG_FILE:=ximeraconfig.txt}"
+
+if [[ -f "$CONFIG_FILE" ]]
+then
+        [[ -n "$DEBUG" ]] && echo "Loading settings from config file $CONFIG_FILE."
+        . $CONFIG_FILE
+fi
+
+
 # Set some defaults
 #
 # default docker image to run; overwrite with 'export XAKE_IMAGE=myxake:0.1'
-: "${XAKE_IMAGE:=ghcr.io/ximeraproject/xake2023:v2.1.1}" 
-#  : "${XAKE_IMAGE:=ghcr.io/ximeraproject/xake2019:latest}"
+#: "${XAKE_IMAGE:=ghcr.io/ximeraproject/xake2023:v2.1.1}" 
+: "${XAKE_BASE:=xake2019}"
+: "${XAKE_VERSION:=v2.1.1}"
+: "${XAKE_CONTAINER:=$XAKE_BASE:$XAKE_VERSION}"
+: "${DOCKER_REPO:=ghcr.io/ximeraproject/}"
+
+# For historic compatibility, keep supporting XAKE_IMAKE
+: "${XAKE_IMAGE:=$DOCKER_REPO$XAKE_CONTAINER}"   # TO BE OBSOLETED
+: "${DOCKER_IMAGE:=$XAKE_IMAGE}"
+
+: "${SERVER_PORT:=2000}"
+: "${SERVER_NAME:=ximeraserver}"
+: "${SERVER_IMAGE:=registry.gitlab.kuleuven.be/wet/ximera/ximeradocker:2.3.7j}"
 #
 # Which folder to mount INSIDE the container, under /code  (use with care: it should contain a build.sh !)
 : "${MOUNTDIR:=$(pwd)}"
@@ -59,14 +82,22 @@ else
         [[ -n "$DEBUG" ]] && echo "Setting LOCAL_IP=$LOCAL_IP"
     fi
 
-    echo "Restarting myself in docker (from image $XAKE_IMAGE)"	
+    if [[ "$1" == "ximeraserver" ]]
+    then    
+        echo "Starting ximera $SERVER_NAME from $SERVER_IMAGE of port $SERVER_PORT"
+        docker run --rm --name $SERVER_NAME -p 2000:$SERVER_PORT $SERVER_IMAGE
+        exit
+    fi
+
+    echo "Restarting myself in docker (from image $DOCKER_IMAGE)"	
     [[ -n "$DEBUG" ]] && echo  \
-    docker run --env LOCAL_IP --env URL_XIMERA --env REPO_XIMERA --env GPG_KEY --env GPG_KEY_ID --network host --rm $INTERACTIVE --mount type=bind,source=$MOUNTDIR,target=/code $XAKE_IMAGE $COMMAND $*
-    docker run --env LOCAL_IP --env URL_XIMERA --env REPO_XIMERA --env GPG_KEY --env GPG_KEY_ID --network host --rm $INTERACTIVE --mount type=bind,source=$MOUNTDIR,target=/code $XAKE_IMAGE $COMMAND $*
+    docker run --env LOCAL_IP --env URL_XIMERA --env REPO_XIMERA --env GPG_KEY --env GPG_KEY_ID --network host --rm $INTERACTIVE --mount type=bind,source=$MOUNTDIR,target=/code $DOCKER_IMAGE $COMMAND $*
+    docker run --env LOCAL_IP --env URL_XIMERA --env REPO_XIMERA --env GPG_KEY --env GPG_KEY_ID --network host --rm $INTERACTIVE --mount type=bind,source=$MOUNTDIR,target=/code $DOCKER_IMAGE $COMMAND $*
     exit 
 fi
 
 # We're for sure running in a container now
+# We'll start using more advanced bash/linuix functionality, because we're (presumable...) in the known context of a properly configured container image.
 
 echo "Starting $0 $*"
 
@@ -87,7 +118,7 @@ debug() {
 : "${NB_JOBS:=2}"
 : "${XAKE:=xake}"
 
-while getopts ":hitds" opt; do
+while getopts ":vitds" opt; do
   case ${opt} in
     h ) 
        cat <<EOF
@@ -98,11 +129,11 @@ while getopts ":hitds" opt; do
 	This script is a (docker-)wrapper to 'xake', and contains some extra convenience-functions for building pdf's.
 	
 	Usage:
-        ./build.sh compile path/to/file.tex
-        ./build.sh compilePdf path/to/file.tex
-        ./build.sh bake
-        ./build.sh serve     (does ALSO do frost and setup gpg-keys ...!)
-        ./build.sh -i bash   (start a shell inside the container)
+        xmlatex compile path/to/file.tex
+        xmlatex compilePdf path/to/file.tex
+        xmlatex bake
+        xmlatex serve     (does ALSO do frost and setup gpg-keys ...!)
+        xmlatex -i bash   (start a shell inside the container)
 	   
 EOF
        exit 0
@@ -110,7 +141,11 @@ EOF
     i )
         echo "Interactive session"
         ;;
-    d ) DEBUG=1 
+    d ) DEBUG=1
+        VERBOSE=1 
+        XAKE="$XAKE -v"
+      ;;
+    v ) VERBOSE=1 
         XAKE="$XAKE -v"
       ;;
     s ) XAKE="$XAKE --skip-mathjax"
@@ -155,6 +190,14 @@ if [[ -f .ximera/sagetex.sty ]]; then
     cp .ximera/sagetex.sty /root/texmf/tex/latex/ximeraLatex/
 fi
 
+# Use a local xmaltex.full if available
+if [[ -f ./scripts/xmlatex.full ]]; then
+    echo "USING xmlatex.full from local repo"
+    [[ -n "$DEBUG" ]] && diff ./scripts/xmlatex.full /usr/local/bin/xmlatex
+    cp /usr/local/bin/xmlatex /usr/local/bin/xmlatex.$(date "+%F-%H-%M-%S")
+    cp ./scripts/xmlatex.full /usr/local/bin/xmlatex
+fi
+
 # Add anything that might not be installed in the container 
 # HACK: hardcoded path ...
 #if [[ -d .texmf ]]; then
@@ -183,7 +226,7 @@ export half_error_line=238
 
 
 # After git clone, ALL files seem recent; try to reset them (to prevent baking all files all the time)
-#  (needed in gillab CI/CD ...)
+#  (needed in gitlab CI/CD ...)
 reset_file_times() {
  if find . -maxdepth 1 -name "*.tex" -mtime +1 | grep .
  then
@@ -215,12 +258,12 @@ then
     # Not: one thus has xmlatex-calls-xake-calls-xmlatex !!!
     FILE=$2
     echo  "htmlTeXing $FILE (xmlatex $*)"
-
     debug pdflatex -file-line-error -shell-escape "\\PassOptionsToClass{tikzexport}{ximera}\\PassOptionsToClass{xake}{ximera}\\PassOptionsToClass{xake}{xourse}\\nonstopmode\\input{$FILE}"
           pdflatex -file-line-error -shell-escape "\\PassOptionsToClass{tikzexport}{ximera}\\PassOptionsToClass{xake}{ximera}\\PassOptionsToClass{xake}{xourse}\\nonstopmode\\input{$FILE}"
 
     debug make4ht -s -c ximera -f xhtml -u  -a debug $FILE "svg,htex4ht,mathjax,-css,info" "" "" "--interaction=nonstopmode -shell-escape -file-line-error" 
           make4ht -s -c ximera -f xhtml -u  -a debug $FILE "svg,htex4ht,mathjax,-css,info" "" "" "--interaction=nonstopmode -shell-escape -file-line-error" | tee $FILE.log
+#          make4ht -s -c ximera -f html5+dvisvgm_hashes -u  -a debug $FILE "svg,htex4ht,mathjax,-css,info" "" "" "--interaction=nonstopmode -shell-escape -file-line-error" | tee $FILE.log
     # make4ht -s -c ximera -f xhtml+tidy -u  -a debug $FILE "svg,htex4ht, mathjax,-css,Gin-percent,info" "" "" "--interaction=nonstopmode -shell-escape -file-line-error" | tee $FILE.log
     # make4ht  $FILE "ximera,charset=utf-8,-css" "-cunihtf -utf8" "" "--interaction=nonstopmode -shell-escape -file-line-error"
     # htlatex $FILE "ximera,charset=utf-8,-css" "-cunihtf -utf8" "" "--interaction=nonstopmode -shell-escape -file-line-error"
@@ -229,6 +272,9 @@ then
     #  It removes spurious trailing dashed in the filename of included figures/images in the html files ...
     debug Fixing svg filenames in ${FILE%.tex}.html
     sed -i.bak 's/-figure\([0-9]*\)-\.svg/-figure\1.svg/' ${FILE%.tex}.html
+    debug Fixing blanks '\begin {env}' in ${FILE%.tex}.html
+    sed -i 's/\\begin {/\\begin{/g' ${FILE%.tex}.html
+    sed -i 's/\\end {/\\end{/g' ${FILE%.tex}.html
     exit 0   # DUBIOUS
 elif [[ "$COMMAND" == "texPdf" ]]
 then
@@ -240,7 +286,8 @@ then
     FILE=$2
     echo  "pdfTeXing $FILE (xmlatex $*)"
     debug pdflatex -file-line-error -shell-escape -jobname=${FILE%.tex} "\nonstopmode\input{$FILE}"
-          pdflatex -file-line-error -shell-escape -jobname=${FILE%.tex} "\nonstopmode\input{$FILE}"
+    timeout 7m  pdflatex -file-line-error -shell-escape -jobname=${FILE%.tex} "\nonstopmode\input{$FILE}"
+    #            pdflatex -file-line-error -shell-escape -jobname=${FILE%.tex} "\nonstopmode\input{$FILE}"
 
 elif [[ "$COMMAND" == "bake" ]]
 then
@@ -360,8 +407,8 @@ then
         then
             echo "Using settings from .ximeraserve"
             source .ximeraserve
-	    echo GPG_KEY_ID=$GPG_KEY_ID
-	    echo GPG_KEY=${GPG_KEY:0:10}...
+	        echo GPG_KEY_ID=$GPG_KEY_ID
+	        echo GPG_KEY=${GPG_KEY:0:10}...
         fi
         if [[ -z "$GPG_KEY_ID" ]]   # still no key ...
         then
@@ -381,7 +428,7 @@ then
             rm .gpg # remove the gpg key so it is certainly not cached
         fi
     else 
-        echo  "Importing private key from variable GPG_KEY"
+        echo  "Importing (encoded) private key from variable GPG_KEY"
         echo "$GPG_KEY" | base64 --decode > .gpg # decode the base64 gpg key
         gpg -q $VERBOSE --import .gpg  || error "gpg --import failed (from key itself in variable)"
         rm .gpg # remove the gpg key so it is certainly not cached
@@ -416,14 +463,33 @@ then
 	    git remote -v
     fi
     $XAKE serve 2>&1 || error "xake serve failed"  # Upload files = push tag
+
+    # Get the owner and group of .git
+    owner_group=$(stat -c "%u:%g" ".git")
+
+    # Check if the file exists
+    if [ ! -d ".git" ]; then
+        echo "Error: Folder '$.git' not found."
+        exit 1
+    fi
+
+    # Change the ownership of all files in the current directory
+    chown -R "$owner_group" .git
+
+    echo "Ownership of all files in the current directory has been changed to $owner_group."
+
+
+
+
 elif [[ "$COMMAND" == "compileNC" ]]   # NC = NoCheck ...
 then
-    echo "xake $* (with --skip-mathjax ...)"
-    $XAKE --skip-mathjax $*
+    shift
+    echo "xake --skip-mathjax compile $* (with --skip-mathjax ...)"
+    $XAKE --skip-mathjax compile $*
 else
     # Hope that 'xake $*' was intended ...; if not, xake will complain.
     echo "Starting xake $*"
-    xake $*
+    $XAKE $*
 fi
 
 #exit 0; % would ignore (some) errors; might be relevant in CI/CD context
