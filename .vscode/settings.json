@@ -48,9 +48,31 @@
                 "tooltip": "Start local server."
                 },
                 {
-                "label": "Clean",
+                    "task": "bakehandout",
+                    "label": "Bake handout",
+                    "alignment": "right",
+                    "description": "Make handout PDF's.",
+                    "tooltip": "Make handout PDF's.",
+                },
+                {
+                    "task": "bakestandaard",
+                    "label": "Bake full version",
+                    "description": "Make  full PDF's. ('standaard')",
+                    "tooltip": "Make  full PDF's. ('standaard')",
+                    "alignment": "right",
+                },
+                {
+                "label": "Remove standaard PDF's",
+                "task": "cleanstandaard",
+                },
+                {
+                "label": "Remove handout PDF's",
+                "task": "cleanhandout",
+                },
+                {
+                "label": "Clean all",
                 "alignment": "right",
-                "task": "Clean",
+                "task": "clean",
                 "description": "Delete all generated files.",
                 "tooltip": "Delete all generated files.",
                 },

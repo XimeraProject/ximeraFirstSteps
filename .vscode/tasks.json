@@ -6,6 +6,7 @@
         {
             "type": "shell",
             "label": "PDF",
+            "task": "compilePdf",
             "command": "./scripts/xmlatex",
             "windows": {
                 "command": ".\\scripts\\xmlatex.bat"
@@ -17,6 +18,7 @@
         },
         {
             "type": "shell",
+            "task": "compileHtml",
             "label": "HTML",
             "command": "./scripts/xmlatex",
             "windows": {
@@ -44,6 +46,7 @@
         },
         {
             "type": "shell",
+            "task": "clean",
             "label": "Clean",
             "command": "./scripts/xmlatex",
             "windows": {
@@ -56,6 +59,7 @@
         {
             "type": "shell",
             "label": "Bake handout",
+            "task": "bakehandout",
             "command": "./scripts/xmlatex",
             "windows": {
                 "command": ".\\scripts\\xmlatex.bat"
@@ -67,6 +71,7 @@
         {
             "type": "shell",
             "label": "Clean handout",
+            "task": "cleanhandout",
             "command": "./scripts/xmlatex",
             "windows": {
                 "command": ".\\scripts\\xmlatex.bat"
