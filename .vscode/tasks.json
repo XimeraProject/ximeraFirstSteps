@@ -44,6 +44,39 @@
         },
         {
             "type": "shell",
+            "label": "Clean",
+            "command": "./scripts/xmlatex",
+            "windows": {
+                "command": ".\\scripts\\xmlatex.bat"
+              }, 
+            "args": [
+                "clean",
+            ],
+        },
+        {
+            "type": "shell",
+            "label": "Bake handout",
+            "command": "./scripts/xmlatex",
+            "windows": {
+                "command": ".\\scripts\\xmlatex.bat"
+              }, 
+            "args": [
+                "bakehandout",
+            ],
+        },
+        {
+            "type": "shell",
+            "label": "Clean handout",
+            "command": "./scripts/xmlatex",
+            "windows": {
+                "command": ".\\scripts\\xmlatex.bat"
+              }, 
+            "args": [
+                "cleanhandout",
+            ],
+        },
+        {
+            "type": "shell",
             "label": "XimerServer",
             "command": "./scripts/xmlatex",
             "windows": {
@@ -63,19 +96,6 @@
             "args": [
                 "serve",
             ],
-            // // NOT IMPLEMENTED YET //
-            // "problemMatcher": {
-            //     "owner": "xxxx",
-            //     "fileLocation": [
-            //         "relative",
-            //         "${workspaceFolder}"
-            //     ],
-            //     "pattern": {
-            //         "regexp": "^\\[\\d+-\\d+-\\d+\\]\\[\\d+:\\d+:\\d+\\]\\[[^\\]]*\\]\\[(ERROR)\\](.*)$",
-            //         "severity": 1,
-            //         "message": 2
-            //     }
-            // }
         },
     ]
 }

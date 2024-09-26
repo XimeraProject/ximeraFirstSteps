@@ -37,11 +37,24 @@
             "tooltip": "Serve this project."
         },
         {
-            "label": "XimeraServer",
+            "label": "Extra",
             "alignment": "right",
-            "task": "XimerServer",
-            "description": "Start local server.",
-            "tooltip": "Start local server."
+            "tasks": [
+                {
+                "label": "XimeraServer",
+                "alignment": "right",
+                "task": "XimerServer",
+                "description": "Start local server.",
+                "tooltip": "Start local server."
+                },
+                {
+                "label": "Clean",
+                "alignment": "right",
+                "task": "Clean",
+                "description": "Delete all generated files.",
+                "tooltip": "Delete all generated files.",
+                },
+            ],
         },
     ]
 }
