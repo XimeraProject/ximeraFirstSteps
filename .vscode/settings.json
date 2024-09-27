@@ -6,6 +6,11 @@
     ],
     "latex-workshop.latex.autoBuild.run": "onSave",
     "explorer.excludeGitIgnore": true,
+    // "remote.portsAttributes": {
+    //     "2000": {
+    //         "onAutoForward": "ignore"
+    //     }
+    // },    
     // "task.problemMatchers.neverPrompt": true    ,
     "VsCodeTaskButtons.showCounter": false,
     "VsCodeTaskButtons.tasks": [
@@ -45,6 +50,12 @@
                     "task": "Start Ximera Server",
                     "label": "Start Ximera Server",
                     "description": "Start local Ximera webserver.",
+                    "problemMatcher": [],
+                },
+                {
+                    "task": "Preview in Simple Browser",
+                    "label": "Preview in Simple Browser",
+                    // "description": "Start local Ximera webserver.",
                     "problemMatcher": [],
                 },
                 {

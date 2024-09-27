@@ -68,7 +68,11 @@
                 "ximeraserver"
             ],
             "problemMatcher": []
-        },        
+        },
+        {
+                "label": "Preview in Simple Browser",
+                "command": "${input:openSimpleBrowser}",
+        },
         {
             "type": "shell",
             "label": "Bake standard",
@@ -130,5 +134,14 @@
             ],
             "problemMatcher": []
         },
-    ]
+    ],
+    "inputs": [
+        {
+          "id": "openSimpleBrowser",
+          "type": "command",
+          "command": "simpleBrowser.show",
+          "args": [ "http://localhost:2000/test" ],
+
+        }
+    ]    
 }
