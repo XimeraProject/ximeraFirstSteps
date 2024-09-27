@@ -8,8 +8,9 @@
 # For publishing 
 #
 
-# REPO_XIMERA=demo
-# URL_XIMERA=https://ximera.osu.edu
+
+# XIMERA_NAME=<PUT_NAME_HERE>
+# XIMERA_URL=https://ximera.osu.edu
 ## URL_XIMERA=https://set-p-dsb-zomercursus-latest.cloud-ext.icts.kuleuven.be/
 ## URL_XIMERA=https://set.kuleuven.be/voorkennis/
 

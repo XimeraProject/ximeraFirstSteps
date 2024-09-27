@@ -14,7 +14,8 @@
 #   COMMAND=pdflatex xmlatex demo.tex                                            # do not run the xake-wrapper, but $COMMAND
 #
 # This script
-#  - loads some configuration from .ximeraserve (can be overwritten with CONFIG_FILE)
+#  - loads some configuration from ./scripts/config.tex (can be overwritten with CONFIG_FILE)
+#  - for serving, also (basefolder)/.ximeraserve will be read (for GPG key settings)
 #  - starts a xake docker container (unless we're already IN a container)
 #  - starts (presumably) a container-specific version of this very script
 #  - that (presumably) starts xake with the arguments passed to this script
@@ -25,7 +26,7 @@
 # Note: this scripts RESTARTS itself (or a variant of itself!!!) IN A DOCKER CONTAINER
 #
 #
-: "${CONFIG_FILE:=ximeraconfig.txt}"
+: "${CONFIG_FILE:=./scripts/config.txt}"
 
 if [[ -f "$CONFIG_FILE" ]]
 then
@@ -75,7 +76,7 @@ else
         shift 
     fi 
 
-    # LOCAL_IP is only needed if you want to serve to a ximeraServer on your localhost; do NOT use URL_XIMERA when using LOCAL_IP
+    # LOCAL_IP is only needed if you want to serve to a ximeraServer on your localhost; do NOT use XIMERA_URL when using LOCAL_IP
     if [[ "$LOCAL_IP" == "" ]]
     then
         LOCAL_IP=$(set -- $(hostname -I); echo "$1")
@@ -91,8 +92,8 @@ else
 
     echo "Restarting myself in docker (from image $DOCKER_IMAGE)"	
     [[ -n "$DEBUG" ]] && echo  \
-    docker run --env LOCAL_IP --env URL_XIMERA --env REPO_XIMERA --env GPG_KEY --env GPG_KEY_ID --network host --rm $INTERACTIVE --mount type=bind,source=$MOUNTDIR,target=/code $DOCKER_IMAGE $COMMAND $*
-    docker run --env LOCAL_IP --env URL_XIMERA --env REPO_XIMERA --env GPG_KEY --env GPG_KEY_ID --network host --rm $INTERACTIVE --mount type=bind,source=$MOUNTDIR,target=/code $DOCKER_IMAGE $COMMAND $*
+    docker run --env LOCAL_IP --env XIMERA_URL --env XIMERA_NAME --env GPG_KEY --env GPG_KEY_ID --network host --rm $INTERACTIVE --mount type=bind,source=$MOUNTDIR,target=/code $DOCKER_IMAGE $COMMAND $*
+    docker run --env LOCAL_IP --env XIMERA_URL --env XIMERA_NAME --env GPG_KEY --env GPG_KEY_ID --network host --rm $INTERACTIVE --mount type=bind,source=$MOUNTDIR,target=/code $DOCKER_IMAGE $COMMAND $*
     exit 
 fi
 
@@ -113,6 +114,9 @@ debug() {
 
 # Set reasonable defaults for variables
 : "${LOCAL_IP:=localhost}"
+# For (dubious) historical reasons, namely some .ximeraserve's containing URL_XIMERA and REPO_XIMERA,
+# these values are used as defaults.
+# TO BE REPLACED by XIMERA_URL and XIMERA_NAME (as set in config.txt)
 : "${URL_XIMERA:=http://$LOCAL_IP:2000/}"     # default: publish to ximera-docker-instance, but 'localhost' does refer to THIS container
 : "${REPO_XIMERA:=test}"
 : "${NB_JOBS:=2}"
@@ -124,7 +128,7 @@ while getopts ":hitvds" opt; do
        cat <<EOF
         Build and publish a ximera-repository to a ximera-server (via bake/frost/serve)
 
-        Publishes to $URL_XIMERA$REPO_XIMERA 
+        Publishes to $XIMERA_URL$XIMERA_NAME 
 
 	This script is a (docker-)wrapper to 'xake', and contains some extra convenience-functions for building pdf's.
 	
@@ -409,6 +413,8 @@ then
             source .ximeraserve
 	        echo GPG_KEY_ID=$GPG_KEY_ID
 	        echo GPG_KEY=${GPG_KEY:0:10}...
+            : ${XIMERA_NAME:= $REPO_XIMERA}
+            : ${XIMERA_URL:= $URL_XIMERA}
         fi
         if [[ -z "$GPG_KEY_ID" ]]   # still no key ...
         then
@@ -434,12 +440,12 @@ then
         rm .gpg # remove the gpg key so it is certainly not cached
     fi
     [[ -n "$DEBUG" ]] && gpg --list-keys
-    debug "KEYSERVER gpg $VERBOSE --keyserver $URL_XIMERA --send-key $GPG_KEY_ID"
-    gpg -q $VERBOSE --keyserver $URL_XIMERA --send-key "$GPG_KEY_ID" || echo "WARNING: gpg sendkey failed (to url $URL_XIMERA), which is no problem if this key is already there"
+    debug "KEYSERVER gpg $VERBOSE --keyserver $XIMERA_URL --send-key $GPG_KEY_ID"
+    gpg -q $VERBOSE --keyserver $XIMERA_URL --send-key "$GPG_KEY_ID" || echo "WARNING: gpg sendkey failed (to url $XIMERA_URL), which is no problem if this key is already there"
     
-    echo "xake NAME: on $URL_XIMERA set name to $REPO_XIMERA"
-    debug "xake NAME: $XAKE -U $URL_XIMERA -k $GPG_KEY_ID name $REPO_XIMERA"
-    $XAKE -U $URL_XIMERA -k "$GPG_KEY_ID" name "$REPO_XIMERA" || error "xake name failed" 
+    echo "xake NAME: on $XIMERA_URL set name to $XIMERA_NAME"
+    debug "xake NAME: $XAKE -U $XIMERA_URL -k $GPG_KEY_ID name $XIMERA_NAME"
+    $XAKE -U $XIMERA_URL -k "$GPG_KEY_ID" name "$XIMERA_NAME" || error "xake name failed" 
 
 #    echo "Prepare git repo"
 #    git fetch --unshallow # Zorg ervoor dat we de hele geschiedenis hebben ipv enkel een deel, anders werkt het serven niet
