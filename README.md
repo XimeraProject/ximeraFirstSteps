@@ -1,31 +1,11 @@
-# Take Your First Steps in Ximera
-
-This repository has a basic Ximera course along with instructions for deploying that will help you get started using Ximera. It is designed to help a new user. If there are problems with the instructions below, please submit an "Issue" by pressing the "Issues Tab" at the top-left of the screen.
+This repository has a basic Ximera course along with instructions for deploying that will help you get started using Ximera. It is designed to help a new user. If there are problems with the instructions below, please submit an "Issue" by pressing the "Issues Tab" on https://github.com/XimeraProject/ximeraFirstSteps.
 
 <!-- MANUAL TOC NEEDED ???? -->
-- [Take Your First Steps in Ximera](#take-your-first-steps-in-ximera)
 - [Software requirements and suggestions](#software-requirements-and-suggestions)
-    - [Installing Git](#installing-git)
-    - [Installing Visual Studio Code](#installing-visual-studio-code)
-      - [Windows WSL 2 install](#windows-wsl-2-install)
-    - [Installing Docker](#installing-docker)
-    - [OPTIONAL: Installing LaTeX](#installing-latex)
 - [Test your software and clone this repository](#test-your-software-and-clone-this-repository)
-    - [Start Docker](#start-docker)
-    - [Start VS Code](#start-vs-code)
-    - [OPTIONAL: Obtain a GitHub account and "Fork" this repository](#obtain-a-github-account-and-fork-this-repository)    
-    - [Clone YOUR COPY of this repository](#clone-your-copy-of-this-repository)
-      - [For MacOS and Linux](#for-macos-and-linux)
-      - [Windows special instructions](#windows-special-instructions)
-    - [Allow extensions](#allow-extensions)
-    - [Bake with Xake](#bake-with-xake)
-    - [Getting GPG Keys](#getting-gpg-keys)
 - [Deploying this course](#deploying-this-course)
-    - [The published course](#the-published-course)
-- [Debugging Baking](#debugging-baking)
+- [Debugging](#debugging)
 - [Deploying new courses](#deploying-new-courses)
-    - [Starting from scratch](#starting-from-scratch)
-    - [Starting with an existing repository](#starting-with-an-existing-repository)
 
 # Software requirements and suggestions
 
@@ -269,7 +249,9 @@ R1AgUFQkxPQJ0tLQVkFURSBJkgLRV0stLSo=
 
 # Deploying this course
 
-To deploy this Ximera "course" aka "xourse" to your local Ximera Server, edit `DOTximeraserve` as follows:
+To deploy this Ximera "course" aka "xourse" to your local Ximera Server, replace the dummies in  `DOTximeraserve`
+with your own key and key-id, and save the file as `.ximeraserve`.
+**DO NOT SAVE DOTximeraserve with your changes.** You should **NEVER** publish or send your key.
 
 ```
 24 GPG_KEY_ID=8XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXEDF8
@@ -285,12 +267,11 @@ To deploy this Ximera "course" aka "xourse" to your local Ximera Server, edit `D
 34 R1AgUFQkxPQJ0tLQVkFURSBJkgLRV0stLSo=
 ```
 
-**DO NOT SAVE DOTximeraserve with your changes.** Instead, you will need to "Show Hidden Files" and save as: `.ximeraserve`.
-If you are on Windows, make sure you save as Type "All Files" (not Plain Text -- that will add .txt to the filename).
+On Windows, you will need to "Show Hidden Files", and save `.ximeraserve`
+as Type "All Files" (not Plain Text -- that will add .txt to the filename).
 
-For experienced Git users: Do not attempt to add `.ximeraserve` to the repo, it is already in the `.gitignore` and **should not be added.**
+Note: `.ximeraserve` will not be put in git, as is (or **should be**) in the `.gitignore` file.
 
-Start Docker, accept the license and accept recommendations. Once it asks you to sign in, just "Continue Without Signing In." You may choose to do the survey if you like. Once you finish this, you will see a "Engine running" at the bottom left hand corner of the screen.
 
 ## Compare with the published course
 
