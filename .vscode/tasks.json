@@ -6,30 +6,30 @@
         {
             "type": "shell",
             "label": "PDF",
-            "task": "compilePdf",
             "command": "./scripts/xmlatex",
             "windows": {
                 "command": ".\\scripts\\xmlatex.bat"
-              },            
+            },
             "args": [
                 "compilePdf",
                 "${relativeFile}"
             ],
+            "problemMatcher": []
         },
         {
             "type": "shell",
-            "task": "compileHtml",
             "label": "HTML",
             "command": "./scripts/xmlatex",
             "windows": {
                 "command": ".\\scripts\\xmlatex.bat"
-              },             
+            },
             "args": [
                 "--",
                 "--skip-mathjax",
                 "compile",
                 "${relativeFile}"
             ],
+            "problemMatcher": []
         },
         {
             "type": "shell",
@@ -37,59 +37,13 @@
             "command": "./scripts/xmlatex",
             "windows": {
                 "command": ".\\scripts\\xmlatex.bat"
-              }, 
+            },
             "args": [
                 "--",
                 "--skip-mathjax",
-                "bake",
+                "bake"
             ],
-        },
-        {
-            "type": "shell",
-            "task": "clean",
-            "label": "Clean",
-            "command": "./scripts/xmlatex",
-            "windows": {
-                "command": ".\\scripts\\xmlatex.bat"
-              }, 
-            "args": [
-                "clean",
-            ],
-        },
-        {
-            "type": "shell",
-            "label": "Bake handout",
-            "task": "bakehandout",
-            "command": "./scripts/xmlatex",
-            "windows": {
-                "command": ".\\scripts\\xmlatex.bat"
-              }, 
-            "args": [
-                "bakehandout",
-            ],
-        },
-        {
-            "type": "shell",
-            "label": "Clean handout",
-            "task": "cleanhandout",
-            "command": "./scripts/xmlatex",
-            "windows": {
-                "command": ".\\scripts\\xmlatex.bat"
-              }, 
-            "args": [
-                "cleanhandout",
-            ],
-        },
-        {
-            "type": "shell",
-            "label": "XimerServer",
-            "command": "./scripts/xmlatex",
-            "windows": {
-                "command": ".\\scripts\\xmlatex.bat"
-              }, 
-            "args": [
-                "ximeraserver",
-            ],
+            "problemMatcher": []
         },
         {
             "type": "shell",
@@ -97,10 +51,84 @@
             "command": "./scripts/xmlatex",
             "windows": {
                 "command": ".\\scripts\\xmlatex.bat"
-              }, 
+            },
             "args": [
-                "serve",
+                "serve"
             ],
+            "problemMatcher": []
+        },        
+        {
+            "type": "shell",
+            "label": "Start Ximera Server",
+            "command": "./scripts/xmlatex",
+            "windows": {
+                "command": ".\\scripts\\xmlatex.bat"
+            },
+            "args": [
+                "ximeraserver"
+            ],
+            "problemMatcher": []
+        },        
+        {
+            "type": "shell",
+            "label": "Bake standard",
+            "command": "./scripts/xmlatex",
+            "windows": {
+                "command": ".\\scripts\\xmlatex.bat"
+            },
+            "args": [
+                "bakestandaard"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "type": "shell",
+            "label": "Bake handout",
+            "command": "./scripts/xmlatex",
+            "windows": {
+                "command": ".\\scripts\\xmlatex.bat"
+            },
+            "args": [
+                "bakehandout"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "type": "shell",
+            "label": "Delete standard",
+            "command": "./scripts/xmlatex",
+            "windows": {
+                "command": ".\\scripts\\xmlatex.bat"
+            },
+            "args": [
+                "cleanstandaard"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "type": "shell",
+            "label": "Delete handout",
+            "command": "./scripts/xmlatex",
+            "windows": {
+                "command": ".\\scripts\\xmlatex.bat"
+            },
+            "args": [
+                "cleanhandout"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "type": "shell",
+            // "task": "clean",
+            "label": "Delete all",
+            "command": "./scripts/xmlatex",
+            "windows": {
+                "command": ".\\scripts\\xmlatex.bat"
+            },
+            "args": [
+                "clean"
+            ],
+            "problemMatcher": []
         },
     ]
 }
