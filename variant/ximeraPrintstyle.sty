@@ -1,0 +1,371 @@
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems}
+\tcbuselibrary{breakable,skins}
+
+% Herdefinieer enkele omgevingen (PAS OP: enkel voor PDF, voor html: zie css..!!!)
+% Moet in printStyles, want in preamble zorgt dit voor problemen
+% remove italics def
+\newcommand{\colordefinition}{green}
+\newcommand{\colorexample}{blue}
+\newcommand{\colorremark}{yellow}
+
+\tcbset{every box/.style={
+    % before upper={\vspace*{-0.45cm}}, %% HACK: remove whitespace on top !!!
+    parbox=false,                    %% Get paragraph-spacing ...  %% !!GLOBAL CHANGES ON ALMOST EVERY PAGE !!%%
+    }
+}  
+
+% Commando om de nummering bij de titels van theorems juist in te stellen, wordt hieronder gebruikt
+\newcommand{\theoremtitle}[1]{%
+    \ifdefined\isXourse\thetitlenumber.\arabic{#1}\else\arabic{#1}\fi%
+}
+
+\theoremstyle{definition} % Bold titels
+
+\makeatletter
+\let\definition\relax
+\let\c@definition\relax
+\let\enddefinition\relax
+\makeatother
+\newtheorem{definition}{\nlen{Definitie}{Definition}}
+\renewcommand{\thedefinition}{\theoremtitle{definition}} % titel instellen
+\tcolorboxenvironment{definition}{
+    boxrule=0pt,
+    boxsep=0pt,
+    colback={\colordefinition!5!white},
+    enhanced jigsaw,
+    borderline west={2pt}{0pt}{\colordefinition!45!black},
+    sharp corners,
+    before skip=10pt,
+    after skip=10pt,
+    breakable,
+    % before upper={\vspace*{-0.45cm}},
+}
+
+\makeatletter
+\let\notation\relax
+\let\c@notation\relax
+\let\endnotation\relax
+\makeatother
+\newtheorem{notation}{\nlen{Notatie}{Notation}}
+\renewcommand{\thenotation}{\theoremtitle{notation}} % titel instellen
+\tcolorboxenvironment{notation}{
+    boxrule=0pt,
+    boxsep=0pt,
+    colback={\colordefinition!5!white},
+    enhanced jigsaw,
+    borderline west={2pt}{0pt}{\colordefinition!45!black},
+    sharp corners,
+    before skip=10pt,
+    after skip=10pt,
+    breakable,
+    % before upper={\vspace*{-0.45cm}},
+}
+
+\makeatletter
+\let\axiom\relax
+\let\c@axiom\relax
+\let\endaxiom\relax
+\makeatother
+\newtheorem{axiom}{Axioma}
+\renewcommand{\theaxiom}{\theoremtitle{axiom}} % titel instellen
+\tcolorboxenvironment{axiom}{
+    boxrule=0pt,
+    boxsep=0pt,
+    colback={\colordefinition!5!white},
+    enhanced jigsaw,
+    borderline west={2pt}{0pt}{\colordefinition!45!black},
+    sharp corners,
+    before skip=10pt,
+    after skip=10pt,
+    breakable,
+    % before upper={\vspace*{-0.45cm}},
+}
+
+\makeatletter
+\let\proposition\relax
+\let\c@proposition\relax
+\let\endproposition\relax
+\makeatother
+\newtheorem{proposition}{\nlen{Eigenschap}{Proposition}}
+\renewcommand{\theproposition}{\theoremtitle{proposition}} % titel instellen
+\tcolorboxenvironment{proposition}{
+    boxrule=0pt,
+    boxsep=0pt,
+    colback={\colordefinition!2!white},
+    enhanced jigsaw,
+    borderline west={2pt}{0pt}{\colordefinition!65!black},
+    sharp corners,
+    before skip=10pt,
+    after skip=10pt,
+    breakable,
+    % before upper={\vspace*{-0.45cm}},
+}
+
+\makeatletter
+\let\theorem\relax
+\let\c@theorem\relax
+\let\endtheorem\relax
+\makeatother
+\newtheorem{theorem}{\nlen{Stelling}{Theorem}}
+\renewcommand{\thetheorem}{\theoremtitle{theorem}} % titel instellen
+\tcolorboxenvironment{theorem}{
+    boxrule=0pt,
+    boxsep=0pt,
+    colback={\colordefinition!2!white},
+    enhanced jigsaw,
+    borderline west={2pt}{0pt}{\colordefinition!65!black},
+    sharp corners,
+    before skip=10pt,
+    after skip=10pt,
+    breakable,
+    % before upper={\vspace*{-0.45cm}},
+}
+
+
+\makeatletter
+\let\corollary\relax
+\let\c@corollary\relax
+\let\endcorollary\relax
+\makeatother
+\newtheorem{corollary}{\nlen{Gevolg}{Corollary}}
+\newtheorem*{corollary*}{\nlen{Gevolg}{Corollary}}
+\renewcommand{\thecorollary}{\theoremtitle{corollary}} % titel instellen
+\tcolorboxenvironment{corollary}{
+    boxrule=0pt,
+    boxsep=0pt,
+    colback={\colordefinition!2!white},
+    enhanced jigsaw,
+    borderline west={2pt}{0pt}{\colordefinition!65!black},
+    sharp corners,
+    before skip=10pt,
+    after skip=10pt,
+    breakable,
+    % before upper={\vspace*{-0.45cm}},
+}
+\tcolorboxenvironment{corollary*}{
+    boxrule=0pt,
+    boxsep=0pt,
+    colback={\colordefinition!2!white},
+    enhanced jigsaw,
+    borderline west={2pt}{0pt}{\colordefinition!65!black},
+    sharp corners,
+    before skip=10pt,
+    after skip=10pt,
+    breakable,
+    % before upper={\vspace*{-0.45cm}},
+}
+
+\makeatletter
+\let\algorithm\relax
+\let\c@algorithm\relax
+\let\endalgorithm\relax
+\makeatother
+\newtheorem{algorithm}{\nlen{Algoritme}{Algorithm}}
+\renewcommand{\thealgorithm}{\theoremtitle{algorithm}} % titel instellen
+\tcolorboxenvironment{algorithm}{
+    boxrule=0pt,
+    boxsep=0pt,
+    colback={\colordefinition!2!white},
+    enhanced jigsaw,
+    borderline west={2pt}{0pt}{\colordefinition!65!black},
+    sharp corners,
+    before skip=10pt,
+    after skip=10pt,
+    breakable,
+    % before upper={\vspace*{-0.45cm}},
+}
+
+%\newcounter{proof}
+%\makeatletter
+%\let\proof\relax
+%\let\c@proof\relax
+%\let\endproof\relax
+%\makeatother
+%\newtheorem{proof}{Bewijs}
+%\newtheorem*{proof}{Bewijs}
+%\renewcommand{\theproof}{\theoremtitle{proof}} % titel instellen
+%\tcolorboxenvironment{proof}{
+%    boxrule=0pt,
+%    boxsep=0pt,
+%    colback={\colordefinition!0!white},
+%    enhanced jigsaw,
+%    borderline west={2pt}{0pt}{\colordefinition!20!black},
+%    sharp corners,
+%    before skip=10pt,
+%    after skip=10pt,
+%    breakable,
+%before upper={\vspace*{-0.45cm}},
+%}
+
+\makeatletter
+\let\explanation\relax
+\let\c@explanation\relax
+\let\endexplanation\relax
+\makeatother
+\newtheorem{explanation}{Uitleg}
+\renewcommand{\theexplanation}{\theoremtitle{explanation}} % titel instellen
+\tcolorboxenvironment{explanation}{
+    boxrule=0pt,
+    boxsep=0pt,
+    colback={\colordefinition!1!white},
+    enhanced jigsaw,
+    borderline west={2pt}{0pt}{\colordefinition!75!black},
+    sharp corners,
+    before skip=10pt,
+    after skip=10pt,
+    breakable,
+    % before upper={\vspace*{-0.45cm}},
+}
+
+\makeatletter
+\let\example\relax
+\let\c@example\relax
+\let\endexample\relax
+\makeatother
+\newtheorem{example}{\nlen{Voorbeeld}{Example}}
+\renewcommand{\theexample}{\theoremtitle{example}} % titel instellen
+\tcolorboxenvironment{example}{
+    boxrule=0pt,
+    boxsep=0pt,
+    %colback={white},
+    colback={\colorexample!3!white},
+    enhanced jigsaw,
+    borderline west={2pt}{0pt}{\colorexample!75!black},
+    sharp corners,
+    before skip=10pt,
+    after skip=10pt,
+    breakable,
+    % before upper={\vspace*{-0.45cm}},
+}
+
+% remove italics def
+\makeatletter
+\let\problem\relax
+\let\c@problem\relax
+\let\endproblem\relax
+\makeatother
+% problem environment is een standaard theorem
+\newtheorem{problem}{\nlen{Probleem}{Problem}}
+\renewcommand{\theproblem}{\theoremtitle{problem}} % titel instellen
+
+% exercise environment instellen
+\newcounter{exercise} % Counter bestaat niet, dus zelf maken
+\makeatletter
+\let\exercise\relax
+\let\c@exercise\relax
+\let\endexercise\relax
+\makeatother
+\newtheorem{exercise}{{\hyperlink{xm:ex:\theexercise}{\nlen{Oefening}{Exercise}}\hypertarget{xm:sol:\theexercise}{}}}
+%\renewcommand{\theexercise}{\arabic{exercise}} % titel instellen
+\renewcommand{\theexercise}{\theoremtitle{exercise}} % titel instellen
+\tcolorboxenvironment{exercise}{
+    boxrule=0pt,
+    boxsep=0pt,
+    colback={\colorexample!0!white},
+    enhanced jigsaw,
+    borderline west={2pt}{0pt}{\colorexample!50!black},
+    sharp corners,
+    before skip=10pt,
+    after skip=10pt,
+    breakable,
+    % before upper={\vspace*{-0.45cm}},
+}
+
+\makeatletter
+\let\remark\relax
+\let\c@remark\relax
+\let\endremark\relax
+\makeatother
+\newtheorem{remark}{\nlen{Opmerking}{Remark}}
+\renewcommand{\theremark}{\theoremtitle{remark}} % titel instellen
+\tcolorboxenvironment{remark}{
+    boxrule=0pt,
+    boxsep=0pt,
+    colback={\colorremark!5!white},
+    enhanced jigsaw,
+    borderline west={2pt}{0pt}{\colorremark!75!black},
+    sharp corners,
+    before skip=10pt,
+    after skip=10pt,
+    breakable,
+    % before upper={\vspace*{-0.45cm}},
+}
+
+\makeatletter
+\let\warning\relax
+\let\c@warning\relax
+\let\endwarning\relax
+\makeatother
+\newtheorem{warning}{Waarschuwing}
+\renewcommand{\thewarning}{\theoremtitle{warning}} % titel instellen
+\tcolorboxenvironment{warning}{
+    boxrule=0pt,
+    boxsep=0pt,
+    colback={\colorremark!2!white},
+    enhanced jigsaw,
+    borderline west={2pt}{0pt}{\colorremark!65!black},
+    sharp corners,
+    before skip=10pt,
+    after skip=10pt,
+    breakable,
+    % before upper={\vspace*{-0.45cm}},
+}
+
+
+% remove italics def
+\makeatletter
+\let\question\relax
+\let\c@question\relax
+\let\endquestion\relax
+\makeatother
+
+% Gebruik question ENKEL binnen exercise/example: het heeft zelf geen hoofding 'Vraag 1:'
+\newtheorem{question}{} % question heeft lege titel
+
+\renewcommand{\theHquestion}{\thetitlenumber.\theexercise.\theexample.\thequestion}   % for hyperref ...
+
+% Onderscheid voorbeeld/oefening:
+% bij een voorbeeld wordt ook in handout-mode het antwoord geprint
+% bij een oefening (natuurlijk) niet
+% todo: idem voor wordChoice ?
+% todo: keuze om ook oplossing al dan niet te printen
+\AtBeginEnvironment{warning} {\setcounter{question}{0}}
+\AtBeginEnvironment{exercise}{\setcounter{question}{0}}
+\AtBeginEnvironment{example} {\setcounter{question}{0}\handoutfalse}    % print oplossingen in voorbeelden
+
+
+% Feedback
+% Renew feedback
+\ifhandout%
+\renewenvironment{feedback}
+               {%
+ \setbox0\vbox\bgroup
+       }
+               {%
+ \egroup
+       }
+\else
+\renewenvironment{feedback}[1][attempt]{ % anders,ingespringt tonen
+        \makeatletter
+        \def\PH@Command{#1}% Use PH@Command to hold the content and be a target for "\expandafter" to expand once.
+
+        \begin{trivlist}% Begin the trivlist to use formating of the "Feedback" label.
+                \item[\hskip \labelsep\small\slshape\bfseries\ifthenelse{\equal{\detokenize{#1}}{\detokenize{solution}}}
+                    {\nlen{Uitwerking}{Elaboration}}
+                    {Feedback}:% Format the "Feedback" label. Don't forget the space.
+        %       (\texttt{\detokenize\expandafter{\PH@Command}}):% Format (and detokenize) the condition for feedback to trigger
+                \hspace{2ex}]\small%\slshape% Insert some space before the actual feedback given.
+        }{
+        \end{trivlist}
+    \makeatother
+}
+\fi
+
+\renewcommand{\theHexercise}{\thetitlenumber.\theexercise}   % for hyperref ...
+\renewcommand{\theHdefinition}{\thetitlenumber.\thedefinition}   % for hyperref ...
+\renewcommand{\theHproposition}{\thetitlenumber.\theproposition}   % for hyperref ...
+\renewcommand{\theHexample}{\thetitlenumber.\theexample}   % for hyperref ...
+\renewcommand{\theHremark}{\thetitlenumber.\theremark}   % for hyperref ...
+\renewcommand{\theHsubsection}{\thetitlenumber.\thesubsection}   % for hyperref ...
+

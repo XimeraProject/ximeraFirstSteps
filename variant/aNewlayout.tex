@@ -2,8 +2,15 @@
 \input{preamble} 
 \addPrintStyle{.} %% sets the 'printstyle'
 
+\iftikzexport\else
+    \typeout{Overwriting settings}
+    \renewcommand{\xmcursusnaam}{{\textsc{A first course (variant layout)}}}
+    \renewcommand{\xmorganisatienaam}{{\textsc{KU Leuven}}}
+    \renewcommand{\xmafdelingsnaam}{{\textsc{Ximera Team}}}
+\fi
+
 \author{Wim Obbels \and Bart Snapp}
-\title{A First Step in Ximera (New Layout)}
+\title{A First Step in Ximera (Variant Layout)}
 \begin{document}
 \begin{abstract}
     The same course as aFirstStepInXimera, but with a different layout.
