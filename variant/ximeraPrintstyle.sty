@@ -1,24 +1,39 @@
+%
+%
+%
+\typeout{Start loading VARIANT ximeraPrintstyle.sty}%
+%
+% Use tcolorbox for several environments
+%
+% Colors are automatical variations or three 'base' colors for
+%  - 'definitions'  (and theorems, propositions, ...)
+%  - 'examples'     (and exercises, problems)
+%  - 'remarks'      ( and warnings, ...)
+%
+% Similar settings should be set in the apprpriate .css file  for the HTML version
+%
 \usepackage{tcolorbox}
 \tcbuselibrary{theorems}
 \tcbuselibrary{breakable,skins}
 
-% Herdefinieer enkele omgevingen (PAS OP: enkel voor PDF, voor html: zie css..!!!)
-% Moet in printStyles, want in preamble zorgt dit voor problemen
-% remove italics def
-\newcommand{\colordefinition}{green}
-\newcommand{\colorexample}{blue}
-\newcommand{\colorremark}{yellow}
+\providecommand{\colordefinition}{red}
+\providecommand{\colorexample}{green}
+\providecommand{\colorremark}{yellow}
 
 \tcbset{every box/.style={
     % before upper={\vspace*{-0.45cm}}, %% HACK: remove whitespace on top !!!
-    parbox=false,                    %% Get paragraph-spacing ...  %% !!GLOBAL CHANGES ON ALMOST EVERY PAGE !!%%
+    parbox=false,                       %% Get paragraph-spacing ...
     }
 }  
 
-% Commando om de nummering bij de titels van theorems juist in te stellen, wordt hieronder gebruikt
+% Command to get a fuller numbering in xourses
 \newcommand{\theoremtitle}[1]{%
     \ifdefined\isXourse\thetitlenumber.\arabic{#1}\else\arabic{#1}\fi%
 }
+
+% OBSOLETE: could/should switch Dutch/English
+%\providecommand{\nlen}[2]{#2}
+
 
 \theoremstyle{definition} % Bold titels
 
@@ -175,28 +190,6 @@
     breakable,
     % before upper={\vspace*{-0.45cm}},
 }
-
-%\newcounter{proof}
-%\makeatletter
-%\let\proof\relax
-%\let\c@proof\relax
-%\let\endproof\relax
-%\makeatother
-%\newtheorem{proof}{Bewijs}
-%\newtheorem*{proof}{Bewijs}
-%\renewcommand{\theproof}{\theoremtitle{proof}} % titel instellen
-%\tcolorboxenvironment{proof}{
-%    boxrule=0pt,
-%    boxsep=0pt,
-%    colback={\colordefinition!0!white},
-%    enhanced jigsaw,
-%    borderline west={2pt}{0pt}{\colordefinition!20!black},
-%    sharp corners,
-%    before skip=10pt,
-%    after skip=10pt,
-%    breakable,
-%before upper={\vspace*{-0.45cm}},
-%}
 
 \makeatletter
 \let\explanation\relax
