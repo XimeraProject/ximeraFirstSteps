@@ -1,20 +1,25 @@
 #
 # version of Ximera to use (with xmlatex)
 #
-: "${XAKE_BASE:=xake2019}"
-: "${XAKE_VERSION:=v2.1.1}"
+: "${XAKE_BASE:=xake2024}"
+: "${XAKE_VERSION:=v2.1.3_a}"
+#: "${XAKE_VERSION:=latest}"
+#: "${XAKE_BASE:=xake2019}"
+
+#: "${DOCKER_REPO:=" "}"
+export DOCKER_REPO
 
 #
 # For publishing 
 #
 
 
-# XIMERA_NAME=<PUT_NAME_HERE>
-# XIMERA_URL=https://ximera.osu.edu
+# XIMERA_NAME=<yourname>
+## XIMERA_URL=https://ximera.osu.edu
 ## URL_XIMERA=https://set-p-dsb-zomercursus-latest.cloud-ext.icts.kuleuven.be/
-## URL_XIMERA=https://set.kuleuven.be/voorkennis/
+## XIMERA_URL=https://set.kuleuven.be/voorkennis/
 
 
 # For testing/debugging
-: "${COMMAND:=./scripts/xmlatex.full}"
+#: "${COMMAND:=./scripts/xmlatex.test}"
 

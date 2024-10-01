@@ -58,7 +58,6 @@ fi
 # Which script to start inside the container; 
 : "${COMMAND:=xmlatex}"
 # : "${COMMAND:=pdflatex}"     # skip xmlatex inside the container, and directly run a specific command ...    
-# : "${COMMAND:=./build.sh}"   # only usefull for OLD xake-images, which used a now obsolete build.sh script
 
 
 if [[ -f /.dockerenv ]]  
@@ -146,7 +145,7 @@ EOF
         echo "Interactive session"
         ;;
     d ) DEBUG=1
-        VERBOSE=1 
+        VERBOSE="-v"
         XAKE="$XAKE -v"
       ;;
     v ) VERBOSE=1 
@@ -194,13 +193,19 @@ if [[ -f .ximera/sagetex.sty ]]; then
     cp .ximera/sagetex.sty /root/texmf/tex/latex/ximeraLatex/
 fi
 
-# Use a local xmaltex.full if available
-if [[ -f ./scripts/xmlatex.full ]]; then
-    echo "USING xmlatex.full from local repo"
-    [[ -n "$DEBUG" ]] && diff ./scripts/xmlatex.full /usr/local/bin/xmlatex
-    cp /usr/local/bin/xmlatex /usr/local/bin/xmlatex.$(date "+%F-%H-%M-%S")
-    cp ./scripts/xmlatex.full /usr/local/bin/xmlatex
+if [[ -f .ximera/pgfsys-dvisvgm4ht.def ]]; then
+    echo "USING pgfsys-dvisvgm4ht.def from local repo"
+    [[ -d "/root/texmf/tex/generic" ]] || mkdir /root/texmf/tex/generic
+    cp .ximera/pgfsys-dvisvgm4ht.def /root/texmf/tex/generic/
 fi
+
+# # Use a local xmlatex.full if available
+# if [[ -f ./scripts/xmlatex.full ]]; then
+#     echo "USING xmlatex.full from local repo"
+#     [[ -n "$DEBUG" ]] && diff ./scripts/xmlatex.full /usr/local/bin/xmlatex
+#     cp /usr/local/bin/xmlatex /usr/local/bin/xmlatex.$(date "+%F-%H-%M-%S")
+#     cp ./scripts/xmlatex.full /usr/local/bin/xmlatex
+# fi
 
 # Add anything that might not be installed in the container 
 # HACK: hardcoded path ...
@@ -265,9 +270,9 @@ then
     debug pdflatex -file-line-error -shell-escape "\\PassOptionsToClass{tikzexport}{ximera}\\PassOptionsToClass{xake}{ximera}\\PassOptionsToClass{xake}{xourse}\\nonstopmode\\input{$FILE}"
           pdflatex -file-line-error -shell-escape "\\PassOptionsToClass{tikzexport}{ximera}\\PassOptionsToClass{xake}{ximera}\\PassOptionsToClass{xake}{xourse}\\nonstopmode\\input{$FILE}"
 
-    debug make4ht -s -c ximera -f xhtml -u  -a debug $FILE "svg,htex4ht,mathjax,-css,info" "" "" "--interaction=nonstopmode -shell-escape -file-line-error" 
-          make4ht -s -c ximera -f xhtml -u  -a debug $FILE "svg,htex4ht,mathjax,-css,info" "" "" "--interaction=nonstopmode -shell-escape -file-line-error" | tee $FILE.log
-#          make4ht -s -c ximera -f html5+dvisvgm_hashes -u  -a debug $FILE "svg,htex4ht,mathjax,-css,info" "" "" "--interaction=nonstopmode -shell-escape -file-line-error" | tee $FILE.log
+    debug make4ht -s -c ximera -f html5+dvisvgm_hashes -u  -a debug $FILE "svg,htex4ht,mathjax,-css,info" "" "" "--interaction=nonstopmode -shell-escape -file-line-error" 
+          make4ht -s -c ximera -f html5+dvisvgm_hashes -u  -a debug $FILE "svg,htex4ht,mathjax,-css,info" "" "" "--interaction=nonstopmode -shell-escape -file-line-error" | tee $FILE.log
+#          make4ht -s -c ximera -f xhtml -u  -a debug $FILE "svg,htex4ht,mathjax,-css,info" "" "" "--interaction=nonstopmode -shell-escape -file-line-error" | tee $FILE.log
     # make4ht -s -c ximera -f xhtml+tidy -u  -a debug $FILE "svg,htex4ht, mathjax,-css,Gin-percent,info" "" "" "--interaction=nonstopmode -shell-escape -file-line-error" | tee $FILE.log
     # make4ht  $FILE "ximera,charset=utf-8,-css" "-cunihtf -utf8" "" "--interaction=nonstopmode -shell-escape -file-line-error"
     # htlatex $FILE "ximera,charset=utf-8,-css" "-cunihtf -utf8" "" "--interaction=nonstopmode -shell-escape -file-line-error"
@@ -402,7 +407,7 @@ then
         mkdir -p $(dirname ximera-downloads/"$NAME"_pdf/$file})
         cp ${file/%.tex/.pdf} ximera-downloads/${NAME}_pdf/${file/%.tex/.pdf}
     done
-elif [[ "$COMMAND" == "serve" ]]
+elif [[ "$COMMAND" == "serve" || "$COMMAND" == "Serve" ]]
 then
     echo "xake serve"
     if [[ -z "$GPG_KEY_ID" ]]
@@ -413,8 +418,8 @@ then
             source .ximeraserve
 	        echo GPG_KEY_ID=$GPG_KEY_ID
 	        echo GPG_KEY=${GPG_KEY:0:10}...
-            : ${XIMERA_NAME:= $REPO_XIMERA}
-            : ${XIMERA_URL:= $URL_XIMERA}
+            : ${XIMERA_NAME:=$REPO_XIMERA}
+            : ${XIMERA_URL:=$URL_XIMERA}
         fi
         if [[ -z "$GPG_KEY_ID" ]]   # still no key ...
         then
@@ -436,6 +441,8 @@ then
     else 
         echo  "Importing (encoded) private key from variable GPG_KEY"
         echo "$GPG_KEY" | base64 --decode > .gpg # decode the base64 gpg key
+        debug "Decoded in .gpg: $(ls -al .gpg)"
+        debug "Starting gpg -q $VERBOSE --import .gpg"
         gpg -q $VERBOSE --import .gpg  || error "gpg --import failed (from key itself in variable)"
         rm .gpg # remove the gpg key so it is certainly not cached
     fi
@@ -453,8 +460,13 @@ then
 #    git branch -D master || true    #ignore error
 #    git checkout -B master # doe alsof we op master zitten
 
-    echo "xake FROST"
-    $XAKE frost || error "xake frost failed"  # Zorg voor juiste links etc = maak metadata.json en tag etc
+    FROST="frost"
+    [[ "$COMMAND" == "Serve" ]] && FROST="Frost"
+    echo "$XAKE $FROST"
+    # type $XAKE
+    # frost builds metadata.json and tag for publishing
+    # Frost dosz the same, but ignores 'not committed' errors (with xake version of 2024-10)
+    $XAKE $FROST || error "xake $FROST failed, you might want to use Serve"  
 
     echo "xake SERVE"
     if [[ -n "$DEBUG" ]]
