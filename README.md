@@ -1,5 +1,20 @@
 This repository has a basic Ximera course along with instructions for deploying that will help you get started using Ximera. It is designed to help a new user. If there are problems with the instructions below, please submit an "Issue" by pressing the "Issues Tab" on https://github.com/XimeraProject/ximeraFirstSteps.
 
+
+The course(s) in this repo are published on following places:
+
+* https://ximera.osu.edu/firststeps24/aFirstStepInXimera 
+* https://set.kuleuven.be/voorkennis/firststeps24/aFirstStepInXimera/basics/basicWorksheet
+
+and if you follow the instructions in this Readme, it could very soon be available on your own pc on
+
+* http://localhost:2000/firststeps24
+
+where you will be able to change, test and adapt it. 
+
+In case of trouble: create an Issue and we'll (try to) help you.
+
+
 <!-- MANUAL TOC NEEDED ???? -->
 - [Software requirements and suggestions](#software-requirements-and-suggestions)
 - [Test your software and clone this repository](#test-your-software-and-clone-this-repository)
@@ -9,8 +24,8 @@ This repository has a basic Ximera course along with instructions for deploying 
 
 # Software requirements and suggestions
 
-To use Ximera, we require that users use Git and Docker.
-We additionally (very strongly) suggest Visual Studio Code.
+Although a standard TeX installation is sufficient to generate PDF versions of your courses, we very strongly suggest to use Git and Docker. We additionally (also very strongly) suggest Visual Studio Code, but editing can be done in your favorite TeX-editor.
+To generate interactive websites, use of Git and Docker is required. In the future, this might change (again).
 
 
 ## Installing Git
