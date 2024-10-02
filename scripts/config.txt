@@ -1,25 +1,27 @@
 #
-# version of Ximera to use (with xmlatex)
+# version of Ximera xake container to use (with xmlatex)
 #
 : "${XAKE_BASE:=xake2024}"
-: "${XAKE_VERSION:=v2.1.3_a}"
-#: "${XAKE_VERSION:=latest}"
-#: "${XAKE_BASE:=xake2019}"
-
-#: "${DOCKER_REPO:=" "}"
-export DOCKER_REPO
+: "${XAKE_VERSION:=latest}"
+# Alternatives:
+#: "${XAKE_BASE:=xake2023}"
+#: "${XAKE_VERSION:=v2.1.3_a}"
 
 #
-# For publishing 
+# For publishing  (you'll also need a GPG key in .ximeraserve)
 #
-
-
-# XIMERA_NAME=<yourname>
-## XIMERA_URL=https://ximera.osu.edu
-## URL_XIMERA=https://set-p-dsb-zomercursus-latest.cloud-ext.icts.kuleuven.be/
+XIMERA_NAME=ximfsx
+# default is localhost:2000, 
+# To overwrite, uncomment:
+#  XIMERA_URL=https://ximera.osu.edu
+## XIMERA_URL=https://set-p-dsb-zomercursus-latest.cloud-ext.icts.kuleuven.be/
 ## XIMERA_URL=https://set.kuleuven.be/voorkennis/
 
-
+#
 # For testing/debugging
-#: "${COMMAND:=./scripts/xmlatex.test}"
+#
+# : "${COMMAND:=./scripts/xmlatex.test}"
+#
+# for LOCALLY generated/tagged images, use:
+# export DOCKER_REPO=" "
 
