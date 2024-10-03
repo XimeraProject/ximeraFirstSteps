@@ -14,7 +14,8 @@
 #   COMMAND=pdflatex xmlatex demo.tex                                            # do not run the xake-wrapper, but $COMMAND
 #
 # This script
-#  - loads some configuration from .ximeraserve (can be overwritten with CONFIG_FILE)
+#  - loads some configuration from ./scripts/config.tex (can be overwritten with CONFIG_FILE)
+#  - for serving, also (basefolder)/.ximeraserve will be read (for GPG key settings)
 #  - starts a xake docker container (unless we're already IN a container)
 #  - starts (presumably) a container-specific version of this very script
 #  - that (presumably) starts xake with the arguments passed to this script
@@ -25,7 +26,7 @@
 # Note: this scripts RESTARTS itself (or a variant of itself!!!) IN A DOCKER CONTAINER
 #
 #
-: "${CONFIG_FILE:=ximeraconfig.txt}"
+: "${CONFIG_FILE:=./scripts/config.txt}"
 
 if [[ -f "$CONFIG_FILE" ]]
 then

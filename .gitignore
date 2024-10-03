@@ -144,6 +144,8 @@ acs-*.bib
 *.lg
 *.trc
 *.xref
+## tex4ht log
+*.dlog
 
 # hyperref
 *.brf
