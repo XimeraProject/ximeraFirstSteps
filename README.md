@@ -16,6 +16,7 @@ where you will be able to change, test and adapt it.
 In case of trouble: create an Issue and we'll (try to) help you.
 
 
+# Contents
 <!-- MANUAL TOC NEEDED ???? -->
 - [Software requirements and suggestions](#software-requirements-and-suggestions)
 - [Test your software and clone this repository](#test-your-software-and-clone-this-repository)
@@ -52,7 +53,7 @@ git
 
 If you don’t have it installed already, your computer will prompt you to install it.
 
-### git on Linux
+### Git on Linux
 
 On Linux, there are various methods. However, if you are on a Debian-based distribution, such as Ubuntu, try:
 
@@ -76,12 +77,25 @@ git config --global core.editor "nano"
 
 ## Installing Visual Studio Code
 
-Visual Studio Code gives us a common deploy environment. In particular, on Windows machines it provides a UNIX-like terminal via WSL. In particular, **Windows users must install Visual Studio Code first, and enable WSL**.
-Download from 
+Visual Studio Code is a popular free editor and development environment by Microsoft, that integrates git, docker and tex support.
+Note the `code` part: Visual Studio is a different and much bigger Microsoft product, that is not needed nor relevant for Ximera.
+
+Download and install form
 ```
 https://code.visualstudio.com/download
 ```
-or if you use Linux and are on a Debian-based distribution, such as Ubuntu, you must add the windows and install dependencies before you can install the repo try:
+and accept the default WSL setup (which will enable Microsoft provided a Linux subsystem on your PC).
+
+After starting Open Visual Studio Code, hit `Ctrl-~` to open a Terminal Windows, which will initially be PowerShell. It is suggested to enable a more complete Linux system by typing
+```console
+wsl --install
+```
+Now at the upper right of the Terminal window you should see "PowerShell + v" menu, and pressing the down-carrot should give an 'Ubuntu (WSL)' option (perhpas wwit a  specific Ubuntu version like 24.04).
+This will be needed further to generate a gpg key.
+
+
+
+If useing Linux with a Debian-based distribution such as Ubuntu, add the Microsoft windows install dependencies before installing Microsoft Visual Studio Code:
 
 ```console
 sudo apt install software-properties-common apt-transport-https wget -y
@@ -94,14 +108,6 @@ You can verify the installation was successful using the following command:
 ```console
 code --version
 ```
-
-### Windows WSL 2 install
-
-Open Visual Studio Code and hit `Ctrl-~` then type (in the PowserShell):
-```console
-wsl --install
-```
-Now if you look to the upper right of the Terminal window you should see "PowerShell + v" Press the down-carrot, and select WSL. 
 
 ## Installing Docker
 
