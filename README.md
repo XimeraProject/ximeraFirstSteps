@@ -236,35 +236,78 @@ Later compilations will be much faster.
 If you press the "Bake" button, **all** files will be compiled to HTML. The very **first** time it will compile all the documents, and this will take some time. However, the next time you compile, it will only compile updated files and that will be **much** faster.
 
 
-# Deploying the course(s) of your repo
+# Testing the course(s) on your local ximeraserver
 
-## Getting GPG Keys
+## Start a local ximeraserver
 
-At this time (9/2024), you need to have a GPG key, even to deploy to the local server. This will change (hopefully very soon).
+Start a ximeraserver on your own PC from the 'Extra' menu. 
+(The first time, it will download the docker image, which will take some time.)
 
-To deploy to a public server (e.g. the OSU server), you will definitely need a (personal) GPG key. This ensures that no one "overwrites" your online course without you knowing. (Even if this did happen, you can always just re-deploy and contact the Ximera developers)
+A server should start on http://localhost:2000. 
+It is accessible with your browser, or even *inside VSCode* with the 'Preview in Simple Browser' option form the Extra menu. (At this point, you have not yet published any courses, and you'll only get a mostly empty screen...)
 
-The keys should be stored in a 'hidden' file `.ximeraserve`, as explained here.
+## Check the file `./scripts/config.txt`
 
-Start by checking if you have GPG keys:
-```
-gpg --list-keys
-```
-If you have one listed, you may use it, or make a new one with (answer the questions, but **leave the passphrase blank**) and :
+The file `./scripts/config.txt` contains some optional settings for compiling and publishing your courses.
+You should not have to change anything to publish to your local ximeraserver. 
+
+## Publish to the testserver
+
+Just hit the 'Serve' button. Make sure you first hit 'Bake', and that all files/changes have been committed. It's not necessary to also 'push' your changes at this point.
+You should now have access to the course(s), by default on http://localhost:2000/test.
+
+## Compare with the published course
+
+Once you've deployed the course, you can compare your local version to ours. 
+At this time (09/2024), your local version will have a 'KULeuven' styling, but this will change (hopefully) soon, when you'll be able to choose or make more layout options.
+
+•	https://ximera.osu.edu/firststeps24/aFirstStepInXimera
+•	https://set.kuleuven.be/voorkennis/firststeps24/aFirstStepInXimera/basics/basicWorksheet
+•	https://set.kuleuven.be/voorkennis/firststeps24/variant/aNewlayout/variant/basics/basicWorksheet
+
+
+The KULeuven version also contains two PDF versions: one with, and one without the answers.
+
+# Publishing the course(s) to a public ximeraserver (needs a gpg key)
+
+The file scripts/config.txt determines where (and with which version of Ximera...) to publish your courses.
+
+The relevant settings are 
+
+* XIMERA_URL contains the (url of) the server on which to publish your repo (`http://localhost:2000/` for test, `https://ximera.osu.edu` for real)
+* XIMERA_NAME contains the name (lowercase, no underscores!) under which to publish this repo, eg XIMERA_NAME=testing would publish to https://ximera.osu.edu/testing.
+
+You can save and commit these settings.
+
+But, to deploy to a public server (e.g. the OSU server), a (personal) GPG key is needed. This ensures that no one "overwrites" your online course without you knowing. (Even if this did happen, you can always just re-deploy and contact the Ximera developers).
+
+This personal key is to be saved in a 'hidden' config file `.ximeraserve`, and should **never** be committed and pushed.
+
+
+This git repo has a `.ximeraserve` with a dummy key and key-id which can be used to publish to localhost, which has to be replaced with your own key and key-id when publishing elsewhere.
+In VSCode, the `.ximeraserve` file is by default not visible in the Explorer window, but you can open it with CTRL-o, and then typing `.ximeraserve` (which is in the root folder of your repo).
+
+If you do not yet have a GPG key (check with `gpg --list-keys`), you can generate one with
 ```
  gpg --gen-key
 ```
-copy the long hex string as YOUR-GPG-KEY-ID (ABCD3562DBF9929292 or whatever).
+Answer all the questions, but **leave the passphrase blank**.
 
-If you are using MacOS, you might not be able to leave the passphrase blank. In this case go to https://gpgtools.org/ and install the GPG Suite. This will provide a GUI that will produce a GPG key with spaces. Delete these spaces and this new key (without spaces) is your key. You should quite your terminal and open a new one. 
+Note: on MacOS you might not be able to leave the passphrase blank. In this case go to https://gpgtools.org/ and install the GPG Suite. This will provide a GUI that will produce a GPG key with spaces. Delete these spaces and this new key (without spaces) is your key. You should quite your terminal and open a new one. 
 
-You will also need your private key
+
+In `.ximeraserve`, replace the long hex string in `GPG_KEY_ID=215FC33FAB44D5CCA31A04B2CC78CB561FDC49A8` with your key-id (also of the form `ABCD3562DBF99...29292` or whatever).
+
+You will also need your private key, which you can show with 
 
 ```
-gpg --armor --export-secret-key 5FB2------YOUR PUBLIC KEY------0CA
+gpg --armor --export-secret-key
 ```
-
-
+or (if you happen to have several keys ...)
+```
+gpg --armor --export-secret-key ABC...your-key-id...92
+```
+which will show 
 ```
 -----BEGIN PGP PRIVATE KEY BLOCK-----
 
@@ -279,7 +322,7 @@ R1AgUFQkxPQJ0tLQVkFURSBJkgLRV0stLSo=
 -----END PGP PRIVATE KEY BLOCK-----
 ```
 
-You copy this part:
+Copy the key itself, thus the stuff above *without* the  -----BEGIN... en -----END headers :
 ```
 WONTWORKRUdBQR1AFURSBLRVJTigUFJJVkkgQktYVJOcxPQ0sk1CREFEdGU5
 ...
@@ -290,14 +333,9 @@ WONTWORKRUdBQR1AFURSBLRVJTigUFJJVkkgQktYVJOcxPQ0sk1CREFEdGU5
 ...
 R1AgUFQkxPQJ0tLQVkFURSBJkgLRV0stLSo=
 ```
-
-
-To deploy this Ximera "course" aka "xourse" to your local Ximera Server, replace the dummies in  `DOTximeraserve`
-with your own key and key-id, and save the file as `.ximeraserve`.
-**DO NOT SAVE DOTximeraserve with your changes.** You should **NEVER** publish or send your key.
-
+and paste it in `.ximeraserve`, replacing the dummy key:
 ```
-GPG_KEY_ID=8XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXEDF8
+GPG_KEY_ID=ABCD3562DBF99 ... 29292
 GPG_KEY=$(
 cat <<'EOF'
 WONTWORKRUdBQR1AFURSBLRVJTigUFJJVkkgQktYVJOcxPQ0sk1CREFEdGU5
@@ -308,29 +346,19 @@ WONTWORKRUdBQR1AFURSBLRVJTigUFJJVkkgQktYVJOcxPQ0sk1CREFEdGU5
 ...  Everything in between should become your private key
 ...
 R1AgUFQkxPQJ0tLQVkFURSBJkgLRV0stLSo=
+EOF
+)
 ```
+Note: leave the 'EOF' and ')' at the end!
 
-On Windows, you will need to "Show Hidden Files", and save `.ximeraserve`
-as Type "All Files" (not Plain Text -- that will add .txt to the filename).
+Delete the first few lines with comments (that by now are wrong, and might confuse you in the future!), 
+and save the `.ximeraserve` file.
 
-Note: `.ximeraserve` will not be put in git, as it is (or **should be**) in the `.gitignore` file.
+Note: `.ximeraserve` will (**or should**) not be updated in git, as it is (**or should be**) in the `.gitignore` file.
+You should **NEVER** commit, publish or send your private key.
+You may want to make a backup of this file/key in a safe place...
 
-## Check the file `./scripts/config.txt`
-
-The file `./scripts/config.txt` contains some optional default settings for compiling and publishing your courses.
-Without any setting, your courses will be published to a local ximeraserver you can start on your own PC from the 'Extra' menu. 
-
-## Compare with the published course
-
-Once you've deployed the course, you can compare your local version to ours. 
-At this time (09/2024), your local version will have a 'KULeuven' styling, but this will change (hopefully) soon, when you'll be able to choose or make more layout options.
-
-•	https://ximera.osu.edu/firststeps24/aFirstStepInXimera
-•	https://set.kuleuven.be/voorkennis/firststeps24/aFirstStepInXimera/basics/basicWorksheet
-•	https://set.kuleuven.be/voorkennis/firststeps24/variant/aNewlayout/variant/basics/basicWorksheet
-
-
-The KULeuven version also contains two PDF versions: one with, and one without the answers.
+Now, pressing the 'Serve' button in the status bar at the bottom should publish your courses.
 
 
 # Debugging
@@ -354,26 +382,34 @@ xake -v compile FILE.tex
 ```
 
 
-# Deploying new courses
+# Making new courses
 
-There are two ways to create a new Ximera course that will deploy online
+There are several options to create a new repo, with new Ximera courses that will deploy online:
 
-## Starting from scratch
+## Starting from https://github.com/XimeraProject/ximeraNewProject
 
-REMOVE STUFF
-CHANGE NAME OF REPO
-PUSH
+You clone [this repo](https://github.com/XimeraProject/ximeraNewProject), REMOVE STUFF, CHANGE THE NAME OF THE REPO and PUSH to your account.
+You start adding TeX code ...
 
 ## Starting with an existing repository
 
-Please follow these steps carefully. 
+You follow these steps carefully. 
 
+You'll copy following files and folders from [this repo](https://github.com/XimeraProject/ximeraNewProject) to your repo:
+* `.gitignore` 
+* `scripts`
+* `.vscode`
 
-You'll need to show hidden files, and then copy the file `.gitignore` to your repo. If there is already a `.gitignore` we suggest you replace your file with ours.
+If there is already a `.gitignore` we suggest you replace your file with ours, or at least check the differences. Did we mention you should never push `.ximeraserve`?
+If there is already a folder `.vscode` we suggest you compare your files with ours and check the differences.
 
+The .vscode folder is not needed, but without it, you'll not have the PDF/HTML/Bake/Serve buttons, and you'll have to start 
+* `./scripts/xmlatex compilePdf <path-to-your-texfile>`
+* `./scripts/xmlatex compile <path-to-your-texfile>`
+* `./scripts/xmlatex bake`
+* `./scripts/xmlatex serve`
 
-Move `scripts` and `.vscode` to your repository. You may need to make xmlatex executable, via
-
+Note: you may need to make xmlatex executable, via
 ```
-chmod +x ./scritps/xmlatex
+chmod +x ./scripts/xmlatex
 ```
