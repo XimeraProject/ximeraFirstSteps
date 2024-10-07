@@ -30,9 +30,87 @@ Although a standard TeX installation is sufficient to generate PDF versions of y
 To generate interactive websites, use of Git and Docker is required. In the future, this might change (again).
 
 
-## Installing Git
 
-Git is fundamental to working with Ximera. All Ximera documents that will be deployed online must be in Git repository. If you have no experience with Git, the developers are happy to help get you started with Git, email: `ximera@math.osu.edu`
+## Installing Visual Studio Code
+
+
+Visual Studio Code is a popular free editor and development environment by Microsoft, that supports git, docker and TeX.
+
+Note: the 'Code' part is very relevant: Visual Studio is a different and much bigger Microsoft product, that is not needed nor relevant for Ximera.
+
+### Installing VSCode on Windows
+
+Download and install Visual Studio Code from
+```
+https://code.visualstudio.com/download
+```
+and accept the default WSL setup (which will enable a Microsoft provided Linux subsystem on your PC).
+
+<!-- After starting Open Visual Studio Code, hit `Ctrl-~` to open a Terminal Window, which will initially be PowerShell. It is suggested to enable a more complete Linux system by typing -->
+
+It seems best **not** to start Visual Studio Code now. First install a more complete Linux system by starting a Powershell window and running
+```console
+wsl --install
+```
+
+In the same Powershell window you now start Visual Studio Code as follows:
+```console
+wsl bash -c "mkdir ~/git; code ~/git"
+```
+This should start Visual Studio Code (*inside* the WSL subsystem, but this should not bother you too much).
+
+
+### Installing VSCode on Linux 
+
+If using Linux with a Debian-based distribution such as Ubuntu, add the Microsoft windows install dependencies before installing Microsoft Visual Studio Code:
+
+```console
+sudo apt install software-properties-common apt-transport-https wget -y
+sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+sudo apt update
+sudo apt install code
+```
+You can verify the installation was successful using the following command:
+```console
+code --version
+```
+and start VSCode with
+```console
+code .
+```
+
+## Installing Docker
+
+Docker is necessary for online deployment, and very convenient for local development and testing of your Ximera TeX-code. It allows to fix the **version** of all relevant software. Moreover, it allows to rapidly test updates and revert back (if necessary) very easily. 
+The Ximera `xake` Docker containers contain LaTeX, so if you don't object to work exclusively in Docker, you even do not need to install LaTeX. You'll like it.
+
+When starting Docker, accept the license and accept recommendations. Once it asks you to sign in, just "Continue Without Signing In." You may choose to do the survey if you like. Once you finish this, you will see a "Engine running" at the bottom left hand corner of the screen.
+
+### docker on Windows
+
+Follow the directions found [here](https://docs.docker.com/desktop/install/windows-install/). "WSL" is key for our deployment, so be sure to follow those guidelines.
+
+### docker on MacOS
+
+Follow the directions found [here](https://docs.docker.com/desktop/install/mac-install/).
+
+### docker on Linux
+
+Follow the directions found [here](https://docs.docker.com/desktop/install/ubuntu/).
+
+
+## OPTIONAL: Installing LaTeX
+
+Since you can compile and deploy in docker, a local TeX installation is not **strictly** necessary.
+If you have one already, you can use it, but you might have to add the Ximera package from CTAN.
+And there might be some dependencies on old or new versions of some packages that cause issues...
+
+## OPTIONAL: Installing Git (on Windows)
+
+Git is fundamental to working with Ximera. All Ximera documents that will be deployed online must be in Git repository. 
+
+When using Docker-with-WSL, it'll be most convenient to use the git software thats automatically available inside WSL. You can optionally also install git on your Windows PC, but it will not be used for this repo.
+<!-- If you have no experience with Git, the developers are happy to help get you started with Git, email: `ximera@math.osu.edu` -->
 
 ### Git on Windows
 
@@ -74,79 +152,37 @@ git config --global core.editor "nano"
 ```
 
 
-
-## Installing Visual Studio Code
-
-Visual Studio Code is a popular free editor and development environment by Microsoft, that integrates git, docker and tex support.
-Note the `code` part: Visual Studio is a different and much bigger Microsoft product, that is not needed nor relevant for Ximera.
-
-Download and install form
-```
-https://code.visualstudio.com/download
-```
-and accept the default WSL setup (which will enable a Microsoft provided Linux subsystem on your PC).
-
-After starting Open Visual Studio Code, hit `Ctrl-~` to open a Terminal Window, which will initially be PowerShell. It is suggested to enable a more complete Linux system by typing
-```console
-wsl --install
-```
-Now at the upper right of the Terminal window you should see "PowerShell + v" menu, and pressing the down-carrot should give an 'Ubuntu (WSL)' option (perhaps with a specific Ubuntu version like 24.04).
-This will be needed further to generate a gpg key.
-
-
-
-If using Linux with a Debian-based distribution such as Ubuntu, add the Microsoft windows install dependencies before installing Microsoft Visual Studio Code:
-
-```console
-sudo apt install software-properties-common apt-transport-https wget -y
-sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
-sudo apt update
-sudo apt install code
-```
-You can verify the installation was successful using the following command:
-
-```console
-code --version
-```
-
-## Installing Docker
-
-Docker is necessary for online deployment. It allows to fix the **version** of all software to use. Moreover, it allows to rapidly test updates and revert back (if necessary) very easily. 
-The Ximera `xake` Docker containers contain LaTeX, so if one is willing to work exclusively in Docker, they do not need to install LaTeX.
-
-If you start Docker, accept the license and accept recommendations. Once it asks you to sign in, just "Continue Without Signing In." You may choose to do the survey if you like. Once you finish this, you will see a "Engine running" at the bottom left hand corner of the screen.
-
-### docker on Windows
-
-Follow the directions found [here](https://docs.docker.com/desktop/install/windows-install/). "WSL" is key for our deployment, so be sure to follow those guidelines.
-
-### docker on MacOS
-
-Follow the directions found [here](https://docs.docker.com/desktop/install/mac-install/).
-
-### docker on Linux
-
-Follow the directions found [here](https://docs.docker.com/desktop/install/ubuntu/).
-
-
-## OPTIONAL: Installing LaTeX
-
-Since you can compile and deploy in docker, a local TeX installation is not **strictly** necessary.
-If you have one already, you can use it, but you might have to add the Ximera package from CTAN.
-And there might be some dependencies on old or new versions of some packages that cause issues...
-
 # Test your software and clone this repository
 
-## Start Docker and VSCode 
+## Start VSCode and Docker
 
-Assuming you have Git, Docker, and VS Code installed, you should first start Docker.
-Open the Docker Desktop application. It will ask you some questions -- if you are on Windows and it asks about "WSL," accept it, as you need "WSL" (if it asks!). You want to open the Docker Desktop application.  You should be able to do this with some sort of GUI launcher.
+If VSCode is not running, start it 
+* on Linux/MacOS with `code .`, 
+* but on Windows please use a Powershell window this very first time and
+```console
+wsl bash -c "code ~/git"
+```
+or -- if you did not yet make a ~/git folder:
+```console
+wsl bash -c "mkdir ~/git; code ~/git"
+```
+
+The command <CTRL> ~ will now open a shell *inside* VSCode, which you can use to check if the Docker Engine is running by typing:
+```console
+docker ps
+```
+If you get an error with 'permission denied' and something about a 'socket', that probably means the Docker Engine is not running.
+
+Open the Docker Desktop application. It might ask you some questions -- if you are on Windows and it asks about "WSL," accept it, as you need "WSL" (if it asks!). You want to open the Docker Desktop application.  You should be able to do this with some sort of GUI launcher.
 
 Once Docker is open and you have skipped through any other surveys/questions, you will see a "Engine running" at the bottom left hand corner of the screen. 
 You can minimize the Docker window.
 
-If on Windows, once you start VS Code, make sure you instal the "WSL Extension." VS Code, may ask you if you want to install this via a window in the lower left-hand corner.
+Now the 'docker ps' command should no longer return an error. If it still does: complain with ab Issue that this README is incomplete.
 
+<!-- 
+If on Windows, once you start VS Code, make sure you install the "WSL Extension." 
+VS Code may ask you if you want to install this via a popup window in the lower left or right corner of your screen. -->
 
 
 ## OPTIONAL: Obtain a GitHub account and "Fork" this repository
@@ -163,61 +199,22 @@ Once logged in into GitHub, at the top right there will be an option to "Fork" t
 
 ## Clone ximeraFirstSteps
 
-If you choose to forked the repo, you should clone  **your copy** of ximeraFirstSteps.
-If not, you clone the https://github.com/XimeraProject/ximeraFirstSteps.git repo.  You will not be able to push your changes, but this will not be needed to get familiar with Ximera, and test the setup on your local device.
+If you've chosen to *fork* the repo, you should clone  **your copy** of ximeraFirstSteps.
+If not, you clone the global https://github.com/XimeraProject/ximeraFirstSteps.git repo.  In this case you will not be able to push your changes, but this will not be needed to get familiar with Ximera and test the setup and functionality on your local device.
 
-For all platforms, upon cloning VS Code will ask if you "trust the authors", which you should,
+For all platforms, upon cloning this repo VS Code might ask if you "trust the authors", which you should,
 and also to 'Install recommended extensions', which you also should do.
 
-On Windows there unfortunately is a subtle technical complication that can cause problems.
+Now type `Ctrl-Shift-P` to open the 'Command' window, start typing 'Git clone' until `Git= Clone` appears at the top of the list, and hit enter. 
+Select `Clone from Github`, and start typing `ximeraProject/ximeraFirstSteps` (or `<yourgithubname>/ximeraFirstSteps`)  until you can select the correct copy of 'ximeraFirstSteps'.
 
-### On Windows 
-If you are running Windows, we strongly suggest (for the time being; this might change) 
-to clone INSIDE the WSL Ubuntu system, as follows.
+![An image of VS Code Git: Clone (from Github)](graphicsREADME/cloneRepo.png "Cloning ximeraFirstSteps")
 
-(This is because Windows stores newlines in a textfile differently from Linux/MacOs, and the Ximera build process uses a Linux Docker container,
- and at this point requires (unfortunately) the Linux/MacOs convention)
+Hit enter, select a place where to clone your local copy of this repo. 
+On Windows, we strongly suggest to use the `~/git` folder *inside* the WSL subsystem.
+This will have *much* better performance than cloning directly on your Windows disk.
 
-Hit `Ctrl-~` and you should see something like:
-
-![An image of VS Code powershell](graphicsREADME/powershell.png "The powershell")
-
-Click the arrow on the right:
-
-![Clicking arrow to switch to WSL](graphicsREADME/clickedArrow.png "Click the arrow")
-
-When you have selected "Ubuntu (WSL)" you should see something like:
-
-![An Ubuntu (WSL) Terminal](graphicsREADME/WSL.png "An Ubuntu (WSL) terminal")
-
-Now run
-```
-git clone https://github.com/XimeraProject/ximeraFirstSteps.git
-```
-or
-```
-git clone https://github.com/YOUR-GIT-USER/ximeraFirstSteps.git
-```
-where "YOUR-GIT-USER" is replaced with your GitHub username.
-
-
-Now use VS Code to "Open Folder" and open `ximeraFirstSteps`
-
-
-### On MacOS and Linux
-
-Start a terminal and run 
-```
-git clone https://github.com/XimeraProject/ximeraFirstSteps.git
-```
-or 
-```
-git clone https://github.com/YOUR-GIT-USER/ximeraFirstSteps.git
-```
-where "YOUR-GIT-USER" is replaced with your GitHub username.
-
-You can either clone from any terminal window (or from any Git GUI that you might have), and start VS Code (e.g. in the cloned folder with `code .`), 
-or start VS Code, hit `Ctrl-~` to start a terminal, and clone form there.
+VS Code will ask to "Open in New Window", and this will start a new VSCode window for this repo.
 
 
 ## Allow extensions
