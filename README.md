@@ -84,18 +84,18 @@ Download and install form
 ```
 https://code.visualstudio.com/download
 ```
-and accept the default WSL setup (which will enable Microsoft provided a Linux subsystem on your PC).
+and accept the default WSL setup (which will enable a Microsoft provided Linux subsystem on your PC).
 
-After starting Open Visual Studio Code, hit `Ctrl-~` to open a Terminal Windows, which will initially be PowerShell. It is suggested to enable a more complete Linux system by typing
+After starting Open Visual Studio Code, hit `Ctrl-~` to open a Terminal Window, which will initially be PowerShell. It is suggested to enable a more complete Linux system by typing
 ```console
 wsl --install
 ```
-Now at the upper right of the Terminal window you should see "PowerShell + v" menu, and pressing the down-carrot should give an 'Ubuntu (WSL)' option (perhpas wwit a  specific Ubuntu version like 24.04).
+Now at the upper right of the Terminal window you should see "PowerShell + v" menu, and pressing the down-carrot should give an 'Ubuntu (WSL)' option (perhaps with a specific Ubuntu version like 24.04).
 This will be needed further to generate a gpg key.
 
 
 
-If useing Linux with a Debian-based distribution such as Ubuntu, add the Microsoft windows install dependencies before installing Microsoft Visual Studio Code:
+If using Linux with a Debian-based distribution such as Ubuntu, add the Microsoft windows install dependencies before installing Microsoft Visual Studio Code:
 
 ```console
 sudo apt install software-properties-common apt-transport-https wget -y
@@ -111,7 +111,8 @@ code --version
 
 ## Installing Docker
 
-Docker is necessary for online deployment. It allows us to choose which **version** of software we use. Moreover, it allows us to rapidly test updates and revert back (if necessary) very easily. Our Docker containers contain LaTeX, so if one is willing to work exclusively in Docker, they do not need to install LaTeX.
+Docker is necessary for online deployment. It allows to fix the **version** of all software to use. Moreover, it allows to rapidly test updates and revert back (if necessary) very easily. 
+The Ximera `xake` Docker containers contain LaTeX, so if one is willing to work exclusively in Docker, they do not need to install LaTeX.
 
 If you start Docker, accept the license and accept recommendations. Once it asks you to sign in, just "Continue Without Signing In." You may choose to do the survey if you like. Once you finish this, you will see a "Engine running" at the bottom left hand corner of the screen.
 
