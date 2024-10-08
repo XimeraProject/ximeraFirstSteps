@@ -1040,3 +1040,21 @@ span#prev-activity-label {
 .nl-text {
       display: none;
 }
+
+
+/* overwrite 'white-space: normal' in base.css */
+
+.activity-body pre {
+    white-space: pre;
+    background-color: lightgray;
+}
+
+
+/* fix vertical alignment of question -labels  (TEST) */
+.question dt.enumerate-enumitem, .question dd.enumerate-enumitem {
+    float: none;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+
