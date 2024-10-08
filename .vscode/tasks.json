@@ -140,7 +140,7 @@
           "id": "openSimpleBrowser",
           "type": "command",
           "command": "simpleBrowser.show",
-          "args": [ "http://localhost:2000/test" ],
+          "args": [ "http://localhost:2000/repositories" ],
 
         }
     ]    
