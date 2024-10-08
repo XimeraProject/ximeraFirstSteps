@@ -1,4 +1,4 @@
-This repository has a basic Ximera course along with instructions for deploying that will help you get started using Ximera. It is designed to help a new user. If there are problems with the instructions below, please submit an "Issue" by pressing the "Issues Tab" on https://github.com/XimeraProject/ximeraFirstSteps.
+This repository has a basic Ximera course along with instructions for deploying that will help you get started using Ximera. It is designed to help a new user. If there are problems with the instructions below, please submit an issue on the "Issues" tab on https://github.com/XimeraProject/ximeraFirstSteps.
 
 
 The course(s) in this repo are published on following places:
@@ -34,9 +34,11 @@ To generate interactive websites, use of Git and Docker is required. In the futu
 ## Installing Visual Studio Code
 
 
-Visual Studio Code is a popular free editor and development environment by Microsoft, that supports git, docker and TeX.
+Visual Studio Code, also 'VSCode' or just 'code', is a popular free editor and development environment by Microsoft, that supports git, docker and TeX.
 
-Note: the 'Code' part is very relevant: Visual Studio is a different and much bigger Microsoft product, that is not needed nor relevant for Ximera.
+
+> [!NOTE] 
+> The 'Code' in 'Visual Studio Code' is very relevant: Visual Studio is a different and much bigger Microsoft product, that is not needed nor relevant for Ximera.
 
 ### Installing VSCode on Windows
 
@@ -44,21 +46,11 @@ Download and install Visual Studio Code from
 ```
 https://code.visualstudio.com/download
 ```
-and accept the default WSL setup (which will enable a Microsoft provided Linux subsystem on your PC).
 
 <!-- After starting Open Visual Studio Code, hit `Ctrl-~` to open a Terminal Window, which will initially be PowerShell. It is suggested to enable a more complete Linux system by typing -->
 
-It seems best **not** to start Visual Studio Code now. First install a more complete Linux system by starting a Powershell window and running
-```console
-wsl --install
-```
-
-In the same Powershell window you now start Visual Studio Code as follows:
-```console
-wsl bash -c "mkdir ~/git; code ~/git"
-```
-This should start Visual Studio Code (*inside* the WSL subsystem, but this should not bother you too much).
-
+It is **not necessary not** to start Visual Studio Code right now. 
+The setup will be completed and slightly adapted below, when you'll install Docker.
 
 ### Installing VSCode on Linux 
 
@@ -74,34 +66,52 @@ You can verify the installation was successful using the following command:
 ```console
 code --version
 ```
-and start VSCode with
+and start VSCode (inside your current directory `.`) with
 ```console
 code .
 ```
 
+## Installing (or preparing) WSL
+
+It is strongly suggested to enable '[WSL](https://learn.microsoft.com/en-us/windows/wsl/install)', the Microsoft 'Windows Subsystem for Linux'.
+It will be used by VSCode and Docker.
+
+Start a Powershell window and run
+```console
+wsl --install
+```
+This installs an Ubuntu subsystem.
+It asks for a username, we suggest to take your first name. Choose a not too difficult password (you won't need it often, but should not loose it.) The account is local to your PC.
+The `wsl --install` will give you a prompt *inside* this Linux subsystem, in which you type
+```console
+mkdir ~/git
+cd ~git
+code .
+```
+If somehow you're not (anymore) in this Linux shell, you can use a Powershell window with
+```console
+wsl bash -c "mkdir ~/git; code ~/git"
+```
+or  (if you happen to have several WS distributions)
+```console
+wsl -d Ubuntu bash -c "mkdir ~/git; code ~/git"
+```
+This should start Visual Studio Code (*inside* the WSL subsystem, but this should not bother you too much).
+
 ## Installing Docker
 
-Docker is necessary for online deployment, and very convenient for local development and testing of your Ximera TeX-code. It allows to fix the **version** of all relevant software. Moreover, it allows to rapidly test updates and revert back (if necessary) very easily. 
-The Ximera `xake` Docker containers contain LaTeX, so if you don't object to work exclusively in Docker, you even do not need to install LaTeX. You'll like it.
+When installing [Docker](https://docs.docker.com/desktop/install/windows-install/), accept the license and accept recommendations.You do *not have to sign in*, and may choose to do the survey if you like. Once you finish this, you will see a "Engine running" at the bottom left hand corner of the screen.
 
-When starting Docker, accept the license and accept recommendations. Once it asks you to sign in, just "Continue Without Signing In." You may choose to do the survey if you like. Once you finish this, you will see a "Engine running" at the bottom left hand corner of the screen.
 
-### docker on Windows
-
-Follow the directions found [here](https://docs.docker.com/desktop/install/windows-install/). "WSL" is key for our deployment, so be sure to follow those guidelines.
-
-### docker on MacOS
-
-Follow the directions found [here](https://docs.docker.com/desktop/install/mac-install/).
-
-### docker on Linux
-
-Follow the directions found [here](https://docs.docker.com/desktop/install/ubuntu/).
+Follow the directions for 
+- [Windows](https://docs.docker.com/desktop/install/windows-install/). Select the "WSL"  option.
+- [MacOs](https://docs.docker.com/desktop/install/mac-install/).
+- [Ubuntu (Linux)](https://docs.docker.com/desktop/install/ubuntu/).
 
 
 ## OPTIONAL: Installing LaTeX
 
-Since you can compile and deploy in docker, a local TeX installation is not **strictly** necessary.
+Since you will typically compile and deploy in docker, a local TeX installation is not **strictly** necessary.
 If you have one already, you can use it, but you might have to add the Ximera package from CTAN.
 And there might be some dependencies on old or new versions of some packages that cause issues...
 
@@ -109,7 +119,7 @@ And there might be some dependencies on old or new versions of some packages tha
 
 Git is fundamental to working with Ximera. All Ximera documents that will be deployed online must be in Git repository. 
 
-When using Docker-with-WSL, it'll be most convenient to use the git software thats automatically available inside WSL. You can optionally also install git on your Windows PC, but it will not be used for this repo.
+When using Docker-with-WSL, it'll be most convenient to use the git software that's automatically available inside WSL. You can optionally also install git on your Windows PC, but it will not be used for this repo.
 <!-- If you have no experience with Git, the developers are happy to help get you started with Git, email: `ximera@math.osu.edu` -->
 
 ### Git on Windows
@@ -134,7 +144,6 @@ If you don’t have it installed already, your computer will prompt you to insta
 ### Git on Linux
 
 On Linux, there are various methods. However, if you are on a Debian-based distribution, such as Ubuntu, try:
-
 ```console
 sudo apt update
 ```
@@ -156,9 +165,9 @@ git config --global core.editor "nano"
 
 ## Start VSCode and Docker
 
-If VSCode is not running, start it 
-* on Linux/MacOS with `code .`, 
-* but on Windows please use a Powershell window this very first time and
+Start VSCode if not yet running.
+* on Linux/MacOS with `code .`, in a folder of your choice (eg `~/git`) 
+* on Windows please use a Powershell window this very first time and
 ```console
 wsl bash -c "code ~/git"
 ```
@@ -167,15 +176,13 @@ or -- if you did not yet make a ~/git folder:
 wsl bash -c "mkdir ~/git; code ~/git"
 ```
 
-The command <CTRL> ~ will now open a shell *inside* VSCode, which you can use to check if the Docker Engine is running by typing:
+The command `Ctrl+~` will now open a shell *inside* VSCode, which you can use to check if the Docker Engine is running by typing:
 ```console
 docker ps
 ```
-If you get an error with 'permission denied' and something about a 'socket', that probably means the Docker Engine is not running.
+If you get an error with 'permission denied' and something about a 'socket', that probably means the Docker Engine is not running. It could be that your Ubuntu distribution is not 'Enabled' in the WSL section of the Resources option in Docker Settings. Or it could be that you'r not member of the 'docker' group of your system. Or it could be one of a zillion other problems. Make an Issue if in trouble.
 
-Open the Docker Desktop application. It might ask you some questions -- if you are on Windows and it asks about "WSL," accept it, as you need "WSL" (if it asks!). You want to open the Docker Desktop application.  You should be able to do this with some sort of GUI launcher.
-
-Once Docker is open and you have skipped through any other surveys/questions, you will see a "Engine running" at the bottom left hand corner of the screen. 
+Start the Docker Engine if needed from the Docker Desktop application.
 You can minimize the Docker window.
 
 Now the 'docker ps' command should no longer return an error. If it still does: complain with ab Issue that this README is incomplete.
@@ -256,11 +263,11 @@ You should now have access to the course(s), by default on http://localhost:2000
 ## Compare with the published course
 
 Once you've deployed the course, you can compare your local version to ours. 
-At this time (09/2024), your local version will have a 'KULeuven' styling, but this will change (hopefully) soon, when you'll be able to choose or make more layout options.
+At this time (10/2024), your local version will have a 'KULeuven' styling, but this will change (hopefully) soon, when you'll be able to choose or make more layout options.
 
-•	https://ximera.osu.edu/firststeps24/aFirstStepInXimera
-•	https://set.kuleuven.be/voorkennis/firststeps24/aFirstStepInXimera/basics/basicWorksheet
-•	https://set.kuleuven.be/voorkennis/firststeps24/variant/aNewlayout/variant/basics/basicWorksheet
+-	https://ximera.osu.edu/firststeps24/aFirstStepInXimera
+-	https://set.kuleuven.be/voorkennis/firststeps24/aFirstStepInXimera/basics/basicWorksheet
+-	https://set.kuleuven.be/voorkennis/firststeps24/variant/aNewlayout/variant/basics/basicWorksheet
 
 
 The KULeuven version also contains two PDF versions: one with, and one without the answers.
