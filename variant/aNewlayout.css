@@ -1050,11 +1050,11 @@ span#prev-activity-label {
 }
 
 
-/* fix vertical alignment of question -labels  (TEST) */
-.question dt.enumerate-enumitem, .question dd.enumerate-enumitem {
+/* fix vertical alignment of question -labels  (TEST, does not worp properly) */
+/* .question dt.enumerate-enumitem, .question dd.enumerate-enumitem {
     float: none;
     display: table-cell;
     vertical-align: middle;
-}
+} */
 
 
