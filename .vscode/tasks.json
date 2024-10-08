@@ -9,11 +9,12 @@
             "command": "./scripts/xmlatex",
             "windows": {
                 "command": ".\\scripts\\xmlatex.bat"
-              },            
+            },
             "args": [
                 "compilePdf",
                 "${relativeFile}"
             ],
+            "problemMatcher": []
         },
         {
             "type": "shell",
@@ -21,13 +22,14 @@
             "command": "./scripts/xmlatex",
             "windows": {
                 "command": ".\\scripts\\xmlatex.bat"
-              },             
+            },
             "args": [
                 "--",
                 "--skip-mathjax",
                 "compile",
                 "${relativeFile}"
             ],
+            "problemMatcher": []
         },
         {
             "type": "shell",
@@ -35,23 +37,13 @@
             "command": "./scripts/xmlatex",
             "windows": {
                 "command": ".\\scripts\\xmlatex.bat"
-              }, 
+            },
             "args": [
                 "--",
                 "--skip-mathjax",
-                "bake",
+                "bake"
             ],
-        },
-        {
-            "type": "shell",
-            "label": "XimerServer",
-            "command": "./scripts/xmlatex",
-            "windows": {
-                "command": ".\\scripts\\xmlatex.bat"
-              }, 
-            "args": [
-                "ximeraserver",
-            ],
+            "problemMatcher": []
         },
         {
             "type": "shell",
@@ -59,23 +51,97 @@
             "command": "./scripts/xmlatex",
             "windows": {
                 "command": ".\\scripts\\xmlatex.bat"
-              }, 
+            },
             "args": [
-                "serve",
+                "serve"
             ],
-            // // NOT IMPLEMENTED YET //
-            // "problemMatcher": {
-            //     "owner": "xxxx",
-            //     "fileLocation": [
-            //         "relative",
-            //         "${workspaceFolder}"
-            //     ],
-            //     "pattern": {
-            //         "regexp": "^\\[\\d+-\\d+-\\d+\\]\\[\\d+:\\d+:\\d+\\]\\[[^\\]]*\\]\\[(ERROR)\\](.*)$",
-            //         "severity": 1,
-            //         "message": 2
-            //     }
-            // }
+            "problemMatcher": []
+        },        
+        {
+            "type": "shell",
+            "label": "Start Ximera Server",
+            "command": "./scripts/xmlatex",
+            "windows": {
+                "command": ".\\scripts\\xmlatex.bat"
+            },
+            "args": [
+                "ximeraserver"
+            ],
+            "problemMatcher": []
         },
-    ]
+        {
+                "label": "Preview in Simple Browser",
+                "command": "${input:openSimpleBrowser}",
+        },
+        {
+            "type": "shell",
+            "label": "Bake standard",
+            "command": "./scripts/xmlatex",
+            "windows": {
+                "command": ".\\scripts\\xmlatex.bat"
+            },
+            "args": [
+                "bakestandaard"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "type": "shell",
+            "label": "Bake handout",
+            "command": "./scripts/xmlatex",
+            "windows": {
+                "command": ".\\scripts\\xmlatex.bat"
+            },
+            "args": [
+                "bakehandout"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "type": "shell",
+            "label": "Delete standard",
+            "command": "./scripts/xmlatex",
+            "windows": {
+                "command": ".\\scripts\\xmlatex.bat"
+            },
+            "args": [
+                "cleanstandaard"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "type": "shell",
+            "label": "Delete handout",
+            "command": "./scripts/xmlatex",
+            "windows": {
+                "command": ".\\scripts\\xmlatex.bat"
+            },
+            "args": [
+                "cleanhandout"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "type": "shell",
+            // "task": "clean",
+            "label": "Delete all",
+            "command": "./scripts/xmlatex",
+            "windows": {
+                "command": ".\\scripts\\xmlatex.bat"
+            },
+            "args": [
+                "clean"
+            ],
+            "problemMatcher": []
+        },
+    ],
+    "inputs": [
+        {
+          "id": "openSimpleBrowser",
+          "type": "command",
+          "command": "simpleBrowser.show",
+          "args": [ "http://localhost:2000/test" ],
+
+        }
+    ]    
 }

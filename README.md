@@ -1,62 +1,122 @@
-# Take Your First Steps in Ximera
+This repository has a basic Ximera course along with instructions for deploying that will help you get started using Ximera. It is designed to help a new user. If there are problems with the instructions below, please submit an "Issue" by pressing the "Issues Tab" on https://github.com/XimeraProject/ximeraFirstSteps.
 
-This repository has a basic Ximera course along with instructions for deploying that will help you get started using Ximera. It is designed to help a new user. If there are problems with the instructions below, please submit an "Issue" by pressing the "Issues Tab" at the top-left of the screen.
 
-- [Take Your First Steps in Ximera](#take-your-first-steps-in-ximera)
-  - [Software requirements and suggestions](#software-requirements-and-suggestions)
-    - [Obtain a GitHub account and "Fork" this repository](#obtain-a-github-account-and-fork-this-repository)
-    - [Installing Git](#installing-git)
-      - [Windows](#windows)
-      - [MacOS](#macos)
-      - [Linux](#linux)
-    - [Installing Visual Studio Code](#installing-visual-studio-code)
-      - [Windows WSL 2 install](#windows-wsl-2-install)
-    - [Installing Docker](#installing-docker)
-      - [Windows](#windows-1)
-      - [MacOS](#macos-1)
-      - [Linux](#linux-1)
-    - [Installing LaTeX](#installing-latex)
-      - [Windows](#windows-2)
-      - [MacOS](#macos-2)
-      - [Linux](#linux-2)
-  - [Test your software and clone this repository](#test-your-software-and-clone-this-repository)
-    - [Start Docker](#start-docker)
-    - [Start VS Code](#start-vs-code)
-    - [Clone YOUR COPY of this repository](#clone-your-copy-of-this-repository)
-      - [For MacOS and Linux](#for-macos-and-linux)
-      - [Windows special instructions](#windows-special-instructions)
-    - [Allow extensions](#allow-extensions)
-    - [Bake with Xake](#bake-with-xake)
-    - [Getting GPG Keys](#getting-gpg-keys)
-  - [Deploying this course](#deploying-this-course)
-    - [The published course](#the-published-course)
-  - [Debugging Baking](#debugging-baking)
-  - [Deploying new courses](#deploying-new-courses)
-    - [Starting from scratch](#starting-from-scratch)
-    - [Starting with an existing repository](#starting-with-an-existing-repository)
+The course(s) in this repo are published on following places:
 
-## Software requirements and suggestions
+* https://ximera.osu.edu/firststeps24/aFirstStepInXimera 
+* https://set.kuleuven.be/voorkennis/firststeps24/aFirstStepInXimera/basics/basicWorksheet
+* https://set.kuleuven.be/voorkennis/firststeps24/variant/aNewlayout/variant/basics/basicWorksheet
 
-To use Ximera, we require that users use Git and Docker.
-We additionally (very strongly) suggest Visual Studio Code and LaTeX.
+and if you follow the instructions in this Readme, it could very soon be available on your own pc on
 
-### Obtain a GitHub account and "Fork" this repository
+* http://localhost:2000/firststeps24
 
-You'll need a GitHub account. They are free, and educators can request special access.
-Once you have your account, login to GitHub, return to this page, and at the top right there will be an option to "Fork" this repository. 
-Fork the repo. Accept all defaults, including the name "ximeraFirstSteps." When done, it will take you to **your copy** of this repository on GitHub. It will be located someplace like `https://github.com/YOUR-GIT-USER-NAME/ximeraFirstSteps`
+where you will be able to change, test and adapt it. 
+
+In case of trouble: create an Issue and we'll (try to) help you.
+
+
+# Contents
+<!-- MANUAL TOC NEEDED ???? -->
+- [Software requirements and suggestions](#software-requirements-and-suggestions)
+- [Test your software and clone this repository](#test-your-software-and-clone-this-repository)
+- [Deploying this course](#deploying-this-course)
+- [Debugging](#debugging)
+- [Deploying new courses](#deploying-new-courses)
+
+# Software requirements and suggestions
+
+Although a standard TeX installation is sufficient to generate PDF versions of your courses, we very strongly suggest to use Git and Docker. We additionally (also very strongly) suggest Visual Studio Code, but editing can be done in your favorite TeX-editor.
+To generate interactive websites, use of Git and Docker is required. In the future, this might change (again).
 
 
 
-### Installing Git
+## Installing Visual Studio Code
 
-Git is fundamental to working with Ximera. All Ximera documents that will be deployed online must be in Git repository. If you have no experience with Git, the developers are happy to help get you started with Git, email: `ximera@math.osu.edu`
 
-#### Windows
+Visual Studio Code is a popular free editor and development environment by Microsoft, that supports git, docker and TeX.
+
+Note: the 'Code' part is very relevant: Visual Studio is a different and much bigger Microsoft product, that is not needed nor relevant for Ximera.
+
+### Installing VSCode on Windows
+
+Download and install Visual Studio Code from
+```
+https://code.visualstudio.com/download
+```
+and accept the default WSL setup (which will enable a Microsoft provided Linux subsystem on your PC).
+
+<!-- After starting Open Visual Studio Code, hit `Ctrl-~` to open a Terminal Window, which will initially be PowerShell. It is suggested to enable a more complete Linux system by typing -->
+
+It seems best **not** to start Visual Studio Code now. First install a more complete Linux system by starting a Powershell window and running
+```console
+wsl --install
+```
+
+In the same Powershell window you now start Visual Studio Code as follows:
+```console
+wsl bash -c "mkdir ~/git; code ~/git"
+```
+This should start Visual Studio Code (*inside* the WSL subsystem, but this should not bother you too much).
+
+
+### Installing VSCode on Linux 
+
+If using Linux with a Debian-based distribution such as Ubuntu, add the Microsoft windows install dependencies before installing Microsoft Visual Studio Code:
+
+```console
+sudo apt install software-properties-common apt-transport-https wget -y
+sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+sudo apt update
+sudo apt install code
+```
+You can verify the installation was successful using the following command:
+```console
+code --version
+```
+and start VSCode with
+```console
+code .
+```
+
+## Installing Docker
+
+Docker is necessary for online deployment, and very convenient for local development and testing of your Ximera TeX-code. It allows to fix the **version** of all relevant software. Moreover, it allows to rapidly test updates and revert back (if necessary) very easily. 
+The Ximera `xake` Docker containers contain LaTeX, so if you don't object to work exclusively in Docker, you even do not need to install LaTeX. You'll like it.
+
+When starting Docker, accept the license and accept recommendations. Once it asks you to sign in, just "Continue Without Signing In." You may choose to do the survey if you like. Once you finish this, you will see a "Engine running" at the bottom left hand corner of the screen.
+
+### docker on Windows
+
+Follow the directions found [here](https://docs.docker.com/desktop/install/windows-install/). "WSL" is key for our deployment, so be sure to follow those guidelines.
+
+### docker on MacOS
+
+Follow the directions found [here](https://docs.docker.com/desktop/install/mac-install/).
+
+### docker on Linux
+
+Follow the directions found [here](https://docs.docker.com/desktop/install/ubuntu/).
+
+
+## OPTIONAL: Installing LaTeX
+
+Since you can compile and deploy in docker, a local TeX installation is not **strictly** necessary.
+If you have one already, you can use it, but you might have to add the Ximera package from CTAN.
+And there might be some dependencies on old or new versions of some packages that cause issues...
+
+## OPTIONAL: Installing Git (on Windows)
+
+Git is fundamental to working with Ximera. All Ximera documents that will be deployed online must be in Git repository. 
+
+When using Docker-with-WSL, it'll be most convenient to use the git software thats automatically available inside WSL. You can optionally also install git on your Windows PC, but it will not be used for this repo.
+<!-- If you have no experience with Git, the developers are happy to help get you started with Git, email: `ximera@math.osu.edu` -->
+
+### Git on Windows
 
 If you use Windows, go to: `https://git-scm.com/download/win ` and the download will start automatically. If it doesn't you probably want "64-bit Git for Windows Setup."
 
-#### MacOS
+### Git on MacOS
 
 On Mavericks (10.9) or above you can do this simply by trying to run git from the Terminal the very first time. To open the terminal, do one of the following:
 
@@ -71,7 +131,7 @@ git
 
 If you don’t have it installed already, your computer will prompt you to install it.
 
-#### Linux
+### Git on Linux
 
 On Linux, there are various methods. However, if you are on a Debian-based distribution, such as Ubuntu, try:
 
@@ -92,164 +152,159 @@ git config --global core.editor "nano"
 ```
 
 
+# Test your software and clone this repository
 
-### Installing Visual Studio Code
+## Start VSCode and Docker
 
-Visual Studio Code gives us a common deploy environment. In particular, on Windows machines it provides a UNIX-like terminal via WSL. In particular, **Windows users must install Visual Studio Code first, and enable WSL**.
-Download from 
-```
-https://code.visualstudio.com/download
-```
-or if you use Linux and are on a Debian-based distribution, such as Ubuntu, you must add the windows and install dependencies before you can install the repo try:
-
+If VSCode is not running, start it 
+* on Linux/MacOS with `code .`, 
+* but on Windows please use a Powershell window this very first time and
 ```console
-sudo apt install software-properties-common apt-transport-https wget -y
-sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
-sudo apt update
-sudo apt install code
+wsl bash -c "code ~/git"
 ```
-You can verify the installation was successful using the following command:
-
+or -- if you did not yet make a ~/git folder:
 ```console
-code --version
+wsl bash -c "mkdir ~/git; code ~/git"
 ```
 
-#### Windows WSL 2 install
-
-Open Visual Studio Code and hit `Ctrl-~` then type (in the PowserShell):
+The command <CTRL> ~ will now open a shell *inside* VSCode, which you can use to check if the Docker Engine is running by typing:
 ```console
-wsl --install
+docker ps
 ```
-Now if you look to the upper right of the Terminal window you should see "PowerShell + v" Press the down-carrot, and select WSL. 
+If you get an error with 'permission denied' and something about a 'socket', that probably means the Docker Engine is not running.
 
-### Installing Docker
-
-Docker is necessary for online deployment. It allows us to choose which **version** of software we use. Moreover, it allows us to rapidly test updates and revert back (if necessary) very easily. Our Docker containers contain LaTeX, so if one is willing to work exclusively in Docker, they do not need to install LaTeX.
-
-If you start Docker, accept the license and accept recommendations. Once it asks you to sign in, just "Continue Without Signing In." You may choose to do the survey if you like. Once you finish this, you will see a "Engine running" at the bottom left hand corner of the screen.
-
-#### Windows
-
-Follow the directions found [here](https://docs.docker.com/desktop/install/windows-install/). "WSL" is key for our deployment, so be sure to follow those guidelines.
-
-#### MacOS
-
-Follow the directions found [here](https://docs.docker.com/desktop/install/mac-install/).
-
-#### Linux
-
-Follow the directions found [here](https://docs.docker.com/desktop/install/ubuntu/).
-
-
-
-### Installing LaTeX
-
-Since we deploy in docker, this is not **strictly** necessary. However, it will enable you to compile documents without using Docker. This can be helpful when developing.
-
-#### Windows
-
-#### MacOS
-
-#### Linux
-
-## Test your software and clone this repository
-
-### Start Docker
-
-Assuming you have Git, Docker, and VS Code installed, you should first start Docker.
-Open the Docker Desktop application. It will ask you some questions -- if you are on Windows and it asks about "WSL," accept it, as you need "WSL" (if it asks!). You want to open the Docker Desktop application.  You should be able to do this with some sort of GUI launcher.
+Open the Docker Desktop application. It might ask you some questions -- if you are on Windows and it asks about "WSL," accept it, as you need "WSL" (if it asks!). You want to open the Docker Desktop application.  You should be able to do this with some sort of GUI launcher.
 
 Once Docker is open and you have skipped through any other surveys/questions, you will see a "Engine running" at the bottom left hand corner of the screen. 
 You can minimize the Docker window.
 
-### Start VS Code
-If on Windows, Once you start VS Code, make sure you instal the "WSL Extension." VS Code, may ask you if you want to install this via a window in the lower left-hand corner.
+Now the 'docker ps' command should no longer return an error. If it still does: complain with ab Issue that this README is incomplete.
+
+<!-- 
+If on Windows, once you start VS Code, make sure you install the "WSL Extension." 
+VS Code may ask you if you want to install this via a popup window in the lower left or right corner of your screen. -->
+
+
+## OPTIONAL: Obtain a GitHub account and "Fork" this repository
+
+
+For a first impression of Ximera, you can just **clone** this repo on your local PC,
+and you won't need a Github account.
+
+For deploying Ximera courses, tt's convenient to have a GitHub account and **fork** this repo to `https://github.com/YOUR-GIT-USER-NAME/ximeraFirstSteps`.
+Accounts are free, and educators can request special access.
+Once logged in into GitHub, at the top right there will be an option to "Fork" the https://github.com/XimeraProject/ximeraFirstStep repository, which will create your own copy which you can then clone, push and publish, e.g. on https://ximera.osu.edu.
 
 
 
-### Clone YOUR COPY of this repository
+## Clone ximeraFirstSteps
 
-Goto your GitHub page and find the Fork we made. This is **your copy** of First Steps in Ximera.
-Here the instructions for MacOS and Linux are different from the instructions for Windows.
+If you've chosen to *fork* the repo, you should clone  **your copy** of ximeraFirstSteps.
+If not, you clone the global https://github.com/XimeraProject/ximeraFirstSteps.git repo.  In this case you will not be able to push your changes, but this will not be needed to get familiar with Ximera and test the setup and functionality on your local device.
 
+For all platforms, upon cloning this repo VS Code might ask if you "trust the authors", which you should,
+and also to 'Install recommended extensions', which you also should do.
 
-#### For MacOS and Linux
+Now type `Ctrl-Shift-P` to open the 'Command' window, start typing 'Git clone' until `Git= Clone` appears at the top of the list, and hit enter. 
+Select `Clone from Github`, and start typing `ximeraProject/ximeraFirstSteps` (or `<yourgithubname>/ximeraFirstSteps`)  until you can select the correct copy of 'ximeraFirstSteps'.
 
-We suggest starting VS Code, hitting `Ctrl-~` and running: 
-```
-git clone https://github.com/YOUR-GIT-USER/ximeraFirstSteps.git
-```
-Where "YOUR-GIT-USER" is replaced with your GitHub username.
+![An image of VS Code Git: Clone (from Github)](graphicsREADME/cloneRepo.png "Cloning ximeraFirstSteps")
 
-#### Windows special instructions
-**However**, if you are running Windows, you must use a WSL Ubuntu terminal. Hit `Ctrl-~` and you should see something like:
+Hit enter, select a place where to clone your local copy of this repo. 
+On Windows, we strongly suggest to use the `~/git` folder *inside* the WSL subsystem.
+This will have *much* better performance than cloning directly on your Windows disk.
 
-![An image of VS Code powershell](graphicsREADME/powershell.png "The powershell")
-
-Click the arrow on the right:
-
-![Clicking arrow to switch to WSL](graphicsREADME/clickedArrow.png "Click the arrow")
-
-When you have selected "Ubuntu (WSL)" you should see something like:
-
-![An Ubuntu (WSL) Terminal](graphicsREADME/WSL.png "An Ubuntu (WSL) terminal")
-
-Now run
-```
-git clone https://github.com/YOUR-GIT-USER/ximeraFirstSteps.git
-```
-Where "YOUR-GIT-USER" is replaced with your GitHub username.
+VS Code will ask to "Open in New Window", and this will start a new VSCode window for this repo.
 
 
-
-
-
-Now use VS Code to "Open Folder" and open `ximeraFirstSteps`
-For all platforms VS Code will ask if you "trust the authors." You do!
-
-### Allow extensions
+## Allow extensions
 
 Once you clone this repository, VS Code will ask you, via a pop-up (or a notification flag) in the lower right-hand corner, if you want to install extensions. **Install the suggested extensions.**
-Once the extensions are installed, you should have four new small buttons at the bottom right-hand corner of your screen in VS code.
-The new buttons will be named "PDF," "HTML," "Bake," "Serve," and "XimeraServer." Buttons
+Once the extensions are installed, at the bottom right-hand corner of your VS code window you should have four new small buttons, named "PDF," "HTML," "Bake," "Serve," and "Extra".
 
-### Bake with Xake
+## PDF/HTML/Bake 
 
-If you press the "Bake" button, it should start downloading the Docker container. Then it should compile the course. The very **first** time it will compile all the documents. This will take some time. However, the next time you compile, it will only compile updated files and will be **much** faster.
+If you open any .tex file, e.g. by typing CTRL-p and typing/selecting basicWorksheet.tex, you can compile it to a PDF by hitting the 'PDF' button
+at the right bottom of your screen. Similarly, an HTML version is generated by selecting the 'HTML' button.
+
+The very first time you push one of the buttons a docker image will automatically be downloaded. It's very large, several gigabytes, and will take time.
+Later compilations will be much faster.
+
+If you press the "Bake" button, **all** files will be compiled to HTML. The very **first** time it will compile all the documents, and this will take some time. However, the next time you compile, it will only compile updated files and that will be **much** faster.
 
 
+# Testing the course(s) on your local ximeraserver
+
+## Start a local ximeraserver
+
+Start a ximeraserver on your own PC from the 'Extra' menu. 
+(The first time, it will download the docker image, which will take some time.)
+
+A server should start on http://localhost:2000. 
+It is accessible with your browser, or even *inside VSCode* with the 'Preview in Simple Browser' option form the Extra menu. (At this point, you have not yet published any courses, and you'll only get a mostly empty screen...)
+
+## Check the file `./scripts/config.txt`
+
+The file `./scripts/config.txt` contains some optional settings for compiling and publishing your courses.
+You should not have to change anything to publish to your local ximeraserver. 
+
+## Publish to the testserver
+
+Just hit the 'Serve' button. Make sure you first hit 'Bake', and that all files/changes have been committed. It's not necessary to also 'push' your changes at this point.
+You should now have access to the course(s), by default on http://localhost:2000/test.
+
+## Compare with the published course
+
+Once you've deployed the course, you can compare your local version to ours. 
+At this time (09/2024), your local version will have a 'KULeuven' styling, but this will change (hopefully) soon, when you'll be able to choose or make more layout options.
+
+•	https://ximera.osu.edu/firststeps24/aFirstStepInXimera
+•	https://set.kuleuven.be/voorkennis/firststeps24/aFirstStepInXimera/basics/basicWorksheet
+•	https://set.kuleuven.be/voorkennis/firststeps24/variant/aNewlayout/variant/basics/basicWorksheet
 
 
+The KULeuven version also contains two PDF versions: one with, and one without the answers.
 
-### Getting GPG Keys
+# Publishing the course(s) to a public ximeraserver (needs a gpg key)
 
-You need to have a GPG to deploy to the OSU server. This ensures that no one "overwrites" your online course without you knowing. (Even if this did happen, you can always just re-deploy and contact the Ximera developers)
+The file scripts/config.txt determines where (and with which version of Ximera...) to publish your courses.
 
-Start by checking if you have GPG keys:
-```
-gpg --list-keys
-```
-If you have one listed, you may use it, or make a new one with (answer the questions, but **leave the passphrase blank**) and :
+The relevant settings are 
+
+* XIMERA_URL contains the (url of) the server on which to publish your repo (`http://localhost:2000/` for test, `https://ximera.osu.edu` for real)
+* XIMERA_NAME contains the name (lowercase, no underscores!) under which to publish this repo, eg XIMERA_NAME=testing would publish to https://ximera.osu.edu/testing.
+
+You can save and commit these settings.
+
+But, to deploy to a public server (e.g. the OSU server), a (personal) GPG key is needed. This ensures that no one "overwrites" your online course without you knowing. (Even if this did happen, you can always just re-deploy and contact the Ximera developers).
+
+This personal key is to be saved in a 'hidden' config file `.ximeraserve`, and should **never** be committed and pushed.
+
+
+This git repo has a `.ximeraserve` with a dummy key and key-id which can be used to publish to localhost, which has to be replaced with your own key and key-id when publishing elsewhere.
+In VSCode, the `.ximeraserve` file is by default not visible in the Explorer window, but you can open it with CTRL-o, and then typing `.ximeraserve` (which is in the root folder of your repo).
+
+If you do not yet have a GPG key (check with `gpg --list-keys`), you can generate one with
 ```
  gpg --gen-key
 ```
-copy the long hex string as YOUR-GPG-KEY-ID (ABCD3562DBF9929292 or whatever).
+Answer all the questions, but **leave the passphrase blank**.
 
-If you are using MacOS, you might not be able to leave the passphrase blank. In this case go to https://gpgtools.org/ and install the GPG Suite. This will provide a GUI that will produce a GPG key with spaces. Delete these spaces and this new key (without spaces) is your key. You should quite your terminal and open a new one. 
+Note: on MacOS you might not be able to leave the passphrase blank. In this case go to https://gpgtools.org/ and install the GPG Suite. This will provide a GUI that will produce a GPG key with spaces. Delete these spaces and this new key (without spaces) is your key. You should quite your terminal and open a new one. 
 
-Now that you have a key, you need to tell a Ximera server about it:
 
-```
-gpg --keyserver hkps://ximera.osu.edu/ --send-key 5FB2------YOUR PUBLIC KEY------0CA
-```
+In `.ximeraserve`, replace the long hex string in `GPG_KEY_ID=215FC33FAB44D5CCA31A04B2CC78CB561FDC49A8` with your key-id (also of the form `ABCD3562DBF99...29292` or whatever).
 
-Now you will need your private key
+You will also need your private key, which you can show with 
 
 ```
-gpg --armor --export-secret-key 5FB2------YOUR PUBLIC KEY------0CA
+gpg --armor --export-secret-key
 ```
-
-
+or (if you happen to have several keys ...)
+```
+gpg --armor --export-secret-key ABC...your-key-id...92
+```
+which will show 
 ```
 -----BEGIN PGP PRIVATE KEY BLOCK-----
 
@@ -264,7 +319,7 @@ R1AgUFQkxPQJ0tLQVkFURSBJkgLRV0stLSo=
 -----END PGP PRIVATE KEY BLOCK-----
 ```
 
-You copy this part:
+Copy the key itself, thus the stuff above *without* the  -----BEGIN... en -----END headers :
 ```
 WONTWORKRUdBQR1AFURSBLRVJTigUFJJVkkgQktYVJOcxPQ0sk1CREFEdGU5
 ...
@@ -275,53 +330,46 @@ WONTWORKRUdBQR1AFURSBLRVJTigUFJJVkkgQktYVJOcxPQ0sk1CREFEdGU5
 ...
 R1AgUFQkxPQJ0tLQVkFURSBJkgLRV0stLSo=
 ```
-
-
-## Deploying this course
-
-To deploy this Ximera "course" aka "xourse" to a Ximera Server, edit `DOTximeraserve` line: 21, 22, and 27-34.
-
+and paste it in `.ximeraserve`, replacing the dummy key:
 ```
-21 REPO_XIMERA=yourpublishurl  # lowercase, no spaces
-22 URL_XIMERA=https://ximera.osu.edu
-23 # URL_XIMERA=https://set-p-dsb-zomercursus-latest.cloud-ext.icts.kuleuven.be/
-24 GPG_KEY_ID=8XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXEDF8
-25 GPG_KEY=$(
-26 cat <<'EOF'
-27 WONTWORKRUdBQR1AFURSBLRVJTigUFJJVkkgQktYVJOcxPQ0sk1CREFEdGU5
-28 ...
-29 ... PASTE HERE YOUR PRIVATE KEY (with lots of lines as the one above )...
-30 ...  Leave the line above with cat <<'EOF' untouched  
-31 ...  and leave also the final lines with EOF and bracket ) untouched  ...
-32 ...  Everything in between should become your private key
-33 ...
-34 R1AgUFQkxPQJ0tLQVkFURSBJkgLRV0stLSo=
+GPG_KEY_ID=ABCD3562DBF99 ... 29292
+GPG_KEY=$(
+cat <<'EOF'
+WONTWORKRUdBQR1AFURSBLRVJTigUFJJVkkgQktYVJOcxPQ0sk1CREFEdGU5
+...
+... PASTE HERE YOUR PRIVATE KEY (with lots of lines as the one above )...
+...  Leave the line above with cat <<'EOF' untouched  
+...  and leave also the final lines with EOF and bracket ) untouched  ...
+...  Everything in between should become your private key
+...
+R1AgUFQkxPQJ0tLQVkFURSBJkgLRV0stLSo=
+EOF
+)
 ```
+Note: leave the 'EOF' and ')' at the end!
 
-**DO NOT SAVE DOTximeraserve with your changes.** Instead, you will need to "Show Hidden Files" and save as: `.ximeraserve` If you are on Windows, make sure you save as Type "All Files" (not Plain Text -- that will add .txt to the filename).
+Delete the first few lines with comments (that by now are wrong, and might confuse you in the future!), 
+and save the `.ximeraserve` file.
 
-For experienced Git users: Do not attempt to add `.ximeraserve` to the repo, it is already in the `.gitignore` and **should not be added.**
+Note: `.ximeraserve` will (**or should**) not be updated in git, as it is (**or should be**) in the `.gitignore` file.
+You should **NEVER** commit, publish or send your private key.
+You may want to make a backup of this file/key in a safe place...
 
-Start Docker, accept the license and accpet recommendations. Once it asks you to sign in, just "Continue Without Signing In." You may choose to do the survey if you like. Once you finish this, you will see a "Engine running" at the bottom left hand corner of the screen.
-
-### The published course
-
-Once you've deployed the course, you can compare your output to ours:
-
-- https://ximera.osu.edu/firststeps/course/firstTopic/firstActivity
-- https://set.kuleuven.be/voorkennis/firststeps/course/firstTopic/firstActivity
-
-The KULeuven version also contains two PDF versions: one with, and one without the answers.
+Now, pressing the 'Serve' button in the status bar at the bottom should publish your courses.
 
 
-## Debugging Baking
+# Debugging
 
-It often helps use an interactive BASH shell:
+You can get an interactive BASH shell **inside** the docker container, with your local folder available under /code.
+In this way, you have access to the full tex/ximera settings, and tweak/debug the process.
+On exiting and restarting the container again, you'll start again from a clean, standard xake image.
+Check the docker documentation if you would want to make permanent changes to the image.
 
+Start a shell with
 ```
 ./scripts/xmlatex -i bash
 ```
-then do
+Then, you could e.g. 
 ```
 pdflatex FILE.tex
 ```
@@ -331,27 +379,34 @@ xake -v compile FILE.tex
 ```
 
 
+# Making new courses
 
-## Deploying new courses
+There are several options to create a new repo, with new Ximera courses that will deploy online:
 
-There are two ways to create a new Ximera course that will deploy online
+## Starting from https://github.com/XimeraProject/ximeraNewProject
 
-### Starting from scratch
+You clone [this repo](https://github.com/XimeraProject/ximeraNewProject), REMOVE STUFF, CHANGE THE NAME OF THE REPO and PUSH to your account.
+You start adding TeX code ...
 
-REMOVE STUFF
-CHANGE NAME OF REPO
-PUSH
+## Starting with an existing repository
 
-### Starting with an existing repository
+You follow these steps carefully. 
 
-Please follow these steps carefully. 
+You'll copy following files and folders from [this repo](https://github.com/XimeraProject/ximeraNewProject) to your repo:
+* `.gitignore` 
+* `scripts`
+* `.vscode`
 
+If there is already a `.gitignore` we suggest you replace your file with ours, or at least check the differences. Did we mention you should never push `.ximeraserve`?
+If there is already a folder `.vscode` we suggest you compare your files with ours and check the differences.
 
-You'll need to show hidden files, and then copy the file `.gitignore` to your repo. If there is already a `.gitignore` we suggest you replace your file with ours.
+The .vscode folder is not needed, but without it, you'll not have the PDF/HTML/Bake/Serve buttons, and you'll have to start 
+* `./scripts/xmlatex compilePdf <path-to-your-texfile>`
+* `./scripts/xmlatex compile <path-to-your-texfile>`
+* `./scripts/xmlatex bake`
+* `./scripts/xmlatex serve`
 
-
-Move `scripts` and `.vscode` to your repository. You may need to make xmlatex executable, via
-
+Note: you may need to make xmlatex executable, via
 ```
-chmod +x ./scritps/xmlatex
+chmod +x ./scripts/xmlatex
 ```

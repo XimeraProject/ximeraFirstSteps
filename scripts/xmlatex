@@ -1,6 +1,7 @@
 #!/bin/bash
 #
-# This script starts a docker container and run (a wrapper-script around) ximera's 'xake' command
+# This script is a wrapper around (and in its full version an extension of) ximera's xake command
+#  THAT ENSURES IT'S RUNNING IN A DOCKER CONTAINER 
 #
 # Usage: 
 #   xmlatex bake
@@ -13,6 +14,8 @@
 #   COMMAND=pdflatex xmlatex demo.tex                                            # do not run the xake-wrapper, but $COMMAND
 #
 # This script
+#  - loads some configuration from ./scripts/config.tex (can be overwritten with CONFIG_FILE)
+#  - for serving, also (basefolder)/.ximeraserve will be read (for GPG key settings)
 #  - starts a xake docker container (unless we're already IN a container)
 #  - starts (presumably) a container-specific version of this very script
 #  - that (presumably) starts xake with the arguments passed to this script
@@ -20,14 +23,35 @@
 #  - optionally automates lots of other things
 #
 # Note: set environment variable 'export DEBUG=1' and/or use -d option for debugging/tracing
+# Note: this scripts RESTARTS itself (or a variant of itself!!!) IN A DOCKER CONTAINER
 #
 #
+: "${CONFIG_FILE:=./scripts/config.txt}"
+
+if [[ -f "$CONFIG_FILE" ]]
+then
+        [[ -n "$DEBUG" ]] && echo "Loading settings from config file $CONFIG_FILE."
+        . $CONFIG_FILE
+else
+        [[ -n "$DEBUG" ]] && echo "No local settings found (no file $CONFIG_FILE)."
+fi
+
+
 # Set some defaults
 #
 # default docker image to run; overwrite with 'export XAKE_IMAGE=myxake:0.1'
 #: "${XAKE_IMAGE:=ghcr.io/ximeraproject/xake2023:v2.1.1}" 
-: "${XAKE_IMAGE:=ghcr.io/ximeraproject/xake2019:v2.1.1}"
+: "${XAKE_BASE:=xake2019}"
+: "${XAKE_VERSION:=v2.1.1}"
+: "${XAKE_CONTAINER:=$XAKE_BASE:$XAKE_VERSION}"
+: "${DOCKER_REPO:=ghcr.io/ximeraproject/}"
 
+# For historic compatibility, keep supporting XAKE_IMAKE
+: "${XAKE_IMAGE:=$DOCKER_REPO$XAKE_CONTAINER}"   # TO BE OBSOLETED
+: "${DOCKER_IMAGE:=$XAKE_IMAGE}"
+
+: "${SERVER_PORT:=2000}"
+: "${SERVER_NAME:=ximeraserver}"
 : "${SERVER_IMAGE:=registry.gitlab.kuleuven.be/wet/ximera/ximeradocker:2.3.7j}"
 #
 # Which folder to mount INSIDE the container, under /code  (use with care: it should contain a build.sh !)
@@ -63,14 +87,20 @@ else
 
     if [[ "$1" == "ximeraserver" ]]
     then    
-        echo "Starting $SERVER_IMAGE"
-        docker run --rm --name myximeraserver -p 2000:2000 $SERVER_IMAGE
+        echo "Starting ximera $SERVER_NAME from $SERVER_IMAGE of port $SERVER_PORT"
+        docker run --rm --name $SERVER_NAME -p 2000:$SERVER_PORT $SERVER_IMAGE
         exit
     fi
 
-    echo "Restarting myself in docker (from image $XAKE_IMAGE)"	
+    echo "Restarting myself in docker (from image $DOCKER_IMAGE)"	
     [[ -n "$DEBUG" ]] && echo  \
-    docker run --env LOCAL_IP --env URL_XIMERA --env REPO_XIMERA --env GPG_KEY --env GPG_KEY_ID --network host --rm $INTERACTIVE --mount type=bind,source=$MOUNTDIR,target=/code $XAKE_IMAGE $COMMAND $*
-    docker run --env LOCAL_IP --env URL_XIMERA --env REPO_XIMERA --env GPG_KEY --env GPG_KEY_ID --network host --rm $INTERACTIVE --mount type=bind,source=$MOUNTDIR,target=/code $XAKE_IMAGE $COMMAND $*
+    docker run --env LOCAL_IP --env URL_XIMERA --env REPO_XIMERA --env GPG_KEY --env GPG_KEY_ID --network host --rm $INTERACTIVE --mount type=bind,source=$MOUNTDIR,target=/code $DOCKER_IMAGE $COMMAND $*
+    docker run --env LOCAL_IP --env URL_XIMERA --env REPO_XIMERA --env GPG_KEY --env GPG_KEY_ID --network host --rm $INTERACTIVE --mount type=bind,source=$MOUNTDIR,target=/code $DOCKER_IMAGE $COMMAND $*
     exit 
 fi
+
+#
+# The 'REAL' contents are ommitted in this version, but (presumably...) are present in the copy *inside* the container $DOCKER_IMAGE !!!!
+#
+echo "Sorry, this limited version of this xmlatex script should not be run *inside* a docker container. Find and run the full version, perhaps called xmlatex.full!"
+exit 1
