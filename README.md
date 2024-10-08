@@ -36,7 +36,6 @@ To generate interactive websites, use of Git and Docker is required. In the futu
 
 Visual Studio Code, also 'VSCode' or just 'code', is a popular free editor and development environment by Microsoft, that supports git, docker and TeX.
 
-
 > [!NOTE] 
 > The 'Code' in 'Visual Studio Code' is very relevant: Visual Studio is a different and much bigger Microsoft product, that is not needed nor relevant for Ximera.
 
@@ -215,7 +214,7 @@ and also to 'Install recommended extensions', which you also should do.
 Now type `Ctrl-Shift-P` to open the 'Command' window, start typing 'Git clone' until `Git= Clone` appears at the top of the list, and hit enter. 
 Select `Clone from Github`, and start typing `ximeraProject/ximeraFirstSteps` (or `<yourgithubname>/ximeraFirstSteps`)  until you can select the correct copy of 'ximeraFirstSteps'.
 
-![An image of VS Code Git: Clone (from Github)](graphicsREADME/cloneRepo.png "Cloning ximeraFirstSteps")
+![An image of VS Code Git: Clone (from Github)](https://github.com/user-attachments/assets/92b85301-4da5-483e-beb5-178b3d193ce2 "Cloning ximeraFirstSteps")
 
 Hit enter, select a place where to clone your local copy of this repo. 
 On Windows, we strongly suggest to use the `~/git` folder *inside* the WSL subsystem.
