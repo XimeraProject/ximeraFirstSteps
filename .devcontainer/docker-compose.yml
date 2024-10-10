@@ -14,7 +14,7 @@ services:
   ximeraserver:
     image: registry.gitlab.kuleuven.be/wet/ximera/ximeradocker:2.3.7j    # Using a specific Nginx image
     ports:
-      - "2000:2000"          # Expose Nginx on port 8080
+      - "2080:2000"          # Expose Nginx on port 8080
     # volumes:
     #   - ./nginx:/etc/nginx/conf.d  # Nginx configuration files or static files
     networks:
