@@ -17,6 +17,14 @@
 ## : "${XIMERA_URL:=https://set.kuleuven.be/voorkennis/}"
 
 #
+# For a local ximeraserver
+#
+
+: "${SERVER_PORT:=2000}"
+: "${SERVER_NAME:=ximeraserver}"
+: "${SERVER_IMAGE:=registry.gitlab.kuleuven.be/wet/ximera/ximeradocker:2.3_a}"
+
+#
 # For testing/debugging
 #
 # : "${COMMAND:=./scripts/xmlatex.test}"
