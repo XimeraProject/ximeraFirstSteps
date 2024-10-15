@@ -22,7 +22,7 @@
 
 : "${SERVER_PORT:=2000}"
 : "${SERVER_NAME:=ximeraserver}"
-: "${SERVER_IMAGE:=registry.gitlab.kuleuven.be/wet/ximera/ximeradocker:2.3_a}"
+: "${SERVER_IMAGE:=registry.gitlab.kuleuven.be/wet/ximera/ximeradocker:2.3_b}"
 
 #
 # For testing/debugging
