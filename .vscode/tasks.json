@@ -32,7 +32,13 @@
                 "--skip-mathjax",
                 "bake"
             ],
-        }
+        },
+        {
+            "label": "All",
+            "args": [
+                "all"
+            ],
+        },
         {
             "label": "Serve",
             "args": [

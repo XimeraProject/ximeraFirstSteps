@@ -27,7 +27,7 @@
 #
 # For testing/debugging
 #
-# : "${COMMAND:=./scripts/xmlatex.test}"
+: "${COMMAND:=./scripts/xmlatex.test}"
 #
 # for LOCALLY generated/tagged images, use:
 # export DOCKER_REPO=" "

@@ -84,15 +84,15 @@ else
 
     if [[ "$1" == "ximeraserver" ]]
     then    
-        echo "Starting ximera $SERVER_NAME from $SERVER_IMAGE of port $SERVER_PORT"
+        echo "Starting ximera $SERVER_NAME from $SERVER_IMAGE on port $SERVER_PORT"
         docker run --rm --name $SERVER_NAME -p 2000:$SERVER_PORT $SERVER_IMAGE
         exit
     fi
 
     echo "Restarting myself in docker (from image $DOCKER_IMAGE)"	
     [[ -n "$DEBUG" ]] && echo  \
-    docker run --env LOCAL_IP --env XIMERA_URL --env XIMERA_NAME --env GPG_KEY --env GPG_KEY_ID --network host --rm $INTERACTIVE --mount type=bind,source=$MOUNTDIR,target=/code $DOCKER_IMAGE $COMMAND $*
-    docker run --env LOCAL_IP --env XIMERA_URL --env XIMERA_NAME --env GPG_KEY --env GPG_KEY_ID --network host --rm $INTERACTIVE --mount type=bind,source=$MOUNTDIR,target=/code $DOCKER_IMAGE $COMMAND $*
+    docker run --env LOCAL_IP --env XIMERA_URL --env XIMERA_NAME --env GPG_KEY --env GPG_KEY_ID --env DEBUG --network host --rm $INTERACTIVE --mount type=bind,source=$MOUNTDIR,target=/code $DOCKER_IMAGE $COMMAND $*
+    docker run --env LOCAL_IP --env XIMERA_URL --env XIMERA_NAME --env GPG_KEY --env GPG_KEY_ID --env DEBUG --network host --rm $INTERACTIVE --mount type=bind,source=$MOUNTDIR,target=/code $DOCKER_IMAGE $COMMAND $*
     exit 
 fi
 
@@ -416,9 +416,24 @@ then
         mkdir -p $(dirname ximera-downloads/"$NAME"_pdf/$file})
         cp ${file/%.tex/.pdf} ximera-downloads/${NAME}_pdf/${file/%.tex/.pdf}
     done
-elif [[ "$COMMAND" == "serve" || "$COMMAND" == "Serve" ]]
+elif [[ "$COMMAND" == "serve" || "$COMMAND" == "Serve" || "$COMMAND" == "all" ]]
 then
-    echo "xake serve"
+    echo "Doing xake $COMMAND"
+
+    # Allow frosting with uncommitted changes...? Should not be done 'in production'.
+    : "${FROST:=frost}"
+    [[ "$COMMAND" == "Serve" ]] && FROST="Frost"
+    # 'xake frost' builds metadata.json and tag for publishing
+    # 'xake Frost' does the same, but ignores 'not committed' errors (with xake version of 2024-10)
+
+
+
+    if [[ "$COMMAND" = "all" ]] 
+    then
+        echo "Baking ..."
+        $XAKE --jobs $NB_JOBS bake      # Generate html files
+    fi
+
     if [[ -z "$GPG_KEY_ID" ]]
     then
         if [[ -f .ximeraserve ]]
@@ -463,17 +478,18 @@ then
         if [[ "$XIMERA_URL" =~ http://localhost ]]
         then    
             echo "Try to register with dummy gpg key"
+            FROST="Frost"    # If localhost, FROST UNCOMMITTED CHANGES
         else
             error "I won't publish to $XIMERA_URL with a dummy GPG key." 
         fi 
     else
-	    debug "Not using dummy key ($GPG_KEY_ID)"
+	    debug "We're not using the dummy key, but ${GPG_KEY_ID:0:10}"
     fi
 
     debug "KEYSERVER gpg $VERBOSE --keyserver $XIMERA_URL --send-key $GPG_KEY_ID"
     gpg -q $VERBOSE --keyserver $XIMERA_URL --send-key "$GPG_KEY_ID" || echo "WARNING: gpg sendkey failed (to url $XIMERA_URL), which is no problem if this key is already there"
     
-    echo "xake NAME: on $XIMERA_URL set name to $XIMERA_NAME"
+    echo "Doing xake NAME (on $XIMERA_URL set name to $XIMERA_NAME)"
     debug "xake NAME: $XAKE -U $XIMERA_URL -k $GPG_KEY_ID name $XIMERA_NAME"
     $XAKE -U $XIMERA_URL -k "$GPG_KEY_ID" name "$XIMERA_NAME" || error "xake name failed" 
 
@@ -483,15 +499,9 @@ then
 #    git branch -D master || true    #ignore error
 #    git checkout -B master # doe alsof we op master zitten
 
-    FROST="frost"
-    [[ "$COMMAND" == "Serve" ]] && FROST="Frost"
-    echo "$XAKE $FROST"
-    # type $XAKE
-    # frost builds metadata.json and tag for publishing
-    # Frost dosz the same, but ignores 'not committed' errors (with xake version of 2024-10)
+    echo "Doing $XAKE $FROST"
     $XAKE $FROST || error "xake $FROST failed, you might want to use Serve"  
 
-    echo "xake SERVE"
     if [[ -n "$DEBUG" ]]
     then
         echo "git status:"
@@ -503,8 +513,17 @@ then
         echo "git remote -v:"
 	    git remote -v
     fi
-    $XAKE serve 2>&1 || error "xake serve failed"  # Upload files = push tag
+    echo "Doing xake serve"
+    $XAKE serve  2>&1  || error "xake serve failed"  # Upload files = push tag
+    #  NOTE: as of 2024-10, xake serve does not always return a correct errorcode !!!
 
+    # HACK to OVERWRITE an already published revision
+    if [[ "$FROST" == "Frost" ]]
+    then
+       REV=$(git rev-parse HEAD)
+       debug FORCING PUSH: git push -f ximera publications/$REV
+       git push -f ximera publications/$REV
+    fi
 
     # Check if the file exists
     if [ ! -d ".git" ]; then
@@ -518,8 +537,8 @@ then
     if [[ "$owner_group" != "0:0" ]]
     then
         # Change the ownership of all files in the current directory
+        echo "Changing ownership of all files in .git to $owner_group."
         chown -R "$owner_group" .git
-        echo "Ownership of all files in the current directory has been changed to $owner_group."
     fi
 
 elif [[ "$COMMAND" == "compileNC" ]]   # NC = NoCheck  (OBSOLETE!!)
