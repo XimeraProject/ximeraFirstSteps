@@ -12,7 +12,7 @@ services:
     #   - "3000:3000"  # Expose app's port (your Node.js app port)
     network_mode: service:ximeraserver
   ximeraserver:
-    image: registry.gitlab.kuleuven.be/wet/ximera/ximeradocker:2.3_a
+    image: registry.gitlab.kuleuven.be/wet/ximera/ximeradocker:2.3_b
     ports:
       - "2080:2000"          # Expose Ximera on port 2080
     # volumes:
