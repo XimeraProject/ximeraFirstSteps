@@ -71,7 +71,7 @@
                     "task": "Bake",
                     "description": "Bake this project (make .html files).",
                     "tooltip": "Bake this project."
-                }
+                },
                 {
                     "task": "Bake standard",
                     "label": "Bake standard PDFs (with answers)",
@@ -91,7 +91,6 @@
                     "description": "Serve this project (doe salso 'frost').",
                     "tooltip": "Serve this project."
                 },
-
                 {
                     "task": "Delete standard",
                     "label": "Delete all standard PDFs",
