@@ -422,16 +422,8 @@ elif [[ "$COMMAND" == "serve" || "$COMMAND" == "all" ]]
 then
     echo "Doing xake $COMMAND"
 
-
-
-    : "${FROST:=frost}"
-    [[ -n "$XM_FROST_WITH_UNCOMMITTED_CHANGED" ]] && FROST="Frost"
-    # 'Frost' allows frosting with uncommitted changes...? Should not be done 'in production'.
-    # 'xake frost' builds metadata.json and tag for publishing
-    # 'xake Frost' does the same, but ignores 'not committed' errors (with xake version of 2024-10)
-
-
-
+    # 'all' does also bake (should not harm to do it *always*, except for VERY SPECIFIC cases,
+    #  e.g. adhoc manipulation of .html files ...)
     if [[ "$COMMAND" = "all" ]] 
     then
         echo "Baking ..."
@@ -483,7 +475,7 @@ then
     then
         # On localhost, don't care too much about consistency/security 
         export XM_PUSH_FORCE=1
-        export XM_FROST_WITH_UNCOMMITTED_CHANGED=1
+        export XM_FROST_WITH_UNCOMMITTED_CHANGES=1
         export XM_PUBLISH_WITH_DUMMY_KEY=1
     fi
 
@@ -513,6 +505,12 @@ then
 #   .git config core.fileMode false
 #    git branch -D master || true    #ignore error
 #    git checkout -B master # doe alsof we op master zitten
+
+    : "${FROST:=frost}"
+    [[ -n "$XM_FROST_WITH_UNCOMMITTED_CHANGES" ]] && FROST="Frost"
+    # '**F**rost' allows frosting with uncommitted changes...? Should not be done 'in production'.
+    # 'xake frost' builds metadata.json and tag for publishing
+    # 'xake Frost' does the same, but ignores 'not committed' errors (with xake version of 2024-10)
 
     echo "Doing $XAKE $FROST"
     $XAKE $FROST || error "xake $FROST failed, you might want to set XM_FROST_WITH_UNCOMMITTED_CHANGED (e.g. in config.txt)"  

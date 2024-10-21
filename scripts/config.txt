@@ -32,4 +32,4 @@
 # for LOCALLY generated/tagged images, use:
 # export DOCKER_REPO=" "
 # export XM_PUSH_FORCE=1
-# export XM_FROST_WITH_UNCOMMITTED_CHANGED=1
+# export XM_FROST_WITH_UNCOMMITTED_CHANGES=1
