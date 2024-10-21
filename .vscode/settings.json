@@ -4,7 +4,7 @@
         "compilePdf",
         "/code/%RELATIVE_DIR%/%DOCFILE_EXT%"
     ],
-    "latex-workshop.latex.autoBuild.run": "onSave",
+    "latex-workshop.latex.autoBuild.run": "never",
     "explorer.excludeGitIgnore": true,
     // "remote.portsAttributes": {
     //     "2000": {
@@ -28,27 +28,13 @@
             "description": "Create HTML of the current file.",
             "tooltip": "Create HTML of the current file."
         },
-        // {
-        //     "label": "Bake",
-        //     "alignment": "right",
-        //     "task": "Bake",
-        //     "description": "Bake this project.",
-        //     "tooltip": "Bake this project."
-        // },
         {
-            "label": "ALL",
+            "label": "SERVE",
             "alignment": "right",
             "task": "All",
             "description": "Build and publish this project.",
             "tooltip": "Build and publish."
         },
-        // {
-        //     "label": "Serve",
-        //     "alignment": "right",
-        //     "task": "Serve",
-        //     "description": "Serve this project.",
-        //     "tooltip": "Serve this project."
-        // },
         {
             "label": "Extra",
             "alignment": "right",
@@ -56,7 +42,7 @@
                 {
                     "task": "Start Ximera Server",
                     "label": "Start Ximera Server",
-                    "description": "Start local Ximera webserver.",
+                    "description": "Start local Ximera webserver (NOT needed in Devcontainer or Workspace).",
                     "problemMatcher": [],
                 },
                 {
