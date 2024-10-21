@@ -9,7 +9,9 @@ The course(s) in this repo are published on following places:
 
 and if you follow the instructions in this Readme, it could very soon be available on your own pc on
 
-* http://localhost:2000/firststeps24
+* http://localhost:2080/firststeps24  (from within your Codespace)
+or
+* http://localhost:2000/firststeps24  (if running this on your local PC)
 
 where you will be able to change, test and adapt it. 
 

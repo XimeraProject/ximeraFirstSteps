@@ -10,7 +10,7 @@
 #
 # For publishing  (you'll also need a GPG key in .ximeraserve)
 #
-: "${XIMERA_NAME:=firststeps}"
+: "${XIMERA_NAME:=firststeps24}"
 ## : "${XIMERA_URL:=http://localhost:2000/}"
 ## : "${XIMERA_URL:=https://ximera.osu.edu}"
 ## : "${XIMERA_URL:=https://set-p-dsb-zomercursus-latest.cloud-ext.icts.kuleuven.be/}"
