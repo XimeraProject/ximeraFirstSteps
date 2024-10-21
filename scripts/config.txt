@@ -10,7 +10,7 @@
 #
 # For publishing  (you'll also need a GPG key in .ximeraserve)
 #
-: "${XIMERA_NAME:=firststeps24}"
+: "${XIMERA_NAME:=firststeps}"
 ## : "${XIMERA_URL:=http://localhost:2000/}"
 ## : "${XIMERA_URL:=https://ximera.osu.edu}"
 ## : "${XIMERA_URL:=https://set-p-dsb-zomercursus-latest.cloud-ext.icts.kuleuven.be/}"
@@ -22,13 +22,14 @@
 
 : "${SERVER_PORT:=2000}"
 : "${SERVER_NAME:=ximeraserver}"
-: "${SERVER_IMAGE:=registry.gitlab.kuleuven.be/wet/ximera/ximeradocker:2.3_a}"
+: "${SERVER_IMAGE:=registry.gitlab.kuleuven.be/wet/ximera/ximeradocker:2.3_b}"
 
 #
 # For testing/debugging
 #
-# : "${COMMAND:=./scripts/xmlatex.test}"
+: "${COMMAND:=./scripts/xmlatex.test}"
 #
 # for LOCALLY generated/tagged images, use:
 # export DOCKER_REPO=" "
-
+# export XM_PUSH_FORCE=1
+# export XM_FROST_WITH_UNCOMMITTED_CHANGED=1

@@ -4,7 +4,7 @@
         "compilePdf",
         "/code/%RELATIVE_DIR%/%DOCFILE_EXT%"
     ],
-    "latex-workshop.latex.autoBuild.run": "onSave",
+    "latex-workshop.latex.autoBuild.run": "never",
     "explorer.excludeGitIgnore": true,
     // "remote.portsAttributes": {
     //     "2000": {
@@ -29,18 +29,11 @@
             "tooltip": "Create HTML of the current file."
         },
         {
-            "label": "Bake",
+            "label": "SERVE",
             "alignment": "right",
-            "task": "Bake",
-            "description": "Bake this project.",
-            "tooltip": "Bake this project."
-        },
-        {
-            "label": "Serve",
-            "alignment": "right",
-            "task": "Serve",
-            "description": "Serve this project.",
-            "tooltip": "Serve this project."
+            "task": "All",
+            "description": "Build and publish this project.",
+            "tooltip": "Build and publish."
         },
         {
             "label": "Extra",
@@ -49,7 +42,7 @@
                 {
                     "task": "Start Ximera Server",
                     "label": "Start Ximera Server",
-                    "description": "Start local Ximera webserver.",
+                    "description": "Start local Ximera webserver (NOT needed in Devcontainer or Workspace).",
                     "problemMatcher": [],
                 },
                 {
@@ -59,8 +52,15 @@
                     "problemMatcher": [],
                 },
                 {
+                    "label": "Bake",
+                    "alignment": "right",
+                    "task": "Bake",
+                    "description": "Bake this project (make .html files).",
+                    "tooltip": "Bake this project."
+                },
+                {
                     "task": "Bake standard",
-                    "label": "Bake  standard PDFs (with answers)",
+                    "label": "Bake standard PDFs (with answers)",
                     "description": "Make  full PDF's. ('standaard')",
                     "problemMatcher": [],
                 },
@@ -70,6 +70,13 @@
                     "description": "Make handout PDF's.",
                     "problemMatcher": [],
                 },                
+                {
+                    "label": "Serve",
+                    "alignment": "right",
+                    "task": "Serve",
+                    "description": "Serve this project (doe salso 'frost').",
+                    "tooltip": "Serve this project."
+                },
                 {
                     "task": "Delete standard",
                     "label": "Delete all standard PDFs",

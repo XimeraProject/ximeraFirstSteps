@@ -44,7 +44,7 @@ fi
 : "${XAKE_CONTAINER:=$XAKE_BASE:$XAKE_VERSION}"
 : "${DOCKER_REPO:=ghcr.io/ximeraproject/}"
 
-# For historic compatibility, keep supporting XAKE_IMAKE
+# For historic compatibility, keep supporting XAKE_IMAGE
 : "${XAKE_IMAGE:=$DOCKER_REPO$XAKE_CONTAINER}"   # TO BE OBSOLETED
 : "${DOCKER_IMAGE:=$XAKE_IMAGE}"
 
@@ -84,15 +84,15 @@ else
 
     if [[ "$1" == "ximeraserver" ]]
     then    
-        echo "Starting ximera $SERVER_NAME from $SERVER_IMAGE of port $SERVER_PORT"
+        echo "Starting ximera $SERVER_NAME from $SERVER_IMAGE on port $SERVER_PORT"
         docker run --rm --name $SERVER_NAME -p 2000:$SERVER_PORT $SERVER_IMAGE
         exit
     fi
 
     echo "Restarting myself in docker (from image $DOCKER_IMAGE)"	
     [[ -n "$DEBUG" ]] && echo  \
-    docker run --env LOCAL_IP --env XIMERA_URL --env XIMERA_NAME --env GPG_KEY --env GPG_KEY_ID --network host --rm $INTERACTIVE --mount type=bind,source=$MOUNTDIR,target=/code $DOCKER_IMAGE $COMMAND $*
-    docker run --env LOCAL_IP --env XIMERA_URL --env XIMERA_NAME --env GPG_KEY --env GPG_KEY_ID --network host --rm $INTERACTIVE --mount type=bind,source=$MOUNTDIR,target=/code $DOCKER_IMAGE $COMMAND $*
+    docker run --env LOCAL_IP --env XIMERA_URL --env XIMERA_NAME --env GPG_KEY --env GPG_KEY_ID --env DEBUG --network host --rm $INTERACTIVE --mount type=bind,source=$MOUNTDIR,target=/code $DOCKER_IMAGE $COMMAND $*
+    docker run --env LOCAL_IP --env XIMERA_URL --env XIMERA_NAME --env GPG_KEY --env GPG_KEY_ID --env DEBUG --network host --rm $INTERACTIVE --mount type=bind,source=$MOUNTDIR,target=/code $DOCKER_IMAGE $COMMAND $*
     exit 
 fi
 
@@ -116,8 +116,10 @@ debug() {
 # For (dubious) historical reasons, namely some .ximeraserve's containing URL_XIMERA and REPO_XIMERA,
 # these values are used as defaults.
 # TO BE REPLACED by XIMERA_URL and XIMERA_NAME (as set in config.txt)
-: "${URL_XIMERA:=http://$LOCAL_IP:2000/}"     # default: publish to ximera-docker-instance, but 'localhost' does refer to THIS container
-: "${REPO_XIMERA:=test}"
+# : "${URL_XIMERA:=http://$LOCAL_IP:2000/}"     # default: publish to ximera-docker-instance, but 'localhost' does refer to THIS container
+# : "${REPO_XIMERA:=test}"
+: "${XIMERA_URL:=http://localhost:2000/}"     # default: publish to ximera-docker-instance, but 'localhost' does refer to THIS container
+: "${XIMERA_REPO:=test}"
 : "${NB_JOBS:=2}"
 : "${XAKE:=xake}"
 
@@ -193,26 +195,34 @@ if [[ -f .ximera/sagetex.sty ]]; then
     cp .ximera/sagetex.sty /root/texmf/tex/latex/ximeraLatex/
 fi
 
+[[ -d "/root/texmf/tex/generic" ]] || mkdir /root/texmf/tex/generic
+
+# HACK (202410) : this is/has been is some ximeraLatex versions, un til stable in CTAn/teXLive
+if [[ -f /root/texmf/tex/latex/ximeraLatex/pgfsys-dvisvgm4ht.def ]]; then
+    echo "USING pgfsys-dvisvgm4ht.def from ximeraLatex in docker image"
+    cp /root/texmf/tex/latex/ximeraLatex/pgfsys-dvisvgm4ht.def /root/texmf/tex/generic/
+fi
+
 if [[ -f .ximera/pgfsys-dvisvgm4ht.def ]]; then
-    echo "USING pgfsys-dvisvgm4ht.def from local repo"
-    [[ -d "/root/texmf/tex/generic" ]] || mkdir /root/texmf/tex/generic
+    echo "USING pgfsys-dvisvgm4ht.def from local repo (OVERWRITE... !)"
     cp .ximera/pgfsys-dvisvgm4ht.def /root/texmf/tex/generic/
 fi
 
-# # Use a local xmlatex.full if available
-# if [[ -f ./scripts/xmlatex.full ]]; then
-#     echo "USING xmlatex.full from local repo"
-#     [[ -n "$DEBUG" ]] && diff ./scripts/xmlatex.full /usr/local/bin/xmlatex
-#     cp /usr/local/bin/xmlatex /usr/local/bin/xmlatex.$(date "+%F-%H-%M-%S")
-#     cp ./scripts/xmlatex.full /usr/local/bin/xmlatex
-# fi
+# Use a local xmlatex.full if available
+# Needed for call-xmlatex-from-xake, which DOES NOT use COMMAND/XMLATEX variable...
+if [[ -f ./scripts/xmlatex.full ]]; then
+    echo "USING xmlatex.full from local repo"
+    [[ -n "$DEBUG" ]] && diff ./scripts/xmlatex.full /usr/local/bin/xmlatex
+    cp /usr/local/bin/xmlatex /usr/local/bin/xmlatex.$(date "+%F-%H-%M-%S")
+    cp ./scripts/xmlatex.full /usr/local/bin/xmlatex
+fi
 
 # Add anything that might not be installed in the container 
-# HACK: hardcoded path ...
-#if [[ -d .texmf ]]; then
-#    echo "USING .texmf etc from local repo"
-#    cp -r .texmf/* /usr/local/texlive/2019/texmf-dist/tex/generic/
-#fi
+if [[ -d .texmf ]]; then
+    echo "USING .texmf etc from local repo"
+    [[ -d "/root/texmf/tex/generic" ]] || mkdir /root/texmf/tex/generic
+    cp -r .texmf/* /root/texmf/tex/generic/
+fi
 
 # If there is a .ximera_local folder, OVERWRITE the complete ximeraLatex install inside this container
 #  ( This could/should replace the above one-by-one copies from .ximera ...)
@@ -249,15 +259,16 @@ reset_file_times() {
   # HACK: git-restore-time is not in (old) images: install it on-the-fly
   git restore-mtime -f  || apt install git-restore-mtime && git restore-mtime -f && echo OK
   # git status   # in DETACHED HEAD in CI !!
-  echo "Current files ().tex, .sty and .pdf):"
-  ls -al *.tex *.sty *.pdf
+  debug "Current .tex, .sty and .pdf files):"
+  [[ -n "$DEBUG" ]] && ls -al *.tex *.sty *.pdf 2>/dev/null
  fi
 }
 
 if [[ "$COMMAND" == "bash" ]]
 then
     # interactive shell (option -i needed when starting the container !)
-    ${XAKE%xake} /bin/bash
+    shift  #  remove "bash"
+    ${XAKE%xake} /bin/bash $*
 elif [[ "$COMMAND" == "texHtml" ]]
 then
     # THIS OPTION IS CALLED BY xake (versions >= 2.1.1) (and ONLY with this option, at least in xake 2.1.1...!)
@@ -407,9 +418,28 @@ then
         mkdir -p $(dirname ximera-downloads/"$NAME"_pdf/$file})
         cp ${file/%.tex/.pdf} ximera-downloads/${NAME}_pdf/${file/%.tex/.pdf}
     done
-elif [[ "$COMMAND" == "serve" || "$COMMAND" == "Serve" ]]
+elif [[ "$COMMAND" == "serve" || "$COMMAND" == "all" ]]
 then
-    echo "xake serve"
+    echo "Doing xake $COMMAND"
+
+
+
+    : "${FROST:=frost}"
+    [[ -n "$XM_FROST_WITH_UNCOMMITTED_CHANGED" ]] && FROST="Frost"
+    # 'Frost' allows frosting with uncommitted changes...? Should not be done 'in production'.
+    # 'xake frost' builds metadata.json and tag for publishing
+    # 'xake Frost' does the same, but ignores 'not committed' errors (with xake version of 2024-10)
+
+
+
+    if [[ "$COMMAND" = "all" ]] 
+    then
+        echo "Baking ..."
+        $XAKE --jobs $NB_JOBS bake      # Generate html files
+    fi
+
+    # If GPG_KEY_ID (and presumably GPG_KEY) are given, 
+    # ignore .ximeraserve, which should only be used for the DUMMY key ...
     if [[ -z "$GPG_KEY_ID" ]]
     then
         if [[ -f .ximeraserve ]]
@@ -418,8 +448,8 @@ then
             source .ximeraserve
 	        echo GPG_KEY_ID=$GPG_KEY_ID
 	        echo GPG_KEY=${GPG_KEY:0:10}...
-            : ${XIMERA_NAME:=$REPO_XIMERA}
-            : ${XIMERA_URL:=$URL_XIMERA}
+            # : ${XIMERA_NAME:=$REPO_XIMERA}
+            # : ${XIMERA_URL:=$URL_XIMERA}
         fi
         if [[ -z "$GPG_KEY_ID" ]]   # still no key ...
         then
@@ -443,14 +473,38 @@ then
         echo "$GPG_KEY" | base64 --decode > .gpg # decode the base64 gpg key
         debug "Decoded in .gpg: $(ls -al .gpg)"
         debug "Starting gpg -q $VERBOSE --import .gpg"
-        gpg -q $VERBOSE --import .gpg  || error "gpg --import failed (from key itself in variable)"
+        gpg -q $VERBOSE --import .gpg  || echo "gpg --import failed (from key itself in variable)"
         rm .gpg # remove the gpg key so it is certainly not cached
     fi
     [[ -n "$DEBUG" ]] && gpg --list-keys
+
+
+    if [[ "$XIMERA_URL" =~ http://localhost ]]
+    then
+        # On localhost, don't care too much about consistency/security 
+        export XM_PUSH_FORCE=1
+        export XM_FROST_WITH_UNCOMMITTED_CHANGED=1
+        export XM_PUBLISH_WITH_DUMMY_KEY=1
+    fi
+
+
+
+    if [[ "$GPG_KEY_ID" =~  ^215FC33FAB44D ]]
+    then
+        if [[ -n "$XM_PUBLISH_WITH_DUMMY_KEY" ]]
+        then
+            echo "Publishing to $XIMERA_URL with dummy key."
+        else   
+            error "I won't publish to $XIMERA_URL with a dummy GPG key." 
+        fi 
+    else
+	    debug "We're not using the dummy key, but ${GPG_KEY_ID:0:10}"
+    fi
+
     debug "KEYSERVER gpg $VERBOSE --keyserver $XIMERA_URL --send-key $GPG_KEY_ID"
     gpg -q $VERBOSE --keyserver $XIMERA_URL --send-key "$GPG_KEY_ID" || echo "WARNING: gpg sendkey failed (to url $XIMERA_URL), which is no problem if this key is already there"
     
-    echo "xake NAME: on $XIMERA_URL set name to $XIMERA_NAME"
+    echo "Doing xake NAME (on $XIMERA_URL set name to $XIMERA_NAME)"
     debug "xake NAME: $XAKE -U $XIMERA_URL -k $GPG_KEY_ID name $XIMERA_NAME"
     $XAKE -U $XIMERA_URL -k "$GPG_KEY_ID" name "$XIMERA_NAME" || error "xake name failed" 
 
@@ -460,15 +514,9 @@ then
 #    git branch -D master || true    #ignore error
 #    git checkout -B master # doe alsof we op master zitten
 
-    FROST="frost"
-    [[ "$COMMAND" == "Serve" ]] && FROST="Frost"
-    echo "$XAKE $FROST"
-    # type $XAKE
-    # frost builds metadata.json and tag for publishing
-    # Frost dosz the same, but ignores 'not committed' errors (with xake version of 2024-10)
-    $XAKE $FROST || error "xake $FROST failed, you might want to use Serve"  
+    echo "Doing $XAKE $FROST"
+    $XAKE $FROST || error "xake $FROST failed, you might want to set XM_FROST_WITH_UNCOMMITTED_CHANGED (e.g. in config.txt)"  
 
-    echo "xake SERVE"
     if [[ -n "$DEBUG" ]]
     then
         echo "git status:"
@@ -480,33 +528,35 @@ then
         echo "git remote -v:"
 	    git remote -v
     fi
-    $XAKE serve 2>&1 || error "xake serve failed"  # Upload files = push tag
+    echo "Doing xake serve"
+    $XAKE serve  2>&1  || error "xake serve failed"  # Upload files = push tag
+    #  NOTE: as of 2024-10, xake serve does not always return a correct errorcode !!!
+
+    # HACK to OVERWRITE an already published revision
+    if [[ -n "$XM_PUSH_FORCE" ]]
+    then
+       REV=$(git rev-parse HEAD)
+       echo  FORCING PUSH: git push -f ximera publications/$REV
+       git push -f ximera publications/$REV
+    fi
+
+    # Check if the file exists
+    if [ ! -d ".git" ]; then
+        error "Folder '.git' not found."
+    fi
 
     # Get the owner and group of .git
     owner_group=$(stat -c "%u:%g" ".git")
 
-    # Check if the file exists
-    if [ ! -d ".git" ]; then
-        echo "Error: Folder '$.git' not found."
-        exit 1
+    if [[ "$owner_group" != "0:0" ]]
+    then
+        # Change the ownership of all files in the current directory
+        echo "Changing ownership of all files in .git to $owner_group."
+        chown -R "$owner_group" .git
     fi
-
-    # Change the ownership of all files in the current directory
-    chown -R "$owner_group" .git
-
-    echo "Ownership of all files in the current directory has been changed to $owner_group."
-
-
-
-
-elif [[ "$COMMAND" == "compileNC" ]]   # NC = NoCheck ...
-then
-    shift
-    echo "xake --skip-mathjax compile $* (with --skip-mathjax ...)"
-    $XAKE --skip-mathjax compile $*
 else
     # Hope that 'xake $*' was intended ...; if not, xake will complain.
-    echo "Starting xake $*"
+    echo "Starting $XAKE $*"
     $XAKE $*
 fi
 

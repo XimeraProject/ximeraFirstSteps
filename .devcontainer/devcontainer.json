@@ -5,11 +5,27 @@
     "service": "app",
     "workspaceFolder": "/code",
     "forwardPorts": [2080],  // Port to access the web server
-    // "remoteEnv": {
+      "portsAttributes": {
+        "2080": {
+          "label": "Web Server",
+          "onAutoForward": "notify",
+          "requireLocalPort": true
+        }
+      },    
+    // "portsAttributes": {
+    //     "2000": {
+    //        "label": "XimeraServer",
+    //        "onAutoForward": "openBrowserOnce"
+    //      }
+    //    },    
+    // "otherPortsAttributes": {
+    //     "onAutoForward": "ignore",
+    // },
+       // "remoteEnv": {
     //   "DEV_MODE": "true"
     // },
-    //"remoteUser": "vscode",
-    "postStartCommand": "echo 'Ximera DevContainer started!'",
+    // "remoteUser": "vscode",
+    // "postStartCommand": "echo 'Ximera DevContainer started!'",
     "customizations": {
         // Configure properties specific to VS Code.
         "vscode": {
