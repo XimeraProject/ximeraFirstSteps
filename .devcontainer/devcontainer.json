@@ -4,7 +4,14 @@
     "dockerComposeFile": ["docker-compose.yml"],
     "service": "app",
     "workspaceFolder": "/code",
-    "forwardPorts": [2000],  // Port to access the web server
+    "forwardPorts": [2080],  // Port to access the web server
+      "portsAttributes": {
+        "2080": {
+          "label": "Web Server",
+          "onAutoForward": "notify",
+          "requireLocalPort": true
+        }
+      },    
     // "portsAttributes": {
     //     "2000": {
     //        "label": "XimeraServer",
