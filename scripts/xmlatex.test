@@ -116,8 +116,10 @@ debug() {
 # For (dubious) historical reasons, namely some .ximeraserve's containing URL_XIMERA and REPO_XIMERA,
 # these values are used as defaults.
 # TO BE REPLACED by XIMERA_URL and XIMERA_NAME (as set in config.txt)
-: "${URL_XIMERA:=http://$LOCAL_IP:2000/}"     # default: publish to ximera-docker-instance, but 'localhost' does refer to THIS container
-: "${REPO_XIMERA:=test}"
+# : "${URL_XIMERA:=http://$LOCAL_IP:2000/}"     # default: publish to ximera-docker-instance, but 'localhost' does refer to THIS container
+# : "${REPO_XIMERA:=test}"
+: "${XIMERA_URL:=http://localhost:2000/}"     # default: publish to ximera-docker-instance, but 'localhost' does refer to THIS container
+: "${XIMERA_REPO:=test}"
 : "${NB_JOBS:=2}"
 : "${XAKE:=xake}"
 
@@ -436,6 +438,8 @@ then
         $XAKE --jobs $NB_JOBS bake      # Generate html files
     fi
 
+    # If GPG_KEY_ID (and presumably GPG_KEY) are given, 
+    # ignore .ximeraserve, which should only be used for the DUMMY key ...
     if [[ -z "$GPG_KEY_ID" ]]
     then
         if [[ -f .ximeraserve ]]
@@ -444,8 +448,8 @@ then
             source .ximeraserve
 	        echo GPG_KEY_ID=$GPG_KEY_ID
 	        echo GPG_KEY=${GPG_KEY:0:10}...
-            : ${XIMERA_NAME:=$REPO_XIMERA}
-            : ${XIMERA_URL:=$URL_XIMERA}
+            # : ${XIMERA_NAME:=$REPO_XIMERA}
+            # : ${XIMERA_URL:=$URL_XIMERA}
         fi
         if [[ -z "$GPG_KEY_ID" ]]   # still no key ...
         then
