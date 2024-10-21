@@ -14,11 +14,11 @@ services:
   ximeraserver:
     image: registry.gitlab.kuleuven.be/wet/ximera/ximeradocker:2.3_b
     ports:
-      - "2000:2000"          # Expose Ximera on port 2080
+      - "2080:2000"          # Expose Ximera on port 2080
     # volumes:
     #   - ./nginx:/etc/nginx/conf.d  # Nginx configuration files or static files
-    networks:
-      - devnet             # Custom network for container communication
-networks:
-  devnet:
-    driver: bridge
+#     networks:
+#       - devnet             # Custom network for container communication
+# networks:
+#   devnet:
+#     driver: bridge
