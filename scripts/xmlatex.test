@@ -467,7 +467,7 @@ then
         echo "$GPG_KEY" | base64 --decode > .gpg # decode the base64 gpg key
         debug "Decoded in .gpg: $(ls -al .gpg)"
         debug "Starting gpg -q $VERBOSE --import .gpg"
-        gpg -q $VERBOSE --import .gpg  || error "gpg --import failed (from key itself in variable)"
+        gpg -q $VERBOSE --import .gpg  || debug "gpg --import failed (from key itself in variable)"
         rm .gpg # remove the gpg key so it is certainly not cached
     fi
     [[ -n "$DEBUG" ]] && gpg --list-keys
@@ -480,7 +480,8 @@ then
             echo "Try to register with dummy gpg key"
             FROST="Frost"    # If localhost, FROST UNCOMMITTED CHANGES
         else
-            error "I won't publish to $XIMERA_URL with a dummy GPG key." 
+           error "I won't publish to $XIMERA_URL with a dummy GPG key." 
+           # echo OK   
         fi 
     else
 	    debug "We're not using the dummy key, but ${GPG_KEY_ID:0:10}"
