@@ -281,8 +281,9 @@ then
     debug pdflatex -file-line-error -shell-escape "\\PassOptionsToClass{tikzexport}{ximera}\\PassOptionsToClass{xake}{ximera}\\PassOptionsToClass{xake}{xourse}\\nonstopmode\\input{$FILE}"
           pdflatex -file-line-error -shell-escape "\\PassOptionsToClass{tikzexport}{ximera}\\PassOptionsToClass{xake}{ximera}\\PassOptionsToClass{xake}{xourse}\\nonstopmode\\input{$FILE}"
 
-    debug make4ht -s -c ximera -f html5+dvisvgm_hashes -u  -a debug $FILE "svg,htex4ht,mathjax,-css,info" "" "" "--interaction=nonstopmode -shell-escape -file-line-error" 
-          make4ht -s -c ximera -f html5+dvisvgm_hashes -u  -a debug $FILE "svg,htex4ht,mathjax,-css,info" "" "" "--interaction=nonstopmode -shell-escape -file-line-error" | tee $FILE.log
+# Option 'tikz+' : USE dvips  (and not dvisvg)
+    debug make4ht -s -c ximera -f html5+dvisvgm_hashes -u  -a debug $FILE "svg,htex4ht,mathjax,-css,info,tikz+" "" "" "--interaction=nonstopmode -shell-escape -file-line-error" 
+          make4ht -s -c ximera -f html5+dvisvgm_hashes -u  -a debug $FILE "svg,htex4ht,mathjax,-css,info,tikz+" "" "" "--interaction=nonstopmode -shell-escape -file-line-error" | tee $FILE.log
 #          make4ht -s -c ximera -f xhtml -u  -a debug $FILE "svg,htex4ht,mathjax,-css,info" "" "" "--interaction=nonstopmode -shell-escape -file-line-error" | tee $FILE.log
     # make4ht -s -c ximera -f xhtml+tidy -u  -a debug $FILE "svg,htex4ht, mathjax,-css,Gin-percent,info" "" "" "--interaction=nonstopmode -shell-escape -file-line-error" | tee $FILE.log
     # make4ht  $FILE "ximera,charset=utf-8,-css" "-cunihtf -utf8" "" "--interaction=nonstopmode -shell-escape -file-line-error"
