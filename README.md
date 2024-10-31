@@ -30,7 +30,7 @@ Procedure:
 - The first time you start this codespace, it will take a few minutes to build a "devcontainer" for you. Subsequent starts will be faster.
 - You should get a Visual Studio Code window inside your browser with buttons in the bottom right of the window: 'PDF,' 'HTML,' 'SERVE,' and 'Extra.'
 - Push 'SERVE' and wait a few minutes to let your Codespace compile the demo course.
-- Select 'PORTS' (next to 'TERMINAL'), and click on the world icon that appears next to the URL under 'Forwarded Address' to open a browser window on your private Ximera server inside your Codespace.
+- Select 'PORTS' (next to 'TERMINAL'), and click on the "globe" icon that appears next to the URL under 'Forwarded Address' to open a browser window on your private Ximera server inside your Codespace.
 
 ## Compare with the published course
 
