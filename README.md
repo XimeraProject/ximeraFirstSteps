@@ -137,5 +137,5 @@ The `.vscode` folder is not required, but without it, you won’t have the PDF/H
 
 You may need to make `xmlatex` executable with
 ```
-chmod +x ./scripts/xmlatex
+chmod +x ./scripts/xmlatex*
 ```
