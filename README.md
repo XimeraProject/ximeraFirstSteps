@@ -32,7 +32,7 @@ Procedure:
 - Push 'SERVE' and wait a few minutes to let your Codespace compile the demo course.
 - Select 'PORTS' (next to 'TERMINAL'), and click on the "globe" icon that appears next to the URL under 'Forwarded Address' to open a browser window on your private Ximera server inside your Codespace.
 
-This fork will server as your personal copy of our deploy scripts. You can go to your GitHub page, find your fork of this repository, and "Sync fork" to obtain the most recent deploy environment. 
+This fork will serve as your personal copy of our deploy scripts. You can go to your GitHub page, find your fork of this repository, and "Sync fork" to obtain the most recent deploy environment. 
 If you want to make **new** Ximera content, either use this repository as a Template (there should be a large "Template" button near the top-right of the page), or use [ximeraNewProject](https://github.com/XimeraProject/ximeraNewProject) as a template.
 
 
