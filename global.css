@@ -1,4 +1,15 @@
-  
+/* This file contains CSS rules that extend/overwrite the default rules set in the ximeraServer
+ * 
+ * As of 2024-11
+ *  - this works only on the new (KULeuven-adapted) ximeraServer
+ *  - this file (re-)translates labels into English
+ *
+ * In the (near?) future, this file should
+ *   - be renamed xmHtmlStyle.css   (to sync with xmPreamble.tex and xmPrintStyle.sty)
+ *   - become (almost) empty by default, because the ximeraServer default settings will becom English again
+ */ 
+ 
+ 
 .xmhint::before {
     content: "Show hint" counter(hint_number, notfirst);
 }
