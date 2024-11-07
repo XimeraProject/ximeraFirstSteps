@@ -24,13 +24,17 @@ You'll have some difficulty saving your work unless you fork this repository.
 
 Procedure:
 - Log into GitHub and go to [ximeraFirstSteps](https://github.com/XimeraProject/ximeraFirstSteps)
-- Push the "Fork" button, and now you have a copy of this repository in your account.
+- Push the "Fork" button, and now you have a copy of this repository in your account. 
 - Start a Codespace (under the green 'Code' button).
 - Presumably, GitHub will notify you (somewhat inconspicuously) that **you** will pay for this codespace. You can ignore this warning, as the first 120 hours per month are free, which is sufficient for experimenting.
 - The first time you start this codespace, it will take a few minutes to build a "devcontainer" for you. Subsequent starts will be faster.
 - You should get a Visual Studio Code window inside your browser with buttons in the bottom right of the window: 'PDF,' 'HTML,' 'SERVE,' and 'Extra.'
 - Push 'SERVE' and wait a few minutes to let your Codespace compile the demo course.
 - Select 'PORTS' (next to 'TERMINAL'), and click on the "globe" icon that appears next to the URL under 'Forwarded Address' to open a browser window on your private Ximera server inside your Codespace.
+
+This fork will server as your personal copy of our deploy scripts. You can go to your GitHub page, find your fork of this repository, and "Sync fork" to obtain the most recent deploy environment. 
+If you want to make **new** Ximera content, either use this repository as a Template (there should be a large "Template" button near the top-right of the page), or use [ximeraNewProject](https://github.com/XimeraProject/ximeraNewProject) as a template.
+
 
 ## Compare with the published course
 
