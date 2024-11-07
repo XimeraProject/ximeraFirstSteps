@@ -1,5 +1,6 @@
-## Don't push ximeraserve
+## Don't push ximeraserve or xmKeyFile
 *.ximeraserve*
+*.xmKeyFile*
 ## Graphics - recommend to be ignored
 *.svg
 *.png

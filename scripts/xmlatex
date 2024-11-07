@@ -15,7 +15,7 @@
 #
 # This script
 #  - loads some configuration from ./scripts/config.tex (can be overwritten with CONFIG_FILE)
-#  - for serving, also (basefolder)/.ximeraserve will be read (for GPG key settings)
+#  - for serving, also (basefolder)/$XM_KEYFILE (default .xmKeyFile) will be read (for GPG key settings)
 #  - starts a xake docker container (unless we're already IN a container)
 #  - starts (presumably) a container-specific version of this very script
 #  - that (presumably) starts xake with the arguments passed to this script
@@ -32,8 +32,6 @@ if [[ -f "$CONFIG_FILE" ]]
 then
         [[ -n "$DEBUG" ]] && echo "Loading settings from config file $CONFIG_FILE."
         . $CONFIG_FILE
-else
-        [[ -n "$DEBUG" ]] && echo "No local settings found (no file $CONFIG_FILE)."
 fi
 
 
@@ -46,7 +44,7 @@ fi
 : "${XAKE_CONTAINER:=$XAKE_BASE:$XAKE_VERSION}"
 : "${DOCKER_REPO:=ghcr.io/ximeraproject/}"
 
-# For historic compatibility, keep supporting XAKE_IMAKE
+# For historic compatibility, keep supporting XAKE_IMAGE
 : "${XAKE_IMAGE:=$DOCKER_REPO$XAKE_CONTAINER}"   # TO BE OBSOLETED
 : "${DOCKER_IMAGE:=$XAKE_IMAGE}"
 
@@ -56,11 +54,11 @@ fi
 #
 # Which folder to mount INSIDE the container, under /code  (use with care: it should contain a build.sh !)
 : "${MOUNTDIR:=$(pwd)}"
+: "${XM_KEYFILE:=.xmKeyFile}"
 #
 # Which script to start inside the container; 
 : "${COMMAND:=xmlatex}"
 # : "${COMMAND:=pdflatex}"     # skip xmlatex inside the container, and directly run a specific command ...    
-# : "${COMMAND:=./build.sh}"   # only usefull for OLD xake-images, which used a now obsolete build.sh script
 
 
 if [[ -f /.dockerenv ]]  
@@ -78,7 +76,7 @@ else
         shift 
     fi 
 
-    # LOCAL_IP is only needed if you want to serve to a ximeraServer on your localhost; do NOT use URL_XIMERA when using LOCAL_IP
+    # LOCAL_IP is only needed if you want to serve to a ximeraServer on your localhost; do NOT use XIMERA_URL when using LOCAL_IP
     if [[ "$LOCAL_IP" == "" ]]
     then
         LOCAL_IP=$(set -- $(hostname -I); echo "$1")
@@ -87,15 +85,15 @@ else
 
     if [[ "$1" == "ximeraserver" ]]
     then    
-        echo "Starting ximera $SERVER_NAME from $SERVER_IMAGE of port $SERVER_PORT"
+        echo "Starting ximera $SERVER_NAME from $SERVER_IMAGE on port $SERVER_PORT"
         docker run --rm --name $SERVER_NAME -p 2000:$SERVER_PORT $SERVER_IMAGE
         exit
     fi
 
     echo "Restarting myself in docker (from image $DOCKER_IMAGE)"	
     [[ -n "$DEBUG" ]] && echo  \
-    docker run --env LOCAL_IP --env URL_XIMERA --env REPO_XIMERA --env GPG_KEY --env GPG_KEY_ID --network host --rm $INTERACTIVE --mount type=bind,source=$MOUNTDIR,target=/code $DOCKER_IMAGE $COMMAND $*
-    docker run --env LOCAL_IP --env URL_XIMERA --env REPO_XIMERA --env GPG_KEY --env GPG_KEY_ID --network host --rm $INTERACTIVE --mount type=bind,source=$MOUNTDIR,target=/code $DOCKER_IMAGE $COMMAND $*
+    docker run --env LOCAL_IP --env XIMERA_URL --env XIMERA_NAME --env GPG_KEY --env GPG_KEY_ID --env DEBUG --network host --rm $INTERACTIVE --mount type=bind,source=$MOUNTDIR,target=/code $DOCKER_IMAGE $COMMAND $*
+    docker run --env LOCAL_IP --env XIMERA_URL --env XIMERA_NAME --env GPG_KEY --env GPG_KEY_ID --env DEBUG --network host --rm $INTERACTIVE --mount type=bind,source=$MOUNTDIR,target=/code $DOCKER_IMAGE $COMMAND $*
     exit 
 fi
 

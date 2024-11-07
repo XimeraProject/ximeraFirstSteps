@@ -15,7 +15,7 @@
 #
 # This script
 #  - loads some configuration from ./scripts/config.tex (can be overwritten with CONFIG_FILE)
-#  - for serving, also (basefolder)/.ximeraserve will be read (for GPG key settings)
+#  - for serving, also (basefolder)/$XM_KEYFILE (default .xmKeyFile) will be read (for GPG key settings)
 #  - starts a xake docker container (unless we're already IN a container)
 #  - starts (presumably) a container-specific version of this very script
 #  - that (presumably) starts xake with the arguments passed to this script
@@ -54,6 +54,7 @@ fi
 #
 # Which folder to mount INSIDE the container, under /code  (use with care: it should contain a build.sh !)
 : "${MOUNTDIR:=$(pwd)}"
+: "${XM_KEYFILE:=.xmKeyFile}"
 #
 # Which script to start inside the container; 
 : "${COMMAND:=xmlatex}"
@@ -432,13 +433,13 @@ then
     fi
 
     # If GPG_KEY_ID (and presumably GPG_KEY) are given, 
-    # ignore .ximeraserve, which should only be used for the DUMMY key ...
+    # ignore XM_KEYFILE, which probably should only be used for the DUMMY key ...
     if [[ -z "$GPG_KEY_ID" ]]
     then
-        if [[ -f .ximeraserve ]]
+        if [[ -f "$XM_KEYFILE" ]]
         then
-            echo "Using settings from .ximeraserve"
-            source .ximeraserve
+            echo "Using settings from $XM_KEYFILE"
+            source $XM_KEYFILE
 	        echo GPG_KEY_ID=$GPG_KEY_ID
 	        echo GPG_KEY=${GPG_KEY:0:10}...
             # : ${XIMERA_NAME:=$REPO_XIMERA}
@@ -512,6 +513,10 @@ then
     # '**F**rost' allows frosting with uncommitted changes...? Should not be done 'in production'.
     # 'xake frost' builds metadata.json and tag for publishing
     # 'xake Frost' does the same, but ignores 'not committed' errors (with xake version of 2024-10)
+
+    # set git name and email if not yet set (e.g. in vanilla docker container)
+    git config  --get user.name  || git config user.name "xmlatex Xake"
+    git config  --get user.email || git config user.email "xmlatex@xakecontainer"
 
     echo "Doing $XAKE $FROST"
     $XAKE $FROST || error "xake $FROST failed, you might want to set XM_FROST_WITH_UNCOMMITTED_CHANGED (e.g. in config.txt)"  
