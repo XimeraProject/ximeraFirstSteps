@@ -19,21 +19,22 @@
             "alignment": "right",
             "task": "PDF",
             "description": "Create a PDF of the current file.",
-            "tooltip": "Create a PDF of the current file."
+            "tooltip": "Compile a PDF from the current file."
         },
         {
             "label": "HTML",
             "alignment": "right",
+
             "task": "HTML",
             "description": "Create HTML of the current file.",
-            "tooltip": "Create HTML of the current file."
+            "tooltip": "Compile a HTML from the current file."
         },
         {
             "label": "SERVE",
             "alignment": "right",
             "task": "All",
             "description": "Build and publish this project.",
-            "tooltip": "Build and publish."
+            "tooltip": "Build and publish this repo."
         },
         {
             "label": "Extra",
@@ -42,7 +43,7 @@
                 {
                     "task": "Start Ximera Server",
                     "label": "Start Ximera Server",
-                    "description": "Start local Ximera webserver (NOT needed in Devcontainer or Workspace).",
+                    "description": "Start local Ximera webserver (NOT needed in devcontainer or Codespace).",
                     "problemMatcher": [],
                 },
                 {
@@ -74,7 +75,7 @@
                     "label": "Serve",
                     "alignment": "right",
                     "task": "Serve",
-                    "description": "Serve this project (doe salso 'frost').",
+                    "description": "Serve this project (does also 'frost', but no 'bake').",
                     "tooltip": "Serve this project."
                 },
                 {

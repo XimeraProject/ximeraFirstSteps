@@ -476,6 +476,7 @@ then
     if [[ "$XIMERA_URL" =~ http://localhost ]]
     then
         # On localhost, don't care too much about consistency/security 
+        debug "Serving to  http://localhost..."
         export XM_PUSH_FORCE=1
         export XM_FROST_WITH_UNCOMMITTED_CHANGES=1
         export XM_PUBLISH_WITH_DUMMY_KEY=1
@@ -533,15 +534,24 @@ then
 	    git remote -v
     fi
     echo "Doing xake serve"
-    $XAKE serve  2>&1  || error "xake serve failed"  # Upload files = push tag
+    $XAKE serve  2>&1    # Upload files = push tag
+    EXITCODE_XAKE_SERVE=$?
     #  NOTE: as of 2024-10, xake serve does not always return a correct errorcode !!!
 
+
     # HACK to OVERWRITE an already published revision
+    # This option obviously should either be added to 'xake serve', or the whole git pushing should be taken out of 'xake serve' and moved here
     if [[ -n "$XM_PUSH_FORCE" ]]
     then
        REV=$(git rev-parse HEAD)
-       echo  FORCING PUSH: git push -f ximera publications/$REV
+       echo  FORCING PUSH revision "$REV": git push -f ximera publications/$REV
+       [[ $EXITCODE_XAKE_SERVE > 0 ]]  && echo  "   (this might solve previous 'xake serve' errors ...)"
        git push -f ximera publications/$REV
+    fi
+
+    if [[ $EXITCODE_XAKE_SERVE > 0 && -z "$XM_PUSH_FORCE" ]]
+    then
+       error "xake serve failed with errorcode $EXITCODE_XAKE_SERVE."
     fi
 
     # Check if the file exists
@@ -549,6 +559,12 @@ then
         error "Folder '.git' not found."
     fi
 
+## Use following line to skip the reset-git-fileowner-hack (e.g. in config.txt)
+# export  XM_NO_RESET_GIT_FILEOWNER=1
+
+    if [[ -z "$XM_NO_RESET_GIT_FILEOWNER" ]]
+    then
+    # HACK: try to restore ownership of git files (might be set to root after git push in container ...)
     # Get the owner and group of .git
     owner_group=$(stat -c "%u:%g" ".git")
 
@@ -558,6 +574,10 @@ then
         echo "Changing ownership of all files in .git to $owner_group."
         chown -R "$owner_group" .git
     fi
+
+    fi  # end reset-git-fileowner
+
+    debug "End of xake serve"
 else
     # Hope that 'xake $*' was intended ...; if not, xake will complain.
     echo "Starting $XAKE $*"
