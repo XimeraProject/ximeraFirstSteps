@@ -1,18 +1,17 @@
-## Don't push ximeraserve or xmKeyFile
+## Don't push ximeraserve
 *.ximeraserve*
-*.xmKeyFile*
 ## Graphics - recommend to be ignored
 *.svg
 *.png
 *.pdf
 ## Don't ignore things in ./graphics 
-pictures/*
-!pictures/*.jpg
-!pictures/*.pdf
-!pictures/*.png
-!pictures/*.JPG
-!pictures/*.PDF
-!pictures/*.PNG
+xmPictures/*
+!xmPictures/*.jpg
+!xmPictures/*.pdf
+!xmPictures/*.png
+!xmPictures/*.JPG
+!xmPictures/*.PDF
+!xmPictures/*.PNG
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
@@ -145,8 +144,6 @@ acs-*.bib
 *.lg
 *.trc
 *.xref
-## tex4ht log
-*.dlog
 
 # hyperref
 *.brf
