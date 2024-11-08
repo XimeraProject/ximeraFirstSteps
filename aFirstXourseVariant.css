@@ -1,3 +1,12 @@
+/* This .css file overwrites or appends the styling on one particular xourse or activity
+ * 
+ * This version is for a quick demo, and based on a now obsoloete KU Leuven layout
+ * It's way too complicated, and needs to be cleaned.
+ *
+ * Don't use it (unless with extreme care; and extreme responsability  ;-) )
+ */
+
+
 :root {
 --definition-red: 0;
 --definition-green: 255;
@@ -1056,6 +1065,8 @@ span#prev-activity-label {
     display: table-cell;
     vertical-align: middle;
 } */
+
+
 
 
 
