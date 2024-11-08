@@ -24,6 +24,7 @@
         {
             "label": "HTML",
             "alignment": "right",
+            
             "task": "HTML",
             "description": "Create HTML of the current file.",
             "tooltip": "Create HTML of the current file."
@@ -42,7 +43,7 @@
                 {
                     "task": "Start Ximera Server",
                     "label": "Start Ximera Server",
-                    "description": "Start local Ximera webserver (NOT needed in Devcontainer or Workspace).",
+                    "description": "Start local Ximera webserver (NOT needed in devcontainer or Codespace).",
                     "problemMatcher": [],
                 },
                 {
