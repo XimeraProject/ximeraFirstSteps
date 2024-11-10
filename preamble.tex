@@ -1,11 +1,24 @@
 \typeout{Start loading main preamble.tex}%
 
-% \graphicspath{  %% When looking for images,
-% {./}            %% look here first,
-% {./pictures/}   %% then look for a pictures folder,
-% {../pictures/}  %% which may be a directory up.
-% }
+% Use preamble e.g. to load extra packages
+%  NOTE: in the medium-containers, NOT ALL PACKAGES ARE PRESENT!!!
+\usepackage{xstring} 
 
-% For use with xake > v2.1.3
-% \hintAsExpandablefalse
-% \expandableAsAccordionfalse
+% 
+% This is a rather advanced example of using TeX-functionality
+%  First-time users should just skip reading this.
+%
+%  With this code fragment, one gets BY DEFAULT OSU-style hints.
+%  BUT: if the filename contains the string Variant, 
+%       then one gets the newer expandable hints 
+%  Once the OSU server gets updated, all this will become obsolete.
+\IfSubStr{\jobname}{\detokenize{Variant}}{
+    \typeout{Compiling NEW version for \jobname\ (with hint as expandable)}%
+}{
+    \typeout{Compiling OSU version of hints for \jobname}%
+    % These variables give the OLD types of hints.
+    % In the (near) future, this should no longer be needed.
+    %  Only for use with OSU server, and xake > v2.1.3
+    \def\xmNotHintAsExpandable{1}
+    \def\xmNotExpandableAsAccordion{1}
+}
