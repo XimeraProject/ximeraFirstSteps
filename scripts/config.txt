@@ -9,8 +9,12 @@
 #: "${XAKE_VERSION:=v2.1.3_a}"  # obsolete
 
 #
-# For publishing  (you'll also need a GPG key in .ximeraserve)
+# For publishing via Codespace, connect keys via GitHub
 #
+# For publishing locally, you will need have a file 
+# NOT committed to the repository .ximeraserve 
+#
+
 : "${XIMERA_NAME:=firststeps24}"
 ## : "${XIMERA_URL:=http://localhost:2000/}"
 ## : "${XIMERA_URL:=https://ximera.osu.edu}"
