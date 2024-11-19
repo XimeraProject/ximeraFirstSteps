@@ -14,7 +14,7 @@
 #   COMMAND=pdflatex xmlatex demo.tex                                            # do not run the xake-wrapper, but $COMMAND
 #
 # This script
-#  - loads some configuration from ./scripts/config.tex (can be overwritten with CONFIG_FILE)
+#  - loads some configuration from ./xmScripts/config.tex (can be overwritten with CONFIG_FILE)
 #  - for serving, also (basefolder)/$XM_KEYFILE (default .xmKeyFile) will be read (for GPG key settings)
 #  - starts a xake docker container (unless we're already IN a container)
 #  - starts (presumably) a container-specific version of this very script
@@ -23,10 +23,19 @@
 #  - optionally automates lots of other things
 #
 # Note: set environment variable 'export DEBUG=1' and/or use -d option for debugging/tracing
-# Note: this scripts RESTARTS itself (or a variant of itself!!!) IN A DOCKER CONTAINER
+# Note: this script RESTARTS itself (or a variant of itself!!!) IN A DOCKER CONTAINER
 #
 #
-: "${CONFIG_FILE:=./scripts/config.txt}"
+# CONFIG_OLDFILE only for migration; TO BE REMOVED
+: "${CONFIG_OLDFILE:=./scripts/config.txt}"
+
+if [[ -f "$CONFIG_OLDFILE" ]]
+then
+        [[ -n "$DEBUG" ]] && echo "Loading settings from config file $CONFIG_OLDFILE."
+        . $CONFIG_OLDFILE
+fi
+
+: "${CONFIG_FILE:=./xmScripts/config.txt}"
 
 if [[ -f "$CONFIG_FILE" ]]
 then
@@ -39,8 +48,8 @@ fi
 #
 # default docker image to run; overwrite with 'export XAKE_IMAGE=myxake:0.1'
 #: "${XAKE_IMAGE:=ghcr.io/ximeraproject/xake2023:v2.1.1}" 
-: "${XAKE_BASE:=xake2019}"
-: "${XAKE_VERSION:=v2.1.1}"
+: "${XAKE_BASE:=xake2024}"
+: "${XAKE_VERSION:=v2.4.2}"
 : "${XAKE_CONTAINER:=$XAKE_BASE:$XAKE_VERSION}"
 : "${DOCKER_REPO:=ghcr.io/ximeraproject/}"
 
@@ -50,7 +59,7 @@ fi
 
 : "${SERVER_PORT:=2000}"
 : "${SERVER_NAME:=ximeraserver}"
-: "${SERVER_IMAGE:=registry.gitlab.kuleuven.be/wet/ximera/ximeradocker:2.3.7j}"
+: "${SERVER_IMAGE:=registry.gitlab.kuleuven.be/wet/ximera/ximeradocker:2.3_b}"
 #
 # Which folder to mount INSIDE the container, under /code  (use with care: it should contain a build.sh !)
 : "${MOUNTDIR:=$(pwd)}"

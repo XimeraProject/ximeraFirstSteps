@@ -14,7 +14,7 @@
 #   COMMAND=pdflatex xmlatex demo.tex                                            # do not run the xake-wrapper, but $COMMAND
 #
 # This script
-#  - loads some configuration from ./scripts/config.tex (can be overwritten with CONFIG_FILE)
+#  - loads some configuration from ./xmScripts/config.tex (can be overwritten with CONFIG_FILE)
 #  - for serving, also (basefolder)/$XM_KEYFILE (default .xmKeyFile) will be read (for GPG key settings)
 #  - starts a xake docker container (unless we're already IN a container)
 #  - starts (presumably) a container-specific version of this very script
@@ -23,10 +23,20 @@
 #  - optionally automates lots of other things
 #
 # Note: set environment variable 'export DEBUG=1' and/or use -d option for debugging/tracing
-# Note: this scripts RESTARTS itself (or a variant of itself!!!) IN A DOCKER CONTAINER
+# Note: this scrips RESTARTS itself (or a variant of itself!!!) IN A DOCKER CONTAINER
 #
 #
-: "${CONFIG_FILE:=./scripts/config.txt}"
+
+# CONFIG_OLDFILE only for migration; TO BE REMOVED
+: "${CONFIG_OLDFILE:=./scripts/config.txt}"
+
+if [[ -f "$CONFIG_OLDFILE" ]]
+then
+        [[ -n "$DEBUG" ]] && echo "Loading settings from config file $CONFIG_OLDFILE."
+        . $CONFIG_OLDFILE
+fi
+
+: "${CONFIG_FILE:=./xmScripts/config.txt}"
 
 if [[ -f "$CONFIG_FILE" ]]
 then
@@ -38,9 +48,10 @@ fi
 # Set some defaults
 #
 # default docker image to run; overwrite with 'export XAKE_IMAGE=myxake:0.1'
-#: "${XAKE_IMAGE:=ghcr.io/ximeraproject/xake2023:v2.1.1}" 
-: "${XAKE_BASE:=xake2019}"
-: "${XAKE_VERSION:=v2.1.1}"
+: "${XAKE_BASE:=xake2024}"
+: "${XAKE_VERSION:=v2.4.2}"
+# : "${XAKE_BASE:=xake2019}"
+# : "${XAKE_VERSION:=v2.1.1}"
 : "${XAKE_CONTAINER:=$XAKE_BASE:$XAKE_VERSION}"
 : "${DOCKER_REPO:=ghcr.io/ximeraproject/}"
 
@@ -50,7 +61,16 @@ fi
 
 : "${SERVER_PORT:=2000}"
 : "${SERVER_NAME:=ximeraserver}"
-: "${SERVER_IMAGE:=registry.gitlab.kuleuven.be/wet/ximera/ximeradocker:2.3.7j}"
+: "${SERVER_IMAGE:=registry.gitlab.kuleuven.be/wet/ximera/ximeradocker:2.3_b}"
+
+# How to sync DevEnvFiles (.vscode/.devcontainer/xmScripts)
+: "${DEVENV_TGZFILE:=xmDevEnvFiles.tgz}"
+: "${DEVENV_VERSION:=releases/latest/download}"
+# : "${DEVENV_VERSION:=releases/download/v2.4.2}"   # Note the inversed order !!!!
+: "${DEVENV_REPO:=ximeraProject/ximeraNewProject}"
+: "${DEVENV_URL:=https://github.com/$DEVENV_REPO/$DEVENV_VERSION/xmDevEnvFiles.tgz}"
+
+
 #
 # Which folder to mount INSIDE the container, under /code  (use with care: it should contain a build.sh !)
 : "${MOUNTDIR:=$(pwd)}"
@@ -114,15 +134,19 @@ debug() {
 
 # Set reasonable defaults for variables
 : "${LOCAL_IP:=localhost}"
-# For (dubious) historical reasons, namely some .ximeraserve's containing URL_XIMERA and REPO_XIMERA,
-# these values are used as defaults.
-# TO BE REPLACED by XIMERA_URL and XIMERA_NAME (as set in config.txt)
-# : "${URL_XIMERA:=http://$LOCAL_IP:2000/}"     # default: publish to ximera-docker-instance, but 'localhost' does refer to THIS container
-# : "${REPO_XIMERA:=test}"
+
+# XIMERA_URL determines the ximeraServer this repo will be published to by 'serve'
+# By default: localhost:2000, can be overwritten by ENV variable or in config.txt
 : "${XIMERA_URL:=http://localhost:2000/}"     # default: publish to ximera-docker-instance, but 'localhost' does refer to THIS container
-: "${XIMERA_REPO:=test}"
-: "${NB_JOBS:=2}"
-: "${XAKE:=xake}"
+
+# XIMERA_NAME determines the 'name' this repo is published to on the ximeraServer, ie the first part after the hostname
+#  By default the (official) git reponame, converted to lowercase and with dashed-replaced-by-underscores
+# Can be overwritten by ENV variable or in config.txt
+: "${XIMERA_NAME:=$(basename -s .git $(git config --get remote.origin.url) | tr '[:upper:]' '[:lower:]' | tr '-' '_')}"
+
+# : "${XIMERA_REPO:=test}"    # Obsolete (only used in gitlab pipelines)
+: "${NB_JOBS:=2}"             # Degree of parallelism of xake bake
+: "${XAKE:=xake}"             # name of the xake executable 
 
 while getopts ":hitvds" opt; do
   case ${opt} in
@@ -211,11 +235,12 @@ fi
 
 # Use a local xmlatex.full if available
 # Needed for call-xmlatex-from-xake, which DOES NOT use COMMAND/XMLATEX variable...
-if [[ -f ./scripts/xmlatex.full ]]; then
+# Deprecated .... (should become obsolete with new xake's ...)
+if [[ -f ./xmScripts/xmlatex.full ]]; then
     echo "USING xmlatex.full from local repo"
-    [[ -n "$DEBUG" ]] && diff ./scripts/xmlatex.full /usr/local/bin/xmlatex
+    [[ -n "$DEBUG" ]] && diff ./xmScripts/xmlatex.full /usr/local/bin/xmlatex
     cp /usr/local/bin/xmlatex /usr/local/bin/xmlatex.$(date "+%F-%H-%M-%S")
-    cp ./scripts/xmlatex.full /usr/local/bin/xmlatex
+    cp ./xmScripts/xmlatex.full /usr/local/bin/xmlatex
 fi
 
 # Add anything that might not be installed in the container 
@@ -561,7 +586,6 @@ then
 
 ## Use following line to skip the reset-git-fileowner-hack (e.g. in config.txt)
 # export  XM_NO_RESET_GIT_FILEOWNER=1
-
     if [[ -z "$XM_NO_RESET_GIT_FILEOWNER" ]]
     then
     # HACK: try to restore ownership of git files (might be set to root after git push in container ...)
@@ -578,6 +602,58 @@ then
     fi  # end reset-git-fileowner
 
     debug "End of xake serve"
+elif [[ "$COMMAND" == "updateDevEnv" ]]
+then
+    echo "Doing xake $COMMAND"
+
+    [[ -f "$DEVENV_TGZFILE" ]] && { debug "Removing old $DEVENV_TGZFILE"; rm -f "$DEVENV_TGZFILE"; }
+
+    debug "Getting new file $DEVENV_TGZFILE from $DEVENV_URL"
+    wget -O "$DEVENV_TGZFILE" "$DEVENV_URL"
+
+    debug "Getting list of files in $DEVENV_TGZFILE"
+    filelist=$(tar -ztf "$DEVENV_TGZFILE" | grep -v "/$")
+
+    if [[ -n $(git status --porcelain $filelist) ]]; 
+    then
+        echo "There are uncommitted changes:"
+        git diff --stat $filelist
+        exit 1
+    else
+        echo "No current changes"
+    fi
+
+
+    debug "Extracting $DEVENV_TGZFILE"
+    tar -xzvf "$DEVENV_TGZFILE"
+
+
+## Use following line to skip the reset-git-fileowner-hack (e.g. in config.txt)
+# export  XM_NO_RESET_GIT_FILEOWNER=1
+    if [[ -z "$XM_NO_RESET_GIT_FILEOWNER" ]]
+    then
+    # HACK: try to restore ownership of git files (might be set to root after git push in container ...)
+    # Get the owner and group of .git
+    owner_group=$(stat -c "%u:%g" ".git")
+
+    if [[ "$owner_group" != "0:0" ]]
+    then
+        # Change the ownership of all files in the current directory
+        debug "Changing ownership of extracted files to $owner_group."
+        chown -R "$owner_group" .vscode .devcontainer .gitignore xmScripts
+    fi
+
+    fi  # end reset-git-fileowner
+
+
+    if [[ -n $(git status --porcelain $filelist) ]]; 
+    then
+        echo "Verify and commit/push following changes"
+        git diff $filelist
+    else
+        echo "No changes. Your repo was already uptodate."
+    fi
+
 else
     # Hope that 'xake $*' was intended ...; if not, xake will complain.
     echo "Starting $XAKE $*"
