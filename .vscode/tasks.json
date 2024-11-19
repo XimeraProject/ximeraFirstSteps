@@ -5,7 +5,7 @@
     "type": "shell",
     "command": "xmlatex",
     "windows": {
-        "command": ".\\scripts\\xmlatex.bat"
+        "command": ".\\xmScripts\\xmlatex.bat"
     },    
     "problemMatcher": [],
     "tasks": [
@@ -97,7 +97,7 @@
     ],
     "options": {
         "env": {
-          "PATH": "/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:./scripts"  
+          "PATH": "${env:PATH}:./xmScripts"  
         }
       },    
 }
