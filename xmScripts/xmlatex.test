@@ -49,7 +49,7 @@ fi
 #
 # default docker image to run; overwrite with 'export XAKE_IMAGE=myxake:0.1'
 : "${XAKE_BASE:=xake2024}"
-: "${XAKE_VERSION:=v2.4.1}"
+: "${XAKE_VERSION:=v2.4.2}"
 # : "${XAKE_BASE:=xake2019}"
 # : "${XAKE_VERSION:=v2.1.1}"
 : "${XAKE_CONTAINER:=$XAKE_BASE:$XAKE_VERSION}"
@@ -66,7 +66,7 @@ fi
 # How to sync DevEnvFiles (.vscode/.devcontainer/xmScripts)
 : "${DEVENV_TGZFILE:=xmDevEnvFiles.tgz}"
 : "${DEVENV_VERSION:=releases/latest/download}"
-# : "${DEVENV_VERSION:=releases/download/v2.4.1}"   # Note the inversed order !!!!
+# : "${DEVENV_VERSION:=releases/download/v2.4.2}"   # Note the inversed order !!!!
 : "${DEVENV_REPO:=ximeraProject/ximeraNewProject}"
 : "${DEVENV_URL:=https://github.com/$DEVENV_REPO/$DEVENV_VERSION/xmDevEnvFiles.tgz}"
 
@@ -142,7 +142,7 @@ debug() {
 # XIMERA_NAME determines the 'name' this repo is published to on the ximeraServer, ie the first part after the hostname
 #  By default the (official) git reponame, converted to lowercase and with dashed-replaced-by-underscores
 # Can be overwritten by ENV variable or in config.txt
-: "${XIMERA_NAME:=basename -s .git $(git config --get remote.origin.url) | tr '[:upper:]' '[:lower:]' | tr '-' '_'}"
+: "${XIMERA_NAME:=$(basename -s .git $(git config --get remote.origin.url) | tr '[:upper:]' '[:lower:]' | tr '-' '_')}"
 
 # : "${XIMERA_REPO:=test}"    # Obsolete (only used in gitlab pipelines)
 : "${NB_JOBS:=2}"             # Degree of parallelism of xake bake

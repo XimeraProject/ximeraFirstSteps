@@ -2,9 +2,9 @@
 # version of Ximera xake container to use (with xmlatex)
 #
 # : "${XAKE_BASE:=xake2024}"
-# : "${XAKE_VERSION:=v2.4.1}"
+# : "${XAKE_VERSION:=v2.4.2}"
 ## Alternatives:
-# : "${XAKE_VERSION:=v2.4.1-full}"    # with texlive_full
+# : "${XAKE_VERSION:=v2.4.2-full}"    # with texlive_full
 # : "${XAKE_BASE:=xake2023}"     # with older tex/xake
 # : "${XAKE_VERSION:=v2.1.3_a}"  # obsolete
 

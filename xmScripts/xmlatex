@@ -49,7 +49,7 @@ fi
 # default docker image to run; overwrite with 'export XAKE_IMAGE=myxake:0.1'
 #: "${XAKE_IMAGE:=ghcr.io/ximeraproject/xake2023:v2.1.1}" 
 : "${XAKE_BASE:=xake2024}"
-: "${XAKE_VERSION:=v2.4.1}"
+: "${XAKE_VERSION:=v2.4.2}"
 : "${XAKE_CONTAINER:=$XAKE_BASE:$XAKE_VERSION}"
 : "${DOCKER_REPO:=ghcr.io/ximeraproject/}"
 
