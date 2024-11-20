@@ -47,11 +47,17 @@
                     "problemMatcher": [],
                 },
                 {
-                    "task": "Preview in Simple Browser",
-                    "label": "Preview in Simple Browser",
-                    // "description": "Start local Ximera webserver.",
+                    "task": "Preview Codespaces",
+                    "label": "Preview ONLY in Codespaces (!)",
+                    "description": "Start a preview window (ONLY FOR CODESPACES).",
                     "problemMatcher": [],
-                },
+                },                
+                {
+                    "task": "Preview NonCodespaces",
+                    "label": "Preview NOT using Codespaces",
+                    "description": "Start a preview window.",
+                    "problemMatcher": [],
+                },                
                 {
                     "label": "Bake",
                     "alignment": "right",
@@ -78,6 +84,13 @@
                     "description": "Serve this project (does also 'frost', but no 'bake').",
                     "tooltip": "Serve this project."
                 },
+                {
+                    "task": "Update DevEnv",
+                    "label": "Update the build environment",
+                    "description": "Updates the docker-container, xmScripts en .vscode config",
+                    "problemMatcher": [],
+                },
+
                 {
                     "task": "Delete standard",
                     "label": "Delete all standard PDFs",
