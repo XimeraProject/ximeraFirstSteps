@@ -52,14 +52,8 @@
             ],
         },
         {
-                "label": "Preview NonCodespaces",
+                "label": "Preview in Simple Browser",
                 "command": "${input:openSimpleBrowser}",
-        },
-        {
-                "label": "Preview Codespaces",
-                "command": "${input:openCodespaceBrowser}",
-                // "args": ["${input:codespaceUrl}"],
-                // "command": "${command:simpleBrowser.show}",
         },
         {
             "label": "Bake standard",
@@ -105,27 +99,11 @@
           "command": "simpleBrowser.show",
           "args": [ "http://localhost:2000/repositories" ],
 
-        },
-        {
-          "id": "openCodespaceBrowser",
-          "type": "command",
-          "command": "simpleBrowser.show",
-          "args": [ "https://${env:CODESPACE_NAME}-2080.github.dev/repositories" ],
-
-        },
-        // {
-        //     "id": "codespaceUrl",
-        //     "type": "command",
-        //     "command": "workbench.action.terminal.runInTerminal",
-        //     "args": {
-        //       "script": "echo https://${CODESPACE_NAME}-2080.github.dev"
-        //     }
-        // }        
+        }
     ],
     "options": {
         "env": {
-          "PATH": "${env:PATH}:./xmScripts",
-          "CODESPACE_NAME": "${env:CODESPACE_NAME}"  
+          "PATH": "${env:PATH}:./xmScripts"  
         }
       },    
 }

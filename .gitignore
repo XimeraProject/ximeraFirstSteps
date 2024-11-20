@@ -322,6 +322,3 @@ gpgkey
 
 # Sizing of pictures (TikZ)
 *.xbb
-
-# to update DevEnv config-files
-xmDevEnvFiles.tgz

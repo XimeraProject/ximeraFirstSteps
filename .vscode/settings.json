@@ -47,17 +47,11 @@
                     "problemMatcher": [],
                 },
                 {
-                    "task": "Preview Codespaces",
-                    "label": "Preview ONLY in Codespaces (!)",
-                    "description": "Start a preview window (ONLY FOR CODESPACES).",
+                    "task": "Preview in Simple Browser",
+                    "label": "Preview in Simple Browser",
+                    // "description": "Start local Ximera webserver.",
                     "problemMatcher": [],
-                },                
-                {
-                    "task": "Preview NonCodespaces",
-                    "label": "Preview NOT using Codespaces",
-                    "description": "Start a preview window.",
-                    "problemMatcher": [],
-                },                
+                },
                 {
                     "label": "Bake",
                     "alignment": "right",
