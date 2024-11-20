@@ -6,6 +6,9 @@ Demo versions of this repo are published as:
 - [a preview with the newest Ximera layout](https://set.kuleuven.be/voorkennis/firststeps24/aFirstXourseVariant/aFirstFolder/aFirstActivityVariant)
 - [a version on the current production server](https://ximera.osu.edu/firststeps24/aFirstXourse/aFirstFolder/aFirstActivity)
 
+The preview version also contains two PDF versions of all pages: one with, and one without the answers (on 11/2024 the links are unfortunately in Dutch...).
+
+
 Ximera is under active development, and new functionality is regularly added. The official Ximera webserver at https://ximera.osu.edu currently runs a version that does not yet support the newest features, and in particular not the newer layout that is available for local testing and at the KU Leuven servers. This is expected to change soon.
 
 In case of problems, please submit an issue on the "Issues" tab at [ximeraFirstSteps](https://github.com/XimeraProject/ximeraFirstSteps).
@@ -24,7 +27,7 @@ In case of problems, please submit an issue on the "Issues" tab at [ximeraFirstS
 - Push 'SERVE' and wait a few minutes to compile the demo course. Subsequent builds will be faster.
 - Select 'PORTS' (next to 'TERMINAL', in the right bottom pane), and click on the "globe" icon that appears next to the URL under 'Forwarded Address' to open a browser window on your private Ximera server inside your Codespace.
 - Hit `CTRL-P` to open a file, type 'AFirstA' to see that the file aFirstActivity.tex is shown. Press enter to open it, change the `\title` around line 11 to e.g. `A VERY basic activity`, press `CTRL-S` to save, and hit `SERVE` again. After a few seconds, an orange `Update` button will appear on the page in the Ximera course, and after pushing it, the title will be updated. 
-- Play around changing other things is the activities, push SERVE, and look at the results.
+- Play around changing other things in the activities, push SERVE, and look at the results.
 - Be impressed. Decide to look further into this and to write your own content. Contact us.
 
 As Ximera is under active development, some things might not be as smooth as suggested here, and some things might change quickly. Do not hesitate to contact us. 
@@ -42,7 +45,7 @@ But, the real fun of Ximera comes with the online versions of the courses, and o
 
 For further experimenting, you could clone or fork the repo to get a personal copy, where you can save changes.
 
-If you decide to make your own **new** Ximera content, it is better to start create a new repo using [ximeraNewProject](https://github.com/XimeraProject/ximeraNewProject) as a template. There should be a large green "Use this template" button near the top-right of that page. You could also start from this [ximeraFirstSteps](https://github.com/XimeraProject/ximeraFirstSteps) repo, which contains some more demo files.
+If you decide to make your own **new** Ximera content, it is better to create a new repo using [ximeraNewProject](https://github.com/XimeraProject/ximeraNewProject) as a Template. There should be a large green "Use this template" button near the top-right of that page. You could also start from this [ximeraFirstSteps](https://github.com/XimeraProject/ximeraFirstSteps) repo, which contains some more demo files.
 
 ## Upgrade an existing repository
 
@@ -78,9 +81,9 @@ Note: in a codespace (or inside a Docker container), `pdflatex` and `xake` are a
 
 
 
-## Developping on your own PC
+## Developing on your own PC
 
-or if working on your own PC at http://localhost:2000/ximerafirststeps
+If you prefer to work locally on your own PC, it is strongly advised to use Docker as explained [here](README_localsetup.md).
 
 ## Publishing the course(s) to a public Ximera server (requires a GPG key)
 
