@@ -19,8 +19,9 @@ In case of problems, please submit an issue on the "Issues" tab at [ximeraFirstS
 
 - Log into GitHub and go to [ximeraFirstSteps](https://github.com/XimeraProject/ximeraFirstSteps)
 - Start a Codespace
-<br>Push the green 'Code' button, select the `Codespaces` and push 'Create a codespace on main'.
-<br>If the is no `Codespaces` tab, you're presumably not logged in.
+<br>Push the green 'Code' button, select the `Codespaces` and push the `+` plus sign:
+<br>![new_codespace](https://github.com/user-attachments/assets/8abac097-77ad-4187-a4fc-38d5acff62b6)
+<br>If there is no `Codespaces` tab, you're presumably not logged in.
 - GitHub notifies you (somewhat inconspicuously, it might have been under the button you just pressed) that **you** will pay for the codespace. You can **ignore this warning** as the first 120 hours per month are free, and you should not spend 120 hours playing around with Ximera anyway.
 - It will take up to 5 minutes to build a personal `codespace` for you. Subsequent starts of the codespace will be much faster.
 - Wait for Visual Studio Code to be completely initialized: it will activate some extensions, and you get buttons in the bottom right of the window: 'PDF,' 'HTML,' 'SERVE,' and 'Extra'. 
