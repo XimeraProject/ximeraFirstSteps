@@ -1,63 +1,108 @@
-This repository has a basic Ximera course along with instructions for deploying it, which will help you get started using Ximera. It is designed to assist new users. If there are problems with the instructions below, please submit an issue on the "Issues" tab at [ximeraFirstSteps](https://github.com/XimeraProject/ximeraFirstSteps).
+This repository contains a small Ximera demo course and instructions to deploy it, to get you started as a new Ximera user.
+This Readme shows how to use a Github Codespace to play around with Ximera, edit your first Ximera course, and test a personal online version of it.
 
-The course(s) in this repo are published in the following locations:
+Demo versions of this repo are published as:
 
-- https://ximera.osu.edu/firststeps24/aFirstStepInXimera 
-- https://set.kuleuven.be/voorkennis/firststeps24/aFirstStepInXimera/basics/basicWorksheet
-- https://set.kuleuven.be/voorkennis/firststeps24/variant/aNewlayout/variant/basics/basicWorksheet
+- [a preview with the newest Ximera layout](https://set.kuleuven.be/voorkennis/firststeps24/aFirstXourseVariant/aFirstFolder/aFirstActivityVariant)
+- [a version on the current production server](https://ximera.osu.edu/firststeps24/aFirstXourse/aFirstFolder/aFirstActivity)
 
-If you follow the instructions in this Readme, you can publish the course on your own PC at
+The preview version also contains two PDF versions of all pages: one with, and one without the answers (on 11/2024 the links are unfortunately in Dutch...).
 
-- http://localhost:2080/firststeps24 (from within your Codespace)  
-or
-- http://localhost:2000/firststeps24 (if running on your local PC),
 
-where you will be able to change, test, and fine-tune how your content is deployed online.
+Ximera is under active development, and new functionality is regularly added. The official Ximera webserver at https://ximera.osu.edu currently runs a version that does not yet support the newest features, and in particular not the newer layout that is available for local testing and at the KU Leuven servers. This is expected to change soon.
 
-# Quick Start
+In case of problems, please submit an issue on the "Issues" tab at [ximeraFirstSteps](https://github.com/XimeraProject/ximeraFirstSteps).
 
-This section will help you play around with Ximera, edit your first Ximera course, and publish a test version to your own computer.  
 
-## Fork the repository
 
-You'll have some difficulty saving your work unless you fork this repository.
+# Use Github Codespaces to play around with Ximera, without any further setup.
 
-Procedure:
 - Log into GitHub and go to [ximeraFirstSteps](https://github.com/XimeraProject/ximeraFirstSteps)
-- Push the "Fork" button, and now you have a copy of this repository in your account. 
-- Start a Codespace (under the green 'Code' button).
-- Presumably, GitHub will notify you (somewhat inconspicuously) that **you** will pay for this codespace. You can ignore this warning, as the first 120 hours per month are free, which is sufficient for experimenting.
-- The first time you start this codespace, it will take a few minutes to build a "devcontainer" for you. Subsequent starts will be faster.
-- You should get a Visual Studio Code window inside your browser with buttons in the bottom right of the window: 'PDF,' 'HTML,' 'SERVE,' and 'Extra.'
-- Push 'SERVE' and wait a few minutes to let your Codespace compile the demo course.
-- Select 'PORTS' (next to 'TERMINAL'), and click on the "globe" icon that appears next to the URL under 'Forwarded Address' to open a browser window on your private Ximera server inside your Codespace.
+- Start a Codespace
+<br>Push the green 'Code' button, select the `Codespaces` and push the `+` plus sign:
+<br>![new_codespace](https://github.com/user-attachments/assets/8abac097-77ad-4187-a4fc-38d5acff62b6)
+<br>If there is no `Codespaces` tab, you're presumably not logged in.
+- GitHub notifies you (somewhat inconspicuously, it might have been under the button you just pressed) that **you** will pay for the codespace. You can **ignore this warning** as the first 120 hours per month are free, and you should not spend 120 hours playing around with Ximera anyway.
+- It will take up to 5 minutes to build a personal `codespace` for you. Subsequent starts of the codespace will be much faster.
+- Wait for Visual Studio Code to be completely initialized: it will activate some extensions, and you get buttons in the bottom right of the window: 'PDF,' 'HTML,' 'SERVE,' and 'Extra'. 
+- Push 'SERVE' and wait a few minutes to compile the demo course. Subsequent builds will be faster.
+- Select 'PORTS' (next to 'TERMINAL', in the right bottom pane), and click on the "globe" icon that appears next to the URL under 'Forwarded Address' to open a browser window on your private Ximera server inside your Codespace.
+- Hit `CTRL-P` to open a file, type 'AFirstA' to see that the file aFirstActivity.tex is shown. Press enter to open it, change the `\title` around line 11 to e.g. `A VERY basic activity`, press `CTRL-S` to save, and hit `SERVE` again. After a few seconds, an orange `Update` button will appear on the page in the Ximera course, and after pushing it, the title will be updated. 
+- Play around changing other things in the activities, push SERVE, and look at the results.
+- Be impressed. Decide to look further into this and to write your own content. Contact us.
 
-This fork will serve as your personal copy of our deploy scripts. You can go to your GitHub page, find your fork of this repository, and "Sync fork" to obtain the most recent deploy environment. 
-If you want to make **new** Ximera content, either use this repository as a Template (there should be a large "Template" button near the top-right of the page), or use [ximeraNewProject](https://github.com/XimeraProject/ximeraNewProject) as a template.
+As Ximera is under active development, some things might not be as smooth as suggested here, and some things might change quickly. Do not hesitate to contact us. 
+The current production site has been used since 2016 for hundreds of courses by many thousands of students. These courses will continue to work unchanged in the new version, with an updated layout. 
+New functionality will become available for new or updated courses.
+
+#  Further steps if you liked what you saw
+
+## Use your local TeX installation 
+
+First, to create a PDF version of a Ximera course or activity, you can use your existing (recent) TeX installation with a recent version of the Ximera package installed (as found on CTAN).
+But, the real fun of Ximera comes with the online versions of the courses, and online development is easier with either Github Codespaces or Docker.
+
+## Use Github Codespaces for further experimenting with Ximera
+
+For further experimenting, you could clone or fork the repo to get a personal copy, where you can save changes.
+
+If you decide to make your own **new** Ximera content, it is better to create a new repo using [ximeraNewProject](https://github.com/XimeraProject/ximeraNewProject) as a Template. There should be a large green "Use this template" button near the top-right of that page. You could also start from this [ximeraFirstSteps](https://github.com/XimeraProject/ximeraFirstSteps) repo, which contains some more demo files.
+
+## Upgrade an existing repository
+
+If you already have a repo with a Ximera course, you can 
+copy the following files and folders from [this repo](https://github.com/XimeraProject/ximeraNewProject) to your repo:
+
+- `.gitignore`
+- `xmScripts/`
+- `.vscode/`
+
+If a `.gitignore` file already exists in your repo, we suggest you replace it with ours or at least check for differences. Note: **never** push the file `.xmKeyFile` with your own key.
+
+If a `.vscode` folder exists, compare your files with ours and check for differences.
+The `.vscode` folder is not required, but without it, you won’t have the PDF/HTML/SERVE buttons, and you'll need to run:
+
+- `./xmScripts/xmlatex compilePdf <path-to-your-texfile>`
+- `./xmScripts/xmlatex compile <path-to-your-texfile>`
+- `./xmScripts/xmlatex bake`
+- `./xmScripts/xmlatex serve`
+- `./xmScripts/xmlatex updateDevEnv`
+
+The xmlatex script will download and start a docker container to compile your code. It does not need nor use a local TeX installation. But it requires a correct Docker setup on your PC.
+It is not required but strongly advised to also have Visual Studio Code. 
+It remains possible though to edit your .tex files with the editor of your choice.
+\
+Note: in a codespace (or inside a Docker container), `pdflatex` and `xake` are available and the xmlatex script is in your PATH so you can use
+
+- `xmlatex compilePdf <path-to-your-texfile>`
+- `xmlatex compile <path-to-your-texfile>`
+- `xmlatex bake`
+- `xmlatex serve`
+- `xmlatex updateDevEnv`
 
 
-## Compare with the published course
 
-Once you've deployed the course, you can compare your local version to ours.
+## Developing on your own PC
 
-The KU Leuven version also contains two PDF versions: one with answers and one without.
+If you prefer to work locally on your own PC, it is strongly advised to use Docker as explained [here](README_localsetup.md).
 
 ## Publishing the course(s) to a public Ximera server (requires a GPG key)
 
-The file `scripts/config.txt` determines where (and with which version of Ximera) to publish your courses.
+The file `xmScripts/config.txt` determines where (and with which version of Ximera) to publish your courses.
 
 Relevant settings:
 
 - **XIMERA_URL** contains the server URL where you want to publish your repo (`http://localhost:2000/` for testing or `https://ximera.osu.edu` for a live deployment).
 - **XIMERA_NAME** contains the name (lowercase, no underscores!) under which to publish this repo, e.g., `XIMERA_NAME=testing` would publish to https://ximera.osu.edu/testing.
 
-You can save and commit these settings.
+You should save changes to these settings, committing them is optional.
 
-To deploy to a public server (e.g., the OSU server), a (personal) GPG key is needed to ensure that no one overwrites your online course without your knowledge. (If this does happen, you can re-deploy and contact the Ximera developers.)
+To deploy to a public server (e.g., the OSU server), a (personal) GPG key is needed to ensure that no one overwrites your online course without your knowledge.
 
-### Publishing online using Codespaces
+This key is to be stored in the environment variables `GPG_KEY` and `GPG_KEY_ID`.
+When using Codespaces, this should be done as Codespaces Secrets named `GPG_KEY` and `GPG_KEY_ID`: in GitHub, go to your profile picture, select "Settings," then on the left select "Codespaces," and you should see "Secrets" with a green button labeled "New secret."
+It is also possible to overwrite the keys in the file `.xmKeyFile` (but make sure *NEVER* to commit-and-push that file)
 
-When using Codespaces, your own GPG key and ID need to be added to Codespaces Secrets as `GPG_KEY` and `GPG_KEY_ID`. In GitHub, go to your profile picture, select "Settings," then on the left select "Codespaces," and you should see "Secrets" with a green button labeled "New secret."
 
 If you do not yet have a GPG key (check with `gpg --list-keys`), you can generate one with
 ```
@@ -94,6 +139,9 @@ echo $GPG_KEY_ID
 ```
 it should return your public GPG key. If not, quit the browser and reload.
 
+
+
+
 ## Debugging
 
 You get an interactive BASH shell **inside** the Docker container, with your local folder available under `/code`.
@@ -105,39 +153,6 @@ or
 ```
 xake -v compile FILE.tex
 ```
-
-# Deploying from your own computer
-
-To deploy from your own machine, you will need Docker and VS code installed. We will supply further instructions for this soon.
-
-# Making New Courses
-
-There are several options to create a new repo with new Ximera courses that will deploy online:
-
-## Starting from https://github.com/XimeraProject/ximeraNewProject
-
-Clone [this repo](https://github.com/XimeraProject/ximeraNewProject), **remove extraneous content, change the repo name**, and push to your account.
-Then start adding TeX code.
-
-## Starting with an Existing Repository
-
-Follow these steps carefully.
-
-Copy the following files and folders from [this repo](https://github.com/XimeraProject/ximeraNewProject) to your repo:
-
-- `.gitignore`
-- `scripts`
-- `.vscode`
-
-If a `.gitignore` file already exists, we suggest you replace it with ours or at least check for differences. Remember, you should **never** push `.ximeraserve`.
-If a `.vscode` folder exists, compare your files with ours and check for differences.
-
-The `.vscode` folder is not required, but without it, you won’t have the PDF/HTML/Bake/Serve buttons, and you'll need to run:
-
-- `./scripts/xmlatex compilePdf <path-to-your-texfile>`
-- `./scripts/xmlatex compile <path-to-your-texfile>`
-- `./scripts/xmlatex bake`
-- `./scripts/xmlatex serve`
 
 You may need to make `xmlatex` executable with
 ```
