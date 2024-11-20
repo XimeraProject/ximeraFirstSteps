@@ -1,12 +1,4 @@
 
-# Contents
-<!-- MANUAL TOC NEEDED ???? -->
-- [Software requirements and suggestions](#software-requirements-and-suggestions)
-- [Test your software and clone this repository](#test-your-software-and-clone-this-repository)
-- [Deploying this course](#deploying-this-course)
-- [Debugging](#debugging)
-- [Deploying new courses](#deploying-new-courses)
-
 # Software requirements
 
 - a standard TeX installation is sufficient to generate PDF versions of your courses
@@ -142,7 +134,7 @@ git config --global core.editor "nano"
 ```
 
 
-# Test your software and clone this repository
+# Test the installation
 
 ## Start VSCode and Docker
 
@@ -174,39 +166,37 @@ VS Code may ask you if you want to install this via a popup window in the lower 
 
 
 
-## Clone ximeraFirstSteps
+## Start your first project 
 
-If you've chosen to *fork* the repo, you should clone  **your copy** of ximeraFirstSteps.
-If not, you clone the global https://github.com/XimeraProject/ximeraFirstSteps.git repo.  In this case you will not be able to push your changes, but this will not be needed to get familiar with Ximera and test the setup and functionality on your local device.
+On Github, create a personal repo, based on the template ximeraNewProject or ximeraFirstSteps.
 
-For all platforms, upon cloning this repo VS Code might ask if you "trust the authors", which you should,
-and also to 'Install recommended extensions', which you also should do.
-
-Now type `Ctrl-Shift-P` to open the 'Command' window, start typing 'Git clone' until `Git= Clone` appears at the top of the list, and hit enter. 
-Select `Clone from Github`, and start typing `ximeraProject/ximeraFirstSteps` (or `<yourgithubname>/ximeraFirstSteps`)  until you can select the correct copy of 'ximeraFirstSteps'.
+In VSCode, type `Ctrl-Shift-P` to open the 'Command' window, start typing 'Git clone' until `Git Clone` appears at the top of the list, and hit enter. 
+Select `Clone from Github`, and start typing the name of your (username and) repo until you can select the correct repo.
 
 ![An image of VS Code Git: Clone (from Github)](https://github.com/user-attachments/assets/92b85301-4da5-483e-beb5-178b3d193ce2 "Cloning ximeraFirstSteps")
 
 Hit enter, select a place where to clone your local copy of this repo. 
-On Windows, we strongly suggest to use the `~/git` folder *inside* the WSL subsystem.
-This will have *much* better performance than cloning directly on your Windows disk.
+On Windows, we strongly suggest to use the `~/git` folder *inside the WSL subsystem*.
+This will have *much* better performance than cloning directly on your Windows disk,
+and you won't have any issues with line-endings that will drive you crazy.
 
 VS Code will ask to "Open in New Window", and this will start a new VSCode window for this repo.
 
+Upon opening a repo the first time, VS Code might ask if you "trust the authors", which you should do.
 
 ## Allow extensions
 
-Once you clone this repository, VS Code will ask you, via a pop-up (or a notification flag) in the lower right-hand corner, if you want to install extensions. **Install the suggested extensions.**
+Once you open your repository, VS Code will ask you, via a pop-up (or a notification flag) in the lower right-hand corner to install suggested extensions. **Install the suggested extensions.**
 Once the extensions are installed, at the bottom right-hand corner of your VS code window you should have small buttons, named "PDF," "HTML," "SERVE" and "Extra".
 
 ## Start a local ximeraserver
 
 Start a ximeraserver on your own PC from the 'Extra' menu. 
-(The first time, it will download the docker image, which will take some time.)
+(The first time, it will download the docker image, which will take some time. In the mean time, you can continue the next steps of installation the procedure)
 
  Go to http://localhost:2000/repositories
 
-It is accessible with your browser, or even *inside VSCode* with the 'Preview in Simple Browser' option form the Extra menu. (At this point, you have not yet published any courses, and you'll only get a mostly empty screen...)
+It is accessible with your browser, or even *inside VSCode* with the 'Preview in Simple Browser' option form the Extra menu. (Because at this point you have not yet published any courses, you'll only get a mostly empty screen...)
 
 ## PDF/HTML/SERVE
 
@@ -218,14 +208,12 @@ Later compilations will be much faster.
 
 If you press the "SERVE" button, **all** committed files will be compiled to HTML. The very **first** time it will compile all the documents, and this will take some time. However, the next time you compile, it will only compile updated files and that will be **much** faster.
 
-It's not necessary to 'commit' or 'push' your changes at this point, except for new files: they only get compiled when committed once.
+It's not necessary to 'commit' or 'push' your changes at this point, except for *new files*: they only get compiled once committed.
 
-# Check the course(s) on your local ximeraserver
+## Check the course(s) on your local ximeraserver
 
 You should now have access to the course(s) via http://localhost:2000/.
 
 
-
 The file `./xmScripts/config.txt` contains some optional settings for compiling and publishing your courses.
 You should not have to change anything to publish to your local ximeraserver. 
-
