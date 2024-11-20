@@ -1,8 +1,52 @@
-\typeout{Start loading xmPreamble.tex}%
-
-% Add here extra macro's that are loaded automatically by all documents of claas 'ximera' or 'xourse' in this repo
+%
+% Add here extra packages/macro's 
+% that are  *automatically* loaded by all documents of class 'ximera' or 'xourse'
+%
+\typeout{Start loading xmPreamble.tex}         % Write to logfile (for debugging !)
 
 %%
-%%  Example:
+%% Set defaults
+%%
+\license{CC: 0}                    % Default license
+\author{Ximera Development Team}   % Default author  (if one is wanted ...)  
+
+%%
+%%  Load extra packages
+%%
+%%  NOTE: NOT ALL PACKAGES ARE PRESENT in the docker containers
+%%   ( use a container of type '-full' to get a FULL TeXLive )
+
+\usepackage{xstring}     % Needed (at least) infra  for \IfSubStr
+
+
+%%
+%%  Define extra macro's
+%%  Be careful with layout-macro's:
+%%    - they might not work/confuse the HTML version
+%%    - if needed, they could be put in xmPrintStyle.sty   
 %%
 % \newcommand{\R}{\mathbb{R}
+
+
+% 
+% This is a rather very advanced example of using TeX-functionality
+%  First-time users should just skip reading this.
+%  When using this xmPreamble for your own repo,
+%  remove this section, UNLESS YOU WANT pre-2025-OSU versions of hints and expandables
+%  If so, KEEP ONLY the two lines with \def\xmNot....
+%
+%  With this code fragment, one gets BY DEFAULT OSU-style hints.
+%  UNLESS the filename contains the string 'Variant', 
+%         when one gets the newer expandable hints. 
+%  Once the OSU server gets updated, all this will become obsolete.
+\IfSubStr{\jobname}{\detokenize{Variant}}{
+    \typeout{Compiling NEW version for \jobname\ (with hint as expandable)}%
+}{
+    \typeout{Compiling OSU version of hints for \jobname}%
+    % These variables give the OLD types of hints.
+    % In the (near) future, this should no longer be needed.
+    %  Only for use with OSU server, and xake > v2.1.3
+    \def\xmNotHintAsExpandable{1}
+    \def\xmNotExpandableAsAccordion{1}
+}
+% EndOfRatherVeryAdvancedExample
