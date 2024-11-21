@@ -1,5 +1,5 @@
-This repository contains a small Ximera demo course and instructions to deploy it, to get you started as a new Ximera user.
-This Readme shows how to use a Github Codespace to play around with Ximera, edit your first Ximera course, and test a personal online version of it.
+This repository will help get you started as a new Ximera author. It contains a small Ximera demo course and instructions to deploy it both locally and to public servers. 
+We'll teach you how to use a Github Codespace to play around with Ximera, edit your first Ximera course, and test a personal online version of it.
 
 Demo versions of this repo are published as:
 
@@ -9,7 +9,7 @@ Demo versions of this repo are published as:
 The preview version also contains two PDF versions of all pages: one with, and one without the answers (on 11/2024 the links are unfortunately in Dutch...).
 
 
-Ximera is under active development, and new functionality is regularly added. The official Ximera webserver at https://ximera.osu.edu currently runs a version that does not yet support the newest features, and in particular not the newer layout that is available for local testing and at the KU Leuven servers. This is expected to change soon.
+Ximera is under active development and new functionality is regularly added. The official Ximera webserver at (https://ximera.osu.edu) currently runs a version that does not yet support the newest features, and in particular not the newer layout that is available for local testing and at the KU Leuven servers. This is expected to change soon.
 
 In case of problems, please submit an issue on the "Issues" tab at [ximeraFirstSteps](https://github.com/XimeraProject/ximeraFirstSteps).
 
