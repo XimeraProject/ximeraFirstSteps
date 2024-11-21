@@ -44,9 +44,9 @@ But, the real fun of Ximera comes with the online versions of the courses, and o
 
 ## Use Github Codespaces for further experimenting with Ximera
 
-For further experimenting, you could clone or fork the repo to get a personal copy, where you can save changes.
+For further experimenting, you need a personal copy of this repository, where you can save changes.
 
-If you decide to make your own **new** Ximera content, it is better to create a new repo using [ximeraNewProject](https://github.com/XimeraProject/ximeraNewProject) as a Template. There should be a large green "Use this template" button near the top-right of that page. You could also start from this [ximeraFirstSteps](https://github.com/XimeraProject/ximeraFirstSteps) repo, which contains some more demo files.
+If you decide to make your own **new** Ximera content, it is better to create a new repo using [ximeraNewProject](https://github.com/XimeraProject/ximeraNewProject) as a **Template**. There should be a large green "Use this template" button near the top-right of that page. You could also start a **Template** from this [ximeraFirstSteps](https://github.com/XimeraProject/ximeraFirstSteps) repo, which contains some more demo files.
 
 ## Upgrade an existing repository
 
