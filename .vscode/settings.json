@@ -1,8 +1,39 @@
 {
-    "latex-workshop.latex.external.build.command": "./xmScripts/xmlatex",
-    "latex-workshop.latex.external.build.args": [
-        "compilePdf",
-        "/code/%RELATIVE_DIR%/%DOCFILE_EXT%"
+    // Extend PATH to include ./xmScripts, so that 'xmlatex' is found even when not in a xake dockercontainer.
+    //   ( INSIDE a xake container, /usr/local/bin/xmlatex will and should be found!!!)
+    "terminal.integrated.env.linux": {
+        "PATH": "${env:PATH}:${workspaceFolder}/xmScripts"
+    },
+    // // No possibility to extend PATH ...?
+    // "latex-workshop.latex.external.build.command": "xmlatex",
+    // "latex-workshop.latex.external.build.args": [
+    //     "compilePdf",
+    //     "/code/%RELATIVE_DIR%/%DOCFILE_EXT%"
+    // ],
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "xmlatex",
+            "tools": [
+                "xmlatex"
+            ]
+        }
+    ],
+    "latex-workshop.latex.tools": [
+        {
+            "name": "xmlatex",
+            "command": "bash",
+            // Terrible HACK to get PATH expanded, so that also when NOT in a container, 'xmlatex' is found
+            //  (This is only needed to make 'build' work, e.g. via F5 or the green 'Build LaTeX project' icon)
+            //  Note: when run from OUTSIDE a container, the (full) path INSIDE the container will be different !!!!
+            "args": [
+                "-c",
+                "cd %WORKSPACE_FOLDER%; export DEBUG=\"$DEBUG\" PATH=\"$PATH:%WORKSPACE_FOLDER%/xmScripts\";  xmlatex $DEBUG compilePdf ./%RELATIVE_DIR%/%DOCFILE_EXT%"
+            ],
+            "env": {
+                "DEBUG": "",
+                // "DEBUG": "-d",
+            }
+        }
     ],
     "latex-workshop.latex.autoBuild.run": "never",
     "explorer.excludeGitIgnore": true,
@@ -24,7 +55,6 @@
         {
             "label": "HTML",
             "alignment": "right",
-
             "task": "HTML",
             "description": "Create HTML of the current file.",
             "tooltip": "Compile a HTML from the current file."
@@ -70,7 +100,7 @@
                     "label": "Bake handout PDF's (without answers)",
                     "description": "Make handout PDF's.",
                     "problemMatcher": [],
-                },                
+                },
                 {
                     "label": "Serve",
                     "alignment": "right",
@@ -84,7 +114,6 @@
                     "description": "Updates the docker-container, xmScripts en .vscode config",
                     "problemMatcher": [],
                 },
-
                 {
                     "task": "Delete standard",
                     "label": "Delete all standard PDFs",
