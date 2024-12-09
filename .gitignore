@@ -9,7 +9,6 @@
 *.pdf
 ## Folder xmPictures is in the graphicspath, and should contain the pictures used in \includegraphics
 ## So in xmPictures things presumably must be committed
-xmPictures/*
 !xmPictures/*.jpg
 !xmPictures/*.pdf
 !xmPictures/*.png
