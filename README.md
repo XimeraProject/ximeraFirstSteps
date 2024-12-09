@@ -37,11 +37,6 @@ New functionality will become available for new or updated courses.
 
 #  Further steps if you liked what you saw
 
-## Use your local TeX installation 
-
-First, to create a PDF version of a Ximera course or activity, you can use your existing (recent) TeX installation with a recent version of the Ximera package installed (as found on CTAN).
-But, the real fun of Ximera comes with the online versions of the courses, and online development is easier with either Github Codespaces or Docker.
-
 ## Use Github Codespaces for further experimenting with Ximera
 
 For further experimenting, you need a personal copy of this repository, where you can save changes.
@@ -91,6 +86,7 @@ Note: in a codespace (or inside a Docker container), `pdflatex` and `xake` are a
 ## Developing on your own PC
 
 If you prefer to work locally on your own PC, it is strongly advised to use Docker as explained [here](README_localsetup.md).
+
 
 ## Publishing the course(s) to a public Ximera server (requires a GPG key)
 
