@@ -12,6 +12,7 @@
         {
             "label": "PDF",
             "args": [
+                "-v",
                 "compilePdf",
                 "${relativeFile}"
             ],
@@ -19,8 +20,7 @@
         {
             "label": "HTML",
             "args": [
-                "--",
-                "--skip-mathjax",
+                "-d",
                 "compile",
                 "${relativeFile}"
             ],
@@ -29,14 +29,14 @@
             "label": "Bake",
             "args": [
                 "--",
-                "--skip-mathjax",
                 "bake"
             ],
         },
         {
             "label": "All",
             "args": [
-                "-d", "all"
+                "-v", 
+                "all"
             ],
         },
         {
