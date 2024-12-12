@@ -9,6 +9,7 @@
     A simple Ximera activity.
 \end{abstract}
 \maketitle
+\label{xim:aFirstActivity}
 
 Perhaps the most natural setting for Ximera content is that of a
 \textit{worksheet}. This is some document that may contain discussion as well
@@ -28,7 +29,7 @@ We use\verb|\begin{definition}| for definitions and \verb|\begin{question}| for
 questions. Since Ximera provides immediate feedback, we suggest following
 definitions like this one by a quick question. Here's an example:
 
-\begin{definition}
+\begin{definition}\label{def:absolute_value}
     The \textbf{absolute value} of a real number $a$, denoted by $|a|$, is
     \[
         |a| = \begin{cases}
@@ -75,7 +76,8 @@ Where is the mistake in the work above?
 
 \section{Basic exercises}
 
-After that, you might want to have some exercises:
+After that, you might want to have some exercises.
+You will not find any inspiration in the above \hyperref[def:absolute_value]{definition of the absolute value}.
 
 \begin{exercise}
     Let $x$ be the number of people
