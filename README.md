@@ -49,9 +49,9 @@ If you already have a repo with a Ximera course, you can
 copy the following files and folders from [this repo](https://github.com/XimeraProject/ximeraNewProject) to your repo:
 
 - `.gitignore`
-- `.devcontainer/`
 - `xmScripts/`
 - `.vscode/`
+- `.devcontainer/` (only necessary if you wish to use a codespace}
 
 If a `.gitignore` file already exists in your repo, we suggest you replace it with ours or at least check for differences. Note: **never** push the file `.xmKeyFile` with your own key.
 
