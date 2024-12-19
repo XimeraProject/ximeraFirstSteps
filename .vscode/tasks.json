@@ -40,9 +40,17 @@
             ],
         },
         {
-            "label": "Serve",
+            "label": "All",
             "args": [
-                "serve"
+                "-v", 
+                "all"
+            ],
+        },
+        {
+            "label": "TEST",
+            "args": [
+                "all"
+                "--compile make4ht.html"
             ],
         },        
         {

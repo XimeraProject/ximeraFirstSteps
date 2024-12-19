@@ -83,6 +83,13 @@
                     "problemMatcher": [],
                 },
                 {
+                    "label": "TEST",
+                    "alignment": "right",
+                    "task": "TEST",
+                    "description": "Quick compile-and-serve for unittests",
+                    "tooltip": "Quick compile-and-serve for unittests"
+                },                
+                {
                     "label": "Bake",
                     "alignment": "right",
                     "task": "Bake",
