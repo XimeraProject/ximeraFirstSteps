@@ -1,0 +1,452 @@
+#!/usr/bin/env texlua
+kpse.set_program_name "luatex"
+
+local pl = require "penlight"
+local utils = require "pl.utils"
+local tablex = require("pl.tablex")
+local path = pl.path
+local lapp = require "pl.lapp"
+-- local lapp = require "lapp-mk4"   -- the above is 'better'?
+
+logging = require("luaxake-logging")
+-- better make a logfile per day ... ?
+-- NOTE: after a chdir (as in compile...), the logfile would change without the abspath!!
+logging.set_outfile(path.abspath("luaxake.log"))     
+
+local log = logging.new("luaxake")
+local version = "{{version}}"
+
+local files   = require "luaxake-files"
+local compile = require "luaxake-compile"
+local frost   = require "luaxake-frost"
+local html    = require "luaxake-transform-html"
+
+
+-- TODO: fix syntax with [command dirs]: should be 1 obligatory, then many optional args 
+local option_text = [[ 
+Luaxake: build system for Ximera documents
+Usage: 
+$ luaxake [command dirs] 
+
+Options: 
+-h,--help                            Print help message
+-l,--loglevel  (default info)        Set log level: trace, debug, info, status, warning, error, fatal
+-s,--settings  (default none)        Luaxake settings script
+-v,--version                         Version info
+-f,--force                           Recompile anyway
+-C,--compile   (default none)        Compile sequence (default 'pdf,html', or as set in settings)
+--check                              Check, no cleaning/compiling
+--config       (default ximera.cfg)  TeX4ht config file
+
+
+Possible commands:
+ bake
+ name               -- NOT YET IMPLEMENTED HERE: see xmlatex !!!
+ frost
+ serve
+ clean / veryclean  -- to be changed/improved
+ info               -- not yet very useful..
+ ]]
+
+-- REMOVED: <dir>  (table)                 Document root directory
+--- @class args
+--- @field config    string   TeX4ht config file
+--- @field help      boolean  Print help message
+--- @field settings  string   Luaxake settings script
+--- @field loglevel  string   Logging level
+--- @field version   boolean  Print version
+--- @field command   string   Command to execute
+--- @field dir       table    Document root directory
+local args = lapp(option_text)
+
+if args.version then
+  print("Luaxake version: " .. (version == "{{version}}" and "devel" or version))
+  os.exit()
+end
+
+logging.set_level(args.loglevel)
+
+-- first real argument is the command (bake/frost/serve/...)
+local command = table.remove(args, 1)
+
+if not command then
+  log:error("Usage: script [command] <files-or-folders...>")
+  os.exit(1)
+end
+
+log:debug("command: "..command)
+
+ 
+-- all further arguments are considered dirs/files to be processed
+local dirs = {}
+
+for i, value in ipairs(args) do
+    log:trace("Args: adding file/dir "..value)
+    table.insert(dirs, value)
+end
+
+if #dirs == 0 then
+  log:debug("Using root folder . as default argument/target")
+  dirs = {"."}
+end
+
+--
+-- FOR REFERENCE:   (and to be checked ...?)
+--
+
+--- @class DOM_Object 
+--- Dummy type declaration for LuaXML DOM object, to prevent error messages from language server
+--- @field query_selector function get all elements that match a given CSS selector
+--- @field get_children   function 
+--- @field get_text       function 
+--- @field get_attribute  function
+--- @field remove_node    function
+
+--- @class compiler 
+--- @field command       string  command template
+--- @field check_log?    boolean should we check the log file for errors?
+--- @field check_file?   boolean execute command only if the output file exists
+--- @field status?       number  expected status code from the command
+--- @field process_html? boolean run HTML post-processing
+
+--- @class config
+--- @field output_formats      [string] list of output format extensions
+--- @field documentclass_lines number   on how many lines in TeX files we should try to look for \documentclass
+--- @field compilers           {string: compiler}
+--- @field compile_sequence    [string] sequence  of compiler names to be executed
+--- @field clean               [string] list of extensions of temp files to be removed after the compilation
+--- @field config_file         string   TeX4ht config file 
+
+config = {
+  -- list of outputs ( and extensions )
+  output_formats = {"make4ht.html", "pdf", "handout.pdf"},
+  -- output_formats = {"html", "pdf", "sagetex.sage"},    -- TODO: check/implement sage
+  compile_sequence = {"pdf", "make4ht.html", "handout.pdf"},
+  -- compile_sequence = {"pdf", "sagetex.sage", "pdf", "html"},
+  -- see infra --   default_dependencies = { "xmPreamble.tex" },     -- add here e.g. xmPreamble, ximera.cls, ...
+  compilers = {
+    -- just a dummy test: create .ddd files that contain the date ..
+    ddd = {
+      command = 'date >@{basename}.ddd',     
+      status = 0, -- check that the latex command return 0
+    },
+    pdf = {
+      -- this doesn't work well
+      -- command = 'pdflatex -interaction=nonstopmode  -file-line-error -shell-escape  "\\PassOptionsToClass{tikzexport}{ximera}\\PassOptionsToClass{xake}{ximera}\\PassOptionsToClass{xake}{xourse}\\nonstopmode\\input{@{filename}}"',
+      -- command = 'pdflatex -interaction=nonstopmode  -file-line-error -shell-escape  "\\PassOptionsToClass{xake}{ximera}\\PassOptionsToClass{xake}{xourse}\\input{@{filename}}"',
+      command = 'pdflatex -interaction=nonstopmode  -file-line-error -shell-escape  "\\input{@{filename}}"',     -- mmm, this increases the .jax file !!!
+      check_log = true,     -- check log
+      status = 0,           -- check that the latex command return 0
+      infix = "" ,          -- used for .handout, and .make4k4
+      extension = "pdf",    -- not used ????
+      post_command = 'move_to_downloads',
+      download_folder = 'ximera-downloads/with-answers',
+    },
+    ["handout.pdf"] = {
+      command = 'pdflatex -interaction=nonstopmode  -file-line-error -shell-escape  -jobname @{basename}.handout "\\PassOptionsToClass{handout}{ximera}\\PassOptionsToClass{handout}{xourse}\\input{@{filename}}"',
+      check_log = true, -- check log
+      status = 0, -- check that the latex command return 0
+      extension = "handout.pdf",
+      infix = "handout" ,
+      post_command = 'move_to_downloads',
+      download_folder = 'ximera-downloads/handouts',
+    },
+    -- 20241217: use make4ht.html !
+    html = {
+      -- command = "make4ht -f html5+dvisvgm_hashes -c @{config_file} -sm draft @{filename}",
+      -- command = "make4ht -c @{config_file} -f html5+dvisvgm_hashes -s @{make4ht_mode} -a debug @{filename} 'svg,htex4ht,mathjax,-css,info,tikz+' '' '' '--interaction=nonstopmode -shell-escape -file-line-error'",
+      command = "make4ht -c @{config_file} -f html5+dvisvgm_hashes          -j @{basename}.make4ht -s @{make4ht_extraoptions} @{filename} 'svg,htex4ht,mathjax,-css,info,tikz+' '' '' '--interaction=nonstopmode -shell-escape -file-line-error'",
+      check_log = true, -- check log
+      status = 0, -- check that the latex command return 0
+      process_html = false,
+      post_command = 'process_html',
+      extension = "html",
+      infix = "make4ht" ,
+    },
+    ["make4ht.html"] = {
+      command = "make4ht -c @{config_file} -f html5+dvisvgm_hashes          -j @{basename}.make4ht -s @{make4ht_extraoptions} @{filename} 'svg,htex4ht,mathjax,-css,info,tikz+' '' '' '--interaction=nonstopmode -shell-escape -file-line-error'",
+      check_log = true, -- check log
+      status = 0, -- check that the latex command return 0
+      process_html = false,
+      post_command = 'process_html',
+      extension = "html",
+      infix = "make4ht" ,
+    },
+    -- do not use, only for testing
+    ["draft.html"] = {
+      command = "make4ht -c @{config_file} -f html5+dvisvgm_hashes -m draft -j @{basename}.make4ht -s @{make4ht_extraoptions} @{filename} 'svg,htex4ht,mathjax,-css,info,tikz+' '' '' '--interaction=nonstopmode -shell-escape -file-line-error'",
+      check_log = true, -- check log
+      status = 0, -- check that the latex command return 0
+      post_command = 'process_html',
+      extension = "html",
+      infix = "make4ht" ,
+    },
+    -- sage not tested/implemented !!!!
+    ["sagetex.sage"] = {
+      command = "sage @{output_file}",
+      check_log = true, -- check log
+      check_file = true, -- check if the sagetex.sage file exists
+      status = 0, -- check that the latex command return 0
+      extension = "sage",   -- ?
+    },
+
+  },
+  -- used for dependency-checking in .tex files
+  input_commands = {
+    input=true, 
+    include=true, 
+    includeonly=true,
+    activity=true, 
+    activitychapter=true, 
+    activitysection=true, 
+    practicechapter=true, 
+    practicesection=true, 
+  }, 
+  -- automatically clean files immediately after each compilation
+  -- the commented extensions might cause issues when automatically clean, to be verified
+  clean = {
+    -- "aux",
+    "4ct",
+    "4tc",
+    "oc",
+    "md5",
+    "dpth",
+    "out",
+    -- "jax",
+    "idv",
+    "lg",
+    "tmp",
+    -- "xref",
+    -- "log",
+    "auxlock",
+    "dvi",
+    "scmd",
+    "sout",
+    "ids",
+    "mw",
+    "cb",
+    "cb2",
+  },
+  -- make4ht_loglevel = "",
+  make4ht_extraoptions= "",
+  -- number of lines in tex files where we should look for \documentclass
+  documentclass_lines = 30,
+}
+
+-- set/add potential default dependencies
+if not config.default_dependencies and path.exists("xmPreamble.tex") then
+  log:info("Adding default dependency xmPreamble.tex")
+  config.default_dependencies = { files.get_metadata("xmPreamble.tex") }
+else
+  config.default_dependencies = {}
+end
+
+
+config.config_file = args.config
+config.force_compilation = args.force
+if config.config_file ~= "ximera.cfg" then
+  log:warning("Using non-default config file " .. config.config_file)
+end
+
+if args.settings ~= "none" then
+  -- config file can be a Lua script, which should only set properties for the config table
+  local configlib = require "luaxake-config"
+  log:info("Using settings file: " .. args.settings)
+  configlib.update_config(args.settings, config)
+end
+
+if args.compile ~= "none" then
+  config.compile_sequence = utils.split(args.compile,',')
+  config.output_formats   = utils.split(args.compile,',')
+  log:info("Set compile_sequence and output_formats to " .. args.compile)
+end
+
+config.check = args.check
+
+-- local function array_to_set(array)
+--   local set = {}
+--   for _, v in ipairs(array) do
+--       set[v] = true
+--   end
+--   return set
+-- end
+
+-- config.include_extensions = array_to_set({
+--   "tex",
+--   "html",
+--   "sty",
+--   "pdf",
+-- })
+
+
+config.dirs = dirs
+
+
+-- collect all metadata / to_be_compiled etc
+
+local tex_files = {}
+
+for i,nextarg in ipairs(config.dirs) do 
+
+  log:info("Processing argument " .. nextarg)
+
+  local more_tex_files = {}
+  
+  if path.isdir(nextarg) then
+    more_tex_files = files.get_tex_files_with_status(nextarg, config.output_formats, config.compilers)
+  -- an existing TeX-file, but without the extension
+  elseif not path.isfile(nextarg) and path.isfile(nextarg..".tex" ) then    
+    log:trace("Adding .tex extension to file "..nextarg)
+    nextarg = nextarg..".tex"
+  elseif    ( path.isfile(nextarg) and nextarg:match("%.tex$") ~= nil   )     -- an existing TeX-file
+  then
+    local metadata = files.get_metadata(nextarg)
+    metadata.needs_compilation = true;
+    log:debug("Explicitly adding tex file "..metadata.filename)
+    more_tex_files = { metadata }
+    to_be_compiled = tex_files
+  elseif  nextarg:match("%.tex$") == nil then
+    log:warning("File "..nextarg.." not a .tex file: SKIPPING")
+  else
+    log:warning("File "..nextarg.." not found: SKIPPING")
+  end
+
+  table.move(more_tex_files, 1, #more_tex_files, #tex_files+1, tex_files)
+end
+
+
+log:debugf("Finding dependencies, and sorting files for %d tex_files", #tex_files)
+local to_be_compiled = files.sort_dependencies(tex_files, config.force_compilation)
+if #to_be_compiled > 0 then
+  log:status(#to_be_compiled.." files need compiling")
+else 
+  log:status("No files need compiling")
+end
+
+  --
+  -- Start processing further commands
+  --
+
+  if command == "info" then
+    log:info("Got tex files:")
+    for _,file in ipairs(tex_files) do
+        print(file.relative_path)
+
+
+    end
+  end
+
+  if command == "clean" or command == "veryclean" then
+    local n_files_deleted = 0
+    local to_be_cleaned_extensions = tablex.copy(config.clean)
+    if command == "veryclean" then
+      log:debug("Appending extra extensions")
+      tablex.insertvalues(to_be_cleaned_extensions, config.output_formats)   -- append arrays ...
+      tablex.insertvalues(to_be_cleaned_extensions, { "aux", "toc", "log", "xref", "jax" })   -- append arrays ...
+      log:debugf("Appended extra extensions %s", table.concat(to_be_cleaned_extensions, ', '))
+    end
+    log:status("Cleaning files ", table.concat(to_be_cleaned_extensions, ', '))
+    
+    for _,file in ipairs(tex_files) do
+      n_files_deleted = n_files_deleted  + compile.clean(file, to_be_cleaned_extensions, config.check)
+    end
+
+    -- require 'pl.pretty'.dump(config)
+    -- require 'pl.pretty'.dump(to_be_cleaned_extensions)
+
+    log:infof("Cleaned %d files", n_files_deleted)
+  end 
+
+      
+  -- TODO: fix commands (cfr xmlatex/xmlatex/lua)
+  if command == "bake" or command == "compilePdf" or command ==  "compile" then
+    log:status("Start "..command)
+
+    if command == "compilePdf" then
+      log:info("Compile only PDF")
+      config.compile_sequence = { "pdf" }
+    end
+    if command == "compile" then
+      log:info("Compile only HTML")
+      config.compile_sequence = { "make4ht.html" }
+    end
+
+    local all_statuses = {}
+    if #to_be_compiled == 0 then
+      log:status("Nothing to be baked")
+    else
+    for i, file in ipairs(to_be_compiled) do
+      log:status(string.format("Compiling file %3d/%d: %s", i, #to_be_compiled, file.absolute_path))
+
+      local statuses = compile.compile(file, config.compilers, config.compile_sequence, config.check)
+      table.insert(all_statuses,statuses)
+
+      compile.print_errors(statuses)
+      compile.clean(file, config.clean)
+    end
+
+    -- filter errors out all statuses
+    local errors = {}
+    for _, entry in ipairs(all_statuses) do 
+      for _, info in ipairs(entry) do
+        log:debug("File "..(info.output_file or "UNKNOWN??") .." got status " .. (info.status or 'NIL??') )
+        -- require 'pl.pretty'.dump(info)
+      
+        if (info.status or 0) > 0 then 
+          table.insert(errors, info) 
+          -- errors is a list-per-compile-instance of a table with command/errors (with filename/line/error/context) and (FULL!!!) output )
+        end 
+      end
+    end
+
+    if #errors == 0 then
+      log:info("Baked "..#to_be_compiled.." files without finding errors")      
+    else
+      log:errorf("Baking failed with %d error%s detected", #errors, #errors == 1 and "" or "s")
+
+      for _, errorinstance in ipairs(errors) do
+          for _, err in ipairs(errorinstance.errors) do
+            -- require 'pl.pretty'.dump(err)
+            log:errorf("Summary: %s: %s [%s]", err.filename, err.context,err.error)
+          end
+      end
+      os.exit(1)
+    end
+  end
+end    -- end baking
+
+-- process commands that do not depend on collecting metadata
+
+if command == "frost" then
+  log:status("Start " .. command)
+  local ret, msg = frost.frost(tex_files, to_be_compiled)
+  if ret > 0 then
+    log:error("Frost failed:", msg)
+    os.exit(ret)
+  end
+end
+
+if command == "serve" then
+  log:status("Start " .. command)
+  local ret, msg = frost.serve()  
+  if ret > 0 then
+    log:error("Serve failed:", msg)
+    os.exit(ret)
+  end
+end
+
+
+if command == "extrainfo" then
+  all_labels = {}
+  -- TEST: to be implemented ...?
+  for i, file in ipairs(tex_files) do
+    log:infof("Info for %s (%s)",file.filename,file.relative_path)
+    
+        local dom, msg = html.load_html(file.relative_path:gsub("tex$", "html"))
+        
+        file.labels = html.get_labels(dom)
+        for k,v in pairs(file.labels) do all_labels[k] = ( all_labels[k] or 0) + v end
+  end
+  require 'pl.pretty'.dump(all_labels)
+
+end

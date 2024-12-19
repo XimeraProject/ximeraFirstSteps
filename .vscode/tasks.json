@@ -20,7 +20,7 @@
         {
             "label": "HTML",
             "args": [
-                "-d",
+                "-v",
                 "compile",
                 "${relativeFile}"
             ],
@@ -28,7 +28,7 @@
         {
             "label": "Bake",
             "args": [
-                "--",
+                "-v",
                 "bake"
             ],
         },
