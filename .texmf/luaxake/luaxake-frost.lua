@@ -44,8 +44,8 @@ local function get_output_files(file, extension)
         if entry.extension == extension then --and entry.info.type == targetType then
             if extension == "make4ht.html" then
                 local file = files.get_metadata(entry.reldir, entry.basenameshort..".html")
-                require 'pl.pretty'.dump(entry)
-                require 'pl.pretty'.dump(file)
+                -- require 'pl.pretty'.dump(entry)
+                -- require 'pl.pretty'.dump(file)
                 table.insert(result, file)
                 log:debug(string.format("Hacking %-4s outputfile: %s ", file.extension, file.absolute_path))
             else

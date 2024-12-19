@@ -423,10 +423,13 @@ local function process(file)
   local f = io.open(jax_file, "r")
   local cmds = f:read("*a")
   f:close()
-  local filtered_commands= cmds:gsub("[^\n]*[:*@].-\n", "")
+  local filtered_cmds= cmds:gsub("[^\n]*[:*@].-\n", "")
   
-  log:infof("Adding %d \newcommand (%d filtered)",#filtered_commands,#cmds) 
-  local scrpt_text = scrpt:create_text_node(filtered_commands)
+  local _, n_cmds = cmds:gsub("\n","")
+  local _, n_filtered_cmds = filtered_cmds:gsub("\n","")
+
+  log:infof("Adding %d newcommands (%d filtered)",n_filtered_cmds,n_cmds - n_filtered_cmds) 
+  local scrpt_text = scrpt:create_text_node(filtered_cmds)
   scrpt:add_child_node(scrpt_text)
   preamble:add_child_node(scrpt)
 
