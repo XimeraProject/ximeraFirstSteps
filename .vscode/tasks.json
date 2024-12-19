@@ -49,7 +49,7 @@
         {
             "label": "TEST",
             "args": [
-                "all"
+                "all",
                 "--compile make4ht.html"
             ],
         },        
