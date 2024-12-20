@@ -14,7 +14,11 @@
 # For publishing to a publicly available website, you'll need proper keys.
 #      via Codespaces: connect keys via GitHub Codespaces Secrets
 #      on your PC:     set environment variables, or edit .xmKeyFile
+# To generate a key-pair, fill in your name and email, and run 'xmlatex genKey'
+YOUR_NAME=""
+YOUR_EMAIL=""
 # !! Do NEVER commit real keys to the repo !!
+# !! DO NEVER SAVE THE KEYS THEMSELVE IN THIS FILE   !!
 #
 
 ## : "${XIMERA_NAME:=myreponame}"
