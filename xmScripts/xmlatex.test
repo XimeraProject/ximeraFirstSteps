@@ -295,6 +295,36 @@ then
     # interactive shell (option -i needed when starting the container !)
     shift  #  remove "bash"
     ${XAKE%xake} /bin/bash $*
+elif [[ "$COMMAND" == "genKey" ]]
+then
+
+    KEY_UID="$KEY_NAME <$KEY_EMAIL>"
+
+    [[ -z "$KEY_EMAIL" ]] && error "Please set KEY_NAME and KEY_EMAIL in config.txt"
+    [[ -z "$KEY_NAME" ]]  && error "Please set KEY_NAME and KEY_EMAIL in config.txt"
+
+    # Generate the key non-interactively
+    echo "" | gpg --batch --passphrase '' --quick-gen-key "$KEY_UID" rsa4096 default 1y 
+
+    # Retrieve the fingerprint
+    FINGERPRINT=$(gpg --with-colons --list-keys "$KEY_EMAIL" | grep '^fpr' | cut -d':' -f10)
+
+
+    # Output the fingerprint
+    echo "Key generated successfully!"
+    echo "Fingerprint: $FINGERPRINT"
+
+    PKEY=$(gpg --export-secret-keys -a "$KEY_EMAIL" )
+    echo -e "PRIVATE KEY:\n $PKEY\n"
+
+    gpg --batch --yes --delete-secret-key "$FINGERPRINT"
+    gpg --batch --yes --delete-key "$FINGERPRINT"
+
+    echo "Key $FINGERPRINT already deleted. Save it immediately, or generate a new one."
+
+
+    exit 0
+
 elif [[ "$COMMAND" == "texHtml" ]]
 then
     # THIS OPTION IS CALLED BY xake (versions >= 2.1.1) (and ONLY with this option, at least in xake 2.1.1...!)
