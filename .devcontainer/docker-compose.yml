@@ -1,7 +1,7 @@
 services:
   app:
-    image: ghcr.io/ximeraproject/xake2024:v2.4.2
-    # image: ghcr.io/ximeraproject/xake2024:v2.4.2-full
+    image: ghcr.io/ximeraproject/xake2024:v2.4.3
+    # image: ghcr.io/ximeraproject/xake2024:v2.4.3-full
     volumes:
       # This is where VS Code should expect to find your project's source code and the value of "workspaceFolder" in .devcontainer/devcontainer.json
       - ..:/code:cached
