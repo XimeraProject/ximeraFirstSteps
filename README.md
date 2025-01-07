@@ -49,9 +49,9 @@ If you already have a repo with a Ximera course, you can
 copy the following files and folders from [this repo](https://github.com/XimeraProject/ximeraNewProject) to your repo:
 
 - `.gitignore`
-- `.devcontainer/`
 - `xmScripts/`
 - `.vscode/`
+- `.devcontainer/` (only necessary if you wish to use a codespace}
 
 If a `.gitignore` file already exists in your repo, we suggest you replace it with ours or at least check for differences. Note: **never** push the file `.xmKeyFile` with your own key.
 
@@ -66,13 +66,10 @@ The `.vscode` folder is not required, but without it, you won’t have the PDF/H
 
 
 The xmlatex script will download and start a docker container to compile your code. It does not need nor use a local TeX installation. But it requires a correct Docker setup on your PC.
-Files in `.xmScripts` must be executible. If there is an issue with permissions, open the Codespace and run
+Files in `.xmScripts` must be executable. If there is an issue with permissions, open the codespace and run
 ```
 chmod +x ~/xmScripts/xmlatex*
 ```
-It is not required but strongly advised to also have Visual Studio Code. 
-It remains possible though to edit your `.tex` files with the editor of your choice.
-
 Note: in a codespace (or inside a Docker container), `pdflatex` and `xake` are available and the xmlatex script is in your PATH so you can use
 
 - `xmlatex compilePdf <path-to-your-texfile>`
