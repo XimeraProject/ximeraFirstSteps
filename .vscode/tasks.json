@@ -26,6 +26,13 @@
             ],
         },
         {
+            "label": "SERVE",
+            "args": [
+                "-v", 
+                "all"
+            ],
+        },
+        {
             "label": "Bake",
             "args": [
                 "-v",
@@ -33,26 +40,19 @@
             ],
         },
         {
-            "label": "All",
+            "label": "Serve",
             "args": [
-                "-v", 
-                "all"
+                "-v",
+                "serve"
             ],
         },
         {
-            "label": "All",
+            "label": "Frost",
             "args": [
-                "-v", 
-                "all"
+                "-v",
+                "frost"
             ],
         },
-        {
-            "label": "TEST",
-            "args": [
-                "all",
-                "--compile make4ht.html"
-            ],
-        },        
         {
             "label": "Start Ximera Server",
             "args": [
@@ -64,33 +64,39 @@
                 "command": "${input:openSimpleBrowser}",
         },
         {
-            "label": "Bake standard",
+            "label": "Bake PDF",
             "args": [
-                "bakestandaard"
+                "bake",
+                "--compile pdf",
+            ],
+        },
+        {
+            "label": "Bake PDF (force rebuild)",
+            "args": [
+                "bake",
+                "-f",
+                "--compile pdf",
             ],
         },
         {
             "label": "Bake handout",
             "args": [
-                "bakehandout"
+                "bake",
+                "--compile handout.pdf",
             ],
         },
         {
-            "label": "Delete standard",
+            "label": "Bake handout (force rebuild)",
             "args": [
-                "cleanstandaard"
-            ],
-        },
-        {
-            "label": "Delete handout",
-            "args": [
-                "cleanhandout"
+                "bake",
+                "-f",
+                "--compile handout.pdf",
             ],
         },
         {
             "label": "Delete all",
             "args": [
-                "clean"
+                "veryclean"
             ],
         },
         {

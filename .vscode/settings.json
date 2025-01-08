@@ -62,7 +62,7 @@
         {
             "label": "SERVE",
             "alignment": "right",
-            "task": "All",
+            "task": "SERVE",
             "description": "Build and publish this project.",
             "tooltip": "Build and publish this repo."
         },
@@ -79,16 +79,17 @@
                 {
                     "task": "Preview in Simple Browser",
                     "label": "Preview in Simple Browser",
+                    "description": "View the local webserver in a preview window",
                     // "description": "Start local Ximera webserver.",
                     "problemMatcher": [],
-                },
-                {
-                    "label": "TEST",
-                    "alignment": "right",
-                    "task": "TEST",
-                    "description": "Quick compile-and-serve for unittests",
-                    "tooltip": "Quick compile-and-serve for unittests"
                 },                
+                {
+                    "task": "Delete all",
+                    "label": "Delete all HTML and PDFs",
+                    "description": "Remove all generated files",
+                    "problemMatcher": [],
+                },
+
                 {
                     "label": "Bake",
                     "alignment": "right",
@@ -97,9 +98,15 @@
                     "tooltip": "Bake this project."
                 },
                 {
-                    "task": "Bake standard",
-                    "label": "Bake standard PDFs (with answers)",
-                    "description": "Make  full PDF's. ('standaard')",
+                    "task": "Bake pdf",
+                    "label": "Bake PDF's (with answers)",
+                    "description": "Make PDF's.",
+                    "problemMatcher": [],
+                },
+                {
+                    "task": "Bake pdf (force rebuild)",
+                    "label": "Force (re-)Bake PDF's (with answers)",
+                    "description": "Make PDF's.",
                     "problemMatcher": [],
                 },
                 {
@@ -109,31 +116,29 @@
                     "problemMatcher": [],
                 },
                 {
+                    "task": "Bake handout (fore rebuild)",
+                    "label": "Force (re-)Bake handout PDF's (without answers)",
+                    "description": "Make handout PDF's.",
+                    "problemMatcher": [],
+                },
+                {
+                    "label": "Frost",
+                    "alignment": "right",
+                    "task": "Frost",
+                    "description": "Frost this project.",
+                    "tooltip": "Frost this project."
+                },
+                {
                     "label": "Serve",
                     "alignment": "right",
                     "task": "Serve",
-                    "description": "Serve this project (does also 'frost', but no 'bake').",
+                    "description": "Serve this project.",
                     "tooltip": "Serve this project."
                 },
                 {
                     "task": "Update DevEnv",
                     "label": "Update the build environment",
                     "description": "Updates the docker-container, xmScripts en .vscode config",
-                    "problemMatcher": [],
-                },
-                {
-                    "task": "Delete standard",
-                    "label": "Delete all standard PDFs",
-                    "problemMatcher": [],
-                },
-                {
-                    "task": "Delete handout",
-                    "label": "Delete all handout PDFs",
-                    "problemMatcher": [],
-                },
-                {
-                    "task": "Delete all",
-                    "label": "Delete all HTML and PDFs",
                     "problemMatcher": [],
                 },
             ],
