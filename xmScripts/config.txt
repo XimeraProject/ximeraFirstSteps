@@ -2,9 +2,9 @@
 # version of Ximera xake container to use (with xmlatex)
 #
 #: "${XAKE_BASE:=ximeralatex}"
-#: "${XAKE_VERSION:=latest}"
-#: "${XAKE_VERSION:=v2.5.0-full}"
+#: "${XAKE_VERSION:=v2.5.5-full}"
 ## Alternatives:
+#: "${XAKE_VERSION:=latest}"
 # : "${XAKE_VERSION:=v2.4.2-full}"    # with texlive_full
 #
 #
@@ -21,7 +21,7 @@ YOUR_EMAIL=""
 
 ## : "${XIMERA_NAME:=myreponame}"
 ## : "${XIMERA_URL:=http://localhost:2000/}"
-## : "${XIMERA_URL:=https://ximera.osu.edu}"
+## : "${XIMERA_URL:=https://ximera.osu.edu/}"
 ## : "${XIMERA_URL:=https://set-p-dsb-zomercursus-latest.cloud-ext.icts.kuleuven.be/}"
 ## : "${XIMERA_URL:=https://set.kuleuven.be/voorkennis/}"
 
@@ -43,3 +43,12 @@ YOUR_EMAIL=""
 # export DOCKER_REPO=" "
 # export XM_PUSH_FORCE=1
 # export XM_FROST_WITH_UNCOMMITTED_CHANGES=1
+#
+# For use in Actions, and perhaps to adapt the functionality of the PDF/HTML/SERVE buttons
+#
+# export XM_COMPILE_SEQUENCE=draft.html      # which output to generate, eg "handout.pdf,draft.html"
+# export XM_TO_PROCESS=aFirstXourse.tex      # only build/frost/serve these files/courses
+# export XM_CONFIGFILE=more.cfg              # exotic: if you want to use a different TeX4ht config file
+# export XM_SETTINGSFILE=config.lua          # yet another way to set some options/Settings
+# export XM_ONLY_CHECK=1                     # do not actually compile/clean anything  (NOT IMPLEMENTED for frost/serve!)
+# export XM_FORCE=1                          # force build (even if uptodate) and serve (use push -f)

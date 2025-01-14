@@ -43,7 +43,7 @@ fi
 #
 # default docker image to run; overwrite with 'export XAKE_IMAGE=myxake:0.1'
 : "${XAKE_BASE:=ximeralatex}"
-: "${XAKE_VERSION:=v2.5.0}"
+: "${XAKE_VERSION:=v2.5.5}"
 # : "${XAKE_BASE:=xake2019}"
 # : "${XAKE_VERSION:=v2.1.1}"
 : "${XAKE_CONTAINER:=$XAKE_BASE:$XAKE_VERSION}"
