@@ -3,10 +3,11 @@ We'll teach you how to use a Github Codespace to play around with Ximera, edit y
 
 Demo versions of this repo are published as:
 
-- [a preview with the newest Ximera layout](https://set.kuleuven.be/voorkennis/firststeps24/aFirstXourseVariant/aFirstFolder/aFirstActivityVariant)
+- [a preview with the newest Ximera layout](https://set-p-dsb-zomercursus-latest.cloud-ext.icts.kuleuven.be/firststeps/aFirstXourseVariant/aFirstFolder/aFirstActivityVariant)
 - [a version on the current production server](https://ximera.osu.edu/firststeps24/aFirstXourse/aFirstFolder/aFirstActivity)
 
 The preview version also contains two PDF versions of all pages: one with, and one without the answers (on 11/2024 the links are unfortunately in Dutch...).
+The preview version is automatically updated whenever a new tag is created on this repo.
 
 
 Ximera is under active development and new functionality is regularly added. The official Ximera webserver at (https://ximera.osu.edu) currently runs a version that does not yet support the newest features, and in particular not the newer layout that is available for local testing and at the KU Leuven servers. This is expected to change soon.
