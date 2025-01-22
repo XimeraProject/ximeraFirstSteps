@@ -141,6 +141,12 @@
                     "description": "Updates the docker-container, xmScripts en .vscode config",
                     "problemMatcher": [],
                 },
+                {
+                    "task": "Generate GPG key",
+                    "label": "Generate a (new) GPG key",
+                    "description": "First add your name/email to config.txt",
+                    "problemMatcher": [],
+                },
             ],
         },
     ]

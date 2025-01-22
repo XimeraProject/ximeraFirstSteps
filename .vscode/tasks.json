@@ -105,6 +105,12 @@
                 "updateDevEnv"
             ],
         },
+        {
+            "label": "Generate GPG key",
+            "args": [
+                "genKey"
+            ],
+        },
     ],
     "inputs": [
         {
