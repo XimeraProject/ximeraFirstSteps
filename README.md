@@ -92,7 +92,7 @@ The file `xmScripts/config.txt` determines where (and with which version of Xime
 
 Relevant settings:
 
-- **XIMERA_URL** contains the server URL where you want to publish your repo (`http://localhost:2000/` for testing or `https://ximera.osu.edu` for a live deployment).
+- **XIMERA_URL** contains the server URL where you want to publish your repo (`http://localhost:2000/` for testing or `https://ximera.osu.edu/` for a live deployment). (NOTE 2025-01: make sure to terminate the XIMERA_URL with a `/`. You'll get exotic errors if you don't.)
 - **XIMERA_NAME** contains the name (lowercase, no underscores!) under which to publish this repo, e.g., `XIMERA_NAME=testing` would publish to https://ximera.osu.edu/testing.
 
 You should save changes to these settings, committing them is optional.
@@ -101,60 +101,60 @@ To deploy to a public server (e.g., the OSU server), a (personal) GPG key is nee
 
 This key is to be stored in the environment variables `GPG_KEY` and `GPG_KEY_ID`.
 When using Codespaces, this should be done as Codespaces Secrets named `GPG_KEY` and `GPG_KEY_ID`: in GitHub, go to your profile picture, select "Settings," then on the left select "Codespaces," and you should see "Secrets" with a green button labeled "New secret."
-It is also possible to overwrite the keys in the file `.xmKeyFile` (but make sure *NEVER* to commit-and-push that file)
+It is also possible to provide the keys in the file `.xmKeyFile` (but make sure *NEVER* to commit-and-push that file)
+
+To generate a key, add your name and email to xmScripts/config.txt and run
+```
+xmlatex genKey
+```
+
+This will generate and display a new key.
+
+If there is no .xmKeyFile, and if the name .xmKeyFile is properly .gitignored, the key will be also saved in .xmKeyFile, from where it will automatically be used. 
 
 
-If you do not yet have a GPG key (check with `gpg --list-keys`), you can generate one with
-```
-gpg --gen-key
-```
-Answer all the questions, but **leave the passphrase blank**.
+For Github Actions or Codespaces: 
+ - copy-paste into a new secret `GPG_KEY_ID`  the one-line string of type `ABCD3562DBF99...29292`
+ - copy-paste into a new secret `GPG_KEY`the long multi-line string of type `LS......`. 
+ - Restart your Codespace. Actions will pick up the values at every following (re-)run.
 
-> **Note**: On macOS, you might not be able to leave the passphrase blank. In this case, go to https://gpgtools.org/ and install the GPG Suite. This will provide a GUI that will produce a GPG key with spaces. Delete these spaces, and the key (without spaces) is your new key. You may need to quit and reopen your terminal.
 
-Add `GPG_KEY_ID=ABCD3562DBF99...29292` as a GitHub secret.
+**Note**: (advanced)
 
-You will also need your private key, which you can show with
+Current rule: the low-level script ALWAYS uses env vars GPG_KEY and GPG_KEY_ID
+
+These env vars can be 
+ - explicitely set in the shell   
 ```
-gpg --export-secret-key
+export GPK_KEY_ID = aaa; 
+xmlatex name 
 ```
-or, if you have multiple keys:
+or just for one invocation:
 ```
-gpg --export-secret-key ABC...your-key-id...92
+GPK_KEY_ID = aaa   xmlatex name
 ```
-This will output something like:
-```
-WONTWORKRUdBQR1AFURSBLRVJTigUFJJVkkgQktYVJOcxPQ0sk1CREFEdGU5 
-...             ...
-... OTHER       ...
-... LINES       ...
-... IN YOUR     ...
-... PRIVATE KEY ... 
-...             ...
-R1AgUFQkxPQJ0tLQVkFURSBJkgLRV0stLSo=
-```
-Add `GPG_KEY=sdkjfsdkjfsklj` into your GitHub Secrets. Restart your Codespace. If you type
-```
-echo $GPG_KEY_ID
-```
-it should return your public GPG key. If not, quit the browser and reload.
+  - set before (eg from Codespace and/or Action secrets (and strongly suggested in both these use cases)
+  - empty, but set by config.txt     (strongly NOT advised)
+  - empty, but set by .xmKeyFile   (suggested for local deployments)
+  - still empty: this will generate the error "No key found'
+
 
 
 
 
 ## Debugging
 
-You get an interactive BASH shell **inside** the Docker container, with your local folder available under `/code`.
+With `xmlatex bash` you get an interactive BASH shell **inside** the Docker container, with your local folder available under `/code`.
 You could, for example, use
 ```
 pdflatex FILE.tex
 ```
 or
 ```
-xake -v compile FILE.tex
+luaxake -d compile FILE.tex
 ```
 
-You may need to make `xmlatex` executable with
+In some cases you may need to make `xmlatex` executable with
 ```
-chmod +x ./scripts/xmlatex*
+chmod +x ./xmScripts/xmlatex*
 ```
