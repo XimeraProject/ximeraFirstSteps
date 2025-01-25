@@ -25,9 +25,11 @@
             // Terrible HACK to get PATH expanded, so that also when NOT in a container, 'xmlatex' is found
             //  (This is only needed to make 'build' work, e.g. via F5 or the green 'Build LaTeX project' icon)
             //  Note: when run from OUTSIDE a container, the (full) path INSIDE the container will be different !!!!
+            // WARNING: in the root_folder %RELATIVE_DIR is empty, and you'll process .//myfile.tex ...
+            //   (Removing the ./ infra would give wrong path /myfile.tex )
             "args": [
                 "-c",
-                "cd %WORKSPACE_FOLDER%; export DEBUG=\"$DEBUG\" PATH=\"$PATH:%WORKSPACE_FOLDER%/xmScripts\";  xmlatex $DEBUG compilePdf ./%RELATIVE_DIR%/%DOCFILE_EXT%"
+                "cd %WORKSPACE_FOLDER%; export DEBUG=\"$DEBUG\" PATH=\"$PATH:%WORKSPACE_FOLDER%/xmScripts\";  xmlatex $DEBUG bake --force --compile pdf  ./%RELATIVE_DIR%/%DOCFILE_EXT%"
             ],
             "env": {
                 "DEBUG": "",

@@ -12,23 +12,24 @@
         {
             "label": "PDF",
             "args": [
-                "-v",
-                "compilePdf",
+                "bake",
+                "--force",
+                "--compile pdf",
                 "${relativeFile}"
             ],
         },
         {
             "label": "HTML",
             "args": [
-                "-v",
-                "compile",
+                "bake",
+                "--force",
+                "--compile draft.html",
                 "${relativeFile}"
             ],
         },
         {
             "label": "SERVE",
             "args": [
-                "-v", 
                 "all"
             ],
         },
