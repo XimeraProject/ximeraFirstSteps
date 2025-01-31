@@ -1,12 +1,12 @@
 This repository will help get you started as a new Ximera author. It contains a small Ximera demo course and instructions to deploy it both locally and to public servers. 
-We'll teach you how to use a Github Codespace to play around with Ximera, edit your first Ximera course, and test a personal online version of it.
+It explains how to use a Github Codespace to play around with Ximera, how to edit your first Ximera course and how to test a personal online version of it.
 
 Demo versions of this repo are published as:
 
 - [a preview with the newest Ximera layout](https://set-p-dsb-zomercursus-latest.cloud-ext.icts.kuleuven.be/firststeps/aFirstXourseVariant/aFirstFolder/aFirstActivityVariant)
 - [a version on the current production server](https://ximera.osu.edu/firststeps24/aFirstXourse/aFirstFolder/aFirstActivity)
 
-The preview version also contains two PDF versions of all pages: one with, and one without the answers (on 11/2024 the links are unfortunately in Dutch...).
+The preview version also contains two PDF's of all pages: one with, and one without the answers (on 11/2024 some labels might unfortunately be in Dutch...).
 The preview version is automatically updated whenever a new tag is created on this repo.
 
 
@@ -49,10 +49,10 @@ If you decide to make your own **new** Ximera content, it is better to create a 
 If you already have a repo with a Ximera course, you can 
 copy the following files and folders from [this repo](https://github.com/XimeraProject/ximeraNewProject) to your repo:
 
+- `xmScripts/`     (this folder contains the `xmlatex` script that builds the Ximera courses) 
 - `.gitignore`
-- `xmScripts/`
-- `.vscode/`
-- `.devcontainer/` (only necessary if you wish to use a codespace}
+- `.vscode/`       (only  necessary when using VSCOde, which is advised for new )
+- `.devcontainer/` (only necessary when using a devcontainer or codespace)
 
 If a `.gitignore` file already exists in your repo, we suggest you replace it with ours or at least check for differences. Note: **never** push the file `.xmKeyFile` with your own key.
 
