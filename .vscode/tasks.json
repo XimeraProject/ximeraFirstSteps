@@ -12,39 +12,48 @@
         {
             "label": "PDF",
             "args": [
-                "compilePdf",
+                "bake",
+                "--force",
+                "--compile pdf",
                 "${relativeFile}"
             ],
         },
         {
             "label": "HTML",
             "args": [
-                "--",
-                "--skip-mathjax",
-                "compile",
+                "bake",
+                "--force",
+                "--compile draft.html",
                 "${relativeFile}"
+            ],
+        },
+        {
+            "label": "SERVE",
+            "args": [
+                "all"
             ],
         },
         {
             "label": "Bake",
             "args": [
-                "--",
-                "--skip-mathjax",
+                "-v",
                 "bake"
-            ],
-        },
-        {
-            "label": "All",
-            "args": [
-                "-d", "all"
             ],
         },
         {
             "label": "Serve",
             "args": [
+                "-v",
                 "serve"
             ],
-        },        
+        },
+        {
+            "label": "Frost",
+            "args": [
+                "-v",
+                "frost"
+            ],
+        },
         {
             "label": "Start Ximera Server",
             "args": [
@@ -56,39 +65,51 @@
                 "command": "${input:openSimpleBrowser}",
         },
         {
-            "label": "Bake standard",
+            "label": "Bake PDF",
             "args": [
-                "bakestandaard"
+                "bake",
+                "--compile pdf",
+            ],
+        },
+        {
+            "label": "Bake PDF (force rebuild)",
+            "args": [
+                "bake",
+                "-f",
+                "--compile pdf",
             ],
         },
         {
             "label": "Bake handout",
             "args": [
-                "bakehandout"
+                "bake",
+                "--compile handout.pdf",
             ],
         },
         {
-            "label": "Delete standard",
+            "label": "Bake handout (force rebuild)",
             "args": [
-                "cleanstandaard"
-            ],
-        },
-        {
-            "label": "Delete handout",
-            "args": [
-                "cleanhandout"
+                "bake",
+                "-f",
+                "--compile handout.pdf",
             ],
         },
         {
             "label": "Delete all",
             "args": [
-                "clean"
+                "veryclean"
             ],
         },
         {
             "label": "Update DevEnv",
             "args": [
                 "updateDevEnv"
+            ],
+        },
+        {
+            "label": "Generate GPG key",
+            "args": [
+                "genKey"
             ],
         },
     ],

@@ -1,29 +1,29 @@
 #
 # version of Ximera xake container to use (with xmlatex)
 #
-# : "${XAKE_BASE:=xake2024}"
-: "${XAKE_VERSION:=v2.4.3}"
-## Alternatives:
-# : "${XAKE_VERSION:=v2.4.3-full}"    # with texlive_full
-# : "${XAKE_BASE:=xake2023}"     # with older tex/xake
-# : "${XAKE_VERSION:=v2.1.3_a}"  # obsolete
-
+# : "${XAKE_BASE:=ximeralatex}"
+# : "${XAKE_VERSION:=v2.5.10}"
+# : "${XAKE_VERSION:=v2.5.10-full}"    # with texlive_full
 #
-#
-# For publishing locally, a default key in .xmKeyFile is sufficient.
-# For publishing to a publicly available website, you'll need proper keys.
-#      via Codespaces: connect keys via GitHub Codespaces Secrets
-#      on your PC:     set environment variables, or edit .xmKeyFile
+# For publishing you'll need a GPG Key
 # To generate a key-pair, fill in your name and email, and run 'xmlatex genKey'
 YOUR_NAME=""
 YOUR_EMAIL=""
-# !! Do NEVER commit real keys to the repo !!
-# !! DO NEVER SAVE THE KEYS THEMSELVE IN THIS FILE   !!
+#
+# Current 'xmlatex genKey' logic:
+#      if there is no .xmKeyFile, and it is properly .gitignored, 
+#      then the new key will be stored in .xmKeyFile. This is sufficient for initial testing.
+#
+#      For use in Codespaces: paste the GPG_KEY and GPG_KEY_ID in GitHub Codespace Secrets
+#      For use in Github Actions: paste the GPG_KEY and GPG_KEY_ID in GitHub Action Secrets
+#      For use on your PC:  use the .xmKeyFile, or set the environment variables
+# !! Do NOT commit a real key to the repo !!
+# !! DO NOT SAVE THE KEY IN THIS config.txt FILE   !!
 #
 
 ## : "${XIMERA_NAME:=myreponame}"
 ## : "${XIMERA_URL:=http://localhost:2000/}"
-## : "${XIMERA_URL:=https://ximera.osu.edu}"
+## : "${XIMERA_URL:=https://ximera.osu.edu/}"
 ## : "${XIMERA_URL:=https://set-p-dsb-zomercursus-latest.cloud-ext.icts.kuleuven.be/}"
 ## : "${XIMERA_URL:=https://set.kuleuven.be/voorkennis/}"
 
@@ -45,3 +45,13 @@ YOUR_EMAIL=""
 # export DOCKER_REPO=" "
 # export XM_PUSH_FORCE=1
 # export XM_FROST_WITH_UNCOMMITTED_CHANGES=1
+
+#
+# For use in Actions, and perhaps to adapt the functionality of the PDF/HTML/SERVE buttons
+#
+# export XM_COMPILE_SEQUENCE=draft.html      # which output to generate, eg "handout.pdf,draft.html"
+# export XM_TO_PROCESS=aFirstXourse.tex      # only build/frost/serve these files/courses
+# export XM_CONFIGFILE=more.cfg              # exotic: if you want to use a different TeX4ht config file
+# export XM_SETTINGSFILE=config.lua          # yet another way to set some options/Settings
+# export XM_ONLY_CHECK=1                     # do not actually compile/clean anything  (NOT IMPLEMENTED for frost/serve!)
+# export XM_FORCE=1                          # force build (even if uptodate) and serve (use push -f)

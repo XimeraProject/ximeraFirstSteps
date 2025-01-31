@@ -1,12 +1,13 @@
 This repository will help get you started as a new Ximera author. It contains a small Ximera demo course and instructions to deploy it both locally and to public servers. 
-We'll teach you how to use a Github Codespace to play around with Ximera, edit your first Ximera course, and test a personal online version of it.
+It explains how to use a Github Codespace to play around with Ximera, how to edit your first Ximera course and how to test a personal online version of it.
 
 Demo versions of this repo are published as:
 
-- [a preview with the newest Ximera layout](https://set.kuleuven.be/voorkennis/firststeps24/aFirstXourseVariant/aFirstFolder/aFirstActivityVariant)
+- [a preview with the newest Ximera layout](https://set-p-dsb-zomercursus-latest.cloud-ext.icts.kuleuven.be/firststeps/aFirstXourseVariant/aFirstFolder/aFirstActivityVariant)
 - [a version on the current production server](https://ximera.osu.edu/firststeps24/aFirstXourse/aFirstFolder/aFirstActivity)
 
-The preview version also contains two PDF versions of all pages: one with, and one without the answers (on 11/2024 the links are unfortunately in Dutch...).
+The preview version also contains two PDF's of all pages: one with, and one without the answers (on 11/2024 some labels might unfortunately be in Dutch...).
+The preview version is automatically updated whenever a new tag is created on this repo.
 
 
 Ximera is under active development and new functionality is regularly added. The official Ximera webserver at (https://ximera.osu.edu) currently runs a version that does not yet support the newest features, and in particular not the newer layout that is available for local testing and at the KU Leuven servers. This is expected to change soon.
@@ -48,10 +49,10 @@ If you decide to make your own **new** Ximera content, it is better to create a 
 If you already have a repo with a Ximera course, you can 
 copy the following files and folders from [this repo](https://github.com/XimeraProject/ximeraNewProject) to your repo:
 
+- `xmScripts/`     (this folder contains the `xmlatex` script that builds the Ximera courses) 
 - `.gitignore`
-- `xmScripts/`
-- `.vscode/`
-- `.devcontainer/` (only necessary if you wish to use a codespace}
+- `.vscode/`       (only  necessary when using VSCOde, which is advised for new )
+- `.devcontainer/` (only necessary when using a devcontainer or codespace)
 
 If a `.gitignore` file already exists in your repo, we suggest you replace it with ours or at least check for differences. Note: **never** push the file `.xmKeyFile` with your own key.
 
@@ -91,7 +92,7 @@ The file `xmScripts/config.txt` determines where (and with which version of Xime
 
 Relevant settings:
 
-- **XIMERA_URL** contains the server URL where you want to publish your repo (`http://localhost:2000/` for testing or `https://ximera.osu.edu` for a live deployment).
+- **XIMERA_URL** contains the server URL where you want to publish your repo (`http://localhost:2000/` for testing or `https://ximera.osu.edu/` for a live deployment). (NOTE 2025-01: make sure to terminate the XIMERA_URL with a `/`. You'll get exotic errors if you don't.)
 - **XIMERA_NAME** contains the name (lowercase, no underscores!) under which to publish this repo, e.g., `XIMERA_NAME=testing` would publish to https://ximera.osu.edu/testing.
 
 You should save changes to these settings, committing them is optional.
@@ -100,60 +101,60 @@ To deploy to a public server (e.g., the OSU server), a (personal) GPG key is nee
 
 This key is to be stored in the environment variables `GPG_KEY` and `GPG_KEY_ID`.
 When using Codespaces, this should be done as Codespaces Secrets named `GPG_KEY` and `GPG_KEY_ID`: in GitHub, go to your profile picture, select "Settings," then on the left select "Codespaces," and you should see "Secrets" with a green button labeled "New secret."
-It is also possible to overwrite the keys in the file `.xmKeyFile` (but make sure *NEVER* to commit-and-push that file)
+It is also possible to provide the keys in the file `.xmKeyFile` (but make sure *NEVER* to commit-and-push that file)
+
+To generate a key, add your name and email to xmScripts/config.txt and run
+```
+xmlatex genKey
+```
+
+This will generate and display a new key.
+
+If there is no .xmKeyFile, and if the name .xmKeyFile is properly .gitignored, the key will be also saved in .xmKeyFile, from where it will automatically be used. 
 
 
-If you do not yet have a GPG key (check with `gpg --list-keys`), you can generate one with
-```
-gpg --gen-key
-```
-Answer all the questions, but **leave the passphrase blank**.
+For Github Actions or Codespaces: 
+ - copy-paste into a new secret `GPG_KEY_ID`  the one-line string of type `ABCD3562DBF99...29292`
+ - copy-paste into a new secret `GPG_KEY`the long multi-line string of type `LS......`. 
+ - Restart your Codespace. Actions will pick up the values at every following (re-)run.
 
-> **Note**: On macOS, you might not be able to leave the passphrase blank. In this case, go to https://gpgtools.org/ and install the GPG Suite. This will provide a GUI that will produce a GPG key with spaces. Delete these spaces, and the key (without spaces) is your new key. You may need to quit and reopen your terminal.
 
-Add `GPG_KEY_ID=ABCD3562DBF99...29292` as a GitHub secret.
+**Note**: (advanced)
 
-You will also need your private key, which you can show with
+Current rule: the low-level script ALWAYS uses env vars GPG_KEY and GPG_KEY_ID
+
+These env vars can be 
+ - explicitely set in the shell   
 ```
-gpg --export-secret-key
+export GPK_KEY_ID = aaa; 
+xmlatex name 
 ```
-or, if you have multiple keys:
+or just for one invocation:
 ```
-gpg --export-secret-key ABC...your-key-id...92
+GPK_KEY_ID = aaa   xmlatex name
 ```
-This will output something like:
-```
-WONTWORKRUdBQR1AFURSBLRVJTigUFJJVkkgQktYVJOcxPQ0sk1CREFEdGU5 
-...             ...
-... OTHER       ...
-... LINES       ...
-... IN YOUR     ...
-... PRIVATE KEY ... 
-...             ...
-R1AgUFQkxPQJ0tLQVkFURSBJkgLRV0stLSo=
-```
-Add `GPG_KEY=sdkjfsdkjfsklj` into your GitHub Secrets. Restart your Codespace. If you type
-```
-echo $GPG_KEY_ID
-```
-it should return your public GPG key. If not, quit the browser and reload.
+  - set before (eg from Codespace and/or Action secrets (and strongly suggested in both these use cases)
+  - empty, but set by config.txt     (strongly NOT advised)
+  - empty, but set by .xmKeyFile   (suggested for local deployments)
+  - still empty: this will generate the error "No key found'
+
 
 
 
 
 ## Debugging
 
-You get an interactive BASH shell **inside** the Docker container, with your local folder available under `/code`.
+With `xmlatex bash` you get an interactive BASH shell **inside** the Docker container, with your local folder available under `/code`.
 You could, for example, use
 ```
 pdflatex FILE.tex
 ```
 or
 ```
-xake -v compile FILE.tex
+luaxake -d compile FILE.tex
 ```
 
-You may need to make `xmlatex` executable with
+In some cases you may need to make `xmlatex` executable with
 ```
-chmod +x ./scripts/xmlatex*
+chmod +x ./xmScripts/xmlatex*
 ```

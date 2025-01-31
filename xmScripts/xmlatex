@@ -5,9 +5,12 @@
 #
 # Usage: 
 #   xmlatex bake
-#   xmlatex compile test/myximerafile.tex
-#   xmlatex serve     # this will also run 'xake frost'
-#   xmlatex -i bash   # gets a bash-shell INSIDE the container
+#   xmlatex bake test/myximerafile.tex
+#   xmlatex bash   # gets a bash-shell INSIDE the container
+#   xmlatex frost
+#   xmlatex serve
+#   xmlatex name
+#   xmlatex all    # runs bake / frost / serve
 #
 # Advanced usage
 #   XAKE_IMAGE=ghcr.io/ximeraproject/xake2023:latest xmlatex compile demo.tex    # use a different docker image
@@ -18,22 +21,14 @@
 #  - for serving, also (basefolder)/$XM_KEYFILE (default .xmKeyFile) will be read (for GPG key settings)
 #  - starts a xake docker container (unless we're already IN a container)
 #  - starts (presumably) a container-specific version of this very script
-#  - that (presumably) starts xake with the arguments passed to this script
+#  - that (presumably) starts (lua-)xake with the arguments passed to this script
 #  - optionally gets you a shell inside the container
 #  - optionally automates lots of other things
 #
 # Note: set environment variable 'export DEBUG=1' and/or use -d option for debugging/tracing
-# Note: this script RESTARTS itself (or a variant of itself!!!) IN A DOCKER CONTAINER
+# Note: this scrips RESTARTS itself (or a variant of itself!!!) IN A DOCKER CONTAINER
 #
 #
-# CONFIG_OLDFILE only for migration; TO BE REMOVED
-: "${CONFIG_OLDFILE:=./scripts/config.txt}"
-
-if [[ -f "$CONFIG_OLDFILE" ]]
-then
-        [[ -n "$DEBUG" ]] && echo "Loading settings from config file $CONFIG_OLDFILE."
-        . $CONFIG_OLDFILE
-fi
 
 : "${CONFIG_FILE:=./xmScripts/config.txt}"
 
@@ -47,9 +42,10 @@ fi
 # Set some defaults
 #
 # default docker image to run; overwrite with 'export XAKE_IMAGE=myxake:0.1'
-#: "${XAKE_IMAGE:=ghcr.io/ximeraproject/xake2023:v2.1.1}" 
-: "${XAKE_BASE:=xake2024}"
-: "${XAKE_VERSION:=v2.4.2}"
+: "${XAKE_BASE:=ximeralatex}"
+: "${XAKE_VERSION:=v2.5.10}"
+# : "${XAKE_BASE:=xake2019}"
+# : "${XAKE_VERSION:=v2.1.1}"
 : "${XAKE_CONTAINER:=$XAKE_BASE:$XAKE_VERSION}"
 : "${DOCKER_REPO:=ghcr.io/ximeraproject/}"
 
@@ -60,6 +56,15 @@ fi
 : "${SERVER_PORT:=2000}"
 : "${SERVER_NAME:=ximeraserver}"
 : "${SERVER_IMAGE:=registry.gitlab.kuleuven.be/wet/ximera/ximeradocker:2.3_b}"
+
+# How to sync DevEnvFiles (.vscode/.devcontainer/xmScripts)
+: "${DEVENV_TGZFILE:=xmDevEnvFiles.tgz}"
+: "${DEVENV_VERSION:=releases/latest/download}"
+# : "${DEVENV_VERSION:=releases/download/v2.4.2}"   # Note the inversed order !!!!
+: "${DEVENV_REPO:=ximeraProject/ximeraNewProject}"
+: "${DEVENV_URL:=https://github.com/$DEVENV_REPO/$DEVENV_VERSION/xmDevEnvFiles.tgz}"
+
+
 #
 # Which folder to mount INSIDE the container, under /code  (use with care: it should contain a build.sh !)
 : "${MOUNTDIR:=$(pwd)}"
@@ -72,7 +77,7 @@ fi
 
 if [[ -f /.dockerenv ]]  
 then
-    echo "Running in docker container (with local hostname $HOSTNAME)"
+    [[ -n "$DEBUG" ]] && echo "Running in docker container (with local hostname $HOSTNAME)"
 elif [[ -n "$KUBERNETES_SERVICE_HOST" ]] 
 then
     echo "Running in kubernetes container ($KUBERNETES_SERVICE_HOST)"
@@ -85,7 +90,14 @@ else
         shift 
     fi 
 
+    # make the -i default for bash (finally ...)
+    if [[ "$1" == "bash" ]]
+    then
+        INTERACTIVE="-it"  # start an interactive docker session (i.e. with a terminal attached)
+    fi 
+
     # LOCAL_IP is only needed if you want to serve to a ximeraServer on your localhost; do NOT use XIMERA_URL when using LOCAL_IP
+    # TODO: is it still needed at all ????   The hostname -I confuses MacOS !
     if [[ "$LOCAL_IP" == "" ]]
     then
         LOCAL_IP=$(set -- $(hostname -I); echo "$1")

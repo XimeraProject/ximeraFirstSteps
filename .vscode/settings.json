@@ -25,9 +25,11 @@
             // Terrible HACK to get PATH expanded, so that also when NOT in a container, 'xmlatex' is found
             //  (This is only needed to make 'build' work, e.g. via F5 or the green 'Build LaTeX project' icon)
             //  Note: when run from OUTSIDE a container, the (full) path INSIDE the container will be different !!!!
+            // WARNING: in the root_folder %RELATIVE_DIR is empty, and you'll process .//myfile.tex ...
+            //   (Removing the ./ infra would give wrong path /myfile.tex )
             "args": [
                 "-c",
-                "cd %WORKSPACE_FOLDER%; export DEBUG=\"$DEBUG\" PATH=\"$PATH:%WORKSPACE_FOLDER%/xmScripts\";  xmlatex $DEBUG compilePdf ./%RELATIVE_DIR%/%DOCFILE_EXT%"
+                "cd %WORKSPACE_FOLDER%; export DEBUG=\"$DEBUG\" PATH=\"$PATH:%WORKSPACE_FOLDER%/xmScripts\";  xmlatex $DEBUG bake --force --compile pdf  ./%RELATIVE_DIR%/%DOCFILE_EXT%"
             ],
             "env": {
                 "DEBUG": "",
@@ -62,7 +64,7 @@
         {
             "label": "SERVE",
             "alignment": "right",
-            "task": "All",
+            "task": "SERVE",
             "description": "Build and publish this project.",
             "tooltip": "Build and publish this repo."
         },
@@ -79,9 +81,17 @@
                 {
                     "task": "Preview in Simple Browser",
                     "label": "Preview in Simple Browser",
+                    "description": "View the local webserver in a preview window",
                     // "description": "Start local Ximera webserver.",
                     "problemMatcher": [],
+                },                
+                {
+                    "task": "Delete all",
+                    "label": "Delete all HTML and PDFs",
+                    "description": "Remove all generated files",
+                    "problemMatcher": [],
                 },
+
                 {
                     "label": "Bake",
                     "alignment": "right",
@@ -90,9 +100,15 @@
                     "tooltip": "Bake this project."
                 },
                 {
-                    "task": "Bake standard",
-                    "label": "Bake standard PDFs (with answers)",
-                    "description": "Make  full PDF's. ('standaard')",
+                    "task": "Bake pdf",
+                    "label": "Bake PDF's (with answers)",
+                    "description": "Make PDF's.",
+                    "problemMatcher": [],
+                },
+                {
+                    "task": "Bake pdf (force rebuild)",
+                    "label": "Force (re-)Bake PDF's (with answers)",
+                    "description": "Make PDF's.",
                     "problemMatcher": [],
                 },
                 {
@@ -102,10 +118,23 @@
                     "problemMatcher": [],
                 },
                 {
+                    "task": "Bake handout (fore rebuild)",
+                    "label": "Force (re-)Bake handout PDF's (without answers)",
+                    "description": "Make handout PDF's.",
+                    "problemMatcher": [],
+                },
+                {
+                    "label": "Frost",
+                    "alignment": "right",
+                    "task": "Frost",
+                    "description": "Frost this project.",
+                    "tooltip": "Frost this project."
+                },
+                {
                     "label": "Serve",
                     "alignment": "right",
                     "task": "Serve",
-                    "description": "Serve this project (does also 'frost', but no 'bake').",
+                    "description": "Serve this project.",
                     "tooltip": "Serve this project."
                 },
                 {
@@ -115,18 +144,9 @@
                     "problemMatcher": [],
                 },
                 {
-                    "task": "Delete standard",
-                    "label": "Delete all standard PDFs",
-                    "problemMatcher": [],
-                },
-                {
-                    "task": "Delete handout",
-                    "label": "Delete all handout PDFs",
-                    "problemMatcher": [],
-                },
-                {
-                    "task": "Delete all",
-                    "label": "Delete all HTML and PDFs",
+                    "task": "Generate GPG key",
+                    "label": "Generate a (new) GPG key",
+                    "description": "First add your name/email to config.txt",
                     "problemMatcher": [],
                 },
             ],
