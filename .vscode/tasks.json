@@ -32,8 +32,8 @@
         {
             "label": "SERVE",
             "args": [
+                "all",
                 "-s",
-                "all"
             ],
         },
         {
