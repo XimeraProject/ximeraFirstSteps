@@ -13,6 +13,7 @@
             "label": "PDF",
             "args": [
                 "bake",
+                "-s",
                 "--force",
                 "--compile pdf",
                 "${relativeFile}"
@@ -22,14 +23,16 @@
             "label": "HTML",
             "args": [
                 "bake",
+                "-s",
                 "--force",
-                "--compile draft.html",
+                "--compile html",
                 "${relativeFile}"
             ],
         },
         {
             "label": "SERVE",
             "args": [
+                "-s",
                 "all"
             ],
         },
@@ -68,6 +71,7 @@
             "label": "Bake PDF",
             "args": [
                 "bake",
+                "-d",
                 "--compile pdf",
             ],
         },
@@ -75,6 +79,7 @@
             "label": "Bake PDF (force rebuild)",
             "args": [
                 "bake",
+                "-d",
                 "-f",
                 "--compile pdf",
             ],
