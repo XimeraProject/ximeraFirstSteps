@@ -149,3 +149,71 @@ span#prev-activity-label {
 .nl-text {
       display: none;
 }
+
+
+/* Multi-Lingual Formatting */
+
+.multiple-choice[titletext]::before {
+	/* Numbered everything in CSS is causing trouble.  TeX should decide the numbering. */
+	/* content:"${nameOfClass} " counter($counterToIncrement) ". ";*/
+	content:attr(titletext);
+}
+
+/*
+We setup the problem-environment(s) default display/title text next.
+*/
+
+/* Set the problem-environment default(s):
+Note that, because there are a number of types, we need a "default" for each type - I don't know how to do this other than hard-code.
+Also note: We may want to decide, as a team, what the default text should *actually* be, e.g. capitalize or not, spacing, etc.
+*/
+
+.problem::before {
+	content:"problem" attr(numbered) ".";
+ }
+
+.exploration::before {
+	content:"exploration" attr(numbered) ".";
+ }
+
+.exercise::before {
+	content:"exercise" attr(numbered) ".";
+ }
+
+.question::before {
+	content:"question" attr(numbered) ".";
+ }
+/*
+If the problem environment(s) have the "titletext" attribute defined, then overwrite the above default with the newly defined default text.
+Note: This is used to do automatic translation, but could also be used to change the default text in *any* way we would want,
+e.g. use "P1", "Problem 1", "Prob 1", "Exciting Problem 1", etc.
+*/
+.problem-environment[titletext]::before {
+	/* Numbered everything in CSS is causing trouble.  TeX should decide the numbering. */
+	/* content:"${nameOfClass} " counter($counterToIncrement) ". ";*/
+	content:attr(titletext) attr(numbered) ".";
+}
+
+.theorem-like[titletext]::before {
+	content:attr(titletext);
+}
+
+.feedback[titletext]::before {
+	content:attr(titletext) ": ";
+}
+
+
+/* Outcome Formatting */
+
+.outcomeContent {
+	/* display: none; */
+	color: rgb(51, 0, 181);
+}
+.outcomeHead {
+	text-align: center;
+	font-weight: bold;
+}
+/* 	  
+.outcomeHead:hover + .outcomeContent {
+	display: block;
+} */
