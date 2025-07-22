@@ -10,16 +10,23 @@ The preview version also contains two PDF's of all pages: one with, and one with
 The preview version is automatically updated whenever a new tag is created on this repo.
 
 
-Ximera is under active development and new functionality is regularly added. The official Ximera webserver at (https://ximera.osu.edu) currently runs a version that does not yet support the newest features, and in particular not the newer layout that is available for local testing and at the KU Leuven servers. This is expected to change soon.
+Ximera is under active development and new functionality is regularly added. The official Ximera webserver at https://ximera.osu.edu currently runs a version that does not yet support the newest features, and in particular not the newer layout that is available for local testing and at the KU Leuven servers. This is expected to change soon.
 
 In case of problems, please submit an issue on the "Issues" tab at [ximeraFirstSteps](https://github.com/XimeraProject/ximeraFirstSteps).
 
+For additional help, the Ximera User Manual may help and we also encourage you to contact the Ximera developers at: ximera@math.osu.edu
 
 
 # Use Github Codespaces to play around with Ximera, without any further setup.
 
-- Log into GitHub and go to [ximeraFirstSteps](https://github.com/XimeraProject/ximeraFirstSteps)
-- Start a Codespace
+To author using Ximera, you must have a GitHub account. 
+
+## Create your own template
+
+Log into GitHub and go to this repo: [ximeraFirstSteps](https://github.com/XimeraProject/ximeraFirstSteps). Click on the green "Use this template" button and select "Create a new repository." **Give it a fun repository name**, and push the button "Create repository." At this point you have your own personal copy of our repository `ximeraFirstSteps`. In fact, after you create it, GitHub will take you to it.
+
+
+## Start a Codespace
 <br>Push the green 'Code' button, select the `Codespaces` and push the `+` plus sign:
 <br>![new_codespace](https://github.com/user-attachments/assets/8abac097-77ad-4187-a4fc-38d5acff62b6)
 <br>If there is no `Codespaces` tab, you're presumably not logged in.
