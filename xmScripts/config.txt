@@ -23,6 +23,7 @@ YOUR_EMAIL="noproblem@dummy.org"
 
 ## : "${XIMERA_NAME:=myreponame}"
 ## : "${XIMERA_URL:=http://localhost:2000/}"
+## : "${XIMERA_URL:=https://xerxes.ximera.org/}"
 ## : "${XIMERA_URL:=https://ximera.osu.edu/}"
 ## : "${XIMERA_URL:=https://set-p-dsb-zomercursus-latest.cloud-ext.icts.kuleuven.be/}"
 ## : "${XIMERA_URL:=https://set.kuleuven.be/voorkennis/}"
