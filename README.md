@@ -51,6 +51,7 @@ buttons that say "SERVE,"  "HTML," and "PDF."
 - The "SERVE" button compiles the **entire** Ximera repository to HTML and deploys to a (local or remote) server. If this is the first time you are compiling, it will take a few minutes.
 - The "HTML" button compiles only the **current** LaTeX file to HTML.
 - The "PDF" button compiles only the **current** LaTeX file to PDF using our Ximera tools.
+
 At this point, you will want to press the "SERVE" button. This will
 compile the entire repository and deploy it to a local server. As part of this process, we will generate a GPG Key, that we use to help sign content online. 
 If you are simply playing with Ximera, you can just hit "enter" **twice**.
