@@ -307,6 +307,7 @@ Thumbs.db
 # For exam-stuff ... ?
 ans[0-9]*.tex
 
+*.online.*
 
 *.jax
 *.xmjax
@@ -336,3 +337,4 @@ gpgkey
 
 # File used to update DevEnv config-files  (xmlatex updateDevEnv)
 xmDevEnvFiles.tgz
+
