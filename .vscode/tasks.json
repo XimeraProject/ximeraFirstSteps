@@ -15,6 +15,7 @@
                 "bake",
                 "-s",
                 "--force",
+                "--nodependencies",
                 "--compile pdf",
                 "${relativeFile}"
             ],

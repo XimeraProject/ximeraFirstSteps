@@ -311,6 +311,7 @@ ans[0-9]*.tex
 
 *.jax
 *.xmjax
+*.xmcss
 *.ids
 *.oc
 
@@ -337,4 +338,3 @@ gpgkey
 
 # File used to update DevEnv config-files  (xmlatex updateDevEnv)
 xmDevEnvFiles.tgz
-
