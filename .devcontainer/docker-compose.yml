@@ -8,6 +8,6 @@ services:
     command: /bin/sh -c "while sleep 1000; do :; done"   # run forever
     network_mode: service:ximeraserver
   ximeraserver:
-    image: registry.gitlab.kuleuven.be/wet/ximera/ximeradocker:2.3_b
+    image: ghcr.io/ximeraproject/ximeraserver:xerxes25
     ports:
       - "2080:2000"          # Expose Ximera on port 2080
